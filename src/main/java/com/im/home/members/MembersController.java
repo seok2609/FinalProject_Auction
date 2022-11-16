@@ -35,4 +35,25 @@ public class MembersController {
 		
 		return mv;
 	}
+	
+	@GetMapping(value = "signUp")
+	public String setMembersSignUp() throws Exception{
+		
+		return "members/signUp";
+	}
+	
+	
+	@PostMapping(value = "signUp")
+	public ModelAndView setMembersSignUp(MembersVO membersVO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		log.info("============================회원가입 완료==========================");
+		
+		int result = membersService.setMembersSignUp(membersVO);
+		
+		mv.setViewName("members/login");
+		
+		
+		return mv;
+	}
 }

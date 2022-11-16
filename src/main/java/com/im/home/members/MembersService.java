@@ -14,4 +14,10 @@ public class MembersService {
 		return membersMapper.getMembersLogin(membersVO);
 	}
 
+	
+	public int setMembersSignUp(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.setMembersSignUp(membersVO);
+	}
+
 }

@@ -5,8 +5,8 @@
           
 <mapper namespace="com.im.home.members.MembersMapper">
 
-	<insert id="setMembersSiginUp" parameterType="MembersVO">
-		INSRET INTO MEMBERS VALUES (#{id}, #{passWord}, #{userName}, #{email}, #{birth}, 1, "1234", SYSDATE());
+	<insert id="setMembersSignUp" parameterType="MembersVO">
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{userName}, #{email}, #{birth}, 1, #{phone}, SYSDATE());
 	</insert>
 	
 	<select id="getMembersLogin" resultType="MembersVO">

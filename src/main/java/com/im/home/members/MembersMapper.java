@@ -7,4 +7,6 @@ public interface MembersMapper {
 
 	
 	public MembersVO getMembersLogin(MembersVO membersVO) throws Exception;
+	
+	public int setMembersSignUp(MembersVO membersVO) throws Exception;
 }

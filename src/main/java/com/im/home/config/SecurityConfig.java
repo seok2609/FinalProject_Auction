@@ -1,5 +1,6 @@
-package com.im.home.cconfig;
+package com.im.home.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,10 +8,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.im.home.members.security.LoginFailed;
+import com.im.home.members.security.LoginSuccess;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+	@Autowired
+	private LoginSuccess loginSuccess;
+	@Autowired
+	private LoginFailed loginFailed;
 	
 	@Bean
 	//회원가입시 필터 적용 제외
@@ -44,6 +52,8 @@ public class SecurityConfig {
 				.usernameParameter("id")					//시큐리티의 기존 username파라미터를 내 컬럼에 속해있는 id로 파라미터명을 바꾼다
 				.passwordParameter("passWord")				//시큐리티의 기존 password파라미터를 내 컬럼에 속해있는 pw로 파라미터명을 바꾼다
 				.defaultSuccessUrl("/")						//로그인 성공시 요청URL
+				.successHandler(loginSuccess)
+				.failureHandler(loginFailed)
 				.permitAll()
 			
 			;
