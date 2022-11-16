@@ -11,5 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
 		// TODO Auto-generated method stub
 		// 정적자원 매핑
 		registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 	}
 }
