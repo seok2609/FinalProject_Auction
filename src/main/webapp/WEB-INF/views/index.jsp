@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +8,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<!-- ===========header=============== -->
+<c:import url="./common/header.jsp"></c:import>
+<!-- ================================ -->
+	
 	<h1>도매 사이트 메인 페이지</h1>
 	
-	<a href="./members/login">로그인</a>
+
+
+
+<!-- ===========footer=============== -->
+<c:import url="./common/footer.jsp"></c:import>
+<!-- ================================ -->
+	
 </body>
 </html>
