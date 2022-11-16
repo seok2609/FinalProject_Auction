@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>도매 사이트 메인 페이지</h1>
-	
-	<a href="./members/login">로그인</a>
+
 </body>
 </html>
