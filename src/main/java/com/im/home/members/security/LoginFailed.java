@@ -21,6 +21,8 @@ public class LoginFailed implements AuthenticationFailureHandler{@Override
 		
 		log.info("=================로그인 실패================");
 		
+		response.sendRedirect("./login");
+		
 	}
 
 }

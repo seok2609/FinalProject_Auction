@@ -10,7 +10,6 @@
 		 rel="stylesheet"
 		  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" 
 		  crossorigin="anonymous">
-<script defer type="text/javascript" src="/js/test.js"></script>
 </head>
 <body>
 <c:import url="../common/header.jsp"></c:import>
@@ -33,11 +32,22 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="passWord" class="form-control" id="passWord" placeholder="pw" required="">
+                  <input type="passWord" name="passWord" class="form-control" id="passWord" placeholder="pw입력" required="">
                 </div>
                 
               </div>
 
+
+				<div class="form-group mb-3">
+				    	ID저장하기
+				    <input type="checkbox" name="rememberId" class="form-check-input" id="exampleCheck2">
+				 </div>
+				 
+			<div class="mb-3">
+			    <label for="password" class="form-label">자동로그인</label>
+			    <input type="checkbox" name="rememberMe" class="form-check-input" id="exampleCheck2">
+			  </div>
+			  
               <div class="my-3">
 <!--                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
@@ -56,7 +66,7 @@
 		
 	
 		
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" 
 		 crossorigin="anonymous"></script>
 	

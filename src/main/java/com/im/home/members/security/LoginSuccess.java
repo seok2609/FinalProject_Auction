@@ -19,6 +19,9 @@ public class LoginSuccess implements AuthenticationSuccessHandler{@Override
 			Authentication authentication) throws IOException, ServletException {
 		
 		log.info("==========로그인 성공===========");
+		log.info("ID => {} ", request.getParameter("id"));
+		
+		response.sendRedirect("/");	//로그인에 성공한다면 루트로 보냄
 	
 		
 	}

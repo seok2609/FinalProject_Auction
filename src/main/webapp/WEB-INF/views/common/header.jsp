@@ -53,6 +53,8 @@
       </a>
       <nav id="navbar" class="navbar">
         <ul>
+          <li><a href="./members/login">로그인</a></li>
+          <li><a href="./members/signUp">회원가입</a></li>
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>

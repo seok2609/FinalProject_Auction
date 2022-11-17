@@ -6,6 +6,12 @@
   <configuration>
   	<typeAliases>
   			<typeAlias type="com.im.home.members.MembersVO" alias="MembersVO"/>
+  			<typeAlias type="com.im.home.members.RoleVO" alias="RoleVO"/>
+  			
+  			
+  			
+  			<typeAlias type="java.util.List" alias="List"/>
+  			<typeAlias type="java.lang.String" alias="String"/>
   		
   	</typeAliases>
   </configuration>

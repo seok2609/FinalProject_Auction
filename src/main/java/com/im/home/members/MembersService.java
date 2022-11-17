@@ -8,11 +8,6 @@ public class MembersService {
 	
 	@Autowired
 	private MembersMapper membersMapper;
-	
-	public MembersVO getMembersLogin(MembersVO membersVO) throws Exception{
-		 
-		return membersMapper.getMembersLogin(membersVO);
-	}
 
 	
 	public int setMembersSignUp(MembersVO membersVO) throws Exception{
