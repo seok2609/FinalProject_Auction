@@ -1,9 +1,37 @@
 // live.js
 
+const roomSelectionContainer = document.getElementById('room-selection-container');
+const roomInput = document.getElementById('room-input');
+const connectButton = document.getElementById('connect-button');
+
+const videoChatContainer = document.getElementById('video-chat-container');
+const localVideoComponent = document.getElementById('local-video');
+const remoteVideoComponent = document.getElementById('remote-video');
+
+
+// 매수금액 입력
+// $("#addPrice").click(function(){
+
+//   $.ajax({
+//     type:"POST",
+//     url:"./asking",
+//     data:{
+//       auction_num:1,
+//       price: 
+//     }
+//   })
+
+
+// })
+
+
+
+
 //Signaling server (채팅 정보교환)
 //html 문서의 로딩이 다 끝날 때 실행
-$(document).ready(function(){
+$(document).ready(function() {
     let socket = io("http://localhost:3000");
+    
     //msg에서 키를 누를떄
     $("#msg").keydown(function(key){
         //해당하는 키가 엔터키(13) 일떄
@@ -29,175 +57,180 @@ $(document).ready(function(){
     
     
    
-    
-//------------ 웹브라우저 통해 웹캠 불러오기 -------------------------
-"use strict";
+//===============================================================
 
-let localVideo = document.getElementById("localVideo");
-let remoteVideo = document.getElementById("remoteVideo");
-let isInitiator = false;
-let isChannelReady = false;
-let isStarted = false;
+const mediaConstraints = {
+  audio: false,
+  video: { width: 1280, height: 720 },
+}
 let localStream;
 let remoteStream;
-let pc;
+let isRoomCreator;
+let rtcPeerConnection; // Connection between the local device and the remote peer.
+let roomId;
 
-let pcConfig = {
-    'iceServers': [{
-        'urls': 'stun:stun.l.google.com:19302'
-      }]
-}
+// Free public STUN servers provided by Google.
+const iceServers = {
+  iceServers: [
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' },
+    { urls: 'stun:stun2.l.google.com:19302' },
+    { urls: 'stun:stun3.l.google.com:19302' },
+    { urls: 'stun:stun4.l.google.com:19302' },
+  ],
+};
 
-let room = 'foo';
-
-
-  if(room !==''){
-    socket.emit('create or join',room);
-    console.log('Attempted to create or join Room',room);
-  }
-
-socket.on('created', (room,id)=>{
-  console.log('Created room' + room+'socket ID : '+id);
-  isInitiator= true;
-})
-
-socket.on('full', room=>{
-  console.log('Room '+room+'is full');
+connectButton.addEventListener('click', () => {
+  joinRoom(roomInput.value);
 });
 
-socket.on('join',room=>{
-  console.log('Another peer made a request to join room' + room);
-  console.log('This peer is the initiator of room' + room + '!');
-  isChannelReady = true;
-})
+socket.on('room_created', async () => {
+  console.log('Socket event callback: room_created')
 
-socket.on('joined',room=>{
-  console.log('joined : '+ room );
-  isChannelReady= true;
-})
-socket.on('log', array=>{
-  console.log.apply(console,array);
+  await setLocalStream(mediaConstraints);
+  isRoomCreator = true;
 });
 
-socket.on('message', (message)=>{
-  console.log('Client received message :',message);
-  if(message === 'got user media'){
-    maybeStart();
-  }else if(message.type === 'offer'){
-    if(!isInitiator && !isStarted){
-      maybeStart();
-    }
-    pc.setRemoteDescription(new RTCSessionDescription(message));
-    doAnswer();
-  }else if(message.type ==='answer' && isStarted){
-    pc.setRemoteDescription(new RTCSessionDescription(message));
-  }else if(message.type ==='candidate' &&isStarted){
-    const candidate = new RTCIceCandidate({
-      sdpMLineIndex : message.label,
-      candidate:message.candidate
-    });
 
-    pc.addIceCandidate(candidate);
-  }
+socket.on('room_joined', async () => {
+  console.log('Socket event callback: room_joined')
+
+  await setLocalStream(mediaConstraints)
+  socket.emit('start_call', roomId)
 })
-function sendMessage(message){
-  console.log('Client sending message: ',message);
-  socket.emit('message',message);
-}
 
-navigator.mediaDevices
-  .getUserMedia({
-    video: true,
-    audio: false,
-  })
-  .then(gotStream)
-  .catch((error) => console.error(error));
+socket.on('full_room', () => {
+  console.log('Socket event callback: full_room')
 
-function gotStream(stream) {
-  console.log("Adding local stream");
-  localStream = stream;
-  localVideo.srcObject = stream;
-  sendMessage("got user media");
-  if (isInitiator) {
-    maybeStart();
-  }
-}
+  alert('The room is full, please try another one')
+});
 
-function createPeerConnection() {
-  try {
-    pc = new RTCPeerConnection(null);
-    pc.onicecandidate = handleIceCandidate;
-    pc.onaddstream = handleRemoteStreamAdded;
-    console.log("Created RTCPeerConnection");
-  } catch (e) {
-    alert("connot create RTCPeerConnection object");
-    return;
-  }
-}
-
-function handleIceCandidate(event) {
-  console.log("iceCandidateEvent", event);
-  if (event.candidate) {
-    sendMessage({
-      type: "candidate",
-      label: event.candidate.sdpMLineIndex,
-      id: event.candidate.sdpMid,
-      candidate: event.candidate.candidate,
-    });
+// FUNCTIONS ==================================================================
+function joinRoom(room) {
+  if (room === '') {
+    alert('Please type a room ID')
   } else {
-    console.log("end of candidates");
+    roomId = room;
+    socket.emit('join', room);
+    showVideoConference();
   }
 }
 
-function handleCreateOfferError(event) {
-  console.log("createOffer() error: ", event);
+function showVideoConference() {
+  roomSelectionContainer.style = 'display: none';
+  videoChatContainer.style = 'display: block';
 }
 
-function handleRemoteStreamAdded(event) {
-  console.log("remote stream added");
+async function setLocalStream(mediaConstraints) {
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+  } catch (error) {
+    console.error('Could not get user media', error);
+  }
+
+  localStream = stream;
+  localVideoComponent.srcObject = stream;
+}
+
+// SOCKET EVENT CALLBACKS =====================================================
+socket.on('start_call', async () => {
+  console.log('Socket event callback: start_call');
+
+  if (isRoomCreator) {
+    rtcPeerConnection = new RTCPeerConnection(iceServers);
+    addLocalTracks(rtcPeerConnection);
+    rtcPeerConnection.ontrack = setRemoteStream;
+    rtcPeerConnection.onicecandidate = sendIceCandidate;
+    await createOffer(rtcPeerConnection);
+  }
+})
+
+socket.on('webrtc_offer', async (event) => {
+  console.log('Socket event callback: webrtc_offer');
+
+  if (!isRoomCreator) {
+    rtcPeerConnection = new RTCPeerConnection(iceServers);
+    addLocalTracks(rtcPeerConnection);
+    rtcPeerConnection.ontrack = setRemoteStream;
+    rtcPeerConnection.onicecandidate = sendIceCandidate;
+    rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
+    await createAnswer(rtcPeerConnection);
+  }
+})
+
+socket.on('webrtc_answer', (event) => {
+  console.log('Socket event callback: webrtc_answer');
+
+  rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
+})
+
+socket.on('webrtc_ice_candidate', (event) => {
+  console.log('Socket event callback: webrtc_ice_candidate');
+
+  // ICE candidate configuration.
+  var candidate = new RTCIceCandidate({
+    sdpMLineIndex: event.label,
+    candidate: event.candidate,
+  });
+  rtcPeerConnection.addIceCandidate(candidate);
+})
+
+// FUNCTIONS ==================================================================
+function addLocalTracks(rtcPeerConnection) {
+  localStream.getTracks().forEach((track) => {
+    rtcPeerConnection.addTrack(track, localStream);
+  })
+}
+
+async function createOffer(rtcPeerConnection) {
+  let sessionDescription;
+  try {
+    sessionDescription = await rtcPeerConnection.createOffer();
+    rtcPeerConnection.setLocalDescription(sessionDescription);
+  } catch (error) {
+    console.error(error)
+  }
+
+  socket.emit('webrtc_offer', {
+    type: 'webrtc_offer',
+    sdp: sessionDescription,
+    roomId,
+  })
+}
+
+async function createAnswer(rtcPeerConnection) {
+  let sessionDescription;
+  try {
+    sessionDescription = await rtcPeerConnection.createAnswer();
+    rtcPeerConnection.setLocalDescription(sessionDescription);
+  } catch (error) {
+    console.error(error)
+  }
+
+  socket.emit('webrtc_answer', {
+    type: 'webrtc_answer',
+    sdp: sessionDescription,
+    roomId,
+  })
+}
+
+function setRemoteStream(event) {
+  remoteVideoComponent.srcObject = event.streams[0];
   remoteStream = event.stream;
-  remoteVideo.srcObject = remoteStream;
 }
 
-function maybeStart() {
-  console.log(">>MaybeStart() : ", isStarted, localStream, isChannelReady);
-  if (!isStarted && typeof localStream !== "undefined" && isChannelReady) {
-    console.log(">>>>> creating peer connection");
-    createPeerConnection();
-    pc.addStream(localStream);
-    isStarted = true;
-    console.log("isInitiator : ", isInitiator);
-    if (isInitiator) {
-      doCall();
-    }
-  }else{
-    console.error('maybeStart not Started!');
+function sendIceCandidate(event) {
+  if (event.candidate) {
+    socket.emit('webrtc_ice_candidate', {
+      roomId,
+      label: event.candidate.sdpMLineIndex,
+      candidate: event.candidate.candidate,
+    })
   }
 }
 
-function doCall() {
-  console.log("Sending offer to peer");
-  pc.createOffer(setLocalAndSendMessage, handleCreateOfferError);
-}
-
-function doAnswer() {
-  console.log("Sending answer to peer");
-  pc.createAnswer().then(
-    setLocalAndSendMessage,
-    onCreateSessionDescriptionError
-  );
-}
-
-function setLocalAndSendMessage(sessionDescription) {
-  pc.setLocalDescription(sessionDescription);
-  sendMessage(sessionDescription);
-}
-
-function onCreateSessionDescriptionError(error) {
-  console.error("Falied to create session Description", error);
-}
-
-}); 
+});
 
 
 
