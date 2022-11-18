@@ -1,5 +1,7 @@
 package com.im.home.aution;
 
+import java.io.EOFException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +34,10 @@ public class AuctionController {
 		
 	}
 	
+	@GetMapping("list")
+	public void getList() throws Exception{
+		
+	}
 	
 	
 	

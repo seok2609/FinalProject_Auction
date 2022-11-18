@@ -25,15 +25,27 @@
 		    <input type="text" class="form-control" id="title" name="title">
 		  </div>
 		  <div class="col-md-6">
-		    <!-- <label for="inputPassword4" class="form-label">상품 선택</label> -->
+		    <label for="inputPassword4" class="form-label">상품 선택</label><br>
 		    <button type="button" class="btn btn-primary">경매 가능 상품보기</button>
 		  </div>
 		  <div class="col-md-6">
 		    <label for="headCount" class="form-label">허용 인원 수</label>
-		    <input type="text" class="form-control" id="headCount" name="head_count">
+		    <select class="form-select" aria-label="Default select example" name="head_count">
+			  <option selected>선택</option>
+			  <option value="1">5명</option>
+			  <option value="2">6명</option>
+			  <option value="3">7명</option>
+			  <option value="3">8명</option>
+			  <option value="3">9명</option>
+			  <option value="3">10명</option>
+			</select>
+		  </div>
+		  <div class="col-md-6">
+		  	<span></span><br>
+		  	* 경매 허용 인원 수는 최소 5명, 최대 10명 입니다.
 		  </div>
 		  <div class="col-12">
-		    <label for="inputAddress2" class="form-label">Address 2</label>
+		    <label for="inputAddress2" class="form-label">내용</label>
 		    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
 		  </div>
 		  <div class="col-md-6">
@@ -59,16 +71,23 @@
 		      </label>
 		    </div>
 		  </div>
-		  <div class="col-12">
-		    <button type="submit" class="btn btn-primary">Sign in</button>
+		  
+		  <div class="mb-3">
+			  <label for="formFile" class="form-label"></label>
+			  <input class="form-control" type="file" id="formFile">
 		  </div>
-		<div class='input-group mb-3' id='datetimepicker1' data-td-target-input='nearest' data-td-target-toggle='nearest'>
-		   <label for="datetimepicker1Input" class="form-label">예약 시간 선택</label>
-		   <input id='datetimepicker1Input' type='text' class='form-control'data-td-target='#datetimepicker1'/>
+		  
+		  
+		<div class='col-md-6' id='datetimepicker1' data-td-target-input='nearest' data-td-target-toggle='nearest'>
+		   <label for="datetimepicker1Input" class="form-label">경매 시간 선택</label>
+		   <input id='datetimepicker1Input' type='text' class='form-control'data-td-target='#datetimepicker1' name="start_date"/>
 		   <span class='input-group-text' data-td-target='#datetimepicker1' data-td-toggle='datetimepicker'>
 		     <span class='fa-solid fa-calendar'></span>
 		   </span>
 		 </div>
+		  <div class="col-12">
+		    <button type="submit" class="btn btn-primary">경매 신청</button>
+		  </div>
 	</form>
 		
 	</div>
