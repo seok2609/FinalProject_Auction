@@ -131,7 +131,6 @@
             </div>
         </li>
 
-
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="tables.html">
@@ -141,6 +140,7 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
+
 
     </ul>
         <!-- End of Sidebar -->
@@ -208,19 +208,18 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">판매 내역</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">구인구직</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>번호</th>
+                                            <th>글 제목</th>
+                                            <th>작성자</th>
+                                            <th>등록일</th>
+                                            <th>처리</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -230,7 +229,7 @@
                                             <th>Office</th>
                                             <th>Age</th>
                                             <th>Start date</th>
-                                            <th>Salary</th>
+                                            
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -240,7 +239,7 @@
                                             <td>Edinburgh</td>
                                             <td>61</td>
                                             <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                           
                                         </tr>
                                         <tr>
                                             <td>Garrett Winters</td>
@@ -248,7 +247,7 @@
                                             <td>Tokyo</td>
                                             <td>63</td>
                                             <td>2011/07/25</td>
-                                            <td>$170,750</td>
+                                            
                                         </tr>
                                         <tr>
                                             <td>Ashton Cox</td>
@@ -256,7 +255,7 @@
                                             <td>San Francisco</td>
                                             <td>66</td>
                                             <td>2009/01/12</td>
-                                            <td>$86,000</td>
+                                         
                                         </tr>
                                         <tr>
                                             <td>Cedric Kelly</td>
@@ -264,7 +263,7 @@
                                             <td>Edinburgh</td>
                                             <td>22</td>
                                             <td>2012/03/29</td>
-                                            <td>$433,060</td>
+                                       
                                         </tr>
                                         <tr>
                                             <td>Airi Satou</td>
@@ -272,7 +271,7 @@
                                             <td>Tokyo</td>
                                             <td>33</td>
                                             <td>2008/11/28</td>
-                                            <td>$162,700</td>
+                                        
                                         </tr>
                                         <tr>
                                             <td>Brielle Williamson</td>
@@ -280,7 +279,7 @@
                                             <td>New York</td>
                                             <td>61</td>
                                             <td>2012/12/02</td>
-                                            <td>$372,000</td>
+                                      
                                         </tr>
                                         <tr>
                                             <td>Herrod Chandler</td>
@@ -288,7 +287,7 @@
                                             <td>San Francisco</td>
                                             <td>59</td>
                                             <td>2012/08/06</td>
-                                            <td>$137,500</td>
+                                        
                                         </tr>
                                         <tr>
                                             <td>Rhona Davidson</td>
@@ -296,7 +295,7 @@
                                             <td>Tokyo</td>
                                             <td>55</td>
                                             <td>2010/10/14</td>
-                                            <td>$327,900</td>
+                                     
                                         </tr>
                                         <tr>
                                             <td>Colleen Hurst</td>
@@ -304,7 +303,7 @@
                                             <td>San Francisco</td>
                                             <td>39</td>
                                             <td>2009/09/15</td>
-                                            <td>$205,500</td>
+                                        
                                         </tr>
                                         <tr>
                                             <td>Sonya Frost</td>
@@ -312,7 +311,7 @@
                                             <td>Edinburgh</td>
                                             <td>23</td>
                                             <td>2008/12/13</td>
-                                            <td>$103,600</td>
+                                           
                                         </tr>
                                         <tr>
                                             <td>Jena Gaines</td>
@@ -320,7 +319,7 @@
                                             <td>London</td>
                                             <td>30</td>
                                             <td>2008/12/19</td>
-                                            <td>$90,560</td>
+                            
                                         </tr>
                                         <tr>
                                             <td>Quinn Flynn</td>
@@ -328,7 +327,7 @@
                                             <td>Edinburgh</td>
                                             <td>22</td>
                                             <td>2013/03/03</td>
-                                            <td>$342,000</td>
+                                       
                                         </tr>
                                         <tr>
                                             <td>Charde Marshall</td>
