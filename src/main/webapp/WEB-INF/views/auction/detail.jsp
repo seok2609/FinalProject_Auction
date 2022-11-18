@@ -8,89 +8,62 @@
 <title>Insert title here</title>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+<script src="http://192.168.1.28:3000/socket.io/socket.io.js"></script>
 
 <style type=”text/css”>
-	body {
-	  margin: 0;
-	  font-size: 20px;
-	}
-
-	.centered {
-	  position: absolute;
-	  top: 40%;
-	  left: 50%;
-	  transform: translate(-50%, -50%);
-	}
-
-	.video-position {
-	  position: absolute;
-	  top: 35%;
-	  left: 50%;
-	  transform: translate(-50%, -50%);
-	}
-
-	#video-chat-container {
-	  width: 100%;
-	  background-color: black;
-	}
-
-	#local-video {
-	  position: absolute;
-	  height: 30%;
-	  width: 30%;
-	  bottom: 0px;
-	  left: 0px;
-	}
-
-	#remote-video {
-	  height: 100%;
-	  width: 100%;
-	}
-
+	
 	#chat_box {
-		width: 800px;
-		min-width: 800px;
+		width: 500px;
+		min-width: 500px;
 		height: 500px;
 		min-height: 500px;
 		border: 1px solid black;
+		float : right;
 	}
 	#msg {
 		width: 700px;
+		float: right;
 	}
 	#msg_process {
 		width: 90px;
+		float: right;
+	}
+
+	#video-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill,300px);
+		grid-auto-rows: 300px;
+	}
+
+	video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 </style>
 
-
+<c:import url="../common/header.jsp"></c:import>
 </head>
 <body>
 	
 	
-	<div id="room-selection-container" class="centered">
-		<label>방번호 입력</label>
-		<input id="room-input" type="text" />
-		<button id="connect-button">CONNECT</button>
-	</div>
-  
-	<div id="video-chat-container" class="video-position" style="display: none;">
-		<video id="local-video" autoplay="autoplay"></video>
-		<video id="remote-video" autoplay="autoplay"></video>
-	</div> 
+	<div id="video-grid"></div>
 	
 
 
-	<div id="chat_box" style="width: 800px;
-		min-width: 800px;
+	<div id="chat_box" style="width: 500px;
+		min-width: 500px;
 		height: 500px;
 		min-height: 500px;
-		border: 1px solid black;"></div>
-
-	<input type="text" id="msg">
-	<button id="msg_process">전송</button>
-
+		border: 1px solid black; float: right"></div>
+	<div>
+		<input type="text" id="msg" style="width: 500px;
+					float: right;">
+		<button id="msg_process" style="width: 90px;
+				float: right;">전송</button>
+	</div>
 	<div>
 		<form id="frm">
 			금액 : <input type="text" id="price">

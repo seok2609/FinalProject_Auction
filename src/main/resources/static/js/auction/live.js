@@ -16,7 +16,7 @@ const remoteVideoComponent = document.getElementById('remote-video');
 //     type:"POST",
 //     url:"./asking",
 //     data:{
-//       auction_num:1,
+//       auction_num:1,S
 //       price: 
 //     }
 //   })
@@ -30,10 +30,11 @@ const remoteVideoComponent = document.getElementById('remote-video');
 //Signaling server (채팅 정보교환)
 //html 문서의 로딩이 다 끝날 때 실행
 $(document).ready(function() {
-    let socket = io("http://localhost:3000");
+    let socket = io("http://192.168.1.28:3000");
     
     //msg에서 키를 누를떄
     $("#msg").keydown(function(key){
+        console.log("socketid : ", socket.id);
         //해당하는 키가 엔터키(13) 일떄
         if(key.keyCode == 13){
             //msg_process를 클릭해준다.
@@ -59,176 +60,70 @@ $(document).ready(function() {
    
 //===============================================================
 
-const mediaConstraints = {
-  audio: false,
-  video: { width: 1280, height: 720 },
-}
-let localStream;
-let remoteStream;
-let isRoomCreator;
-let rtcPeerConnection; // Connection between the local device and the remote peer.
-let roomId;
+    const videoGrid = document.getElementById('video-grid');
+    const myPeer = new Peer(socket.id, {
+      host: '192.168.1.28',
+      port: 3000,
+      path : '/'
+    });
+    const myVideo = document.createElement('video');
+    myVideo.muted = true;
 
-// Free public STUN servers provided by Google.
-const iceServers = {
-  iceServers: [
-    { urls: 'stun:stun.l.google.com:19302' },
-    { urls: 'stun:stun1.l.google.com:19302' },
-    { urls: 'stun:stun2.l.google.com:19302' },
-    { urls: 'stun:stun3.l.google.com:19302' },
-    { urls: 'stun:stun4.l.google.com:19302' },
-  ],
-};
+    ROOM_ID = '777';
+    id = socket.id;
+    userId = socket.id;
 
-connectButton.addEventListener('click', () => {
-  joinRoom(roomInput.value);
-});
-
-socket.on('room_created', async () => {
-  console.log('Socket event callback: room_created')
-
-  await setLocalStream(mediaConstraints);
-  isRoomCreator = true;
-});
+    const peers = {};
 
 
-socket.on('room_joined', async () => {
-  console.log('Socket event callback: room_joined')
+    navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false
+    }).then((stream) => {
+      addVideoStream(myVideo,stream);
+      socket.on('user-connected',(userId) => {
+        connectToNewUser(userId,stream);
+      })
+    });
 
-  await setLocalStream(mediaConstraints)
-  socket.emit('start_call', roomId)
-})
 
-socket.on('full_room', () => {
-  console.log('Socket event callback: full_room')
-
-  alert('The room is full, please try another one')
-});
-
-// FUNCTIONS ==================================================================
-function joinRoom(room) {
-  if (room === '') {
-    alert('Please type a room ID')
-  } else {
-    roomId = room;
-    socket.emit('join', room);
-    showVideoConference();
-  }
-}
-
-function showVideoConference() {
-  roomSelectionContainer.style = 'display: none';
-  videoChatContainer.style = 'display: block';
-}
-
-async function setLocalStream(mediaConstraints) {
-  let stream;
-  try {
-    stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
-  } catch (error) {
-    console.error('Could not get user media', error);
-  }
-
-  localStream = stream;
-  localVideoComponent.srcObject = stream;
-}
-
-// SOCKET EVENT CALLBACKS =====================================================
-socket.on('start_call', async () => {
-  console.log('Socket event callback: start_call');
-
-  if (isRoomCreator) {
-    rtcPeerConnection = new RTCPeerConnection(iceServers);
-    addLocalTracks(rtcPeerConnection);
-    rtcPeerConnection.ontrack = setRemoteStream;
-    rtcPeerConnection.onicecandidate = sendIceCandidate;
-    await createOffer(rtcPeerConnection);
-  }
-})
-
-socket.on('webrtc_offer', async (event) => {
-  console.log('Socket event callback: webrtc_offer');
-
-  if (!isRoomCreator) {
-    rtcPeerConnection = new RTCPeerConnection(iceServers);
-    addLocalTracks(rtcPeerConnection);
-    rtcPeerConnection.ontrack = setRemoteStream;
-    rtcPeerConnection.onicecandidate = sendIceCandidate;
-    rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
-    await createAnswer(rtcPeerConnection);
-  }
-})
-
-socket.on('webrtc_answer', (event) => {
-  console.log('Socket event callback: webrtc_answer');
-
-  rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
-})
-
-socket.on('webrtc_ice_candidate', (event) => {
-  console.log('Socket event callback: webrtc_ice_candidate');
-
-  // ICE candidate configuration.
-  var candidate = new RTCIceCandidate({
-    sdpMLineIndex: event.label,
-    candidate: event.candidate,
-  });
-  rtcPeerConnection.addIceCandidate(candidate);
-})
-
-// FUNCTIONS ==================================================================
-function addLocalTracks(rtcPeerConnection) {
-  localStream.getTracks().forEach((track) => {
-    rtcPeerConnection.addTrack(track, localStream);
-  })
-}
-
-async function createOffer(rtcPeerConnection) {
-  let sessionDescription;
-  try {
-    sessionDescription = await rtcPeerConnection.createOffer();
-    rtcPeerConnection.setLocalDescription(sessionDescription);
-  } catch (error) {
-    console.error(error)
-  }
-
-  socket.emit('webrtc_offer', {
-    type: 'webrtc_offer',
-    sdp: sessionDescription,
-    roomId,
-  })
-}
-
-async function createAnswer(rtcPeerConnection) {
-  let sessionDescription;
-  try {
-    sessionDescription = await rtcPeerConnection.createAnswer();
-    rtcPeerConnection.setLocalDescription(sessionDescription);
-  } catch (error) {
-    console.error(error)
-  }
-
-  socket.emit('webrtc_answer', {
-    type: 'webrtc_answer',
-    sdp: sessionDescription,
-    roomId,
-  })
-}
-
-function setRemoteStream(event) {
-  remoteVideoComponent.srcObject = event.streams[0];
-  remoteStream = event.stream;
-}
-
-function sendIceCandidate(event) {
-  if (event.candidate) {
-    socket.emit('webrtc_ice_candidate', {
-      roomId,
-      label: event.candidate.sdpMLineIndex,
-      candidate: event.candidate.candidate,
+    socket.on('user-disconnected', (userId) => {
+      if(peers[userId]){
+        peers[userId].close;
+      }
     })
-  }
-}
+
+
+    myPeer.on('open',(id)=>{
+      socket.emit('join-room',ROOM_ID,id);
+    });
+
+    function connectToNewUser(userId, stream){
+      const call = myPeer.call(userId, stream);
+      const video = document.createElement('video');
+      call.on('stream', (userVideoStream)=>{
+        addVideoStream(video,userVideoStream);
+      })
+      call.on('close',() => {
+        video.remove();
+      })
+
+      peers[userId] = call;
+
+    }
+
+
+
+
+
+    function addVideoStream(video, stream){
+      video.srcObject = stream;
+      video.addEventListener('loadedmetadata',() => {
+        video.play();
+      })
+      videoGrid.append(video);
+    }
+
 
 });
 

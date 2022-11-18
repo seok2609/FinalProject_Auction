@@ -8,9 +8,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/auction/*")
+@Slf4j
 public class AuctionController {
+	
+	@GetMapping("/chat")
+	public void chatTest() {
+		log.info("@chatController, chat Get()");
+		
+	}
+	
+	
 	
 	@GetMapping("detail")
 	public String getDetail() throws Exception{
