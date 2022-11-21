@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-    const username = 'abc';
+    const username = $("#user").val();
+    
 
     $("#disconn").on("click", (e) => {
         disconnect();
@@ -10,7 +11,7 @@ $(document).ready(function(){
         send();
     });
 
-    const websocket = new WebSocket("ws://localhost:8080/ws/chat");
+    const websocket = new WebSocket("ws://localhost/ws/chat");
 
     websocket.onmessage = onMessage;
     websocket.onopen = onOpen;
