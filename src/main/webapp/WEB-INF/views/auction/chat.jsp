@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../common/header.jsp"></c:import>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 </head>
 <body>
 	
@@ -26,6 +28,10 @@
                 </div>
             </div>
         </div>
-	
+   <sec:authorize access="isAuthenticated()">
+   		<sec:authentication property="Principal" var="user"/>
+   		<input style="display: none;" value="${user.id}" id="user">
+   </sec:authorize>
+	<script src="/static/js/auction/chat.js"></script>
 </body>
 </html>

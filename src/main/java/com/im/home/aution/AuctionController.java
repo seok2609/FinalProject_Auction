@@ -15,7 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuctionController {
 	
-	@GetMapping("/chat")
+	@GetMapping("vidu")
+	public void viduTest() {
+		
+	}
+	
+	
+	@GetMapping("chat")
 	public void chatTest() {
 		log.info("@chatController, chat Get()");
 		
