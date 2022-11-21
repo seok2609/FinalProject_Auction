@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="/static/openvidu/app.js"></script>
+<script src="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.js"></script>
+<link rel="stylesheet" href="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.css">
 </head>
 <body>
 	 <!-- Form to connect to a video-session -->
@@ -17,7 +21,7 @@
             </p>
             <p>
                 <label>User:</label>
-                <input type="text" id="user" value="User1">
+                <input type="text" id="user" value="User1" required>
             </p>
             <p>
                 <input type="submit" value="JOIN">
@@ -26,6 +30,8 @@
     </div>
 
     <!-- OpenVidu Web Component -->
-    <!-- <openvidu-webcomponent style="height: 100%;"></openvidu-webcomponent>  -->
+    <openvidu-webcomponent style="height : 100%;"></openvidu-webcomponent>
+    
+    
 </body>
 </html>
