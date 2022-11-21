@@ -6,8 +6,7 @@
 <mapper namespace="com.im.home.members.MembersMapper">
 
 	<insert id="setMembersSignUp" parameterType="MembersVO">
-		INSERT INTO MEMBERS (ID, PASSWORD, REALNAME, NICKNAME, EMAIL, BIRTH, GENDER, PHONE, JOINDATE)
-		 VALUES (#{id}, #{passWord}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE());
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE());
 	</insert>
 	
 	<select id="getMembersLogin" parameterType="String" resultMap="getMembersLoginResult">
@@ -27,6 +26,7 @@
 	<resultMap type="MembersVO" id="getMembersLoginResult">
 		<id column="id" property="id"/>
 		<result column="passWord" property="passWord"/>
+		<result column="realName" property="realName"/>
 		<result column="nickName" property="nickName"/>
 		<result column="email" property="email"/>
 		<result column="birth" property="birth"/>
@@ -39,5 +39,9 @@
 			<result column="roleName" property="roleName"/>
 		</collection>
 	</resultMap>
+	
+	<insert id="setMembersFileAdd" parameterType="MembersFileVO">
+		INSERT INTO MEMBERS_FILE VALUES (null, #{fileName}, #{oriName}, #{id})
+	</insert>
 	
 </mapper>

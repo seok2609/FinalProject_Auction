@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../temp/boot.jsp"></c:import>
+<script defer src="/js/membersFile.js"></script>
 </head>
 <body>
 <c:import url="../common/header.jsp"></c:import>
@@ -22,7 +23,7 @@
 
 
           <div class="col-lg-8">
-            <form action="signUp" method="post" >
+            <form action="signUp" method="post" enctype="multipart/form-data">
               <div class="row">
               
                 <div class="form-group mt-3">
@@ -31,6 +32,10 @@
                 
                 <div class="form-group mt-3">
                   <input type="text" name="passWord" class="form-control" id="passWord" placeholder="pw" required="">
+                </div>
+                
+                <div class="form-group mt-3">
+                  <input type="text" name="realName" class="form-control" id="realName" placeholder="실명을 입력해주세요" required="">
                 </div>
                 
                 <div class="form-group mt-3">
@@ -48,6 +53,17 @@
                 <div class="form-group mt-3">
                   <input type="text" name="phone" class="form-control" id="phone" placeholder="전화번호 입력" required="">
                 </div>
+                
+           
+                
+           <!--       <div class="mb-3">
+					<button type="button" id="memberFileAdd">파일추가</button>
+				</div> -->
+
+				<div class="mb-3">
+				  <label for="formFileSm" class="form-label">파일추가</label>
+				  <input class="form-control form-control-sm" id="memberFileAdd" type="file">
+				</div>
                 
               </div>
 

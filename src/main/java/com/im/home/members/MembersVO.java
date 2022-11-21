@@ -4,18 +4,22 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
 @Data
-public class MembersVO implements UserDetails{
+public class MembersVO implements UserDetails, OAuth2User{
 	
 	private String id;
 	private String passWord;
+	private String realName;
 	private String nickName;
 	private String email;
 	private String birth;
@@ -24,6 +28,14 @@ public class MembersVO implements UserDetails{
 	private Date joinDate;
 	
 	private List<RoleVO> roleVOs;
+	
+	private List<MembersFileVO> membersFileVOs;
+	
+	private MultipartFile files;
+	
+	
+	//OauthUser , Tocken 정보저장
+	private Map<String, Object> attributes;
 
 	
 	
@@ -76,5 +88,19 @@ public class MembersVO implements UserDetails{
 		
 		return true;
 	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+
+		return this.attributes;
+	}
+
+	@Override
+	public String getName() {
+		
+		return null;
+	}
+	
+	
 
 }

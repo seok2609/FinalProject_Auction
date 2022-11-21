@@ -28,7 +28,7 @@
               <div class="row">
               
                 <div class="form-group mt-3">
-                  <input type="text" name="id" class="form-control" id="id" placeholder="아이디를 입력하세요" required="">
+                  <input type="text" name="id" value="${cookie.Id.value}" class="form-control" id="id" placeholder="아이디를 입력하세요" required="">
                 </div>
                 
                 <div class="form-group mt-3">

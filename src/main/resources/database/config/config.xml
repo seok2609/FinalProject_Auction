@@ -7,6 +7,7 @@
   	<typeAliases>
   			<typeAlias type="com.im.home.members.MembersVO" alias="MembersVO"/>
   			<typeAlias type="com.im.home.members.RoleVO" alias="RoleVO"/>
+  			<typeAlias type="com.im.home.members.MembersFileVO" alias="MembersFileVO"/>
   			
   			
   			

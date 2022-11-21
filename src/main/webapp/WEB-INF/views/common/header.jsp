@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 	<!-- Favicons -->
   <link href="/assets/img/favicon.png" rel="icon">
   <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -51,10 +54,30 @@
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1>Impact<span>.</span></h1>
       </a>
+     
       <nav id="navbar" class="navbar">
         <ul>
+      	 <!-- 로그인이 성공했다면 -->
+      
+      	 	<sec:authorize access="isAuthenticated()">
+      		
+      		<sec:authentication property="Principal" var="member"/>
+      		<h3> <spring:message code="welcome" arguments="${member.nickName}"></spring:message> </h3>
+      		
+      		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
+      		
+      		<li><a href="./members/logout">로그아웃</a></li>
+      		<li><a href="./members/myPage">마이페이지</a></li>
+      		
+      		</sec:authorize>
+      		
+      		</sec:authorize>
+      	<!-- 로그인을 하지 않았을때 -->
+  		<sec:authorize access="!isAuthenticated()">
           <li><a href="./members/login">로그인</a></li>
           <li><a href="./members/signUp">회원가입</a></li>
+         </sec:authorize>
+         
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
@@ -80,6 +103,7 @@
           </li>
           <li><a href="#contact">Contact</a></li>
         </ul>
+         
       </nav><!-- .navbar -->
 
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>

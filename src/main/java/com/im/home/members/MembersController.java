@@ -1,5 +1,7 @@
 package com.im.home.members;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -7,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,17 +50,32 @@ public class MembersController {
 	
 	
 	@PostMapping(value = "signUp")
-	public ModelAndView setMembersSignUp(MembersVO membersVO) throws Exception{
+	public ModelAndView setMembersSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
 		log.info("============================회원가입 완료==========================");
 		
 		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
-		int result = membersService.setMembersSignUp(membersVO);
+		int result = membersService.setMembersSignUp(membersVO, mpf);
 		
 		mv.setViewName("members/login");
 		
 		
 		return mv;
+	}
+	
+	@GetMapping(value = "logout")
+	public String getLogOut(HttpSession session) throws Exception{
+		log.info("로그아웃 실행 준비");
+		
+		session.invalidate();					//세션삭제			
+		
+		return "redirect:../";
+	}
+	
+	@GetMapping(value = "myPage")
+	public String getMyPage() throws Exception{
+		
+		return "members/myPage";
 	}
 }

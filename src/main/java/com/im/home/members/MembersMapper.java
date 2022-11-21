@@ -10,4 +10,6 @@ public interface MembersMapper {
 	public MembersVO getMembersLogin(String username) throws UsernameNotFoundException;
 	
 	public int setMembersSignUp(MembersVO membersVO) throws Exception;
+	
+	public int setMembersFileAdd(MembersFileVO membersFileVO) throws Exception;
 }
