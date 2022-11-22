@@ -47,12 +47,15 @@
 
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
+
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1>Impact<span>.</span></h1>
       </a>
       <nav id="navbar" class="navbar">
         <ul>
+          <li><a href="./members/login">로그인</a></li>
+          <li><a href="./members/signUp">회원가입</a></li>
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+		    
+<mapper namespace="com.im.home.aution.AuctionMapper">
+	<insert id="setAdd" parameterType="AuctionVO">
+		INSERT INTO AUCTION(AUCTION_NUM, TITLE, CONTENTS, CATEGORY, INIT_PRICE, HEAD_COUNT, SIGN_DATE, BIDDING, START_DATE, APPROVAL)
+		VALUES(null, #{title}, #{contents}, #{category}, #{init_price}, #{head_count}, SYSDATE(), 0, #{start_date}, 0)
+	</insert>
+	
+	
+</mapper>

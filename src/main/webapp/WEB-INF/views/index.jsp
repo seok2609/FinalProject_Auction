@@ -951,16 +951,18 @@
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
-          </div><!-- End Contact Form -->
+          </div><!— End Contact Form —>
+          
+          <a href="./kdy/adminPage">관리자 페이지</a>
 
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section><!— End Contact Section —>
 
-  </main><!-- End #main -->
+  </main><!— End #main —>
 
-<!-- ===========footer=============== -->
+<!— ===========footer=============== —>
 <c:import url="./common/footer.jsp"></c:import>
 <!-- ================================ -->
 
