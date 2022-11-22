@@ -15,14 +15,19 @@ public class MemberWebConfig implements WebMvcConfigurer{
 	// file/**
 	@Value("${app.url.path}")
 	private String urlPath;
+	
+	@Value("${app.upload.base}")
+	private String filePath;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
 		log.info("===============MemberWebConfig=========");
 		log.info("urlPath => {}" , urlPath);
+		log.info("filePath => {} " , filePath);
 		
-		registry.addResourceHandler(urlPath);
+		registry.addResourceHandler(urlPath)
+				.addResourceLocations(filePath);
 		
 	}
 	

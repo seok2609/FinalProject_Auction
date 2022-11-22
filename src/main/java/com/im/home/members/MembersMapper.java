@@ -12,4 +12,6 @@ public interface MembersMapper {
 	public int setMembersSignUp(MembersVO membersVO) throws Exception;
 	
 	public int setMembersFileAdd(MembersFileVO membersFileVO) throws Exception;
+	
+	public MembersVO getMyPage(MembersVO membersVO) throws Exception;
 }

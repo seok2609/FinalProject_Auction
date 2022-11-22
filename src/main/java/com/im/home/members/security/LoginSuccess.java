@@ -37,7 +37,7 @@ public class LoginSuccess implements AuthenticationSuccessHandler{
 			Cookie cookie = new Cookie("Id", request.getParameter("id"));
 			
 			cookie.setHttpOnly(true);
-			cookie.setMaxAge(60);
+			cookie.setMaxAge(24*60*60);	//24번*60번*60초 => 하루종일
 			cookie.setPath("/");	// 같은 도메인 내 URL 사용가능한지 보여주는 메서드
 			
 			response.addCookie(cookie);

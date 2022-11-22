@@ -44,4 +44,46 @@
 		INSERT INTO MEMBERS_FILE VALUES (null, #{fileName}, #{oriName}, #{id})
 	</insert>
 	
+	
+	<select id="getMyPage" parameterType="MembersVO" resultMap="getMyPageResult">
+	
+		SELECT * FROM 
+	         MEMBERS M
+	            INNER JOIN
+	         MEMBERS_ROLE MR
+	            ON M.ID = MR.ID
+	            INNER JOIN
+	         ROLE R
+	            ON MR.ROLENUM = R.ROLENUM
+	            INNER JOIN
+	         MEMBERS_FILE MF 
+	            ON M.ID = MF.ID
+	            WHERE M.ID = #{id}
+	</select>
+	
+	<resultMap type="MembersVO" id="getMyPageResult">
+		<id column="id" property="id"/>
+		<result column="passWord" property="passWord"/>
+		<result column="realName" property="realName"/>
+		<result column="nickName" property="nickName"/>
+		<result column="email" property="email"/>
+		<result column="birth" property="birth"/>
+		<result column="gender" property="gender"/>
+		<result column="phone" property="phone"/>
+		<result column="joinDate" property="joinDate"/>
+		
+		<collection property="roleVOs" javaType="List" ofType="RoleVO">
+			<id column="roleNum" property="roleNum"/>
+			<result column="roleName" property="roleName"/>
+		</collection>
+		
+		<collection property="membersFileVOs" javaType="List" ofType="MembersFileVO">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+			<result column="id" property="id"/>
+		</collection>
+		
+	</resultMap>
+	
 </mapper>

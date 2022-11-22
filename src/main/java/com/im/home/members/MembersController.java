@@ -1,14 +1,18 @@
 package com.im.home.members;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,7 +30,7 @@ public class MembersController {
 	private PasswordEncoder passwordEncoder;
 	
 	@GetMapping(value = "login")
-	public String getMembersLogin(Model model) throws Exception{
+	public String getMembersLogin() throws Exception{
 		
 		return "members/login";
 	}
@@ -50,13 +54,13 @@ public class MembersController {
 	
 	
 	@PostMapping(value = "signUp")
-	public ModelAndView setMembersSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
+	public ModelAndView setMembersSignUp(MembersVO membersVO, MultipartFile files) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
 		log.info("============================회원가입 완료==========================");
 		
 		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
-		int result = membersService.setMembersSignUp(membersVO, mpf);
+		int result = membersService.setMembersSignUp(membersVO, files);
 		
 		mv.setViewName("members/login");
 		
@@ -74,8 +78,23 @@ public class MembersController {
 	}
 	
 	@GetMapping(value = "myPage")
-	public String getMyPage() throws Exception{
+	@ResponseBody
+	public ModelAndView getMyPage(MembersVO membersVO, String id, Principal principal , Model model) throws Exception{
+		ModelAndView mv = new ModelAndView();
 		
-		return "members/myPage";
+		log.info("ddddd => {}" ,principal.getName()); 
+		
+		membersVO.setId(principal.getName());	//시큐리티로 로그인한 아이디값을 가져오는 코드
+		
+		membersVO = membersService.getMyPage(membersVO);
+		
+		model.addAttribute("membersVO", principal);
+		log.info("Principal => {} ", principal);
+		mv.addObject("membersVO", membersVO);
+//		mv.addObject("membersVO", membersVO2);
+		mv.setViewName("members/myPage");
+		
+		
+		return mv;
 	}
 }

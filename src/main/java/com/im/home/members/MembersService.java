@@ -38,10 +38,11 @@ public class MembersService {
 			
 		}
 		
+		
 		if(!mpf.isEmpty()) {
 			log.info("FileName => {} " , mpf.getOriginalFilename());
 			
-			String fileName = membersFileManager.saveFiles(mpf, path);
+			String fileName = membersFileManager.saveFile(mpf, path);
 			
 			MembersFileVO membersFileVO = new MembersFileVO();
 			membersFileVO.setFileName(fileName);
@@ -53,6 +54,14 @@ public class MembersService {
 		}
 		
 		return result;
+	}
+	
+	
+	public MembersVO getMyPage(MembersVO membersVO) throws Exception{
+		
+		membersVO = membersMapper.getMyPage(membersVO);
+		
+		return membersVO;
 	}
 
 }

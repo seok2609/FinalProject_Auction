@@ -38,6 +38,10 @@
         <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
       </div>
       <div class="social-links d-none d-md-flex align-items-center">
+      	<sec:authorize access="isAuthenticated()">
+      		<sec:authentication property="Principal" var="member"/>
+      		<h3> <spring:message code="welcome" arguments="${member.nickName}"></spring:message> </h3>
+      	</sec:authorize>
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
         <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>

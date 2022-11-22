@@ -62,7 +62,7 @@
 
 				<div class="mb-3">
 				  <label for="formFileSm" class="form-label">파일추가</label>
-				  <input class="form-control form-control-sm" id="memberFileAdd" type="file">
+				  <input class="form-control form-control-sm" id="memberFileAdd" name="files" type="file">
 				</div>
                 
               </div>

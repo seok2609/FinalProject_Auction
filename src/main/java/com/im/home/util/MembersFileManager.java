@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MembersFileManager {
 
 	//파일 저장
-	public String saveFiles(MultipartFile mpf, String path)throws Exception{
+	public String saveFile(MultipartFile mpf, String path)throws Exception{
 		
 		//1. 중복되지 않는 파일명 생성 (UUID, DATE)
 		String fileName = UUID.randomUUID().toString();
