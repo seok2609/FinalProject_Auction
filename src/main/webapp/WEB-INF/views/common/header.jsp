@@ -65,13 +65,11 @@
       
       	 	<sec:authorize access="isAuthenticated()">
       		
-      		<sec:authentication property="Principal" var="member"/>
-      		<h3> <spring:message code="welcome" arguments="${member.nickName}"></spring:message> </h3>
-      		
+      		<sec:authentication property="Principal" var="member"/>      		
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
       		
-      		<li><a href="./members/logout">로그아웃</a></li>
-      		<li><a href="./members/myPage">마이페이지</a></li>
+      		<li><a href="./members/logout">Logout</a></li>
+      		<li><a href="./members/myPage">MyPage</a></li>
       		
       		</sec:authorize>
       		

@@ -64,4 +64,11 @@ public class MembersService {
 		return membersVO;
 	}
 
+	
+	public Integer getIdCheck(MembersVO membersVO) throws Exception{
+		
+		int result = membersMapper.getIdCheck(membersVO);
+		
+		return result;
+	}
 }

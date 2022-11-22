@@ -78,7 +78,6 @@ public class MembersController {
 	}
 	
 	@GetMapping(value = "myPage")
-	@ResponseBody
 	public ModelAndView getMyPage(MembersVO membersVO, String id, Principal principal , Model model) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
@@ -96,5 +95,14 @@ public class MembersController {
 		
 		
 		return mv;
+	}
+	
+	@GetMapping(value = "idCheck")
+	@ResponseBody	//응답을 거치지 않고 바로 View (JSP)로 보냄
+	public Integer getIdCheck(MembersVO membersVO) throws Exception{
+		
+		int result = membersService.getIdCheck(membersVO);
+		
+		return result;
 	}
 }

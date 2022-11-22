@@ -14,4 +14,6 @@ public interface MembersMapper {
 	public int setMembersFileAdd(MembersFileVO membersFileVO) throws Exception;
 	
 	public MembersVO getMyPage(MembersVO membersVO) throws Exception;
+	
+	public Integer getIdCheck(MembersVO membersVO) throws Exception;
 }

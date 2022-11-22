@@ -86,4 +86,8 @@
 		
 	</resultMap>
 	
+	<select id="getIdCheck" resultType="Integer" parameterType="MembersVO">
+		SELECT COUNT(ID) FROM MEMBERS WHERE ID = #{id}
+	</select>
+	
 </mapper>
