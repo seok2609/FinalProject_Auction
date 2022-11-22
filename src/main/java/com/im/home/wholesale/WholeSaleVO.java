@@ -1,9 +1,13 @@
 package com.im.home.wholesale;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
 public class WholeSaleVO {
+	
+	private List<WholeSaleVO> wholeSaleVOs;
 
 	//Open API 출력결과
 	private String status; //상태 : success 또는 fail
@@ -35,4 +39,9 @@ public class WholeSaleVO {
 	private String minAmt; //최저가 
 	private String maxAmt; //최고가 
 	private String avgAmt; //평균
+	private String qty; //물량 - 	only 실시간
+	private String sbidtime; //경락일시 - only 실시간
+	private String Cost; // -실시간? 근데 파라미터 정보란에 기재가 안되어잇음
+
+
 }
