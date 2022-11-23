@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+ <mapper namespace="com.im.home.admin.AdminMembersMapper">
+ 
+ 	<sql id="search">
+		WHERE
+		<choose>
+			<otherwise>NICKNAME</otherwise>
+		</choose>
+		LIKE concat ('%', #{search}, '%')
+	</sql>
+	
+	<!-- 총 회원 수 -->
+	<select id="getTotalMembers" parameterType="MembersVO" resultType="Integer">
+	SELECT COUNT(id) FROM MEMBERS
+	</select>
+	
+ 	<!-- 회원 조회 pager에 필요한 count -->
+	<select id="getAdminMembersCount" resultType="Long" parameterType="AdminPager">
+		   SELECT COUNT(*) FROM MEMBERS
+	</select>
+ 	<!-- memberList -->
+ 	<select id="getAdminMembersList" parameterType="AdminPager" resultMap="getAdminMembersListResult">
+		 SELECT M.*,R.* FROM
+         MEMBERS M
+         INNER JOIN
+         MEMBERS_ROLE MR
+         ON M.ID = MR.ID
+         INNER JOIN
+         ROLE R
+         ON MR.ROLENUM = R.ROLENUM
+		  <include refid="search"/>
+		 LIMIT #{startRow}, #{perPage}
+ 	</select>
+ 	
+ 		 <!-- 1대1문의 -->
+		 <insert id="setInquiryRequest" parameterType="AdminMembersVO">
+		 	INSERT INTO INQUIRY VALUES
+		 	(NULL, #{id}, #{inquiry_contents}, SYSDATE(), 1, #{inquiry_text})
+		 </insert>
+	 	<!-- 1대1문의 리스트 -->
+ 		<select id="getInquiryList" parameterType="AdminPager" resultType="AdminMembersVO">
+ 			SELECT * FROM INQUIRY 
+			ORDER BY INQUIRY_NUM DESC
+			LIMIT #{startNum}, #{perPage}
+ 		</select>
+ 		<!-- 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트 --> 
+ 		<select id="getAdminPageInquiryList" parameterType="AdminMembersVO" resultType="AdminMembersVO">
+ 			SELECT * FROM INQUIRY
+ 			ORDER BY INQUIRY_NUM DESC 
+ 			LIMIT 0, 5;
+ 		</select>
+		<!-- 1대1 리스트 pager에 필요한 count -->
+		<select id="getInquiryRequestCount" resultType="Long" parameterType="AdminPager">
+			  SELECT COUNT(INQUIRY_NUM) FROM INQUIRY
+		</select>
+		<!-- 총 1대1문의 -->
+		<select id="getTotalInquiry" resultType="Integer" parameterType="AdminMembersVO">
+		   SELECT COUNT(INQUIRY_NUM) FROM INQUIRY
+		</select>
+		<!-- 응답하지 않은 1대1문의 -->
+		<select id="getTotalInquiryNo" resultType="Integer" parameterType="AdminMembersVO">
+		   SELECT COUNT(INQUIRY_NUM) FROM INQUIRY
+ 			WHERE INQUIRY_RESPONSE = 1
+		</select>
+		<!-- 응답완료한 1대1문의 -->
+		<select id="getTotalInquiryYes" resultType="Integer" parameterType="AdminMembersVO">
+		   SELECT COUNT(INQUIRY_NUM) FROM INQUIRY
+ 			WHERE INQUIRY_RESPONSE = 2
+		</select>
+ 	<resultMap type="MembersVO" id="getAdminMembersListResult">
+
+ 			<id column="id" property="id"/>
+ 			<result column="passWord" property="passWord"/>
+ 			<result column="realName" property="realName"/>
+ 			<result column="nickName" property="nickName"/>
+ 			<result column="email" property="email"/>
+ 			<result column="birth" property="birth"/>
+ 			<result column="gender" property="gender"/>
+ 			<result column="phone" property="phone"/>
+ 			<result column="joinDate" property="joinDate"/>
+ 			<association property="roleVO" javaType="RoleVO">
+				<id column="roleNum" property="roleNum"/>
+				<result column="roleName" property="roleName"/>
+			</association>
+ 	</resultMap>
+ 	
+ </mapper>

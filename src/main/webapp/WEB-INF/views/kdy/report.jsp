@@ -74,7 +74,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                     <a class="collapse-item" href="./memberList">회 원 조 회</a>
-                    <a class="collapse-item" href="./inquiry">1 대 1 문 의</a>
+                    <a class="collapse-item" href="./inquiryList">1 대 1 문 의</a>
                     <a class="collapse-item" href="./auctioneer">구 인 구 직</a>
                 </div>
             </div>

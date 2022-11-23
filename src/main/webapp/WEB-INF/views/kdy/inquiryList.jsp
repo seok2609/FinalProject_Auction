@@ -29,9 +29,6 @@
 
        #mydiv{
         margin-left: 250px;
-       }
-       #memberListSearch{
-        margin-left: 50px;
        } 
     </style>
 
@@ -119,13 +116,20 @@
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
+                    <!-- <h6 class="collapse-header">Login Screens:</h6>
+                    <a class="collapse-item" href="login.html">Login</a>
+                    <a class="collapse-item" href="register.html">Register</a>
+                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                    <div class="collapse-divider"></div>
+                    <h6 class="collapse-header">Other Pages:</h6>
+                    <a class="collapse-item" href="404.html">404 Page</a>
+                    <a class="collapse-item" href="blank.html">Blank Page</a> -->
                     <a class="collapse-item" href="./saleList">판 매 내 역</a>
                     <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
                     <a class="collapse-item" href="./paymentList">결 제 내 역</a>
                 </div>
             </div>
         </li>
-
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
@@ -136,6 +140,7 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
+
 
     </ul>
         <!-- End of Sidebar -->
@@ -152,8 +157,24 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
+                    <!-- Topbar Search -->
+                    <!-- <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form> -->
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -180,85 +201,105 @@
                         </li>
                     </ul>
                 </nav>
+            <div class="row" id="mydiv">
+                <!-- End of Topbar -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        응답하지 않은 문의</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiryNo} 건</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        응답완료</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiryYes} 건</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        총 문의</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiry} 건</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-success">회원</h6>
+                            <h6 class="m-0 font-weight-bold text-success">1대1 문의</h6>
                         </div>
-						<div class="row">
-							<form action="./memberList"
-								class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
-								<div class="col-12">
-									<div class="input-group" id="memberListSearch">
-										<input type="text" name="search" value="${param.search}"
-											var="" class="form-control" id="search"
-											placeholder="닉네임을 입력해 주세요">
-										<button type="submit" class="btn btn-secondary" id="searchNull">검색
-										</button>
-									</div>
-								</div>
-							</form>
-						</div>
-
-						<table class="table table-striped">
+                        <table class="table table-striped">
                             <thead>
                                 <tr class="text-success">
                                     <th>아이디</th>
-                                    <th>성  함</th>
-                                    <th>닉네임</th>
-                                    <th>이메일</th>
-                                    <th>성  별</th>
-                                    <th>전화번호</th>
-                                    <th>가입날짜</th>
+                                    <th>제목</th>
+                                    <th>문의 날짜</th>
+                                    <th>처리 결과</th>
                                 </tr>
                             </thead>
-                            
                             <tbody>
-                                <c:forEach items="${membersVO}" var="membersVO">
+                                <c:forEach items="${inquiryList}" var="inquiryList">
                                     <tr>
-                                        <td>${membersVO.id}</td>
-                                        <td>${membersVO.realName}</td>
-                                        <td>${membersVO.nickName}</td>
-                                        <td>${membersVO.email}</td>
-                                        <td>${membersVO.gender}</td>
-                                        <td>${membersVO.phone}</td>
-                                        <td>${membersVO.joinDate}</td>
+                                        <td>${inquiryList.id}</td>
+                                        <td>${inquiryList.inquiry_text}</td>
+                                        <td>${inquiryList.inquiry_date}</td>
+                                        <td>${inquiryList.inquiry_response}</td>
                                     </tr>
                                 </c:forEach> 
                             </tbody>
                         </table>
                     </div>
-                  
+                    </div>
                 </div>
-
+            
             </div>
-            <nav aria-label="Page navigation example">
+        </div>
+        <nav aria-label="Page navigation example">
 			<ul class="pagination">
 				<c:if test="${pager.pre}">
 					<li class="page-item"><a class="page-link"
-						href="./memberList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}">◁</a></li>
+						href="./inquiryList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}">◁</a></li>
 				</c:if>
 
 				<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
 					<li class="page-item"><a class="page-link"
-						href="./memberList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a>
+						href="./inquiryList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a>
 					</li>
 				</c:forEach>
 				<li class="page-item ${pager.next?'':'disabled'}"><a
-					class="page-link" href="./memberList?page=${pager.lastNum+1}">▷</a></li>
+					class="page-link" href="./inquiryList?page=${pager.lastNum+1}">▷</a></li>
 			</ul>
 		</nav>
-
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-
-        </div>
 
     </div>
     <!-- End of Page Wrapper -->
@@ -267,26 +308,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -304,6 +325,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	
+
 </body>
+
 </html>
