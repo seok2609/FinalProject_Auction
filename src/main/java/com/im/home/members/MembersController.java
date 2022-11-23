@@ -3,13 +3,16 @@ package com.im.home.members;
 import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,6 +49,14 @@ public class MembersController {
 //		return mv;
 //	}
 	
+	//약관동의로 보내기
+	@GetMapping(value = "agree")
+	public String setMembersAgree() throws Exception{
+		
+		return "members/agree";
+	}
+	
+	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
 	@GetMapping(value = "signUp")
 	public String setMembersSignUp() throws Exception{
 		
@@ -53,9 +64,16 @@ public class MembersController {
 	}
 	
 	
+	
 	@PostMapping(value = "signUp")
 	public ModelAndView setMembersSignUp(MembersVO membersVO, MultipartFile files) throws Exception{
-		ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView();	
+		
+//		if(bindingResult.hasErrors()) {
+//			log.info("검증 에러 발생");
+//			mv.setViewName("members/signUp");
+//			return mv;
+//		}
 		
 		log.info("============================회원가입 완료==========================");
 		

@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +20,16 @@ import lombok.Data;
 @Data
 public class MembersVO implements UserDetails, OAuth2User{
 	
+//	@NotBlank(message = "아이디 입력은 필수입니다.")
 	private String id;
+	//@NotBlank
 	private String passWord;
+	private String passWordCheck;
 	private String realName;
 	private String nickName;
+	
+	//@Email
+	//@NotBlank
 	private String email;
 	private String birth;
 	private Integer gender;

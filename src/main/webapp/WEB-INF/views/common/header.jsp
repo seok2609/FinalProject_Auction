@@ -77,7 +77,7 @@
       	<!-- 로그인을 하지 않았을때 -->
   		<sec:authorize access="!isAuthenticated()">
           <li><a href="./members/login">로그인</a></li>
-          <li><a href="./members/signUp">회원가입</a></li>
+          <li><a href="./members/agree">회원가입</a></li>
          </sec:authorize>
          
           <li><a href="#hero">Home</a></li>

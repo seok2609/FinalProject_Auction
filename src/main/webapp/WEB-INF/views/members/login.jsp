@@ -10,6 +10,12 @@
 		 rel="stylesheet"
 		  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" 
 		  crossorigin="anonymous">
+<style>
+  #loginSt{
+    margin-left: 250px;
+  }
+</style>
+		  
 </head>
 <body>
 <c:import url="../common/header.jsp"></c:import>
@@ -23,16 +29,16 @@
 	
 
 
-          <div class="col-lg-8">
+          <div class="col-lg-8" id="loginSt">
             <form action="login" method="post">
-              <div class="row">
+              <div class="row" >
               
                 <div class="form-group mt-3">
-                  <input type="text" name="id" value="${cookie.Id.value}" class="form-control" id="id" placeholder="아이디를 입력하세요" required="">
+                  <input type="text" name="id" value="${cookie.Id.value}" class="form-control" id="id" placeholder="아이디를 입력하세요">
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="passWord" name="passWord" class="form-control" id="passWord" placeholder="pw입력" required="">
+                  <input type="passWord" name="passWord" class="form-control" id="passWord" placeholder="pw입력">
                 </div>
                 
               </div>
