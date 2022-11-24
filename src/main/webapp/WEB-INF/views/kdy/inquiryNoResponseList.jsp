@@ -201,57 +201,7 @@
                         </li>
                     </ul>
                 </nav>
-            <div class="row" id="mydiv">
-                <!-- End of Topbar -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2" >
-                        <div class="card-body" onclick="location.href='../kdy/inquiryNoResponseList'">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        응답하지 않은 문의</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiryNo} 건</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        응답완료</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiryYes} 건</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        총 문의</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiry} 건</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
@@ -265,17 +215,15 @@
                                     <th>등급</th>
                                     <th>제목</th>
                                     <th>문의 날짜</th>
-                                    <th>처리 결과</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${inquiryList}" var="inquiryList">
+                                <c:forEach items="${inquiryNoResponseList}" var="inquiryList">
                                         <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
                                             <td>${inquiryList.id}</td>
                                             <td>${inquiryList.membersVO.roleVO.roleName}</td>
                                             <td>${inquiryList.inquiry_text}</td>
                                             <td>${inquiryList.inquiry_date}</td>
-                                            <td>${inquiryList.inquiry_response}</td>
                                         </tr>       
                                 </c:forEach> 
                             </tbody>

@@ -34,7 +34,6 @@ public class AdminMembersController {
 		mv.addObject("result", result);
 		return mv;
 	}
-	
 	//회원 조회
 	@GetMapping("memberList")
 	public ModelAndView getAdminMembersList(AdminPager adminPager)throws Exception{
@@ -62,12 +61,46 @@ public class AdminMembersController {
 		mv.setViewName("kdy/inquiryList");
 		return mv;
 	}
+	//응답하지 않은 1대1문의 리스트
+	@GetMapping("inquiryNoResponseList")
+	public ModelAndView getInquiryNoResponseList(AdminPager adminPager)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		List<AdminMembersVO> ar = adminMembersService.getInquiryNoResponseList(adminPager);
+		mv.addObject("inquiryNoResponseList", ar);
+		return mv;
+		
+	}
+//	1대1 detail
+	@GetMapping("inquiryDetail")
+	public ModelAndView getInquiryDetail(AdminMembersVO adminMembersVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		adminMembersVO = adminMembersService.getInquiryDetail(adminMembersVO);
+		mv.addObject("inquiryDetail", adminMembersVO);
+		mv.setViewName("kdy/inquiryDetail");
+		return mv;
+	}
+//	//1대1문의
+	@GetMapping("inquiryRequest")
+	public String setInquiryRequest(AdminMembersVO adminMembersVO, Principal principal)throws Exception{
+		adminMembersVO.setId(principal.getName());	
+		return "kdy/inquiryRequest";
+	}
+	//1대1문의
+	@PostMapping("inquiryRequest")
+	public ModelAndView setInquiryRequest(AdminMembersVO adminMembersVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setInquiryRequest(adminMembersVO);
+//	log.info("아이디 -->> {}", principal.getName());
+		mv.addObject("inquiryRequestResult", result);
+		mv.setViewName("redirect:../");
+		return mv;
+		
+	}
 	//경매인 구인구직
 	@GetMapping("auctioneer")
 	public String auctioneer()throws Exception{
 		return "kdy/auctioneer";
 	}
-	
 	//신고
 	@GetMapping("report")
 	public String report()throws Exception{
@@ -78,7 +111,6 @@ public class AdminMembersController {
 	public String memberBlackList()throws Exception{
 		return "kdy/memberBlackList";
 	}
-	
 	//판매내역
 	@GetMapping("saleList")
 	public String saleList()throws Exception{
@@ -93,21 +125,5 @@ public class AdminMembersController {
 	@GetMapping("paymentList")
 	public String paymentList()throws Exception{
 		return "kdy/paymentList";
-	}
-//	//1대1문의
-	@GetMapping("inquiryRequest")
-	public String setInquiryRequest(AdminMembersVO adminMembersVO, Principal principal)throws Exception{
-		adminMembersVO.setId(principal.getName());	
-		return "kdy/inquiryRequest";
-	}
-	@PostMapping("inquiryRequest")
-	public ModelAndView setInquiryRequest(AdminMembersVO adminMembersVO)throws Exception{
-	ModelAndView mv = new ModelAndView();
-	int result = adminMembersService.setInquiryRequest(adminMembersVO);
-//	log.info("아이디 -->> {}", principal.getName());
-	mv.addObject("inquiryRequestResult", result);
-	mv.setViewName("redirect:../");
-	return mv;
-	
 	}
 }

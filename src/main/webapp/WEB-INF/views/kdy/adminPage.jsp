@@ -319,7 +319,7 @@
                         <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <a class="m-0 font-weight-bold text-success" href="../kdy/inquiryList" >대기중인 1대1 문의</a>
+                            <a class="m-0 font-weight-bold text-success" href="../kdy/inquiryNoResponseList" >대기중인 1대1 문의</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -327,19 +327,19 @@
                                     <thead>
                                         <tr class="text-success">
                                             <th>아이디</th>
+                                            <th>등급</th>
                                             <th>제목</th>
                                             <th>문의 날짜</th>
-                                            <th>처리 결과</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${adminInquiryList}" var="inquiryList">
-                                            <tr>
-                                                <td>${inquiryList.id}</td>
-                                                <td>${inquiryList.inquiry_text}</td>
-                                                <td>${inquiryList.inquiry_date}</td>
-                                                <td>${inquiryList.inquiry_response}</td>
-                                            </tr>
+                                                <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
+                                                    <td>${inquiryList.id}</td>
+                                                    <td>${inquiryList.membersVO.roleVO.roleName}</td>
+                                                    <td>${inquiryList.inquiry_text}</td>
+                                                    <td>${inquiryList.inquiry_date}</td>
+                                                </tr>       
                                         </c:forEach> 
                                     </tbody>
                                 </table>
