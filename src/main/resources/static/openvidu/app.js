@@ -123,7 +123,7 @@ function createSession(sessionId) {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: "POST",
-            url: "https://localhost/api/sessions",//APPLICATION_SERVER_URL + "api/sessions",
+            url: "http://192.168.1.28:81/api/sessions",//APPLICATION_SERVER_URL + "api/sessions",
             data: JSON.stringify({ customSessionId: sessionId }),
             headers: { "Content-Type": "application/json" },
             success: response => resolve(response), // The sessionId
@@ -137,7 +137,7 @@ function createToken(sessionId) {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: 'POST',
-            url: "https://localhost/api/sessions/"+sessionId + '/connections' ,//APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
+            url: "http://192.168.1.28:81/api/sessions/"+sessionId + '/connections' ,//APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
             data: JSON.stringify({}),
             headers: { "Content-Type": "application/json" },
             success: (response) => resolve(response), // The token
