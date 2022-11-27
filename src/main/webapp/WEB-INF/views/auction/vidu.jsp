@@ -4,14 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <title>Insert title here</title>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="/static/openvidu/app.js"></script>
-<script src="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script src="http://172.30.1.11/static/openvidu/app.js"></script>
+<script src="http://172.30.1.11/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.js"></script>
 <link rel="stylesheet" href="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.css">
 </head>
 <body>
-	 <!-- Form to connect to a video-session -->
+    <!-- Form to connect to a video-session -->
     <div id="main" style="text-align: center;">
         <h1>Join a video session</h1>
         <form onsubmit="joinSession(); return false" style="padding: 80px; margin: auto">

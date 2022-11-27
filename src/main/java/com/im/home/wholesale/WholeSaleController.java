@@ -37,7 +37,7 @@ public class WholeSaleController {
 				 .build();
 		
 		Mono<String> res = webClient.get()
-				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd=110001")
+				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=27&whsalCd=110001")
 				.retrieve()
 				.bodyToMono(String.class);
 				
@@ -54,37 +54,58 @@ public class WholeSaleController {
 		JSONArray temp = (JSONArray)parser.parse(data2);
 
 		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
+
 		for(int i =0; i<temp.size(); i++) {
 		
 			JSONObject jsonObj = (JSONObject)temp.get(i);
+		
+				log.info("array => {}", jsonObj);
+				if(jsonObj.get("saleDate").toString().equals("20221122")) {
+					WholeSaleVO wholeSaleVO = new WholeSaleVO();
+					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
+					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
+					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
+					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
+					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
+					wholeSaleVO.setLarge(jsonObj.get("large").toString());
+					wholeSaleVO.setMid(jsonObj.get("mid").toString());
+					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
+					wholeSaleVO.setSmall(jsonObj.get("small").toString());
+					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
+					wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
+					wholeSaleVO.setCost(jsonObj.get("cost").toString());
+					wholeSaleVO.setQty(jsonObj.get("qty").toString());
+					wholeSaleVO.setStd(jsonObj.get("std").toString());
+					wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
+					wholeSaleVOs.add(i, wholeSaleVO);
 			
-			log.info("array => {}", jsonObj);
+				}
+//				if(temp.size()!=0) {
+//					WholeSaleVO wholeSaleVO = new WholeSaleVO();
+//					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
+//					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
+//					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
+//					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
+//					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
+//					wholeSaleVO.setLarge(jsonObj.get("large").toString());
+//					wholeSaleVO.setMid(jsonObj.get("mid").toString());
+//					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
+//					wholeSaleVO.setSmall(jsonObj.get("small").toString());
+//					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
+//					wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
+//					wholeSaleVO.setCost(jsonObj.get("cost").toString());
+//					wholeSaleVO.setQty(jsonObj.get("qty").toString());
+//					wholeSaleVO.setStd(jsonObj.get("std").toString());
+//					wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
+//					wholeSaleVOs.add(i, wholeSaleVO);
+//			
+//			}
 			
-			if(temp.size()!=0) {
-				WholeSaleVO wholeSaleVO = new WholeSaleVO();
-				wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-				wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
-				wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
-				wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
-				wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-				wholeSaleVO.setLarge(jsonObj.get("large").toString());
-				wholeSaleVO.setMid(jsonObj.get("mid").toString());
-				wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-				wholeSaleVO.setSmall(jsonObj.get("small").toString());
-				wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-				wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
-				wholeSaleVO.setCost(jsonObj.get("cost").toString());
-				wholeSaleVO.setQty(jsonObj.get("qty").toString());
-				wholeSaleVO.setStd(jsonObj.get("std").toString());
-				wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
-				wholeSaleVOs.add(i, wholeSaleVO);
-			}
 
 		}
 		
 		mv.addObject("vo", wholeSaleVOs);
 		mv.setViewName("wholesale/realtime");
-		
 		return mv;
 	}
 	
