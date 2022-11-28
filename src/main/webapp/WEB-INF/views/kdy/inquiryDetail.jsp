@@ -30,7 +30,6 @@
 
             <div class="row gx-lg-0 gy-4" id="inquiryss">
             <div class="col-lg-8">
-                <form action="./inquiryRequest" method="post">
                 <div class="row">
                     <div class="form-group mt-3">
                         <input type="text" class="form-control" name="inquiryDetail_text" id="inquiryDetail_text" readonly value=${inquiryDetail.inquiry_text}>
@@ -45,19 +44,30 @@
                 <div class="form-group mt-3">
                     <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiry_contents}</textarea>
                 </div>
+
                 
-                </form>
-                <form action="./inquiryResponse" method="post">
-                    <div>
-                        <input type="hidden" id="inquiry_num" name="inquiry_num" value="${inquiryDetail.inquiry_num}">
-                    </div>
-                    <div class="form-group mt-3">
-                    <textarea class="form-control" name="inquiry_response_contents" id="inquiry_response_contents" rows="7" placeholder="관리자의 답변을 기다리고있어요~" required></textarea>
-                    </div>  
-                    <div class="text-center" id="inquiryAddBottonST">
-                        <button type="submit" id="inquiryAddBtn">답변하기</button>
-                      </div>
-                </form>
+				<c:choose>
+					<c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
+		                <form action="./inquiryResponse" method="post">
+		                    <div>
+		                        <input type="hidden" id="inquiry_num" name="inquiry_num" value="${inquiryDetail.inquiry_num}">
+		                    </div>
+		                    <div class="form-group mt-3">
+		                    <textarea class="form-control" name="inquiry_response_contents" id="inquiry_response_contents" rows="7" placeholder="관리자의 답변을 기다리고있어요~" required></textarea>
+		                    </div>  
+		                    <div class="text-center" id="inquiryAddBottonST">
+		                        <button type="submit" id="inquiryAddBtn">답변하기</button>
+		                      </div>
+		                </form>
+					</c:when>
+					<c:otherwise>
+		                <div class="form-group mt-3">
+		                    <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiryResponseVO.inquiry_response_contents}</textarea>
+		                </div>
+					</c:otherwise>
+				</c:choose>
+   
+                
             </div>
             </div>
         </div>

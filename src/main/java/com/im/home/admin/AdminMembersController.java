@@ -69,8 +69,8 @@ public class AdminMembersController {
 		List<AdminMembersVO> ar = adminMembersService.getInquiryNoResponseList(adminPager);
 		mv.addObject("inquiryNoResponseList", ar);
 		return mv;
-		
 	}
+	//응답 완효한 1대1
 //	1대1 detail
 	@GetMapping("inquiryDetail")
 	public ModelAndView getInquiryDetail(AdminMembersVO adminMembersVO)throws Exception{
@@ -100,6 +100,7 @@ public class AdminMembersController {
 	@GetMapping("inquiryResponse")
 	public String setInquiryResponse(AdminMembersVO adminMembersVO, InquiryResponseVO inquiryResponseVO)throws Exception{
 		 inquiryResponseVO.setInquiry_num(adminMembersVO.getInquiry_num());
+		 
 		return "kdy/inquiryList";
 	}
 	//1대1문의 응답

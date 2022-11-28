@@ -275,7 +275,14 @@
                                             <td>${inquiryList.membersVO.roleVO.roleName}</td>
                                             <td>${inquiryList.inquiry_text}</td>
                                             <td>${inquiryList.inquiry_date}</td>
-                                            <td>${inquiryList.inquiry_response}</td>
+                                            <c:choose>
+                                            	<c:when test="${empty inquiryList.inquiryResponseVO.inquiry_response_contents}">
+                                            		<td>미답변</td>
+                                            	</c:when>
+                                            	<c:otherwise>
+                                            		<td>답변완료</td>
+                                            	</c:otherwise>
+                                            </c:choose>
                                         </tr>       
                                 </c:forEach> 
                             </tbody>
