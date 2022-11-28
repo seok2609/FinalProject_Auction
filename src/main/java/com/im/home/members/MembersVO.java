@@ -24,7 +24,9 @@ public class MembersVO implements UserDetails, OAuth2User{
 	private String id;
 	//@NotBlank
 	private String passWord;
+
 	private String passWordCheck;
+
 	private String realName;
 	private String nickName;
 	
@@ -49,6 +51,9 @@ public class MembersVO implements UserDetails, OAuth2User{
 	
 	//OauthUser , Tocken 정보저장
 	private Map<String, Object> attributes;
+	private RoleVO roleVO;
+	private List<MembersVO> membersVOs;
+
 
 	
 	

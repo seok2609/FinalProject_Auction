@@ -6,6 +6,7 @@
 <mapper namespace="com.im.home.members.MembersMapper">
 
 	<insert id="setMembersSignUp" parameterType="MembersVO">
+
 		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum});
 	</insert>
 	

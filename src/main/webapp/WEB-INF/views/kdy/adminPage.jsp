@@ -20,6 +20,9 @@
 </head>
 
 <body id="page-top">
+    <div>
+        <c:import url="../common/header.jsp"></c:import>
+    </div>
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
@@ -54,7 +57,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <a class="collapse-item" href="./memberList">회 원 조 회</a>
-                        <a class="collapse-item" href="./inquiry">1 대 1 문 의</a>
+                        <a class="collapse-item" href="./inquiryList">1 대 1 문 의</a>
+                        <a class="collapse-item" href="./auctioneer">구 인 구 직</a>
                     </div>
                 </div>
             </li>
@@ -163,7 +167,7 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="../">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     MAIN HOME
                                 </a>
@@ -201,7 +205,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 총 회원 수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">40,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 명</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -315,61 +319,28 @@
                         <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <a class="m-0 font-weight-bold text-primary" href="../kdy/inquiry.jsp" >대기중인 1대1 문의</a>
+                            <a class="m-0 font-weight-bold text-success" href="../kdy/inquiryNoResponseList" >대기중인 1대1 문의</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>번호</th>
-                                            <th>글 제목</th>
-                                            <th>작성자</th>
-                                            <th>등록일</th>
-                                            <th>처리</th>
+                                        <tr class="text-success">
+                                            <th>아이디</th>
+                                            <th>등급</th>
+                                            <th>제목</th>
+                                            <th>문의 날짜</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29</td>
-
-                                        </tr>
+                                        <c:forEach items="${adminInquiryList}" var="inquiryList">
+                                                <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
+                                                    <td>${inquiryList.id}</td>
+                                                    <td>${inquiryList.membersVO.roleVO.roleName}</td>
+                                                    <td>${inquiryList.inquiry_text}</td>
+                                                    <td>${inquiryList.inquiry_date}</td>
+                                                </tr>       
+                                        </c:forEach> 
                                     </tbody>
                                 </table>
                             </div>
@@ -432,6 +403,9 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <div>
+        <c:import url="../common/footer.jsp"></c:import>
+    </div>
 
 </body>
 

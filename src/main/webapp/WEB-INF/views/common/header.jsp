@@ -77,6 +77,7 @@
       		</sec:authorize>
       	<!-- 로그인을 하지 않았을때 -->
   		<sec:authorize access="!isAuthenticated()">
+          <li><a href="./kdy/inquiryRequest">1대1 문의</a></li>
           <li><a href="./members/login">로그인</a></li>
           <li><a href="./members/agree">회원가입</a></li>
          </sec:authorize>
