@@ -16,14 +16,16 @@ public class MembersVO implements UserDetails{
 	
 	private String id;
 	private String passWord;
+	private String realName;
 	private String nickName;
 	private String email;
 	private String birth;
 	private Integer gender;
 	private String phone;
 	private Date joinDate;
-	
+	private RoleVO roleVO;
 	private List<RoleVO> roleVOs;
+	private List<MembersVO> membersVOs;
 
 	
 	
