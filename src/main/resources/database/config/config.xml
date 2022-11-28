@@ -7,12 +7,14 @@
   	<typeAliases>
   			<typeAlias type="com.im.home.members.MembersVO" alias="MembersVO"/>
   			<typeAlias type="com.im.home.members.RoleVO" alias="RoleVO"/>
+  			<typeAlias type="com.im.home.members.MembersFileVO" alias="MembersFileVO"/>
   			
   			<!-- 경매 -->
   			<typeAlias type="com.im.home.aution.AuctionVO" alias="AuctionVO"/>
   			
   			<typeAlias type="java.util.List" alias="List"/>
   			<typeAlias type="java.lang.String" alias="String"/>
+  			<typeAlias type="java.lang.Integer" alias="Integer"/>
   		
   	</typeAliases>
   </configuration>
