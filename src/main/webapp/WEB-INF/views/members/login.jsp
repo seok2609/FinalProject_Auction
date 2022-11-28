@@ -88,11 +88,11 @@
                     <form role="form">
                         <div class="form-group">
                             <label for="userEmail"><span class="glyphicon glyphicon-user"></span>email</label>
-                            <input type="text" class="form-control" id="userEmail" placeholder="가입시 등록한 이메일을 입력하세요.">
+                            <input type="text" class="form-control" id="userEmail" name="email" placeholder="가입시 등록한 이메일을 입력하세요.">
                         </div>
                         <div class="form-group">
                             <label for="userName"><span class="glyphicon glyphicon-eye-open"></span> name</label>
-                            <input type="text" class="form-control" id="userName" placeholder="가입시 등록한 이름을 입력하세요.">
+                            <input type="text" class="form-control" name="realName" id="realName" placeholder="가입시 등록한 이름을 입력하세요.">
                         </div>
                         <button type="button" class="btn btn-success btn-block" id="checkEmail">OK</button>
                     </form>

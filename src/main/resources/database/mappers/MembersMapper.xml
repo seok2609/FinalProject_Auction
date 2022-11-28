@@ -7,7 +7,7 @@
 
 	<insert id="setMembersSignUp" parameterType="MembersVO">
 
-		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum});
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, 1);
 	</insert>
 	
 	<insert id="setMembersRole" parameterType="MembersVO">
