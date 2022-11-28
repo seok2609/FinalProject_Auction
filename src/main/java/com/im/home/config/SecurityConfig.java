@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.im.home.members.MemberSecurityService;
 import com.im.home.members.security.LoginFailed;
 import com.im.home.members.security.LoginSuccess;
+import com.im.home.members.security.LogoutSuccess;
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +25,8 @@ public class SecurityConfig {
 	private LoginFailed loginFailed;
 	@Autowired
 	private MemberSecurityService memberSecurityService;
+	@Autowired
+	private LogoutSuccess logoutSuccess;
 	
 	@Bean
 	//회원가입시 필터 적용 제외
@@ -63,17 +66,22 @@ public class SecurityConfig {
 				.failureHandler(loginFailed)
 				.permitAll()
 				.and()
-//			.logout()
-//				.logoutUrl("/members/logout")
-//				.invalidateHttpSession(true)					//로그인한 세션을 지운다(true)
+			.logout()
+				.logoutUrl("/members/logout")
+				.invalidateHttpSession(true)					//로그인한 세션을 지운다(true)
+				//.logoutSuccessUrl("/")
+				.logoutSuccessHandler(logoutSuccess)
+				.deleteCookies("JESSIONID")
+				.permitAll()
+				.and()
 			
-//			.rememberMe()	//RememberMe 설정
-//				.rememberMeParameter("rememberMe")				//파라미터명
-//				.tokenValiditySeconds(300)						//로그인 유지시간, 초단위
-//				.key("rememberMe")								// 인증받은 사용자의 정보로 Token 생성시 필요, 필수값 (키 값은 자기 맘대로)
-//				.userDetailsService(memberSecurityService)		//인증 절차를 실행할 UserDetailService, 필수
-//				.authenticationSuccessHandler(loginSuccess)		//Login 성공
-//				.and()
+			.rememberMe()	//RememberMe 설정
+				.rememberMeParameter("rememberMe")				//파라미터명
+				.tokenValiditySeconds(300)						//로그인 유지시간, 초단위
+				.key("rememberMe")								// 인증받은 사용자의 정보로 Token 생성시 필요, 필수값 (키 값은 자기 맘대로)
+				.userDetailsService(memberSecurityService)		//인증 절차를 실행할 UserDetailService, 필수
+				.authenticationSuccessHandler(loginSuccess)		//Login 성공
+				.and()
 			
 			;
 		
@@ -84,6 +92,7 @@ public class SecurityConfig {
 		
 	}
 	
+	//회원가입할때 패스워드를 노출안시키도록 HASH시켜주는 코드
 	@Bean
 	public PasswordEncoder getEncoder() {
 		

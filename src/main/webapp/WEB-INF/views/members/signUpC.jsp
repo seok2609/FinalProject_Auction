@@ -27,7 +27,7 @@
 	
 	
 		<div class="section-header">
-          <h2>일반회원 회원가입 페이지</h2>
+          <h2>제조업자 회원가입 페이지</h2>
         </div>
 	
 
@@ -37,6 +37,7 @@
               <div class="row" >
               
                 <div class="form-group mt-3">
+                  <input type="hidden" name="roleNum" value="${param.roleNum}">
                   <input type="text" name="id" class="form-control" id="inputId" placeholder="아이디를 입력하세요">
                   <span id="idHelp" class="bc"></span>
                 </div>

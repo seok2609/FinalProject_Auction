@@ -6,8 +6,12 @@
 <mapper namespace="com.im.home.members.MembersMapper">
 
 	<insert id="setMembersSignUp" parameterType="MembersVO">
-		INSERT INTO MEMBERS 
-		 VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE());
+
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum});
+	</insert>
+	
+	<insert id="setMembersRole" parameterType="MembersVO">
+		INSERT INTO MEMBERS_ROLE VALUES (#{id}, #{roleNum})
 	</insert>
 	
 	<select id="getMembersLogin" parameterType="String" resultMap="getMembersLoginResult">
@@ -40,5 +44,57 @@
 			<result column="roleName" property="roleName"/>
 		</collection>
 	</resultMap>
+	
+	<insert id="setMembersFileAdd" parameterType="MembersFileVO">
+		INSERT INTO MEMBERS_FILE VALUES (null, #{fileName}, #{oriName}, #{id})
+	</insert>
+	
+	
+	<select id="getMyPage" parameterType="MembersVO" resultMap="getMyPageResult">
+	
+		SELECT * FROM 
+	         MEMBERS M
+	            INNER JOIN
+	         MEMBERS_ROLE MR
+	            ON M.ID = MR.ID
+	            INNER JOIN
+	         ROLE R
+	            ON MR.ROLENUM = R.ROLENUM
+	            INNER JOIN
+	         MEMBERS_FILE MF 
+	            ON M.ID = MF.ID
+	            WHERE M.ID = #{id}
+	</select>
+	
+	<resultMap type="MembersVO" id="getMyPageResult">
+		<id column="id" property="id"/>
+		<result column="passWord" property="passWord"/>
+		<result column="realName" property="realName"/>
+		<result column="nickName" property="nickName"/>
+		<result column="email" property="email"/>
+		<result column="birth" property="birth"/>
+		<result column="gender" property="gender"/>
+		<result column="phone" property="phone"/>
+		<result column="joinDate" property="joinDate"/>
+		
+		<collection property="roleVOs" javaType="List" ofType="RoleVO">
+			<id column="roleNum" property="roleNum"/>
+			<result column="roleName" property="roleName"/>
+		</collection>
+		
+		<collection property="membersFileVOs" javaType="List" ofType="MembersFileVO">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+			<result column="id" property="id"/>
+		</collection>
+		
+	</resultMap>
+	
+	<select id="getIdCheck" resultType="Integer" parameterType="MembersVO">
+		SELECT COUNT(ID) FROM MEMBERS WHERE ID = #{id}
+	</select>
+	
+	
 	
 </mapper>
