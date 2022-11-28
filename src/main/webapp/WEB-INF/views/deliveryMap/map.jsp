@@ -129,7 +129,7 @@
 	    for (var i = 0; i < positions.length; i++) {
 	 
 	        // 마커 이미지의 이미지 크기 입니다
-	        var imageSize = new daum.maps.Size(24, 35);
+	        var imageSize = new daum.maps.Size(30, 35);
 	 
 	        // 마커 이미지를 생성합니다    
 	        var markerImage = new daum.maps.MarkerImage(imageSrc[i].image, imageSize);

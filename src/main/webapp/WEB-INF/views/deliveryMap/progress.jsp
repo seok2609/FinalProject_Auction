@@ -134,6 +134,7 @@
 		
 		
 	</script>
+	
 	<h1>Progress Bar</h1>
 <br>
 <br>
@@ -154,7 +155,8 @@
 <button id="downTime">1시간 전</button>
 <button id="upTime">1시간 후</button>
 
-
+<br>
+<button id="testBtn">테스트</button>
 	
 </body>
 </html>
