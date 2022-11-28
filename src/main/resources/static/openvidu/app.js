@@ -38,7 +38,7 @@ $(document).ready(async () => {
     webComponent.addEventListener('onToolbarScreenshareButtonClicked', (event) => { });
     webComponent.addEventListener('onToolbarParticipantsPanelButtonClicked', (event) => { });
     webComponent.addEventListener('onToolbarChatPanelButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarFullscreenButtonClicked', (event) => { });
+    webComponent.addEventListener('onToolbarFullscreenButtonClicked', (event) => {console.log("클릭클릭") });
     webComponent.addEventListener('onParticipantCreated', (event) => { });
 
 });
@@ -111,7 +111,7 @@ function hideForm() {
  * more about the integration of OpenVidu in your application server.
  */
 
-var APPLICATION_SERVER_URL = "http://172.30.1.11/";
+var APPLICATION_SERVER_URL = "http://172.30.1.88/";
 
 function getToken(mySessionId) {
     return createSession(mySessionId).then(sessionId => createToken(sessionId));
@@ -121,7 +121,7 @@ function createSession(sessionId) {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: "POST",
-            url: "http://172.30.1.11/api/sessions",//APPLICATION_SERVER_URL + "api/sessions",
+            url: "http://172.30.1.88/api/sessions",//APPLICATION_SERVER_URL + "api/sessions",
             data: JSON.stringify({ customSessionId: sessionId }),
             headers: { "Content-Type": "application/json" },
             success: response => resolve(response), // The sessionId
@@ -134,7 +134,7 @@ function createToken(sessionId) {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: 'POST',
-            url: "http://172.30.1.11/api/sessions/"+sessionId + '/connections' ,//APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
+            url: "http://172.30.1.88/api/sessions/"+sessionId + '/connections' ,//APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
             data: JSON.stringify({}),
             headers: { "Content-Type": "application/json" },
             success: (response) => resolve(response), // The token

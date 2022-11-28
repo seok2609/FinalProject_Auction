@@ -68163,6 +68163,7 @@
             }
             onFullscreenButtonClicked() {
               this.onToolbarFullscreenButtonClicked.emit();
+              console.log("클릭클릭");
             }
             onParticipantsPanelButtonClicked() {
               this.onToolbarParticipantsPanelButtonClicked.emit();
