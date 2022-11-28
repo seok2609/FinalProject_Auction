@@ -18,16 +18,12 @@
 
 </head>
 <body>
-<!-- ===========header=============== -->
-<c:import url="./common/header.jsp"></c:import>
-<!-- ================================ -->
-
 	<h1>Test Map</h1>
 	<textarea id="testAdd"></textarea>
 	<button onclick="testABtn()">더하기</button>
 	<!-- 지도를 표시할 div 입니다 -->
 	<button onclick="panTo()">트럭 위치</button>
-	<div id="map" style="width:100%;height:350px;"></div>
+	<div id="map" style="width:500px;height:350px;"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae6b0e9fe80d419505ac021baf944e44"></script>
 	<script>
 	
@@ -122,11 +118,11 @@
 	 	
 	    // 마커 이미위치 프로그래스바지의 이미지 주소입니다
 	    var imageSrc = [{
-	    	image : "./images/markerStar.png"
+	    	image : "/map/images/markerStar.png"
 	    }, {
-	    	image: "./images/truck.png"
+	    	image : "/map/images/truck.png"
 	    }, {
-	    	image : "./images/marker_p.png"
+	    	image : "/map/images/marker_p.png"
 	    }]
 	    
 	 
@@ -223,14 +219,10 @@
 	<text id="showTest"></text>
 	<br>
 	
-	<a href="https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212">길찾기</a>
-	<a href="https://map.kakao.com/link/to/18375227">?</a>
+	<a href="https://map.kakao.com/link/to/18375227">길찾기</a>
 	<a href="./navi">네비실험</a>
 	<a href="./progress">바 실험</a>
 	<a href="./latlon">지도 좌표</a>
 	
-<!— ===========footer=============== —>
-<c:import url="./common/footer.jsp"></c:import>
-<!— ================================ —>
 </body>
 </html>

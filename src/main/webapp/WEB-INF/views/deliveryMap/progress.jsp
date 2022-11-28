@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script defer src="/js/mapSetting.js"></script>
+<script defer src="/map/js/mapSetting.js"></script>
 </head>
 <body>
 	<div id="map" style="width:500px;height:400px;"></div>
@@ -36,11 +36,11 @@
 	 	
 	    // 마커 이미위치 프로그래스바지의 이미지 주소입니다
 	    var imageSrc = [{
-	    	image : "./images/markerStar.png"
+	    	image : "/map/images/markerStar.png"
 	    }, {
-	    	image: "./images/truck.png"
+	    	image: "/map/images/truck.png"
 	    }, {
-	    	image : "./images/marker_p.png"
+	    	image : "/map/images/marker_p.png"
 	    }]
 	    
 	 
