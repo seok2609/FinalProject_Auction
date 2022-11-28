@@ -12,8 +12,9 @@
 
   			
   			<typeAlias type="com.im.home.admin.AdminMembersVO" alias="AdminMembersVO"/>
-  			<typeAlias type="com.im.home.util.AdminPager" alias="AdminPager"/>
+  			<typeAlias type="com.im.home.admin.report.MembersReportVO" alias="MembersReportVO"/>
   			<typeAlias type="com.im.home.adminInquiryResponse.InquiryResponseVO" alias="InquiryResponseVO"/>
+  			<typeAlias type="com.im.home.util.AdminPager" alias="AdminPager"/>
 
   			<!-- 경매 -->
   			<typeAlias type="com.im.home.aution.AuctionVO" alias="AuctionVO"/>

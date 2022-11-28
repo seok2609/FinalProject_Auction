@@ -3,6 +3,7 @@ package com.im.home.admin;
 import java.sql.Date;
 import java.util.List;
 
+import com.im.home.admin.report.MembersReportVO;
 import com.im.home.adminInquiryResponse.InquiryResponseVO;
 import com.im.home.members.MembersVO;
 
@@ -20,6 +21,7 @@ public class AdminMembersVO {
 	
 	private MembersVO membersVO;
 	private InquiryResponseVO inquiryResponseVO;
+	private List<MembersReportVO> membersReportVOs;
 
 	
 
