@@ -10,6 +10,7 @@ public class WholeSaleVO {
 	private List<WholeSaleVO> wholeSaleVOs;
 
 	//Open API 출력결과
+	private String rn; //데이터번호
 	private String status; //상태 : success 또는 fail
 	private String totCnt; //총 건수 : 전체 데이터 건수
 	private String pageNo; //페이지 번호 : 호출 페이지 번호
@@ -31,6 +32,7 @@ public class WholeSaleVO {
 	private String std; //규격(단량, 단위, 포장 )
 	private String sizeCd; //크기명 
 	private String sizeName; //등급코드 
+	private String lvCd; //
 	private String lvName; //등급명 
 	private String sanCd; //산지코드 
 	private String sanName; //산지명  

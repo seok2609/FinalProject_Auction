@@ -26,6 +26,87 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/wholesale/*")
 public class WholeSaleController {
 	
+	// 고정데이터 가공 페이지
+	
+	@RequestMapping("sale")
+	@ResponseBody
+	public ModelAndView sale() throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		WebClient webClient = WebClient.builder()
+			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
+				 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
+				 .build();
+		
+		Mono<String> res = webClient.get()
+				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd=110001&saleDate=20221122")
+				.retrieve()
+				.bodyToMono(String.class);
+				
+		String r = res.block();
+	
+	ObjectMapper objectMapper = new ObjectMapper();
+	
+	JSONParser parser = new JSONParser();
+	Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
+	
+		JSONObject jobj = new JSONObject(data);
+		String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
+		//총개수로 파라미터 페이지 총 개수를 설정해놓고,
+		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
+		Object jobj2 = jobj.get("data");
+		String data2 = objectMapper.writeValueAsString(jobj2);
+		JSONArray temp = (JSONArray)parser.parse(data2);
+
+		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
+
+		for(int i =0; i<temp.size(); i++) {
+		
+			JSONObject jsonObj = (JSONObject)temp.get(i);
+		
+				log.info("array => {}", jsonObj);
+				if(temp.size()!=0) {
+					WholeSaleVO wholeSaleVO = new WholeSaleVO();
+					wholeSaleVO.setRn(jsonObj.get("rn").toString());
+					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
+					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
+					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
+					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
+					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
+					wholeSaleVO.setLarge(jsonObj.get("large").toString());
+					wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
+					wholeSaleVO.setMid(jsonObj.get("mid").toString());
+					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
+					wholeSaleVO.setSmall(jsonObj.get("small").toString());
+					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
+					wholeSaleVO.setDanq(jsonObj.get("danq").toString());
+					wholeSaleVO.setDanCd(jsonObj.get("danCd").toString());
+					wholeSaleVO.setPojCd(jsonObj.get("pojCd").toString());
+					wholeSaleVO.setStd(jsonObj.get("std").toString());
+					wholeSaleVO.setSizeCd(jsonObj.get("sizeCd").toString());
+					wholeSaleVO.setSizeName(jsonObj.get("sizeName").toString());
+					wholeSaleVO.setLvCd(jsonObj.get("lvCd").toString());
+					wholeSaleVO.setLvName(jsonObj.get("lvName").toString());
+					wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
+					wholeSaleVO.setSanName(jsonObj.get("sanName").toString());
+					wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
+					wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
+					wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
+					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
+					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
+					wholeSaleVOs.add(i, wholeSaleVO);
+			
+				}
+			
+
+		}
+		
+		mv.addObject("vo", wholeSaleVOs);
+		mv.setViewName("wholesale/sale");
+		return mv;
+	}
+	
+	// 실시간 데이터 가공 페이지
 	@GetMapping("realtime")
 	@ResponseBody
 	public ModelAndView realtime() throws Exception { //실시간 정보 출력 
@@ -37,7 +118,7 @@ public class WholeSaleController {
 				 .build();
 		
 		Mono<String> res = webClient.get()
-				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=27&whsalCd=110001")
+				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd=110001")
 				.retrieve()
 				.bodyToMono(String.class);
 				
@@ -50,7 +131,7 @@ public class WholeSaleController {
 	
 		JSONObject jobj = new JSONObject(data);
 		Object jobj2 = jobj.get("data");
-		String data2 = objectMapper.writeValueAsString(jobj2);
+		String data2 = objectMapper.writeValueAsString(jobj2); 
 		JSONArray temp = (JSONArray)parser.parse(data2);
 
 		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
@@ -62,6 +143,7 @@ public class WholeSaleController {
 				log.info("array => {}", jsonObj);
 				if(jsonObj.get("saleDate").toString().equals("20221122")) {
 					WholeSaleVO wholeSaleVO = new WholeSaleVO();
+					wholeSaleVO.setRn(jsonObj.get("rn").toString());
 					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
 					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
 					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
