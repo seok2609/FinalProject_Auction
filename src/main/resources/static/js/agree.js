@@ -45,7 +45,7 @@ $("#agreeBtn").click(function(){
     if(!flag){  //약관을 모두 동의하지 않았다면
         alert("약관을 모두 동의하셔야 합니다.");
     }else{
-        location='./signUp';
+        location='./signUpHead';
     }
 
 });

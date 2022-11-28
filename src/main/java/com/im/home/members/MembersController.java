@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -57,10 +58,46 @@ public class MembersController {
 	}
 	
 	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
+	@GetMapping(value = "signUpHead")
+	public String setMembersSignUpHead(String roleNum) throws Exception{
+		
+		return "members/signUpHead";
+	}
+	
+	
+	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
 	@GetMapping(value = "signUp")
-	public String setMembersSignUp() throws Exception{
+	public String setMembersSignUp(String roleNum) throws Exception{
 		
 		return "members/signUp";
+	}
+	
+	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
+	@GetMapping(value = "signUpC")
+	public String setMembersSignUpC(String roleNum) throws Exception{
+		log.info("roleNum : {} " ,roleNum);
+		return "members/signUpC";
+	}
+	
+	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
+	@GetMapping(value = "signUpD")
+	public String setMembersSignUpD(String roleNum) throws Exception{
+		
+		return "members/signUpD";
+	}
+	
+	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
+	@GetMapping(value = "signUpG")
+	public String setMembersSignUpG(String roleNum) throws Exception{
+		
+		return "members/signUpG";
+	}
+	
+	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
+	@GetMapping(value = "signUpS")
+	public String setMembersSignUpS(String roleNum) throws Exception{
+		
+		return "members/signUpS";
 	}
 	
 	
@@ -79,6 +116,7 @@ public class MembersController {
 		
 		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
 		int result = membersService.setMembersSignUp(membersVO, files);
+		membersService.setMembersRole(membersVO);
 		
 		mv.setViewName("members/login");
 		

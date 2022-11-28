@@ -2,8 +2,11 @@ package com.im.home.members;
 
 import java.io.File;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +26,9 @@ public class MembersService {
 	
 	@Value("${app.upload.membersFile}")
 	private String path;
-
+	
+	
+	
 	
 	public int setMembersSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
 		
@@ -53,6 +58,12 @@ public class MembersService {
 			membersMapper.setMembersFileAdd(membersFileVO);
 			
 		}
+		
+//		String url = "";
+//		RoleVO roleVO = new RoleVO();
+//		if(url == "members/signUpC") {
+//			int result2 = membersMapper.setMembersRole(roleVO.setRoleNum(2));
+//		}
 		
 		return result;
 	}
@@ -105,5 +116,17 @@ public class MembersService {
 		
 		return check;
 	}
+	
+//	public boolean userEmailCheck(String userEmail, String userName) throws Exception{
+//		
+//		User user = userrepos
+//	}
+	
+	public int setMembersRole(MembersVO membersVO) throws Exception{
+		int result = membersMapper.setMembersRole(membersVO);
+		return result;
+	}
+	
+	
 	
 }

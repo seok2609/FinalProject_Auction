@@ -6,7 +6,11 @@
 <mapper namespace="com.im.home.members.MembersMapper">
 
 	<insert id="setMembersSignUp" parameterType="MembersVO">
-		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE());
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum});
+	</insert>
+	
+	<insert id="setMembersRole" parameterType="MembersVO">
+		INSERT INTO MEMBERS_ROLE VALUES (#{id}, #{roleNum})
 	</insert>
 	
 	<select id="getMembersLogin" parameterType="String" resultMap="getMembersLoginResult">
@@ -89,5 +93,7 @@
 	<select id="getIdCheck" resultType="Integer" parameterType="MembersVO">
 		SELECT COUNT(ID) FROM MEMBERS WHERE ID = #{id}
 	</select>
+	
+	
 	
 </mapper>

@@ -36,11 +36,15 @@ public class MembersVO implements UserDetails, OAuth2User{
 	private String phone;
 	private Date joinDate;
 	
+	private int roleNum;
+	
 	private List<RoleVO> roleVOs;
 	
 	private List<MembersFileVO> membersFileVOs;
 	
 	private MultipartFile files;
+	
+	private List<MailVO> mailVOs;
 	
 	
 	//OauthUser , Tocken 정보저장

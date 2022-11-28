@@ -6,15 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-		 rel="stylesheet"
-		  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" 
-		  crossorigin="anonymous">
+<c:import url="../temp/boot.jsp"></c:import>
+
 <style>
   #loginSt{
     margin-left: 250px;
   }
+  #pwConfirm{
+  	cursor: pointer;
+  }
+  #pb{
+  	display: none;
+  }
 </style>
+<script defer src="/js/login.js"></script>
 		  
 </head>
 <body>
@@ -49,11 +54,64 @@
 				    <input type="checkbox" name="rememberId" class="form-check-input" id="exampleCheck2">
 				 </div>
 				 
-			<div class="mb-3">
-			    <label for="password" class="form-label">자동로그인</label>
-			    <input type="checkbox" name="rememberMe" class="form-check-input" id="exampleCheck2">
-			  </div>
+				<div class="mb-3">
+				    <label for="password" class="form-label">자동로그인</label>
+				    <input type="checkbox" name="rememberMe" class="form-check-input" id="exampleCheck2">
 			  
+			  <!-- 아래 있는 비밀번호 찾기 모달 띄우기 -->
+				  <div style="float: right;" id="pwConfirm" data-bs-toggle="modal" data-bs-target="#myModal">
+					  	pw찾기
+				  </div>
+				  
+				</div>
+				
+				 <!--  <div id="pb">
+				 	 <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+					</button>	
+				 </div> -->
+				 
+	<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <h4><span class="glyphicon glyphicon-lock"></span> 비밀번호 찾기</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <div style="color: #ac2925">
+                        <center>입력된 정보로 임시 비밀번호가 전송됩니다.</center>
+                    </div>
+                    <hr>
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="userEmail"><span class="glyphicon glyphicon-user"></span>email</label>
+                            <input type="text" class="form-control" id="userEmail" placeholder="가입시 등록한 이메일을 입력하세요.">
+                        </div>
+                        <div class="form-group">
+                            <label for="userName"><span class="glyphicon glyphicon-eye-open"></span> name</label>
+                            <input type="text" class="form-control" id="userName" placeholder="가입시 등록한 이름을 입력하세요.">
+                        </div>
+                        <button type="button" class="btn btn-success btn-block" id="checkEmail">OK</button>
+                    </form>
+                    <hr>
+                    <div class="text-center small mt-2" id="checkMsg" style="color: red"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"></span> Cancel
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+			 
+			 
+			  	
               <div class="my-3">
 <!--                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
@@ -65,16 +123,6 @@
             </form>
           </div><!-- End Contact Form -->
 
-   
-
- 
-   
-		
-	
-		
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" 
-		 crossorigin="anonymous"></script>
 	
 	
 </section>

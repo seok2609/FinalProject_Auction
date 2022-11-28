@@ -16,4 +16,6 @@ public interface MembersMapper {
 	public MembersVO getMyPage(MembersVO membersVO) throws Exception;
 	
 	public Integer getIdCheck(MembersVO membersVO) throws Exception;
+	
+	public int setMembersRole(MembersVO membersVO) throws Exception;
 }
