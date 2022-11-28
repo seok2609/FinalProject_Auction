@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.im.home.adminInquiryResponse.InquiryResponseVO;
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
 import com.nimbusds.oauth2.sdk.token.BearerTokenError;
@@ -41,6 +42,10 @@ public class AdminMembersService {
 	//1대1 문의
 	public int setInquiryRequest(AdminMembersVO adminMembersVO)throws Exception{
 		return adminMembersMapper.setInquiryRequest(adminMembersVO);
+	}
+	//1대1 문의 응답
+	public int setInquiryResponse(InquiryResponseVO inquiryResponseVO)throws Exception{
+		return adminMembersMapper.setInquiryResponse(inquiryResponseVO);
 	}
 	//총 1대1문의 글 
 	public Integer getTotalInquiry(AdminMembersVO adminMembersVO)throws Exception{

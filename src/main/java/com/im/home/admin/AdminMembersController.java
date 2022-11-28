@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.im.home.adminInquiryResponse.InquiryResponseVO;
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
 
@@ -94,8 +95,23 @@ public class AdminMembersController {
 		mv.addObject("inquiryRequestResult", result);
 		mv.setViewName("redirect:../");
 		return mv;
-		
 	}
+	//1대1문의 응답
+	@GetMapping("inquiryResponse")
+	public String setInquiryResponse(AdminMembersVO adminMembersVO, InquiryResponseVO inquiryResponseVO)throws Exception{
+		 inquiryResponseVO.setInquiry_num(adminMembersVO.getInquiry_num());
+		return "kdy/inquiryList";
+	}
+	//1대1문의 응답
+	@PostMapping("inquiryResponse")
+	public ModelAndView setInquiryResponse(InquiryResponseVO InquiryResponseVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setInquiryResponse(InquiryResponseVO);
+		mv.addObject("inquiryResponseResult", result);
+		mv.setViewName("redirect:../kdy/inquiryNoResponseList");
+		return mv;
+	}
+	
 	//경매인 구인구직
 	@GetMapping("auctioneer")
 	public String auctioneer()throws Exception{

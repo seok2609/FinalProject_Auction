@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.im.home.adminInquiryResponse.InquiryResponseVO;
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
 
@@ -20,6 +21,8 @@ public interface AdminMembersMapper {
 	public Integer getTotalInquiry(AdminMembersVO adminMembersVO)throws Exception;
 	//1대1 문의
 	public int setInquiryRequest(AdminMembersVO adminMembersVO)throws Exception;
+	//1대1문의 응답
+	public int setInquiryResponse(InquiryResponseVO inquiryResponseVO)throws Exception; 
 	//1대1 리스트
 	public List<AdminMembersVO> getInquiryList(AdminPager adminPager)throws Exception;
 	//1대1문의 detailPage
@@ -32,9 +35,10 @@ public interface AdminMembersMapper {
 	public Integer getTotalInquiryNo(AdminMembersVO adminMembersVO)throws Exception;
 	//응답완료한 1대1 문의
 	public Integer getTotalInquiryYes(AdminMembersVO adminMembersVO)throws Exception;
-	
 	//회원 리스트
 	public List<MembersVO> getAdminMembersList(AdminPager adminPager) throws Exception;	
 	//회원 리스트 pager에 필요한 count
 	public Long getAdminMembersCount(AdminPager adminPager)throws Exception;
+
+
 }

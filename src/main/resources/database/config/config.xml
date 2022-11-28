@@ -11,6 +11,7 @@
   			
   			<typeAlias type="com.im.home.admin.AdminMembersVO" alias="AdminMembersVO"/>
   			<typeAlias type="com.im.home.util.AdminPager" alias="AdminPager"/>
+  			<typeAlias type="com.im.home.adminInquiryResponse.InquiryResponseVO" alias="InquiryResponseVO"/>
   			
   			<typeAlias type="java.lang.Long" alias="Long" />
   			<typeAlias type="java.util.List" alias="List"/>

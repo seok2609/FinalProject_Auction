@@ -35,7 +35,6 @@
 			 <include refid="search"/>
 			 LIMIT #{startRow}, #{perPage}
 	 	</select>
- 	
  		<!-- 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트 --> 
  		<select id="getAdminPageInquiryList" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
  			 SELECT M.*,R.*, IQ.* FROM
@@ -58,9 +57,14 @@
 		 	INSERT INTO INQUIRY VALUES
 		 	(NULL, #{id}, #{inquiry_contents}, SYSDATE(), 1, #{inquiry_text})
 		 </insert>
+		<!-- 1대1문의 응답  -->
+		<insert id="setInquiryResponse" useGeneratedKeys="true" keyProperty="inquiry_num" parameterType="InquiryResponseVO">
+			INSERT INTO INQUIRY_RESPONSE VALUES
+			(NULL, #{inquiry_num}, #{inquiry_response_contents}, SYSDATE())
+		</insert>
 	 	<!-- 1대1문의 리스트 -->
- 		<select id="getInquiryList" parameterType="AdminPager" resultMap="getInquiryDetailResult">
- 			 SELECT M.*,R.*, IQ.* FROM
+ 		<select id="getInquiryList"  parameterType="AdminPager" resultMap="getInquiryDetailResult">
+ 			  SELECT M.*,R.*, IQ.INQUIRY_NUM, IQ.ID, IQ.INQUIRY_CONTENTS, IQ.INQUIRY_DATE, IQ.INQUIRY_RESPONSE, IQ.INQUIRY_TEXT , IR.INQUIRY_RESPONSE_NUM, IR.INQUIRY_RESPONSE_CONTENTS, IR.INQUIRY_RESPONSE_DATE  FROM
 	         MEMBERS M
 	         INNER JOIN
 	         MEMBERS_ROLE MR
@@ -71,6 +75,9 @@
 	         INNER JOIN
 	         INQUIRY IQ
 	         ON M.ID = IQ.ID
+	         INNER JOIN
+	         INQUIRY_RESPONSE IR
+	         ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
 	         ORDER BY INQUIRY_NUM DESC
 			LIMIT #{startNum}, #{perPage}
  		</select>
@@ -118,6 +125,7 @@
  		   WHERE INQUIRY_RESPONSE = 2
 		</select>
 		
+	<!-- memberList -->
  	<resultMap type="MembersVO" id="getAdminMembersListResult">
  			<id column="id" property="id"/>
  			<result column="passWord" property="passWord"/>
@@ -133,8 +141,17 @@
 				<id column="roleNum" property="roleNum"/>
 				<result column="roleName" property="roleName"/>
 			</association>
+			
+			<association property="inquiryResponseVO" javaType="inquiryResponseVO">
+ 				<id column="inquiry_response_num" property="inquiry_response_num"/>
+ 				<result column="inquiry_num" property="inquiry_num"/>
+ 				<result column="inquiry_response_contents" property="inquiry_response_contents"/>
+ 				<result column="inquiry_response_date" property="inquiry_response_date"/>
+ 			</association>
  	</resultMap>
- 	
+ 	<!-- 1대1문의 detail페이지,
+ 		 응답하지 않은 1대1문의 List,
+ 		 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트  -->
  	<resultMap type="AdminMembersVO" id="getInquiryDetailResult">
  			<id column="inquiry_num" property="inquiry_num"/>
  			<result column="id" property="id"/>
@@ -158,6 +175,12 @@
 					<id column="roleNum" property="roleNum"/>
 					<result column="roleName" property="roleName"/>
 				</association>
+ 			</association>
+ 			<association property="inquiryResponseVO" javaType="inquiryResponseVO">
+ 				<id column="inquiry_response_num" property="inquiry_response_num"/>
+ 				<result column="inquiry_num" property="inquiry_num"/>
+ 				<result column="inquiry_response_contents" property="inquiry_response_contents"/>
+ 				<result column="inquiry_response_date" property="inquiry_response_date"/>
  			</association>
  	</resultMap>
  	
