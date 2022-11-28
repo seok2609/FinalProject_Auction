@@ -109,7 +109,7 @@ public class AdminMembersController {
 		ModelAndView mv = new ModelAndView();
 		int result = adminMembersService.setInquiryResponse(InquiryResponseVO);
 		mv.addObject("inquiryResponseResult", result);
-		mv.setViewName("redirect:../kdy/inquiryNoResponseList");
+		mv.setViewName("redirect:../kdy/inquiryList");
 		return mv;
 	}
 	
