@@ -32,8 +32,8 @@ public class MembersController {
 	private MembersService membersService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	@Autowired
-	private MailSenderRunner mailSenderRunner;
+//	@Autowired
+//	private MailSenderRunner mailSenderRunner;
 	
 	
 	@GetMapping(value = "login")
