@@ -21,14 +21,19 @@
 		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 		var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다 
 	    var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
-		
+
+		var a = 33.450705+0.000559161*(25);
+		var b = 126.570677-0.00077867*(25);
+
+
+		function MK(){
 	    // 마커를 표시할 위치와 title 객체 배열입니다 
 	    var positions = [ {
 	        title : "카카오",
 	        latlng : new daum.maps.LatLng(33.450705, 126.570677)
 	    }, {
 	    	title : "배달트럭",
-	    	latlng : new daum.maps.LatLng(33.450705+0.000559161*(25), 126.570677-0.00077867*(25))
+	    	latlng : new daum.maps.LatLng(a, b)
 	    }, {
 	        title : "제주공항",
 	        latlng : new daum.maps.LatLng(33.5066211, 126.492810)
@@ -131,7 +136,8 @@
 	            distanceOverlay.setMap(map);
 	        }
 	    } 
-		
+	}
+	MK();
 		
 	</script>
 	

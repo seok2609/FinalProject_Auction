@@ -86,10 +86,12 @@ upTime.addEventListener("click", function(){
     console.log("test : ",positions[1].latlng.La);
     positions[1].latlng.La = positions[0].latlng.La + truckLoP*Math.floor(bar.value);
     positions[1].latlng.Ma = positions[0].latlng.Ma + truckLaP*Math.floor(bar.value);
+    
 
     console.log("1.La : ", positions[1].latlng.Ma);
     console.log("1.Lo : ", positions[1].latlng.La);
-
+    
+    MK();
 });
 
 downTime.addEventListener("click", function(){

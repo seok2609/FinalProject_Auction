@@ -12,7 +12,11 @@
 		console.log(mapOption.center);
 		console.log("lat : "+lat);
 		console.log("lon : "+lon);
-		console.log("show distance : ",showDistance);
+		console.log("distance : "+checkD);
+		const showText = document.getElementById("#showText");
+		console.log("showText : ", showText.innerHTML);
+		
+    	//showText.innerText = checkD;
 	}
 </script>
 
@@ -36,6 +40,7 @@
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var map = new kakao.maps.Map(mapContainer, mapOption);
 	var lat, lon;
+	var checkD;
 	
 	// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 	if (navigator.geolocation) {
@@ -107,13 +112,13 @@
 		// 마커를 표시할 위치와 title 객체 배열입니다 
 	    var positions = [ {
 	        title : "카카오",
-	        latlng : new daum.maps.LatLng(37.53946477, 126.82873744)
+	        latlng : new kakao.maps.LatLng(37.53946477, 126.82873744)
 	    }, {
 	    	title : "배달트럭",
-	    	latlng : new daum.maps.LatLng(lat, lon)
+	    	latlng : new kakao.maps.LatLng(lat, lon)
 	    }, {
 	        title : "제주공항",
-	        latlng : new daum.maps.LatLng(37.44597242, 126.88500282)
+	        latlng : new kakao.maps.LatLng(37.44597242, 126.88500282)
 	    } ];
 	 	
 	    // 마커 이미위치 프로그래스바지의 이미지 주소입니다
@@ -129,13 +134,13 @@
 	    for (var i = 0; i < positions.length; i++) {
 	 
 	        // 마커 이미지의 이미지 크기 입니다
-	        var imageSize = new daum.maps.Size(30, 35);
+	        var imageSize = new kakao.maps.Size(30, 35);
 	 
 	        // 마커 이미지를 생성합니다    
-	        var markerImage = new daum.maps.MarkerImage(imageSrc[i].image, imageSize);
+	        var markerImage = new kakao.maps.MarkerImage(imageSrc[i].image, imageSize);
 	 
 	        // 마커를 생성합니다
-	        var marker = new daum.maps.Marker({
+	        var marker = new kakao.maps.Marker({
 	            map : map, // 마커를 표시할 지도
 	            position : positions[i].latlng, // 마커를 표시할 위치
 	            title : positions[i].title,
@@ -146,7 +151,7 @@
 	
 	 
 	    var linePath;
-	    var lineLine = new daum.maps.Polyline();
+	    var lineLine = new kakao.maps.Polyline();
 	    var distance;
 	 
 	    //------------------------------------------------------------------------
@@ -156,7 +161,7 @@
 	            linePath = [ positions[0].latlng, positions[1].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
 		        lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
 		 
-		        var drawLine = new daum.maps.Polyline({
+		        var drawLine = new kakao.maps.Polyline({
 		            map : map, // 선을 표시할 지도입니다 
 		            path : linePath,
 		            strokeWeight : 3, // 선의 두께입니다 
@@ -183,7 +188,8 @@
 		        });
 		 
 		        distance = Math.round(lineLine.getLength());
-		        displayCircleDot(positions[2].latlng, distance);
+		        checkD = Math.round(lineLine.getLength());
+				displayCircleDot(positions[2].latlng, distance);
 	        };
 	         
 	    } 
@@ -214,9 +220,10 @@
 	            distanceOverlay.setMap(map);
 	        }
 	    }
+
 	</script>
 	
-	<text id="showTest"></text>
+	<h3 id="showTest">테스트</h3>
 	<br>
 	
 	<a href="https://map.kakao.com/link/to/18375227">길찾기</a>
