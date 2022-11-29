@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.im.home.auction.product.ProductMapper">
+	<insert id="setAdd" parameterType="ProductVO">
+		INSERT INTO PRODUCT (PRODUCT_NUM,ID,NAME,CATEGORY,PICKUP_ADDRESS,EXT_ADDRESS,DETAIL_ADDRESS,POSTCODE)
+		VALUES(null,#{id},#{name},#{category},#{pickup_address},#{ext_address},#{detail_address},#{postcode});
+	</insert>
+	
+	<select id="getList" resultType="ProductVO">
+		SELECT * FROM PRODUCT
+	</select>
+
+</mapper>

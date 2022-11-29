@@ -9,6 +9,8 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
 <script src="/static/openvidu/app.js"></script>
+
+
 <script src="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.js"></script>
 <link rel="stylesheet" href="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.css">
 </head>

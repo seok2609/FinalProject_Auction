@@ -1,4 +1,4 @@
-package com.im.home.aution;
+package com.im.home.auction;
 
 import java.sql.Date;
 import java.util.List;
