@@ -47,8 +47,6 @@ public class MembersVO implements UserDetails, OAuth2User{
 	
 	private MultipartFile files;
 	
-	private List<MailVO> mailVOs;
-	
 	
 	//OauthUser , Tocken 정보저장
 	private Map<String, Object> attributes;

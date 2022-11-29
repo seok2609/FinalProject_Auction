@@ -72,13 +72,13 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력">
+                  <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력" oninput="autoHyphen(this)" maxlength="13">
                   <span id="phoneHelp" class="bc"></span>
                 </div>
                     
 
 				<div class="form-group mt-3">
-				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부</label>
+				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
 				  <input class="form-control form-control-sm" id="memberFileAdd" name="files" type="file">
 				</div>
                 
