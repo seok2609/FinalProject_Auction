@@ -167,27 +167,54 @@ $("#inputEmail").blur(function(){
         $("#inputEmail").focus();
         $("#emailHelp").html("이메일 형식을 확인해주세요");
     }else{
-        $("#emailHelp").html("");
+        $("#emailHelp").html("정상입니다.");
     }
 
 });
 
 
 //생년월일 검증
+// $("#inputBirth").blur(function(){
+
+//     let result = nullCheck($("#inputBirth").val());
+
+//     results[6] = result;
+
+//     if(result){
+//         $("#birthHelp").html("정상입니다.")
+
+//     }else{
+//         $("#birthHelp").html("생년월일 입력은 필수입니다.")
+//     }
+
+// });
+
+//  생년월일 - 하이픈 자동 생성
+function birth_keyup(obj){
+    let birth_len = obj.value.length;
+    if (event.keyCode==8){
+        obj.value = obj.value.slice(0,birth_len)
+        return 0;
+    }else if(birth_len==4 || birth_len==7){
+        obj.value += '-';
+    }
+}
+
+let birth_pattern = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/
+
 $("#inputBirth").blur(function(){
-
-    let result = nullCheck($("#inputBirth").val());
-
-    results[6] = result;
-
-    if(result){
-        $("#birthHelp").html("정상입니다.")
-
+    
+    if(!birth_pattern.test($("#inputBirth").val())){
+        $("#birthHelp").html("생년월일 8자리를 입력해주세요.");
+        $("#inputBirth").focus();
+    }else if($("#inputBirth").val() == ''){
+        $("#birthHelp").html("생년월일을 입력해주세요.");
+        $("#inputBirth").focus();
     }else{
-        $("#birthHelp").html("생년월일 입력은 필수입니다.")
+        $("#birthHelp").html('정상입니다.');
     }
 
-});
+})
 
 
 //전화번호 검증

@@ -68,7 +68,7 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="birth" class="form-control" id="inputBirth" placeholder="생년월일">
+                  <input type="text" name="birth" class="form-control" id="inputBirth" placeholder="생년월일을 입력해주세요" maxlength="10" onkeyup="birth_keyup(this)">
                   <span id="birthHelp" class="bc"></span>
                 </div>
                 
