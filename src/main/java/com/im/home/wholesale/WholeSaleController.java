@@ -52,7 +52,7 @@ public class WholeSaleController {
 	
 		JSONObject jobj = new JSONObject(data);
 		String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
-		//총개수로 파라미터 페이지 총 개수를 설정해놓고,
+		//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
 		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
 		Object jobj2 = jobj.get("data");
 		String data2 = objectMapper.writeValueAsString(jobj2);
@@ -162,26 +162,6 @@ public class WholeSaleController {
 					wholeSaleVOs.add(i, wholeSaleVO);
 			
 				}
-//				if(temp.size()!=0) {
-//					WholeSaleVO wholeSaleVO = new WholeSaleVO();
-//					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-//					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
-//					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
-//					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
-//					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-//					wholeSaleVO.setLarge(jsonObj.get("large").toString());
-//					wholeSaleVO.setMid(jsonObj.get("mid").toString());
-//					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-//					wholeSaleVO.setSmall(jsonObj.get("small").toString());
-//					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-//					wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
-//					wholeSaleVO.setCost(jsonObj.get("cost").toString());
-//					wholeSaleVO.setQty(jsonObj.get("qty").toString());
-//					wholeSaleVO.setStd(jsonObj.get("std").toString());
-//					wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
-//					wholeSaleVOs.add(i, wholeSaleVO);
-//			
-//			}
 			
 
 		}
