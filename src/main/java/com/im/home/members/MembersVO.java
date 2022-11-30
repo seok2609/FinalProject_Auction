@@ -33,7 +33,7 @@ public class MembersVO implements UserDetails, OAuth2User{
 	//@Email
 	//@NotBlank
 	private String email;
-	private int birth;
+	private String birth;
 	private Integer gender;
 	private String phone;
 	private Date joinDate;

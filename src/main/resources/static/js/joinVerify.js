@@ -79,6 +79,7 @@ $("#inputPassWord").on({
         }else{
             $("#pwCheckHelp").html("비밀번호가 일치하지 않습니다.")
             $("#pwHelp").val("");   //비밀번호가 일치하지 않다면 비밀번호를 공백으로 바꾼다.
+            $("inputPassWordCheck").focus();
 
             results[1] = result;
         }
@@ -203,6 +204,8 @@ function birth_keyup(obj){
 let birth_pattern = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/
 
 $("#inputBirth").blur(function(){
+
+     results[6] = result;
     
     if(!birth_pattern.test($("#inputBirth").val())){
         $("#birthHelp").html("생년월일 8자리를 입력해주세요.");
