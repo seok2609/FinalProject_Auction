@@ -199,11 +199,11 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 총 회원 수</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 명</div>
                                         </div>
@@ -304,9 +304,28 @@
                     </div>
                         <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <a class="m-0 font-weight-bold text-success" href="../kdy/inquiryNoResponseList" >대기중인 1대1 문의</a>
-                        </div>
+						<c:choose>
+							<c:when test="${empty inquiryNoResponse}">
+							
+							</c:when>
+							<c:otherwise>
+		                        <div class="card-header py-3">
+		                            <a class="m-0 font-weight-bold text-success" href="../kdy/inquiryNoResponseList" >대기중인 1대1 문의 ${inquiryNoResponse}건</a>
+		                        </div>							
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${empty reportNoResponse}">
+							
+							</c:when>
+							<c:otherwise>
+		                        <div  class="card-header py-3">
+		                            <a class="m-0 font-weight-bold text-success" href="../kdy/report" >대기중인 신고요청 ${reportNoResponse}건</a>
+		                        </div>
+							</c:otherwise>
+						</c:choose>
+
                         <div class="card-body">
                             <div class="table-responsive">
                               
@@ -317,6 +336,7 @@
                                         <c:otherwise>
                                             <table class="table table-striped">
                                                 <thead>
+                                                    <div class="card-header py-3">대기중인 1대1 문의 입니다.</div>
                                                     <tr class="text-success">
                                                         <th>아이디</th>
                                                         <th>등급</th>
@@ -340,6 +360,8 @@
                               
                             </div>
                         </div>
+
+                        
                     </div>
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
