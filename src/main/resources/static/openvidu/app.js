@@ -1,97 +1,178 @@
-$(document).ready(async () => {
-    var webComponent = document.querySelector('openvidu-webcomponent');
-    var form = document.getElementById('main');
+var OV;
+var session;
 
-    webComponent.addEventListener('onSessionCreated', (event) => {
-        var session = event.detail;
 
-        // You can see the session documentation here
-        // https://docs.openvidu.io/en/stable/api/openvidu-browser/classes/session.html
+/* OPENVIDU METHODS */
 
-        session.on('connectionCreated', (e) => {
-            console.log("connectionCreated", e);
-        });
+function joinSession() {
 
-        session.on('streamDestroyed', (e) => {
-            console.log("streamDestroyed", e);
-        });
+	var mySessionId = document.getElementById("sessionId").value;
+	var myUserName = document.getElementById("userName").value;
 
-        session.on('streamCreated', (e) => {
-            console.log("streamCreated", e);
-        });
+	// --- 1) Get an OpenVidu object ---
 
-        session.on('sessionDisconnected', (event) => {
-            console.warn("sessionDisconnected event");
-            form.style.display = 'block';
-            webComponent.style.display = 'none';
-        });
+	OV = new OpenVidu();
 
-        session.on('exception', (exception) => {
-            console.error(exception);
-        });
-    });
+	// --- 2) Init a session ---
 
-    webComponent.addEventListener('onJoinButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarLeaveButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarCameraButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarMicrophoneButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarScreenshareButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarParticipantsPanelButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarChatPanelButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarFullscreenButtonClicked', (event) => {console.log("클릭클릭") });
-    webComponent.addEventListener('onParticipantCreated', (event) => { });
+	session = OV.initSession();
 
-});
+	// --- 3) Specify the actions when events take place in the session ---
 
-async function joinSession() {
-    //Getting form inputvalue
-    var sessionName = document.getElementById('sessionName').value;
-    var participantName = document.getElementById('user').value;
-    console.log("session : ", sessionName)
+	// On every new Stream received...
+	session.on('streamCreated', event => {
 
-    // Requesting tokens
-    var promiseResults = await Promise.all([getToken(sessionName), getToken(sessionName)]);
-    var tokens = { webcam: promiseResults[0], screen: promiseResults[1] };
+		// Subscribe to the Stream to receive it. HTML video will be appended to element with 'video-container' id
+		var subscriber = session.subscribe(event.stream, 'video-container');
 
-    //Getting the webcomponent element
-    var webComponent = document.querySelector('openvidu-webcomponent');
+		// When the HTML video has been appended to DOM...
+		subscriber.on('videoElementCreated', event => {
 
-    hideForm();
+			// Add a new <p> element for the user's nickname just below its video
+			appendUserData(event.element, subscriber.stream.connection);
+		});
+	});
 
-    // Displaying webcomponent
-    webComponent.style.display = 'block';
+	// On every Stream destroyed...
+	session.on('streamDestroyed', event => {
 
-    // webComponent.participantName = participantName;
+		// Delete the HTML element with the user's nickname. HTML videos are automatically removed from DOM
+		removeUserData(event.stream.connection);
+	});
 
-    // You can see the UI parameters documentation here
-    // https://docs.openvidu.io/en/stable/api/openvidu-angular/components/OpenviduWebComponentComponent.html#inputs
+	// On every asynchronous exception...
+	session.on('exception', (exception) => {
+		console.warn(exception);
+	});
 
-    // webComponent.toolbarScreenshareButton = false;
-    // webComponent.minimal = true;
-    // webComponent.prejoin = true;
 
-    // webComponent.videoMuted = false;
-    // webComponent.audioMuted = false;
+	// --- 4) Connect to the session with a valid user token ---
 
-    // webComponent.toolbarScreenshareButton = true;
-    // webComponent.toolbarFullscreenButton = true;
-    // webComponent.toolbarLeaveButton = true;
-    // webComponent.toolbarChatPanelButton = true;
-    // webComponent.toolbarParticipantsPanelButton = true;
-    // webComponent.toolbarDisplayLogo = true;
-    // webComponent.toolbarDisplaySessionName = true;
-    // webComponent.streamDisplayParticipantName = true;
-    // webComponent.streamDisplayAudioDetection = true;
-    // webComponent.streamSettingsButton = true;
-    // webComponent.participantPanelItemMuteButton = true;
+	// Get a token from the OpenVidu deployment
+	getToken(mySessionId).then(token => {
 
-    webComponent.tokens = tokens;
+		// First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
+		// 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+		session.connect(token, { clientData: myUserName })
+			.then(() => {
+
+				// --- 5) Set page layout for active call ---
+
+				document.getElementById('session-title').innerText = mySessionId;
+				document.getElementById('join').style.display = 'none';
+				document.getElementById('session').style.display = 'block';
+
+				// --- 6) Get your own camera stream with the desired properties ---
+
+				var publisher = OV.initPublisher('video-container', {
+					audioSource: undefined, // The source of audio. If undefined default microphone
+					videoSource: undefined, // The source of video. If undefined default webcam
+					publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
+					publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
+					resolution: '640x480',  // The resolution of your video
+					frameRate: 30,			// The frame rate of your video
+					insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
+					mirror: false       	// Whether to mirror your local video or not
+				});
+
+				// --- 7) Specify the actions when events take place in our publisher ---
+
+				// When our HTML video has been added to DOM...
+				publisher.on('videoElementCreated', function (event) {
+					initMainVideo(event.element, myUserName);
+					appendUserData(event.element, myUserName);
+					event.element['muted'] = true;
+				});
+
+				// --- 8) Publish your stream ---
+
+				session.publish(publisher);
+
+			})
+			.catch(error => {
+				console.log('There was an error connecting to the session:', error.code, error.message);
+			});
+	});
 }
 
-function hideForm() {
-    var form = document.getElementById('main');
-    form.style.display = 'none';
+function leaveSession() {
 
+	// --- 9) Leave the session by calling 'disconnect' method over the Session object ---
+
+	session.disconnect();
+
+	// Removing all HTML elements with user's nicknames.
+	// HTML videos are automatically removed when leaving a Session
+	removeAllUserData();
+
+	// Back to 'Join session' page
+	document.getElementById('join').style.display = 'block';
+	document.getElementById('session').style.display = 'none';
+}
+
+window.onbeforeunload = function () {
+	if (session) session.disconnect();
+};
+
+
+/* APPLICATION SPECIFIC METHODS */
+
+window.addEventListener('load', function () {
+	generateParticipantInfo();
+});
+
+function generateParticipantInfo() {
+	document.getElementById("sessionId").value = "SessionA";
+	document.getElementById("userName").value = "Participant" + Math.floor(Math.random() * 100);
+}
+
+function appendUserData(videoElement, connection) {
+	var userData;
+	var nodeId;
+	if (typeof connection === "string") {
+		userData = connection;
+		nodeId = connection;
+	} else {
+		userData = JSON.parse(connection.data).clientData;
+		nodeId = connection.connectionId;
+	}
+	var dataNode = document.createElement('div');
+	dataNode.className = "data-node";
+	dataNode.id = "data-" + nodeId;
+	dataNode.innerHTML = "<p>" + userData + "</p>";
+	videoElement.parentNode.insertBefore(dataNode, videoElement.nextSibling);
+	addClickListener(videoElement, userData);
+}
+
+function removeUserData(connection) {
+	var dataNode = document.getElementById("data-" + connection.connectionId);
+	dataNode.parentNode.removeChild(dataNode);
+}
+
+function removeAllUserData() {
+	var nicknameElements = document.getElementsByClassName('data-node');
+	while (nicknameElements[0]) {
+		nicknameElements[0].parentNode.removeChild(nicknameElements[0]);
+	}
+}
+
+function addClickListener(videoElement, userData) {
+	videoElement.addEventListener('click', function () {
+		var mainVideo = $('#main-video video').get(0);
+		if (mainVideo.srcObject !== videoElement.srcObject) {
+			$('#main-video').fadeOut("fast", () => {
+				$('#main-video p').html(userData);
+				mainVideo.srcObject = videoElement.srcObject;
+				$('#main-video').fadeIn("fast");
+			});
+		}
+	});
+}
+
+function initMainVideo(videoElement, userData) {
+	document.querySelector('#main-video video').srcObject = videoElement.srcObject;
+	document.querySelector('#main-video p').innerHTML = userData;
+	document.querySelector('#main-video video')['muted'] = true;
 }
 
 
@@ -111,34 +192,34 @@ function hideForm() {
  * more about the integration of OpenVidu in your application server.
  */
 
-var APPLICATION_SERVER_URL = "http://172.30.1.10/";
+var APPLICATION_SERVER_URL = "http://192.168.1.6:5000/";
 
 function getToken(mySessionId) {
-    return createSession(mySessionId).then(sessionId => createToken(sessionId));
+	return createSession(mySessionId).then(sessionId => createToken(sessionId));
 }
 
 function createSession(sessionId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            type: "POST",
-            url: "http://172.30.1.10/api/sessions",//APPLICATION_SERVER_URL + "api/sessions",
-            data: JSON.stringify({ customSessionId: sessionId }),
-            headers: { "Content-Type": "application/json" },
-            success: response => resolve(response), // The sessionId
-            error: (error) => reject(error)
-        });
-    });
+	return new Promise((resolve, reject) => {
+		$.ajax({
+			type: "POST",
+			url: APPLICATION_SERVER_URL + "api/sessions",
+			data: JSON.stringify({ customSessionId: sessionId }),
+			headers: { "Content-Type": "application/json" },
+			success: response => resolve(response), // The sessionId
+			error: (error) => reject(error)
+		});
+	});
 }
 
 function createToken(sessionId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            type: 'POST',
-            url: "http://172.30.1.10/api/sessions/"+sessionId + '/connections' ,//APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
-            data: JSON.stringify({}),
-            headers: { "Content-Type": "application/json" },
-            success: (response) => resolve(response), // The token
-            error: (error) => reject(error)
-        });
-    });
+	return new Promise((resolve, reject) => {
+		$.ajax({
+			type: 'POST',
+			url: APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
+			data: JSON.stringify({}),
+			headers: { "Content-Type": "application/json" },
+			success: (response) => resolve(response), // The token
+			error: (error) => reject(error)
+		});
+	});
 }
