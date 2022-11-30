@@ -62,14 +62,16 @@
             </div>
           </div><!-- End Service Item -->
 
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-4 col-md-6" onclick="location.href='./inquiryList'">
             <div class="service-item position-relative">
               <div class="icon">
                 <i class="bi bi-easel"></i>
               </div>
               <h3 style="color: #008374;">나의 1:1문의 내역</h3>
-              <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
-              <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+              <sec:authentication property="Principal" var="member"/>
+              	<h3>${member.roleNum}</h3>
+              	<h3>${AdminMembersVO.id}</h3>
+              <!-- <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a> -->
             </div>
           </div><!-- End Service Item -->
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
                 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+                 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 
 <head>
@@ -256,6 +257,8 @@
                 </div>
             </div>
                 <!-- Begin Page Content -->
+                <sec:authentication property="Principal" var="member"/>
+                <c:if test="${member.roleNum not eq 0}">
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -302,8 +305,8 @@
                         </table>
                     </div>
                     </div>
+            </c:if>
                 </div>
-            
             </div>
         </div>
         <nav aria-label="Page navigation example">

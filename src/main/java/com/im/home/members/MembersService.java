@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.im.home.admin.AdminMembersVO;
 import com.im.home.util.MembersFileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -127,6 +128,14 @@ public class MembersService {
 		return result;
 	}
 	
+	
+	//마이페이지에서 보이는 1:1문의 내역
+	public AdminMembersVO getInquiryList(AdminMembersVO adminMembersVO) throws Exception{
+		
+		adminMembersVO = membersMapper.getInquiryList(adminMembersVO);
+		
+		return adminMembersVO;
+	}
 	
 	
 	

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.im.home.admin.AdminMembersVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -139,6 +141,7 @@ public class MembersController {
 	@GetMapping(value = "myPage")
 	public ModelAndView getMyPage(MembersVO membersVO, String id, Principal principal , Model model) throws Exception{
 		ModelAndView mv = new ModelAndView();
+		AdminMembersVO adminMembersVO = new AdminMembersVO();
 		
 		log.info("ddddd => {}" ,principal.getName()); 
 		
@@ -152,6 +155,12 @@ public class MembersController {
 //		mv.addObject("membersVO", membersVO2);
 		mv.setViewName("members/myPage");
 		
+//		if(get) {
+//			adminMembersVO = membersService.getInquiryList(adminMembersVO);
+//			mv.setViewName("kdy/inquiryList");
+//		}
+		
+		
 		
 		return mv;
 	}
@@ -164,4 +173,18 @@ public class MembersController {
 		
 		return result;
 	}
+	
+	
+	@GetMapping(value = "inquiryList")
+	public ModelAndView getInquiryList(AdminMembersVO adminMembersVO, MembersVO membersVO, Principal principal, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		adminMembersVO = membersService.getInquiryList(adminMembersVO);
+		session.setAttribute("AdminMembersVO", adminMembersVO);
+		mv.addObject("AdminMembersVO", adminMembersVO);
+		mv.setViewName("kdy/inquiryList");
+		
+		return mv;
+	}
+	
 }
