@@ -32,13 +32,21 @@
             <div class="col-lg-8">
                 <div class="row">
                     <div class="form-group mt-3">
-                        <input type="text" class="form-control" name="inquiryDetail_text" id="inquiryDetail_text" readonly value=${inquiryDetail.inquiry_text}>
+                        <input type="text" class="form-control" name="inquiryDetail_text" id="inquiryDetail_text" readonly value="${inquiryDetail.inquiry_text}">
                     </div>
                     <div class="form-group mt-3">
-                        <input type="text" class="form-control" name="inquiryDetail_date" id="inquiryDetail_date" readonly value=${inquiryDetail.inquiry_date}>
+                        <input type="text" class="form-control" name="inquiryDetail_date" id="inquiryDetail_date" readonly value="${inquiryDetail.inquiry_date}">
                     </div>
                     <div class="form-group mt-3">
-                        <input type="text" class="form-control" name="inquiryDetail_response" id="inquiryDetail_response" readonly value=${inquiryDetail.inquiry_response}>
+                        <!-- <input type="text" class="form-control" name="inquiryDetail_response" id="inquiryDetail_response" readonly value=${inquiryDetail.inquiry_response}> -->
+                        <c:choose>
+                            <c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
+                                <td>답변상태 : 미답변</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>답변상태 : 답변완료</td>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
                 <div class="form-group mt-3">

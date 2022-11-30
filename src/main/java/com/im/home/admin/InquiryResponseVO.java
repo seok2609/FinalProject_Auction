@@ -1,4 +1,4 @@
-package com.im.home.adminInquiryResponse;
+package com.im.home.admin;
 
 import java.sql.Date;
 

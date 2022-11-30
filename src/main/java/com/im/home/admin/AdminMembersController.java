@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.im.home.adminInquiryResponse.InquiryResponseVO;
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
 
@@ -26,11 +25,14 @@ public class AdminMembersController {
 
 	//main관리자 page
 	@GetMapping("adminPage")
-	public ModelAndView adminPage(MembersVO membersVO, AdminMembersVO adminMembersVO)throws Exception{
+	public ModelAndView adminPage(MembersVO membersVO, AdminMembersVO adminMembersVO, MembersReportVO membersReportVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		int result = adminMembersService.getTotalMembers(membersVO);
 		List<AdminMembersVO> ar = adminMembersService.getAdminPageInquiryList(adminMembersVO);
-		mv.addObject("totalMembers", membersVO);
+		int inquiryNoResponse = adminMembersService.getTotalInquiryNo(adminMembersVO);
+		int reportNoResponse = adminMembersService.getTotalReport(membersReportVO);
+		mv.addObject("inquiryNoResponse", inquiryNoResponse);
+		mv.addObject("reportNoResponse", reportNoResponse);
 		mv.addObject("adminInquiryList", ar);
 		mv.addObject("result", result);
 		return mv;
@@ -60,6 +62,25 @@ public class AdminMembersController {
 		mv.addObject("inquiryList", ar);
 		mv.addObject("adminPager", adminPager);
 		mv.setViewName("kdy/inquiryList");
+		return mv;
+	}
+	//신고 리스트
+	@GetMapping("report")
+	public ModelAndView getReportList(AdminPager adminPager, MembersReportVO membersReportVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		log.info("cccccccccccccccccccccccccccccc");
+		List<MembersReportVO> ar = adminMembersService.getReportList(adminPager);
+		log.info("num -->> {}", membersReportVO.getReport_num());
+		log.info("id -->> {}", membersReportVO.getId());
+		log.info("report_id -->> {}", membersReportVO.getReport_id());
+		log.info("contents -->> {}", membersReportVO.getReport_contents());
+		log.info("date -->> {}", membersReportVO.getReport_date());
+		log.info("reportList ===:>>>>> {}", adminMembersService.getReportList(adminPager));
+		log.info("ar=============>>>>>>>>>> {} ", ar.size());
+		int result = adminMembersService.getTotalReport(membersReportVO);
+		mv.addObject("reportList", ar);
+		mv.addObject("totalReport", result);
+		mv.addObject("adminPager", adminPager);
 		return mv;
 	}
 	//응답하지 않은 1대1문의 리스트
@@ -109,19 +130,29 @@ public class AdminMembersController {
 		ModelAndView mv = new ModelAndView();
 		int result = adminMembersService.setInquiryResponse(InquiryResponseVO);
 		mv.addObject("inquiryResponseResult", result);
-		mv.setViewName("redirect:../kdy/inquiryNoResponseList");
+		mv.setViewName("redirect:../kdy/inquiryList");
 		return mv;
 	}
-	
+	//신고 요청
+	@GetMapping("reportRequest")
+	public String setReportRequest(MembersReportVO membersReportVO, Principal principal)throws Exception{
+		membersReportVO.setId(principal.getName());
+		log.info("memberReportId =======>>>>>>> {}", principal.getName());
+		return "kdy/reportRequest";
+	}
+	//신고요청
+	@PostMapping("reportRequest")
+	public ModelAndView setReportRequest(MembersReportVO membersReportVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setRepoertRequest(membersReportVO);
+		mv.addObject("reportRequest", result);
+		mv.setViewName("redirect:../");
+		return mv;
+	}
 	//경매인 구인구직
 	@GetMapping("auctioneer")
 	public String auctioneer()throws Exception{
 		return "kdy/auctioneer";
-	}
-	//신고
-	@GetMapping("report")
-	public String report()throws Exception{
-		return "kdy/report";
 	}
 	//블랙리스트
 	@GetMapping("memberBlackList")
