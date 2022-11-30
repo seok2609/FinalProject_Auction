@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
 <title>Insert title here</title>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-<script src="http://192.168.1.6/static/openvidu/app.js"></script>
-<script src="http://192.168.1.6/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.js"></script>
+<script src="http://172.30.1.10/static/openvidu/app.js"></script>
+<script src="http://172.30.1.10/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.js"></script>
 <link rel="stylesheet" href="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.css">
 <link rel="stylesheet" href="/static/openvidu/app.css">
 </head>
