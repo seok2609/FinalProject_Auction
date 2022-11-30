@@ -73,7 +73,7 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력">
+                  <input type="text" name="phone" class="form-control" id="inputPhone" oninput="autoHyphen(this)" maxlength="13" placeholder="전화번호 입력">
                   <span id="phoneHelp" class="bc"></span>
                 </div>
                     
