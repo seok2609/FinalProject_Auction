@@ -37,6 +37,7 @@
               <div class="row" >
               
                 <div class="form-group mt-3">
+                  <input type="hidden" name="roleNum" value="${param.roleNum}">
                   <input type="text" name="id" class="form-control" id="inputId" placeholder="아이디를 입력하세요">
                   <span id="idHelp" class="bc"></span>
                 </div>
@@ -66,19 +67,24 @@
                   <span id="emailHelp" class="bc"></span>
                 </div>
                 
-                <div class="form-group mt-3">
+                <!-- <div class="form-group mt-3">
                   <input type="text" name="birth" class="form-control" id="inputBirth" placeholder="생년월일">
+                  <span id="birthHelp" class="bc"></span>
+                </div> -->
+                
+                <div class="form-group mt-3">
+                  <input type="text" name="birth" class="form-control" id="inputBirth" onkeyup="birth_keyup(this)" placeholder="생년월일을 입력해주세요." maxlength="10">
                   <span id="birthHelp" class="bc"></span>
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력">
+                  <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력" oninput="autoHyphen(this)" maxlength="13">
                   <span id="phoneHelp" class="bc"></span>
                 </div>
                     
 
 				<div class="form-group mt-3">
-				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부</label>
+				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
 				  <input class="form-control form-control-sm" id="memberFileAdd" name="files" type="file">
 				</div>
                 
