@@ -292,20 +292,6 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">당월 일일 방문자 수</h6>
-                                    <!-- <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div> -->
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -323,26 +309,35 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr class="text-success">
-                                            <th>아이디</th>
-                                            <th>등급</th>
-                                            <th>제목</th>
-                                            <th>문의 날짜</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${adminInquiryList}" var="inquiryList">
-                                                <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
-                                                    <td>${inquiryList.id}</td>
-                                                    <td>${inquiryList.membersVO.roleVO.roleName}</td>
-                                                    <td>${inquiryList.inquiry_text}</td>
-                                                    <td>${inquiryList.inquiry_date}</td>
-                                                </tr>       
-                                        </c:forEach> 
-                                    </tbody>
-                                </table>
+                              
+                                    <c:choose>
+                                        <c:when test="${empty adminInquiryList}">
+                                            대기중인 1대1문의가 없습니다.
+                                        </c:when>
+                                        <c:otherwise>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr class="text-success">
+                                                        <th>아이디</th>
+                                                        <th>등급</th>
+                                                        <th>제목</th>
+                                                        <th>문의 날짜</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${adminInquiryList}" var="inquiryList">
+                                                            <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
+                                                                <td>${inquiryList.id}</td>
+                                                                <td>${inquiryList.membersVO.roleVO.roleName}</td>
+                                                                <td>${inquiryList.inquiry_text}</td>
+                                                                <td>${inquiryList.inquiry_date}</td>
+                                                            </tr>       
+                                                    </c:forEach> 
+                                                </tbody>
+                                            </table>
+                                        </c:otherwise>
+                                    </c:choose>
+                              
                             </div>
                         </div>
                     </div>
