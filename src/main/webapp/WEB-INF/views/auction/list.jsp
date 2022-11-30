@@ -5,12 +5,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <title>Insert title here</title>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script src="/static/openvidu/app.js"></script>
+<script src="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.js"></script>
+<link rel="stylesheet" href="/static/openvidu/webcomp/openvidu-webcomponent-2.24.0.css">
 <c:import url="../common/header.jsp"></c:import>
 </head>
 <body>
 	<main id="main">
-
+	
+    
+    <div id="vidu" style="text-align: center;">
+        <h1>Join a video session</h1>
+        <form onsubmit="joinSession(); return false" style="padding: 80px; margin: auto">
+            <p>
+                <label>Session:</label>
+                <input type="text" id="sessionName" value="SessionA" required>
+            </p>
+            <p>
+                <label>User:</label>
+                <input type="text" id="user" value="User1" required>
+            </p>
+            <p>
+                <input type="submit" value="JOIN">
+            </p>
+        </form>
+    </div>
+	<!-- OpenVidu Web Component -->
+	<div>
+    	<openvidu-webcomponent style="height : 100%;" id="abc"></openvidu-webcomponent>
+    	<ov-videoconference></ov-videoconference>
+	</div>
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs">
       <div class="page-header d-flex align-items-center" style="background-image: url('');">
@@ -82,6 +109,7 @@
   </main><!-- End #main -->
 	
 	
+    
 
 <c:import url="../common/footer.jsp"></c:import>
 </body>
