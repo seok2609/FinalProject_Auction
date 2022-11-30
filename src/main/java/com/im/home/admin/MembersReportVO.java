@@ -1,4 +1,4 @@
-package com.im.home.admin.report;
+package com.im.home.admin;
 
 import java.sql.Date;
 

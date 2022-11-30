@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.im.home.adminInquiryResponse.InquiryResponseVO;
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
 import com.nimbusds.oauth2.sdk.token.BearerTokenError;
@@ -66,6 +65,19 @@ public class AdminMembersService {
 	//메인페이지 총 회원 수
 	public Integer getTotalMembers(MembersVO membersVO)throws Exception{
 		return adminMembersMapper.getTotalMembers(membersVO);
+	}
+	//신고 요청
+	public int setRepoertRequest(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setRepoertRequest(membersReportVO);
+	}
+	//신고 요청 건 수
+	public Integer getTotalReport(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.getTotalReport(membersReportVO);
+	}
+	//신고 리스트
+	public List<MembersReportVO> getReportList(AdminPager adminPager)throws Exception{
+		log.info("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+		return adminMembersMapper.getReportList(adminPager);
 	}
 	
 	
