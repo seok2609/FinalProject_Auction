@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,13 +27,20 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Controller
+@CrossOrigin(origins = "*", methods = RequestMethod.GET) 
 @Slf4j
 @RequestMapping("/wholesale/*")
 public class WholeSaleController {
 	
+	@GetMapping("sale2")
+	public String sale2() throws Exception{
+		
+		return "wholesale/sale2";
+	}
+	
 	// 고정데이터 가공 페이지
 	
-	@RequestMapping("sale")
+	@GetMapping("sale")
 	@ResponseBody
 	public ModelAndView sale() throws Exception{
 		
