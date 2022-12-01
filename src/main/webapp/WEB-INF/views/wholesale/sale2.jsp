@@ -15,7 +15,8 @@
 <c:import url="../common/header.jsp"></c:import>
 <c:import url="../temp/boot.jsp"></c:import>
 <!-- ================================ -->
-<h1>${param.totalNum}</h1>
+
+<h1>${param.plsPage}</h1>
     <table class="table table-striped" id="api">
         <thead>
             <tr>
@@ -56,7 +57,10 @@
 
         </div>
         <button type="button" onclick="getJSON()"> json 불러오는 버튼</button>
-            </table>
+       </table>
+            <div class="plsPage">
+
+            </div>
             <!-- ===========footer=============== -->
 <c:import url="../common/footer.jsp"></c:import>
 <!-- ================================ -->

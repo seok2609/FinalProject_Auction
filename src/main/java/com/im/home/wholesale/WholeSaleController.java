@@ -27,7 +27,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Controller
-@CrossOrigin(origins = "*", methods = RequestMethod.GET) 
 @Slf4j
 @RequestMapping("/wholesale/*")
 public class WholeSaleController {
