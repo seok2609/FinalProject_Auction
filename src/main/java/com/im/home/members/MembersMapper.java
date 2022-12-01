@@ -1,5 +1,7 @@
 package com.im.home.members;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -22,5 +24,8 @@ public interface MembersMapper {
 	public int setMembersRole(MembersVO membersVO) throws Exception;
 	
 	//마이페이지에서 보이는 나의 1:1문의 내역
-	public AdminMembersVO getInquiryList(AdminMembersVO adminMembersVO) throws Exception;
+	public List<AdminMembersVO> getInquiryList(AdminMembersVO adminMembersVO) throws Exception;
+	
+	//회원정보 수정
+	public int setMembersModify (MembersVO membersVO) throws Exception;
 }

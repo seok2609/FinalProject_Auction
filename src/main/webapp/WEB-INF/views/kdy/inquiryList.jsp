@@ -257,8 +257,9 @@
                 </div>
             </div>
                 <!-- Begin Page Content -->
+<%--                 <form action="inquiryList" method="get" id="inquiryForm"> 
                 <sec:authentication property="Principal" var="member"/>
-                <c:if test="${member.roleNum not eq 0}">
+                <c:if test="${member.roleNum not eq 0}"> --%>
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -305,7 +306,8 @@
                         </table>
                     </div>
                     </div>
-            </c:if>
+ <%--                </c:if>
+            </form> --%>
                 </div>
             </div>
         </div>

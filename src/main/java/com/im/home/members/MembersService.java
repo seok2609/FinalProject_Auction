@@ -1,7 +1,7 @@
 package com.im.home.members;
 
 import java.io.File;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -130,11 +130,20 @@ public class MembersService {
 	
 	
 	//마이페이지에서 보이는 1:1문의 내역
-	public AdminMembersVO getInquiryList(AdminMembersVO adminMembersVO) throws Exception{
+	public List<AdminMembersVO> getInquiryList(AdminMembersVO adminMembersVO) throws Exception{
 		
-		adminMembersVO = membersMapper.getInquiryList(adminMembersVO);
+		 
 		
-		return adminMembersVO;
+		return membersMapper.getInquiryList(adminMembersVO);
+	}
+	
+	
+	//회원정보 수정
+	public int setMembersModify(MembersVO membersVO) throws Exception{
+		
+		int result = membersMapper.setMembersModify(membersVO);
+		
+		return result;
 	}
 	
 	

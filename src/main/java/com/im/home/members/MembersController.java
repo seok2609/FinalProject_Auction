@@ -1,7 +1,12 @@
 package com.im.home.members;
 
 import java.security.Principal;
+import java.util.List;
 
+import javax.servlet.Servlet;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletMapping;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -123,6 +129,7 @@ public class MembersController {
 		int result = membersService.setMembersSignUp(membersVO, files);
 		membersService.setMembersRole(membersVO);
 		
+		mv.addObject("membersVO", membersVO);
 		mv.setViewName("members/login");
 		
 		
@@ -143,11 +150,23 @@ public class MembersController {
 		ModelAndView mv = new ModelAndView();
 		AdminMembersVO adminMembersVO = new AdminMembersVO();
 		
+		
 		log.info("ddddd => {}" ,principal.getName()); 
 		
 		membersVO.setId(principal.getName());	//시큐리티로 로그인한 아이디값을 가져오는 코드
 		
 		membersVO = membersService.getMyPage(membersVO);
+		
+//		if(request2.getRequestURI() == "inquiryList") {
+//			adminMembersVO = membersService.getInquiryList(adminMembersVO);
+//			mv.setViewName("kdy/inquiryList");
+//		}
+		
+//		String url = request2.getRequestURI();
+//		if(url == "inquiryList") {
+//			adminMembersVO = membersService.getInquiryList(adminMembersVO);
+//			mv.setViewName("kdy/inquiryList");
+//		}
 		
 		model.addAttribute("membersVO", principal);
 		log.info("Principal => {} ", principal);
@@ -175,14 +194,45 @@ public class MembersController {
 	}
 	
 	
+	//마이페이지에서 보이는 나의 1:1문의 내역
+//	@RequestMapping(value = "/kdy/*")
 	@GetMapping(value = "inquiryList")
-	public ModelAndView getInquiryList(AdminMembersVO adminMembersVO, MembersVO membersVO, Principal principal, HttpSession session) throws Exception{
+	public ModelAndView getInquiryList(String id, AdminMembersVO adminMembersVO, Principal principal, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		MembersVO membersVO = (MembersVO)session.getAttribute(principal.getName());
+		adminMembersVO.setId(principal.getName());
+		log.info("===================================폼폼폼폼폼폼포뫂ㅁ");
+		log.info("내 로그인한 아이디 : {} ", principal.getName());
+		
+		List<AdminMembersVO> ar = membersService.getInquiryList(adminMembersVO);
+		
+		mv.addObject("AdminMembersVO", adminMembersVO);
+	
+		mv.addObject("inquiryList", ar);
+		mv.setViewName("members/inquiryList");
+		
+		return mv;
+	}
+	
+	//회원정보 수정
+	@GetMapping(value = "modify")
+	public String setMembersModify() throws Exception{
+		
+		return "members/modify";
+	}
+	
+	@PostMapping(value = "modify")
+	public ModelAndView setMembersModify(MembersVO membersVO) throws Exception{
+		
 		ModelAndView mv = new ModelAndView();
 		
-		adminMembersVO = membersService.getInquiryList(adminMembersVO);
-		session.setAttribute("AdminMembersVO", adminMembersVO);
-		mv.addObject("AdminMembersVO", adminMembersVO);
-		mv.setViewName("kdy/inquiryList");
+		log.info("============================회원가입 수정==========================");
+		mv.addObject("membersVO", membersVO);
+		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
+		int result = membersService.setMembersModify(membersVO);
+		
+		
+		mv.setViewName("members/modify");
 		
 		return mv;
 	}

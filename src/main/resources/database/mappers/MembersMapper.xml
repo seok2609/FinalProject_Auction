@@ -7,7 +7,7 @@
 
 	<insert id="setMembersSignUp" parameterType="MembersVO">
 
-		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, 1);
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null);
 	</insert>
 	
 	<insert id="setMembersRole" parameterType="MembersVO">
@@ -96,17 +96,21 @@
 	</select>
 	
 	<!-- 내가 작성한 1:1문의 리스트 -->
-	<select id="getInquiryList" parameterType="AdminMembersVO" resultMap="getInquiryListResult">
-		SELECT IQ.INQUIRY_NUM , M.ID, IQ.INQUIRY_CONTENTS, IQ.INQUIRY_TEXT, IQ.INQUIRY_DATE 
+	<select id="getInquiryList" parameterType="MembersVO" resultMap="getInquiryListResult">
+		SELECT IQ.INQUIRY_NUM , M.ID, IQ.INQUIRY_CONTENTS, IQ.INQUIRY_TEXT, IQ.INQUIRY_DATE, IR.INQUIRY_RESPONSE_CONTENTS , IR.INQUIRY_RESPONSE_DATE
 			FROM INQUIRY IQ 
 				INNER JOIN
 			MEMBERS	M
 				ON M.ID = IQ.ID 
+				LEFT JOIN 
+			INQUIRY_RESPONSE IR
+			
+			ON IQ.INQUIRY_NUM  = IR.INQUIRY_NUM 
 			WHERE M.ID = #{id}
 				ORDER BY IQ.INQUIRY_NUM DESC;
 	</select>
 	
-	<resultMap type="AdminMembersVO" id="getInquiryListResult">
+ 	<resultMap type="AdminMembersVO" id="getInquiryListResult">
 		<id column="inquiry_num" property="inquiry_num"/>
 		<result column="id" property="id"/>
 		<result column="inquiry_contents" property="inquiry_contents"/>
@@ -114,9 +118,33 @@
 		<result column="inquiry_date" property="inquiry_date"/>
 		
 		<association property="membersVO" javaType="MembersVO">
-			<id column="id" property=""/>
+			<id column="id" property="id"/>
+		</association>
+		
+		<association property="inquiryResponseVO" javaType="InquiryResponseVO">
+			<id column="inquiry_response_num" property="inquiry_response_num"/>
+			<result column="inquiry_num" property="inquiry_num"/>
+			<result column="inquiry_response_contents" property="inquiry_response_contents"/>
+			<result column="inquiry_response_date" property="inquiry_response_date"/>
 		</association>
 	</resultMap>
+	
+<!-- 	<resultMap type="MembersVO" id="getInquiryListResult">
+		<id column="id" property="id"/>
+		
+		<collection property="adminMembersVOs" javaType="List" ofType="AdminMembersVO">
+			<id column="inquiry_num" property="inquiry_num"/>
+			<result column="id" property="id"/>
+			<result column="inquiry_contents" property="inquiry_contents"/>
+			<result column="inquiry_text" property="inquiry_text"/>
+			<result column="inquiry_date" property="inquiry_date"/>
+		</collection>
+	</resultMap> -->
+	
+	
+	<update id="setMembersModify" parameterType="MembersVO">
+		UPDATE MEMBERS SET PASSWORD=#{passWord}, NICKNAME=#{nickName}, EMAIL=#{email}, PHONE=#{phone} WHERE ID = #{id}
+	</update>
 	
 	
 	

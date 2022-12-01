@@ -48,10 +48,10 @@ public class SecurityConfig {
 	SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
 		
 		httpSecurity
-					.csrf()
-					.disable()
 					.cors()
 					.and()
+					.csrf()
+					.disable()
 				.authorizeRequests()	//인가요청
 				.antMatchers("./login").permitAll()	// "./login"페이지는 아무나 아무나 접속을 허용
 				.anyRequest().permitAll()
