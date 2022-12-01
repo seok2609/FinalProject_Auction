@@ -192,7 +192,7 @@ function initMainVideo(videoElement, userData) {
  * more about the integration of OpenVidu in your application server.
  */
 
-var APPLICATION_SERVER_URL = "http://192.168.1.6:5000/";
+var APPLICATION_SERVER_URL = "http://172.30.1.39:5000/";
 
 function getToken(mySessionId) {
 	return createSession(mySessionId).then(sessionId => createToken(sessionId));
