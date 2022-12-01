@@ -26,7 +26,6 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <style>
-
        #reportRequest{
         margin-left: 15px;
        } 
@@ -219,7 +218,7 @@
                                     </thead>
                                     <tbody>
                                     	<c:forEach items="${reportList}" var="reportLists">
-	                                        <tr>
+	                                        <tr onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
 	                                            <td>${reportLists.id}</td>
 	                                            <td>${reportLists.report_id}</td>
 	                                            <!-- <td>${reportLists.report_contents}</td> -->

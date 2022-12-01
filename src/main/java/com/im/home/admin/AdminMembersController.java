@@ -64,25 +64,6 @@ public class AdminMembersController {
 		mv.setViewName("kdy/inquiryList");
 		return mv;
 	}
-	//신고 리스트
-	@GetMapping("report")
-	public ModelAndView getReportList(AdminPager adminPager, MembersReportVO membersReportVO)throws Exception{
-		ModelAndView mv = new ModelAndView();
-		log.info("cccccccccccccccccccccccccccccc");
-		List<MembersReportVO> ar = adminMembersService.getReportList(adminPager);
-		log.info("num -->> {}", membersReportVO.getReport_num());
-		log.info("id -->> {}", membersReportVO.getId());
-		log.info("report_id -->> {}", membersReportVO.getReport_id());
-		log.info("contents -->> {}", membersReportVO.getReport_contents());
-		log.info("date -->> {}", membersReportVO.getReport_date());
-		log.info("reportList ===:>>>>> {}", adminMembersService.getReportList(adminPager));
-		log.info("ar=============>>>>>>>>>> {} ", ar.size());
-		int result = adminMembersService.getTotalReport(membersReportVO);
-		mv.addObject("reportList", ar);
-		mv.addObject("totalReport", result);
-		mv.addObject("adminPager", adminPager);
-		return mv;
-	}
 	//응답하지 않은 1대1문의 리스트
 	@GetMapping("inquiryNoResponseList")
 	public ModelAndView getInquiryNoResponseList(AdminPager adminPager)throws Exception{
@@ -147,6 +128,36 @@ public class AdminMembersController {
 		int result = adminMembersService.setRepoertRequest(membersReportVO);
 		mv.addObject("reportRequest", result);
 		mv.setViewName("redirect:../");
+		return mv;
+	}
+	//신고 리스트
+	@GetMapping("report")
+	public ModelAndView getReportList(AdminPager adminPager, MembersReportVO membersReportVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		log.info("cccccccccccccccccccccccccccccc");
+		List<MembersReportVO> ar = adminMembersService.getReportList(adminPager);
+		log.info("num -->> {}", membersReportVO.getReport_num());
+		log.info("id -->> {}", membersReportVO.getId());
+		log.info("report_id -->> {}", membersReportVO.getReport_id());
+		log.info("contents -->> {}", membersReportVO.getReport_contents());
+		log.info("date -->> {}", membersReportVO.getReport_date());
+		log.info("reportList ===:>>>>> {}", adminMembersService.getReportList(adminPager));
+		log.info("ar=============>>>>>>>>>> {} ", ar.size());
+		int result = adminMembersService.getTotalReport(membersReportVO);
+		mv.addObject("reportList", ar);
+		mv.addObject("totalReport", result);
+		mv.addObject("adminPager", adminPager);
+		return mv;
+	}
+	//신고 detail
+	@GetMapping("reportDetail")
+	public ModelAndView getReportDetail(MembersReportVO membersReportVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		membersReportVO= adminMembersService.getReportDetail(membersReportVO);
+		
+		log.info("idid-->>{}", membersReportVO.getId());
+		mv.addObject("reportDetail", membersReportVO);
+		mv.setViewName("kdy/reportDetail");
 		return mv;
 	}
 	//경매인 구인구직

@@ -336,7 +336,7 @@
                                         <c:otherwise>
                                             <table class="table table-striped">
                                                 <thead>
-                                                    <div class="card-header py-3">대기중인 1대1 문의 입니다.</div>
+                                                    <div class="card-header py-3">대기중인 1대1 문의 5개 입니다.</div>
                                                     <tr class="text-success">
                                                         <th>아이디</th>
                                                         <th>등급</th>
@@ -357,6 +357,8 @@
                                             </table>
                                         </c:otherwise>
                                     </c:choose>
+
+                                    
                               
                             </div>
                         </div>
