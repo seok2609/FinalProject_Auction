@@ -79,6 +79,10 @@ public class AdminMembersService {
 		log.info("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 		return adminMembersMapper.getReportList(adminPager);
 	}
+	//신고 디테일
+	public MembersReportVO getReportDetail(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.getReportDetail(membersReportVO);
+	}
 	
 	
 	

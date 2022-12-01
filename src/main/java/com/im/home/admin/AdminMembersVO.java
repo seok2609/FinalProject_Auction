@@ -16,11 +16,10 @@ public class AdminMembersVO {
 	private String inquiry_text;
 	private Date inquiry_date;
 	private Integer inquiry_response;
-	
 	private MembersVO membersVO;
 	private InquiryResponseVO inquiryResponseVO;
 	private List<MembersReportVO> membersReportVOs;
-
+	private MembersReportVO membersReportVO;
 	
 
 }

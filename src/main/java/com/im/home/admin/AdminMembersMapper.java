@@ -44,6 +44,8 @@ public interface AdminMembersMapper {
 	public Integer getTotalReport(MembersReportVO membersReportVO)throws Exception;
 	//신고 요청 리스트
 	public List<MembersReportVO> getReportList(AdminPager adminPager)throws Exception;
+	//신고 요청 디테일
+	public MembersReportVO getReportDetail(MembersReportVO membersReportVO)throws Exception;
 
 
 }
