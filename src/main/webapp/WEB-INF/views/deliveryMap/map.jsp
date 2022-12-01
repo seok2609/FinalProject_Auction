@@ -19,15 +19,32 @@
     	//showText.innerText = checkD;
 	}
 </script>
-
+<style>
+	html, body {width:100%;height:100%;margin:0;padding:0;} 
+	.map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
+	.radius_border{border:1px solid #919191;border-radius:5px;}     
+	.custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:70px;height:30px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+	.custom_typecontrol span {display:block;width:70px;height:30px;float:left;text-align:center;line-height:30px;cursor:pointer;} 
+	.custom_typecontrol .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+	.custom_typecontrol .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+	.custom_typecontrol .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+	.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+	.custom_typecontrol .selected_btn:hover {color:#fff;}   
+	          
+</style>
 </head>
 <body>
 	<h1>Test Map</h1>
 	<textarea id="testAdd"></textarea>
 	<button onclick="testABtn()">더하기</button>
-	<!-- 지도를 표시할 div 입니다 -->
-	<button onclick="panTo()">트럭 위치</button>
-	<div id="map" style="width:500px;height:350px;"></div>
+	<div class="map_wrap" style="width:450px; height: 400px;">
+		<!-- 지도를 표시할 div 입니다 -->
+		<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div> 
+		<div class="custom_typecontrol radius_border">
+			<span id="btnRoadmap" class="selected_btn" onclick="panTo()">현재 위치</span>
+		</div>
+	</div>
+	<!-- <div id="map" style="width:500px;height:350px;"></div> -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae6b0e9fe80d419505ac021baf944e44"></script>
 	<script>
 	
@@ -111,13 +128,13 @@
 		console.log("lon : "+lon);
 		// 마커를 표시할 위치와 title 객체 배열입니다 
 	    var positions = [ {
-	        title : "카카오",
+	        title : "시작위치",
 	        latlng : new kakao.maps.LatLng(37.53946477, 126.82873744)
 	    }, {
 	    	title : "배달트럭",
 	    	latlng : new kakao.maps.LatLng(lat, lon)
 	    }, {
-	        title : "제주공항",
+	        title : "도착위치",
 	        latlng : new kakao.maps.LatLng(37.44597242, 126.88500282)
 	    } ];
 	 	
