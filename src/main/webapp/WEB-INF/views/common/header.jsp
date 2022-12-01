@@ -69,6 +69,7 @@
       		<sec:authentication property="Principal" var="member"/>      		
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
       		
+          <li><a href="./kdy/inquiryRequest">1대1 문의</a></li>
       		<li><a href="./members/logout">Logout</a></li>
       		<li><a href="./members/myPage">MyPage</a></li>
             <li><a href="./kdy/inquiryRequest">1대1 문의</a></li>

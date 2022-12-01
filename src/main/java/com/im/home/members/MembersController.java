@@ -32,10 +32,13 @@ public class MembersController {
 	private MembersService membersService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+//	@Autowired
+//	private MailSenderRunner mailSenderRunner;
+	
 	
 	@GetMapping(value = "login")
 	public String getMembersLogin() throws Exception{
-		
+	
 		return "members/login";
 	}
 	
