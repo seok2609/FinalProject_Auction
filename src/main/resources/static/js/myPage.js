@@ -10,10 +10,17 @@ $("#inquiryListDiv").click(function(){
 })
 
 
-$("#updateBtn").click(function(){
+$("#upBtn").click(function(){
 
-    console.log("md 클릭");
+    console.log("a태그 클릭");
 
     $("#md").click();
 
+});
+
+$("#modifyBtn").click(function(){
+
+    console.log("수정 a태그 클릭");
+
+    location.href="./modify?id=${membersVO.id}"
 });

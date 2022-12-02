@@ -114,7 +114,7 @@
               </div>
               <h3 style="color: #008374;">회원정보 수정</h3>
               <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
-              <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+              <a href="./modify?id=${member.id}" id="" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -162,10 +162,7 @@
 				</c:forEach>
 		
 			</div> --%>
-		</form> 
-		
-		
-		<button type="button" id="updateBtn">정보 수정하기</button>
+		</form>
 		
 		<!-- Button trigger modal -->
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="md">

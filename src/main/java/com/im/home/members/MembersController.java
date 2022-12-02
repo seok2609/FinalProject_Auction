@@ -216,7 +216,7 @@ public class MembersController {
 	
 	//회원정보 수정
 	@GetMapping(value = "modify")
-	public String setMembersModify() throws Exception{
+	public String setMembersModify(String id, MembersVO membersVO) throws Exception{
 		
 		return "members/modify";
 	}
@@ -228,11 +228,11 @@ public class MembersController {
 		
 		log.info("============================회원가입 수정==========================");
 		mv.addObject("membersVO", membersVO);
-		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
+		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));
 		int result = membersService.setMembersModify(membersVO);
 		
 		
-		mv.setViewName("members/modify");
+		mv.setViewName("members/login");
 		
 		return mv;
 	}
