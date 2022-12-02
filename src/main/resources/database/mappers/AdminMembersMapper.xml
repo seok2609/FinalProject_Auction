@@ -13,11 +13,6 @@
 			LIKE concat ('%', #{search}, '%')
 		</sql>
 		
-		<!-- 총 회원 수 -->
-		<select id="getTotalMembers" parameterType="MembersVO" resultType="Integer">
-			SELECT COUNT(id) FROM MEMBERS
-		</select>
-		
 	 	<!-- 회원 조회 pager에 필요한 count -->
 		<select id="getAdminMembersCount" resultType="Long" parameterType="AdminPager">
 			 SELECT COUNT(*) FROM MEMBERS
@@ -35,6 +30,13 @@
 			 <include refid="search"/>
 			 LIMIT #{startRow}, #{perPage}
 	 	</select>
+	 	<!-- 신고 요청 승인 -->
+		<update id="setBlack" parameterType="MembersVO">
+			UPDATE MEMBERS SET BLACK =2 WHERE ID=#{id}
+		</update>
+		<update id="setBlackC" parameterType="MembersVO">
+			UPDATE MEMBERS SET BLACK =NULL WHERE ID=#{id}
+		</update>
  		<!-- 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트 --> 
  		<select id="getAdminPageInquiryList" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
  			 SELECT M.*,R.*, IQ.* FROM
@@ -104,26 +106,6 @@
 		<select id="getTotalInquiry" resultType="Integer" parameterType="AdminMembersVO">
 			SELECT COUNT(INQUIRY_NUM) FROM INQUIRY
 		</select>
-		<!-- 응답하지 않은 1대1문의 수-->
-		<select id="getTotalInquiryNo" resultType="Integer" parameterType="AdminMembersVO">
-		  SELECT COUNT (INQUIRY_CONTENTS)
- 		  FROM
- 		  INQUIRY IQ
- 		  LEFT JOIN
- 		  INQUIRY_RESPONSE IR
-		  ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
-		  WHERE INQUIRY_RESPONSE_CONTENTS IS NULL
-		</select>
-		<!-- 응답완료한 1대1문의 수 -->
-		<select id="getTotalInquiryYes" resultType="Integer" parameterType="AdminMembersVO">
-		    SELECT COUNT (INQUIRY_CONTENTS)
- 		  FROM
- 		  INQUIRY IQ
- 		  LEFT JOIN
- 		  INQUIRY_RESPONSE IR
-		  ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
-		  WHERE INQUIRY_RESPONSE_CONTENTS IS NOT NULL
-		</select>
 		<!-- 응답하지 않은 1대1문의 List -->
 		<select id="getInquiryNoResponseList" parameterType="AdminPager" resultMap="getInquiryDetailResult">
 			 SELECT M.*,R.*, IQ.* FROM
@@ -148,17 +130,27 @@
 			INSERT INTO REPORT VALUES
 			(NULL, #{id}, #{report_id}, #{report_contents}, SYSDATE())
 		</insert>
-		<!-- 신고요청 건 수 -->
-		<select id="getTotalReport" resultType="Integer" parameterType="MembersReportVO">
-			SELECT COUNT(ID) FROM REPORT
-		</select>
+		<!-- 신고 요청 대기 -->
+		<update id="setBlackWaiting" parameterType="MembersReportVO">
+			UPDATE MEMBERS M 
+			INNER JOIN
+			REPORT RP
+			ON M.ID = RP.REPORT_ID 
+			SET M.BLACK = 1 WHERE RP.REPORT_ID=#{report_id};
+		</update>
 		<!-- 신고요청 리스트 -->
 		<select id="getReportList" parameterType="AdminPager" resultType="MembersReportVO">
-			SELECT * FROM REPORT
+			SELECT *
+			FROM 
+			REPORT RP
+			LEFT JOIN
+			MEMBERS M 
+			ON M.ID = RP.REPORT_ID
+			WHERE M.BLACK = 1
 		</select>
 		<!-- 신고 요청 DETAIL -->
 		<select id="getReportDetail" parameterType="MembersReportVO" resultMap="getReportResult">
-			<!-- SELECT M.*, RP.* 
+		    SELECT M.*, RP.* 
 			FROM 
 			MEMBERS M
 			INNER JOIN
@@ -170,10 +162,89 @@
 			LEFT JOIN
 			REPORT RP
 			ON M.ID = RP.ID
-			WHERE RP.ID=#{id} AND RP.REPORT_ID=#{report_id} AND RP.REPORT_NUM=#{report_num}  -->
-			SELECT * FROM REPORT
-			WHERE ID=#{id} AND REPORT_ID=#{report_id} AND REPORT_NUM=#{report_num}
+			WHERE RP.ID=#{id} AND RP.REPORT_ID=#{report_id} AND RP.REPORT_NUM=#{report_num}
 		</select>
+		<!-- 신고 요청 거절 -->
+		<delete id="setResponseReportNo" parameterType="MembersReportVO">
+			DELETE FROM REPORT WHERE REPORT_NUM=#{report_num}
+		</delete>
+		<!-- 신고 요청 승인 -->
+		<update id="setResponseReportOk" parameterType="MembersReportVO">
+			UPDATE MEMBERS M 
+			INNER JOIN
+			REPORT RP
+			ON M.ID = RP.REPORT_ID
+			SET M.BLACK =2 WHERE RP.REPORT_ID=#{report_id}
+		</update>
+		<!-- 블랙당한 회원 리스트 -->
+		<select id="getBlackList" parameterType="AdminPager" resultMap="getReportResult">
+			SELECT M.*, RP.* FROM
+			MEMBERS M
+			LEFT JOIN
+			REPORT RP
+			ON M.ID = RP.REPORT_ID
+			WHERE M.BLACK=2
+		</select>
+		<!-- 블랙 리스트 디테일 -->
+		<select id="getBlackDetail" parameterType="MembersReportVO" resultMap="getReportResult">
+			SELECT M.*, RP.* FROM
+			MEMBERS M
+			LEFT JOIN
+			REPORT RP
+			ON M.ID = RP.REPORT_ID
+			WHERE RP.REPORT_ID = #{report_id}
+		</select>
+		<!-- 블랙 해제 -->
+		<update id="setBlackCancel" parameterType="MembersReportVO">
+			UPDATE MEMBERS M 
+			INNER JOIN
+			REPORT RP
+			ON M.ID = RP.REPORT_ID 
+			SET M.BLACK = NULL WHERE RP.REPORT_ID=#{report_id};
+		</update>
+		
+		<!-- ======================================= count ========================================================================= -->
+		<!-- 총 회원 수 -->
+		<select id="getTotalMembers" parameterType="MembersVO" resultType="Integer">
+			SELECT COUNT(id) FROM MEMBERS
+		</select>
+		<!-- 응답하지 않은 1대1문의 수-->
+		<select id="getTotalInquiryNo" resultType="Integer" parameterType="AdminMembersVO">
+		    SELECT COUNT (INQUIRY_CONTENTS)
+ 		    FROM
+ 		    INQUIRY IQ
+ 		    LEFT JOIN
+ 		    INQUIRY_RESPONSE IR
+		    ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
+		    WHERE INQUIRY_RESPONSE_CONTENTS IS NULL
+		</select>
+		<!-- 응답완료한 1대1문의 수 -->
+		<select id="getTotalInquiryYes" resultType="Integer" parameterType="AdminMembersVO">
+		    SELECT COUNT (INQUIRY_CONTENTS)
+	 		FROM
+	 		INQUIRY IQ
+	 		LEFT JOIN
+	 		INQUIRY_RESPONSE IR
+			ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
+			WHERE INQUIRY_RESPONSE_CONTENTS IS NOT NULL
+		</select>
+		<!-- 신고요청 건 수 -->
+		<select id="getTotalReport" resultType="Integer" parameterType="MembersReportVO">
+			SELECT count(*)
+			FROM 
+			REPORT RP
+			LEFT JOIN
+			MEMBERS M 
+			ON M.ID = RP.REPORT_ID
+			WHERE M.BLACK = 1;
+		</select>
+		<!-- 블랙 회원 수 -->
+		<select id="getTotalBlack" parameterType="MembersVO" resultType="Integer">
+			SELECT COUNT(BLACK)
+			FROM MEMBERS WHERE BLACK=2
+		</select>
+
+		<!-- ============================================================================================================================ -->
 	<!-- memberList -->
  	<resultMap type="MembersVO" id="getAdminMembersListResult">
  			<id column="id" property="id"/>
@@ -185,6 +256,7 @@
  			<result column="gender" property="gender"/>
  			<result column="phone" property="phone"/>
  			<result column="joinDate" property="joinDate"/>
+ 			<result column="black" property="black"/>
  			
  			<association property="roleVO" javaType="RoleVO">
 				<id column="roleNum" property="roleNum"/>
@@ -212,6 +284,7 @@
 	 			<result column="gender" property="gender"/>
 	 			<result column="phone" property="phone"/>
 	 			<result column="joinDate" property="joinDate"/>
+	 			<result column="black" property="black"/>
 	 			
 	 			<association property="roleVO" javaType="RoleVO">
 					<id column="roleNum" property="roleNum"/>
@@ -251,11 +324,13 @@
 		 	<result column="gender" property="gender"/>
 		 	<result column="phone" property="phone"/>
 		 	<result column="joinDate" property="joinDate"/>
+		 	<result column="black" property="black"/>
 		 	
 		 	<association property="roleVO" javaType="RoleVO">
 				<id column="roleNum" property="roleNum"/>
 				<result column="roleName" property="roleName"/>
 			</association>
+			
 	 	</association>
  	</resultMap>
  	

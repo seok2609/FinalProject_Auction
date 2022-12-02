@@ -20,6 +20,5 @@ public class AdminMembersVO {
 	private InquiryResponseVO inquiryResponseVO;
 	private List<MembersReportVO> membersReportVOs;
 	private MembersReportVO membersReportVO;
-	
 
 }

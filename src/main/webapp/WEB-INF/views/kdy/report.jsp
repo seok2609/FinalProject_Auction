@@ -207,26 +207,31 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>신고 요청 아이디</th>
-                                            <th>신고 대상자 아이디</th>
-                                            <!-- <th>신고 사유</th> -->
-                                            <th>신고 요청 날짜</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    	<c:forEach items="${reportList}" var="reportLists">
-	                                        <tr onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
-	                                            <td>${reportLists.id}</td>
-	                                            <td>${reportLists.report_id}</td>
-	                                            <!-- <td>${reportLists.report_contents}</td> -->
-	                                            <td>${reportLists.report_date}</td>
-	                                        </tr>
-                                    	</c:forEach>
-                                    </tbody>
-                                </table>
+                                <c:choose>
+                                	<c:when test="${empty reportList}">
+                                		신고 요청이 없습니다.
+                                	</c:when>
+                                	<c:otherwise>
+		                                <table class="table table-bordered">
+		                                    <thead>
+		                                        <tr>
+		                                            <th>신고자</th>
+		                                            <th>대상자</th>
+		                                            <th>신고 요청 날짜</th>
+		                                        </tr>
+		                                    </thead>
+		                                    <tbody>
+		                                    	<c:forEach items="${reportList}" var="reportLists">
+			                                        <tr onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
+			                                            <td>${reportLists.id}</td>
+			                                            <td>${reportLists.report_id}</td>
+			                                            <td>${reportLists.report_date}</td>
+			                                        </tr>
+		                                    	</c:forEach>
+		                                    </tbody>
+		                                </table>
+                                	</c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>

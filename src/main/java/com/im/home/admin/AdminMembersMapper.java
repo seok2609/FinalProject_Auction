@@ -40,12 +40,28 @@ public interface AdminMembersMapper {
 	public Long getAdminMembersCount(AdminPager adminPager)throws Exception;
 	//신고 요청
 	public int setRepoertRequest(MembersReportVO membersReportVO)throws Exception;
+	//신고 요청 대기
+	public int setBlackWaiting(MembersReportVO membersReportVO)throws Exception;
 	//신고 요청 건 수
 	public Integer getTotalReport(MembersReportVO membersReportVO)throws Exception;
 	//신고 요청 리스트
 	public List<MembersReportVO> getReportList(AdminPager adminPager)throws Exception;
 	//신고 요청 디테일
 	public MembersReportVO getReportDetail(MembersReportVO membersReportVO)throws Exception;
-
-
+	//신고 요청 거절
+	public int setResponseReportNo(MembersReportVO membersReportVO)throws Exception;
+	//신고 요청 승인
+	public int setResponseReportOk(MembersReportVO membersReportVO)throws Exception;
+	//블랙 리스트
+	public List<MembersReportVO> getBlackList(AdminPager adminPager)throws Exception;
+	//블랙 회원 수
+	public Integer getTotalBlack(MembersVO membersVO)throws Exception;
+	//블랙 회원 디테일
+	public MembersReportVO getBlackDetail(MembersReportVO membersReportVO)throws Exception;
+	//블랙 해제
+	public int setBlackCancel(MembersReportVO membersReportVO)throws Exception;
+	//블랙 해제
+	public int setBlack(MembersVO membersVO)throws Exception;
+	//블랙 해제
+	public int setBlackC(MembersVO membersVO)throws Exception;
 }

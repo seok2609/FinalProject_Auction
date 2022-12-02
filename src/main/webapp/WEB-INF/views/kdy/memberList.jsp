@@ -33,6 +33,19 @@
        #memberListSearch{
         margin-left: 50px;
        } 
+       #blackMembersCss{
+        color: seagreen;
+       }
+       #blackMembersCsss{
+        color: red
+       }
+       #blackListMembers{
+        margin-left: 15px;
+        color: red;
+       }
+       #blackMembersCssss{
+        color: mediumvioletred;
+       }
     </style>
 
 </head>
@@ -196,7 +209,9 @@
 											placeholder="닉네임을 입력해 주세요">
 										<button type="submit" class="btn btn-secondary" id="searchNull">검색
 										</button>
+                                        <div id="blackListMembers">블랙리스트 회원은 빨간색</div>
 									</div>
+                                    
 								</div>
 							</form>
 						</div>
@@ -208,22 +223,37 @@
                                     <th>성  함</th>
                                     <th>닉네임</th>
                                     <th>이메일</th>
-                                    <th>성  별</th>
                                     <th>전화번호</th>
+                                    <th>등 급</th>
                                     <th>가입날짜</th>
+                                    
                                 </tr>
                             </thead>
                             
                             <tbody>
                                 <c:forEach items="${membersVO}" var="membersVO">
                                     <tr>
-                                        <td>${membersVO.id}</td>
-                                        <td>${membersVO.realName}</td>
-                                        <td>${membersVO.nickName}</td>
-                                        <td>${membersVO.email}</td>
-                                        <td>${membersVO.gender}</td>
-                                        <td>${membersVO.phone}</td>
-                                        <td>${membersVO.joinDate}</td>
+                                    <c:choose>
+                                        <c:when test="${membersVO.black < 2}">
+                                            <td id="blackMembersCss">${membersVO.id}</td>
+                                            <td id="blackMembersCss">${membersVO.realName}</td>
+                                            <td id="blackMembersCss">${membersVO.nickName}</td>
+                                            <td id="blackMembersCss">${membersVO.email}</td>
+                                            <td id="blackMembersCss">${membersVO.phone}</td>
+                                            <td id="blackMembersCssss" onclick="location.href='/kdy/black?id=${membersVO.id}'">${membersVO.roleVO.roleName}</td>
+                                            <td id="blackMembersCss">${membersVO.joinDate}</td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td id="blackMembersCsss">${membersVO.id}</td>
+                                            <td id="blackMembersCsss">${membersVO.realName}</td>
+                                            <td id="blackMembersCsss">${membersVO.nickName}</td>
+                                            <td id="blackMembersCsss">${membersVO.email}</td>
+                                            <td id="blackMembersCsss">${membersVO.phone}</td>
+                                            <td id="blackMembersCsss"  onclick="location.href='/kdy/blackC?id=${membersVO.id}'">블랙</td>
+                                            <td id="blackMembersCsss">${membersVO.joinDate}</td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                        
                                     </tr>
                                 </c:forEach> 
                             </tbody>

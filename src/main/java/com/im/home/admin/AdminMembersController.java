@@ -48,6 +48,24 @@ public class AdminMembersController {
 		mv.setViewName("/kdy/memberList");
 		return mv;
 	};
+	//memberList balck
+	@GetMapping("black")
+	public ModelAndView setBlack(MembersVO membersVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int black = adminMembersService.setBlack(membersVO);
+		mv.addObject("black", black);
+		mv.setViewName("redirect:./memberList");
+		return mv;
+	}
+	//memberList blackC
+	@GetMapping("blackC")
+	public ModelAndView setBlackC(MembersVO membersVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int blackCancel = adminMembersService.setBlackC(membersVO);
+		mv.addObject("blackCancel", blackCancel);
+		mv.setViewName("redirect:./memberList");
+		return mv;
+	}
 	//1대1문의
 	@GetMapping("inquiryList")
 	public ModelAndView getInquiryList(AdminPager adminPager, AdminMembersVO adminMembersVO)throws Exception{
@@ -126,7 +144,9 @@ public class AdminMembersController {
 	public ModelAndView setReportRequest(MembersReportVO membersReportVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		int result = adminMembersService.setRepoertRequest(membersReportVO);
+		int blackResult = adminMembersService.setBlackWaiting(membersReportVO);
 		mv.addObject("reportRequest", result);
+		mv.addObject("memberResult", blackResult);
 		mv.setViewName("redirect:../");
 		return mv;
 	}
@@ -154,21 +174,60 @@ public class AdminMembersController {
 	public ModelAndView getReportDetail(MembersReportVO membersReportVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		membersReportVO= adminMembersService.getReportDetail(membersReportVO);
-		
 		log.info("idid-->>{}", membersReportVO.getId());
 		mv.addObject("reportDetail", membersReportVO);
 		mv.setViewName("kdy/reportDetail");
 		return mv;
 	}
+	//신고 요청 거절
+	@GetMapping("responseReportNo")
+	public ModelAndView setResponseResportNo(MembersReportVO membersReportVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setResponseReportNo(membersReportVO);
+		int memberResult = adminMembersService.setBlackCancel(membersReportVO); 
+		mv.setViewName("redirect:./report");
+		return mv;
+	}
+	@GetMapping("responseReportOk")
+	public ModelAndView setResponseReportOk(MembersReportVO membersReportVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setResponseReportOk(membersReportVO);
+		mv.setViewName("redirect:./report");
+		return mv;
+	}
+	//블랙리스트
+	@GetMapping("memberBlackList")
+	public ModelAndView memberBlackList(AdminPager adminPager, MembersVO membersVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		List<MembersReportVO> ar = adminMembersService.getBlackList(adminPager);
+		int totalMembersBlack = adminMembersService.getTotalBlack(membersVO);
+		mv.addObject("totalMembersBlack", totalMembersBlack);
+		mv.addObject("blackList", ar);
+		mv.addObject("adminPager", adminPager);
+		return mv;
+	}
+	//블랙 회원 디테일
+	@GetMapping("blackDetail")
+	public ModelAndView getBalckDetail(MembersReportVO membersReportVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		membersReportVO = adminMembersService.getBalckDetail(membersReportVO);
+		mv.addObject("blackDetail", membersReportVO);
+		return mv;
+	}
+	//블랙 해제
+	@GetMapping("balckCancel")
+	public ModelAndView setBlackCancel(MembersReportVO membersReportVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setBlackCancel(membersReportVO);
+		int haha = adminMembersService.setResponseReportNo(membersReportVO);
+		mv.setViewName("redirect:./memberBlackList");
+		return mv;
+	}
+	
 	//경매인 구인구직
 	@GetMapping("auctioneer")
 	public String auctioneer()throws Exception{
 		return "kdy/auctioneer";
-	}
-	//블랙리스트
-	@GetMapping("memberBlackList")
-	public String memberBlackList()throws Exception{
-		return "kdy/memberBlackList";
 	}
 	//판매내역
 	@GetMapping("saleList")

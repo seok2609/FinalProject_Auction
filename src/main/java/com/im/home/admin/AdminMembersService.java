@@ -70,20 +70,51 @@ public class AdminMembersService {
 	public int setRepoertRequest(MembersReportVO membersReportVO)throws Exception{
 		return adminMembersMapper.setRepoertRequest(membersReportVO);
 	}
+	//신고 요청 대기
+	public int setBlackWaiting(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setBlackWaiting(membersReportVO);
+	}
 	//신고 요청 건 수
 	public Integer getTotalReport(MembersReportVO membersReportVO)throws Exception{
 		return adminMembersMapper.getTotalReport(membersReportVO);
 	}
 	//신고 리스트
 	public List<MembersReportVO> getReportList(AdminPager adminPager)throws Exception{
-		log.info("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 		return adminMembersMapper.getReportList(adminPager);
 	}
 	//신고 디테일
 	public MembersReportVO getReportDetail(MembersReportVO membersReportVO)throws Exception{
 		return adminMembersMapper.getReportDetail(membersReportVO);
 	}
-	
-	
+	//신고 요청 거절
+	public int setResponseReportNo(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setResponseReportNo(membersReportVO);
+	}
+	//신고 요청 승인
+	public int setResponseReportOk(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setResponseReportOk(membersReportVO);
+	}
+	//블랙 리스트
+	public List<MembersReportVO> getBlackList(AdminPager adminPager)throws Exception{
+		return adminMembersMapper.getBlackList(adminPager);
+	}
+	//블랙 회원 수
+	public Integer getTotalBlack(MembersVO membersVO)throws Exception{
+		return adminMembersMapper.getTotalBlack(membersVO);
+	}
+	//블랙 회원 디테일
+	public MembersReportVO getBalckDetail(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.getBlackDetail(membersReportVO);
+	}
+	//블랙 해제
+	public int setBlackCancel(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setBlackCancel(membersReportVO);
+	}
+	public int setBlack(MembersVO membersVO)throws Exception{
+		return adminMembersMapper.setBlack(membersVO);
+	}
+	public int setBlackC(MembersVO membersVO)throws Exception{
+		return adminMembersMapper.setBlackC(membersVO);
+	}
 	
 }
