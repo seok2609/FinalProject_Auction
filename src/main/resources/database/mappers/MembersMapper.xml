@@ -147,6 +147,10 @@
 		UPDATE MEMBERS SET PASSWORD=#{passWord}, NICKNAME=#{nickName}, EMAIL=#{email}, PHONE=#{phone} WHERE ID = #{id}
 	</update>
 	
+	<delete id="setMembersDrop" parameterType="MembersVO">
+		DELETE FROM MEMBERS WHERE ID = #{id}
+	</delete>
+	
 	
 	
 </mapper>

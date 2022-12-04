@@ -288,6 +288,12 @@ results[7] = result;
     }else{
         $("#phoneHelp").html("");
     }
+
+    // if($("#inputPhone").val() != '1', '0', '2', '3', '4', '5', '6', '7', '8', '9', '-' ){
+    //     $("#phoneHelp").html("숫자를 입력해주세요");
+    // }else{
+    //     $("#phoneHelp").html("");
+    // }
 });
 
 $("#signUpBtn").click(function(){
@@ -301,3 +307,19 @@ $("#signUpBtn").click(function(){
 
 });
 
+
+
+
+
+
+
+//회원탈퇴 성공 메세지
+$("#dropBtn").click(function(){
+
+    console.log("탈퇴버튼 클릭");
+
+    if($("#rd").val()=='1'){
+        alert("탈퇴가 되었습니다.")
+    }
+
+});

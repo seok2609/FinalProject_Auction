@@ -71,6 +71,9 @@
               </div>
          
 			</form>
+			
+			<input type="hidden" value="${resultDrop}" id="rd">
+			<button type="button" onclick="location='./drop'" id="dropBtn">회원탈퇴</button>
 	
 	
 

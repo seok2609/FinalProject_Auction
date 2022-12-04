@@ -12,7 +12,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -236,5 +238,29 @@ public class MembersController {
 		
 		return mv;
 	}
+	
+	
+	//회원 탈퇴
+	@GetMapping(value = "drop")
+	@ResponseBody
+	public ModelAndView setMembersDrop(MembersVO membersVO, HttpSession session) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
+		Authentication authentication = context.getAuthentication();
+		MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
+		
+		int resultDrop = membersService.setMembersDrop(membersVO2);
+		
+		if(resultDrop == 1) {
+			mv.setViewName("redirect:../");
+			session.invalidate();
+		}else {
+			mv.setViewName("members/myPage");
+		}
+		
+		return mv;
+	}
+	
 	
 }

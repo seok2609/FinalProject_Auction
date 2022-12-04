@@ -147,6 +147,15 @@ public class MembersService {
 	}
 	
 	
+	//회원정보 탈퇴
+	
+	public int setMembersDrop(MembersVO membersVO) throws Exception{
+		
+		int result = membersMapper.setMembersDrop(membersVO);
+		
+		return result;
+	}
+	
 	
 	
 	

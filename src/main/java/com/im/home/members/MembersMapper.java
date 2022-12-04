@@ -28,4 +28,7 @@ public interface MembersMapper {
 	
 	//회원정보 수정
 	public int setMembersModify (MembersVO membersVO) throws Exception;
+	
+	//일반회원 탈퇴
+	public int setMembersDrop (MembersVO membersVO) throws Exception;
 }
