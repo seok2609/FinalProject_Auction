@@ -12,31 +12,8 @@
 			</choose>
 			LIKE concat ('%', #{search}, '%')
 		</sql>
-		
-	 	<!-- 회원 조회 pager에 필요한 count -->
-		<select id="getAdminMembersCount" resultType="Long" parameterType="AdminPager">
-			 SELECT COUNT(*) FROM MEMBERS
-		</select>
-	 	<!-- memberList -->
-	 	<select id="getAdminMembersList" parameterType="AdminPager" resultMap="getAdminMembersListResult">
-			 SELECT M.*,R.* FROM
-	         MEMBERS M
-	         INNER JOIN
-	         MEMBERS_ROLE MR
-	         ON M.ID = MR.ID
-	         INNER JOIN
-	         ROLE R
-	         ON MR.ROLENUM = R.ROLENUM
-			 <include refid="search"/>
-			 LIMIT #{startRow}, #{perPage}
-	 	</select>
-	 	<!-- 신고 요청 승인 -->
-		<update id="setBlack" parameterType="MembersVO">
-			UPDATE MEMBERS SET BLACK =2 WHERE ID=#{id}
-		</update>
-		<update id="setBlackC" parameterType="MembersVO">
-			UPDATE MEMBERS SET BLACK =NULL WHERE ID=#{id}
-		</update>
+
+<!-- 1대1 문의 -->	 	
  		<!-- 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트 --> 
  		<select id="getAdminPageInquiryList" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
  			 SELECT M.*,R.*, IQ.* FROM
@@ -67,25 +44,6 @@
 			INSERT INTO INQUIRY_RESPONSE VALUES
 			(NULL, #{inquiry_num}, #{inquiry_response_contents}, SYSDATE())
 		</insert>
-	 	<!-- 1대1문의 리스트 -->
- 		<select id="getInquiryList"  parameterType="AdminPager" resultMap="getInquiryDetailResult">
- 			SELECT M.*,R.*, IQ.INQUIRY_NUM, IQ.ID, IQ.INQUIRY_CONTENTS, IQ.INQUIRY_DATE, IQ.INQUIRY_RESPONSE, IQ.INQUIRY_TEXT , IR.INQUIRY_RESPONSE_NUM, IR.INQUIRY_RESPONSE_CONTENTS, IR.INQUIRY_RESPONSE_DATE  FROM
-	         MEMBERS M
-	         INNER JOIN
-	         MEMBERS_ROLE MR
-	         ON M.ID = MR.ID
-	         INNER JOIN
-	         ROLE R
-	         ON MR.ROLENUM = R.ROLENUM
-	         INNER JOIN
-	         INQUIRY IQ
-	         ON M.ID = IQ.ID
-	         LEFT  JOIN
-	         INQUIRY_RESPONSE IR
-	         ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
-	         ORDER BY INQUIRY_NUM DESC
-			<!-- LIMIT #{startNum}, #{perPage} -->
- 		</select>
  		<!-- 1대1문의 detail페이지 -->
  		<select id="getInquiryDetail" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
 	 		 SELECT M.ID, IQ.*, IR.*
@@ -98,33 +56,11 @@
 			ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
 			WHERE M.ID = #{id} AND IQ.INQUIRY_NUM = #{inquiry_num}
  		</select>
-		<!-- 1대1 리스트 pager에 필요한 count -->
-		<select id="getInquiryRequestCount" resultType="Long" parameterType="AdminPager">
-			SELECT COUNT(INQUIRY_NUM) FROM INQUIRY
-		</select>
 		<!-- 총 1대1문의 -->
 		<select id="getTotalInquiry" resultType="Integer" parameterType="AdminMembersVO">
 			SELECT COUNT(INQUIRY_NUM) FROM INQUIRY
 		</select>
-		<!-- 응답하지 않은 1대1문의 List -->
-		<select id="getInquiryNoResponseList" parameterType="AdminPager" resultMap="getInquiryDetailResult">
-			 SELECT M.*,R.*, IQ.* FROM
-	         MEMBERS M
-	         INNER JOIN
-	         MEMBERS_ROLE MR
-	         ON M.ID = MR.ID
-	         INNER JOIN
-	         ROLE R
-	         ON MR.ROLENUM = R.ROLENUM
-	         INNER JOIN
-	         INQUIRY IQ
-	         ON M.ID = IQ.ID
-	         LEFT JOIN
-	 		 INQUIRY_RESPONSE IR
-			 ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
-	         WHERE INQUIRY_RESPONSE_CONTENTS IS NULL
-	         ORDER BY INQUIRY_NUM DESC
-		</select>
+<!-- 신고, 블랙 -->
 		<!-- 신고 요청 -->
 		<insert id="setRepoertRequest" parameterType="MembersReportVO">
 			INSERT INTO REPORT VALUES
@@ -138,16 +74,6 @@
 			ON M.ID = RP.REPORT_ID 
 			SET M.BLACK = 1 WHERE RP.REPORT_ID=#{report_id};
 		</update>
-		<!-- 신고요청 리스트 -->
-		<select id="getReportList" parameterType="AdminPager" resultType="MembersReportVO">
-			SELECT *
-			FROM 
-			REPORT RP
-			LEFT JOIN
-			MEMBERS M 
-			ON M.ID = RP.REPORT_ID
-			WHERE M.BLACK = 1
-		</select>
 		<!-- 신고 요청 DETAIL -->
 		<select id="getReportDetail" parameterType="MembersReportVO" resultMap="getReportResult">
 		    SELECT M.*, RP.* 
@@ -176,15 +102,6 @@
 			ON M.ID = RP.REPORT_ID
 			SET M.BLACK =2 WHERE RP.REPORT_ID=#{report_id}
 		</update>
-		<!-- 블랙당한 회원 리스트 -->
-		<select id="getBlackList" parameterType="AdminPager" resultMap="getReportResult">
-			SELECT M.*, RP.* FROM
-			MEMBERS M
-			LEFT JOIN
-			REPORT RP
-			ON M.ID = RP.REPORT_ID
-			WHERE M.BLACK=2
-		</select>
 		<!-- 블랙 리스트 디테일 -->
 		<select id="getBlackDetail" parameterType="MembersReportVO" resultMap="getReportResult">
 			SELECT M.*, RP.* FROM
@@ -202,11 +119,124 @@
 			ON M.ID = RP.REPORT_ID 
 			SET M.BLACK = NULL WHERE RP.REPORT_ID=#{report_id};
 		</update>
-		
-		<!-- ======================================= count ========================================================================= -->
+		<!-- 신고 요청 승인 -->
+		<update id="setBlack" parameterType="MembersVO">
+			UPDATE MEMBERS SET BLACK =2 WHERE ID=#{id}
+		</update>
+		<update id="setBlackC" parameterType="MembersVO">
+			UPDATE MEMBERS SET BLACK =NULL WHERE ID=#{id}
+		</update>
+<!--리스트-->
+		<!-- memberList -->
+	 	<select id="getAdminMembersList" parameterType="AdminPager" resultMap="getAdminMembersListResult">
+			 SELECT M.*,R.* FROM
+	         MEMBERS M
+	         INNER JOIN
+	         MEMBERS_ROLE MR
+	         ON M.ID = MR.ID
+	         INNER JOIN
+	         ROLE R
+	         ON MR.ROLENUM = R.ROLENUM
+			 <include refid="search"/>
+<!-- 	         ORDER BY M.JOINDATE DESC -->
+			 LIMIT #{startRow}, #{perPage}
+	 	</select>
+		<!-- 1대1문의 리스트 -->
+ 		<select id="getInquiryList"  parameterType="AdminPager" resultMap="getInquiryDetailResult">
+ 			 SELECT M.*,R.*, IQ.INQUIRY_NUM, IQ.ID, IQ.INQUIRY_CONTENTS, IQ.INQUIRY_DATE, IQ.INQUIRY_RESPONSE, IQ.INQUIRY_TEXT , IR.INQUIRY_RESPONSE_NUM, IR.INQUIRY_RESPONSE_CONTENTS, IR.INQUIRY_RESPONSE_DATE  FROM
+	         MEMBERS M
+	         INNER JOIN
+	         MEMBERS_ROLE MR
+	         ON M.ID = MR.ID
+	         INNER JOIN
+	         ROLE R
+	         ON MR.ROLENUM = R.ROLENUM
+	         INNER JOIN
+	         INQUIRY IQ
+	         ON M.ID = IQ.ID
+	         LEFT  JOIN
+	         INQUIRY_RESPONSE IR
+	         ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
+	         ORDER BY INQUIRY_NUM DESC
+			 LIMIT #{startRow}, #{perPage}
+ 		</select>
+		<!-- 응답하지 않은 1대1문의 List -->
+		<select id="getInquiryNoResponseList" parameterType="AdminPager" resultMap="getInquiryDetailResult">
+			 SELECT M.*,R.*, IQ.* FROM
+	         MEMBERS M
+	         INNER JOIN
+	         MEMBERS_ROLE MR
+	         ON M.ID = MR.ID
+	         INNER JOIN
+	         ROLE R
+	         ON MR.ROLENUM = R.ROLENUM
+	         INNER JOIN
+	         INQUIRY IQ
+	         ON M.ID = IQ.ID
+	         LEFT JOIN
+	 		 INQUIRY_RESPONSE IR
+			 ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
+	         WHERE INQUIRY_RESPONSE_CONTENTS IS NULL
+	         ORDER BY INQUIRY_NUM DESC
+	          LIMIT #{startRow}, #{perPage}
+		</select>
+		<!-- 신고요청 리스트 -->
+		<select id="getReportList" parameterType="AdminPager" resultType="MembersReportVO">
+			SELECT *
+			FROM 
+			REPORT RP
+			LEFT JOIN
+			MEMBERS M 
+			ON M.ID = RP.REPORT_ID
+			WHERE M.BLACK = 1
+		</select>
+		<!-- 블랙당한 회원 리스트 -->
+		<select id="getBlackList" parameterType="AdminPager" resultMap="getReportResult">
+			SELECT DISTINCT M.*, RP.REPORT_DATE, RP.REPORT_ID FROM
+			MEMBERS M
+			LEFT JOIN
+			REPORT RP
+			ON M.ID = RP.REPORT_ID
+			WHERE M.BLACK=2 AND RP.REPORT_CONTENTS IS NOT NULL
+		</select>
+<!-- PAGER COUNT -->
+	 	<!-- 회원 조회 페이징 카운트-->
+		<select id="getAdminMembersCount" resultType="Long" parameterType="AdminPager">
+			 SELECT COUNT(*) FROM MEMBERS
+			 WHERE NICKNAME LIKE concat ('%', #{search}, '%')
+		</select>
+		<!-- 1대1문의 페이징 카운트 -->
+		<select id="getInquiryRequestCount" resultType="Long" parameterType="AdminPager">
+			SELECT COUNT(INQUIRY_NUM) FROM INQUIRY
+		</select>
+		<!-- 신고요청 페이징 카운트 -->
+		<select id="getReportCount" resultType="Long" parameterType="AdminPager">
+			SELECT COUNT(REPORT_NUM) FROM REPORT
+		</select>
+		<!-- 블랙리스트 페이징 카운트 -->
+		<select id="getBlackMembersCount" resultType="Long" parameterType="AdminPager">
+			SELECT COUNT(ID) FROM MEMBERS WHERE BLACK=2
+		</select>
+		<!-- 대기중인 1대1문의 페이징 카운트 -->
+		<select id="getNoInquiryResponseCount" resultType="Long" parameterType="AdminPager">
+			SELECT COUNT(*) FROM
+			INQUIRY IQ
+			LEFT JOIN
+			INQUIRY_RESPONSE IR
+			ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
+			WHERE IR.INQUIRY_RESPONSE_CONTENTS is NULL
+		</select>
+<!--count-->
 		<!-- 총 회원 수 -->
 		<select id="getTotalMembers" parameterType="MembersVO" resultType="Integer">
-			SELECT COUNT(id) FROM MEMBERS
+			SELECT COUNT(M.ID) FROM
+	         MEMBERS M
+	         INNER JOIN
+	         MEMBERS_ROLE MR
+	         ON M.ID = MR.ID
+	         INNER JOIN
+	         ROLE R
+	         ON MR.ROLENUM = R.ROLENUM
 		</select>
 		<!-- 응답하지 않은 1대1문의 수-->
 		<select id="getTotalInquiryNo" resultType="Integer" parameterType="AdminMembersVO">
@@ -240,11 +270,15 @@
 		</select>
 		<!-- 블랙 회원 수 -->
 		<select id="getTotalBlack" parameterType="MembersVO" resultType="Integer">
-			SELECT COUNT(BLACK)
-			FROM MEMBERS WHERE BLACK=2
+			SELECT COUNT( DISTINCT  RP.REPORT_ID)  FROM
+			MEMBERS M
+			LEFT JOIN
+			REPORT RP
+			ON M.ID = RP.REPORT_ID
+			WHERE M.BLACK=2 AND RP.REPORT_CONTENTS IS NOT NULL ;
 		</select>
-
-		<!-- ============================================================================================================================ -->
+		
+<!--resultMap-->
 	<!-- memberList -->
  	<resultMap type="MembersVO" id="getAdminMembersListResult">
  			<id column="id" property="id"/>

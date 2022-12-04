@@ -28,6 +28,12 @@ public interface AdminMembersMapper {
 	public AdminMembersVO getInquiryDetail(AdminMembersVO adminMembersVO)throws Exception;
 	//1대1 리스트 pager에 필요한 count
 	public Long getInquiryRequestCount(AdminPager adminPager)throws Exception;
+	//응답하지 않은 1대1문의 페이징 카운트
+	public Long getNoInquiryResponseCount(AdminPager adminPager)throws Exception;
+	//신고요청 페이징 카운트
+	public Long getReportCount(AdminPager adminPager)throws Exception;
+	//블랙 리스트 페이징 카운트
+	public Long getBlackMembersCount(AdminPager adminPager)throws Exception;
 	//응답하지 않은 1대1문의 리스트
 	public List<AdminMembersVO> getInquiryNoResponseList(AdminPager adminPager)throws Exception;
 	//응답하지 않은 1대1문의
@@ -57,7 +63,7 @@ public interface AdminMembersMapper {
 	//블랙 회원 수
 	public Integer getTotalBlack(MembersVO membersVO)throws Exception;
 	//블랙 회원 디테일
-	public MembersReportVO getBlackDetail(MembersReportVO membersReportVO)throws Exception;
+	public List<MembersReportVO> getBlackDetail(MembersReportVO membersReportVO)throws Exception;
 	//블랙 해제
 	public int setBlackCancel(MembersReportVO membersReportVO)throws Exception;
 	//블랙 해제

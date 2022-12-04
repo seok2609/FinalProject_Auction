@@ -42,9 +42,18 @@ public class AdminMembersController {
 	public ModelAndView getAdminMembersList(AdminPager adminPager)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		List<MembersVO> membersVO =  adminMembersService.getAdminMembersList(adminPager);
+		
 		log.info("memberVO ==> {}", membersVO);
+		log.info("pagerLastNum ==>> {}", adminPager.getLastNum());
+		log.info("pagerLastRow ==>> {}", adminPager.getLastRow());
+		log.info("pagerPage ==>> {}", adminPager.getPage());
+		log.info("pagerStartNum ==>> {}", adminPager.getStartNum());
+		log.info("pagerStartRow ==>> {}", adminPager.getStartRow());
+		log.info("pagerpAGE ==>> {}", adminPager.getPerPage());
+		log.info("PAGE ==>> {}", adminPager.getPage());
+		
 		mv.addObject("membersVO", membersVO);
-		mv.addObject("AdminPager", adminPager);
+		mv.addObject("pager", adminPager);
 		mv.setViewName("/kdy/memberList");
 		return mv;
 	};
@@ -78,7 +87,7 @@ public class AdminMembersController {
 		mv.addObject("totalInquiryNo", totalInquiryNo);
 		mv.addObject("totalInquiryYes", totalInquiryYes);
 		mv.addObject("inquiryList", ar);
-		mv.addObject("adminPager", adminPager);
+		mv.addObject("pager", adminPager);
 		mv.setViewName("kdy/inquiryList");
 		return mv;
 	}
@@ -88,6 +97,7 @@ public class AdminMembersController {
 		ModelAndView mv = new ModelAndView();
 		List<AdminMembersVO> ar = adminMembersService.getInquiryNoResponseList(adminPager);
 		mv.addObject("inquiryNoResponseList", ar);
+		mv.addObject("pager", adminPager);
 		return mv;
 	}
 	//응답 완효한 1대1
@@ -166,7 +176,7 @@ public class AdminMembersController {
 		int result = adminMembersService.getTotalReport(membersReportVO);
 		mv.addObject("reportList", ar);
 		mv.addObject("totalReport", result);
-		mv.addObject("adminPager", adminPager);
+		mv.addObject("pager", adminPager);
 		return mv;
 	}
 	//신고 detail
@@ -201,17 +211,19 @@ public class AdminMembersController {
 		ModelAndView mv = new ModelAndView();
 		List<MembersReportVO> ar = adminMembersService.getBlackList(adminPager);
 		int totalMembersBlack = adminMembersService.getTotalBlack(membersVO);
+		int BlackC = adminMembersService.setBlackC(membersVO);
+		mv.addObject("blackc", BlackC);
 		mv.addObject("totalMembersBlack", totalMembersBlack);
 		mv.addObject("blackList", ar);
-		mv.addObject("adminPager", adminPager);
+		mv.addObject("pager", adminPager);
 		return mv;
 	}
 	//블랙 회원 디테일
 	@GetMapping("blackDetail")
 	public ModelAndView getBalckDetail(MembersReportVO membersReportVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		membersReportVO = adminMembersService.getBalckDetail(membersReportVO);
-		mv.addObject("blackDetail", membersReportVO);
+		 List<MembersReportVO> ar = adminMembersService.getBalckDetail(membersReportVO);
+		mv.addObject("blackDetail", ar);
 		return mv;
 	}
 	//블랙 해제

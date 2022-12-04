@@ -21,7 +21,8 @@ public class AdminMembersService {
 	public List<MembersVO> getAdminMembersList(AdminPager adminPager)throws Exception{
 		Long totalCount = adminMembersMapper.getAdminMembersCount(adminPager);
 		adminPager.getNum(totalCount);
-//		log.info("또딸 => {}", adminPager.getNum(totalCount));
+		log.info("total {}", totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getAdminMembersList(adminPager);
 	}
 	//메인 관리자페이지 1대1 5개 리스트
@@ -32,6 +33,7 @@ public class AdminMembersService {
 	public List<AdminMembersVO> getInquiryList(AdminPager adminPager)throws Exception{
 		Long totalCount = adminMembersMapper.getInquiryRequestCount(adminPager);
 		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getInquiryList(adminPager);
 	}
 	//1대1문의 detailPage
@@ -52,6 +54,9 @@ public class AdminMembersService {
 	}
 	//응답하지 않은 1대1문의 리스트
 	public List<AdminMembersVO> getInquiryNoResponseList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getNoInquiryResponseCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getInquiryNoResponseList(adminPager);
 	}
 	//응답하지 않은 1대1문의
@@ -80,6 +85,9 @@ public class AdminMembersService {
 	}
 	//신고 리스트
 	public List<MembersReportVO> getReportList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getReportCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getReportList(adminPager);
 	}
 	//신고 디테일
@@ -96,6 +104,9 @@ public class AdminMembersService {
 	}
 	//블랙 리스트
 	public List<MembersReportVO> getBlackList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getBlackMembersCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getBlackList(adminPager);
 	}
 	//블랙 회원 수
@@ -103,7 +114,7 @@ public class AdminMembersService {
 		return adminMembersMapper.getTotalBlack(membersVO);
 	}
 	//블랙 회원 디테일
-	public MembersReportVO getBalckDetail(MembersReportVO membersReportVO)throws Exception{
+	public List<MembersReportVO> getBalckDetail(MembersReportVO membersReportVO)throws Exception{
 		return adminMembersMapper.getBlackDetail(membersReportVO);
 	}
 	//블랙 해제
