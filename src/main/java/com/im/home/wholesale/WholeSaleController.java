@@ -13,8 +13,10 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,9 +41,37 @@ public class WholeSaleController {
 	
 	// 고정데이터 가공 페이지
 	
+
 	@GetMapping("sale")
+	public String sale() throws Exception{
+		
+		return "wholesale/sale";
+	}
+	
+	@PostMapping("sale")
 	@ResponseBody
-	public ModelAndView sale() throws Exception{
+	public ModelAndView sale(MustParamVO mustParamVO, String saleDateStart, String saleDateEnd)throws Exception{
+		log.info("============> {}", mustParamVO.getSaleDate());
+		
+		   int start = Integer.parseInt(saleDateStart);
+		   int end = Integer.parseInt(saleDateEnd);
+		for(int i=start; i<end+1; i++) {
+			log.info("date======> {}", i);
+		}
+		
+		//요청파라미터 값 없을 경우 공백처리. 파라미터가 null로 인식되면 주소 인식 안됨.
+		if(mustParamVO.getCmpCd()==null) {
+			mustParamVO.setCmpCd("");
+		}
+		if(mustParamVO.getSmallCd()==null) {
+			mustParamVO.setSmallCd("");
+		}
+		if(mustParamVO.getMidCd()==null){
+			mustParamVO.setMidCd("");
+		}
+		if(mustParamVO.getLargeCd()==null) {
+			mustParamVO.setLargeCd("");
+		}
 		
 		ModelAndView mv = new ModelAndView();
 		WebClient webClient = WebClient.builder()
@@ -50,12 +80,12 @@ public class WholeSaleController {
 				 .build();
 		
 		Mono<String> res = webClient.get()
-				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd=110001&saleDate=20221122")
+				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+mustParamVO.getWhsalCd()+"&saleDate="+mustParamVO.getSaleDate()+"&cmpCd="+mustParamVO.getCmpCd()+"&largeCd="+mustParamVO.getLargeCd()+"&midCd="+mustParamVO.getMidCd()+"&smallCd="+mustParamVO.getSmallCd())
 				.retrieve()
 				.bodyToMono(String.class);
 				
 		String r = res.block();
-	
+		
 	ObjectMapper objectMapper = new ObjectMapper();
 	
 	JSONParser parser = new JSONParser();
@@ -66,6 +96,7 @@ public class WholeSaleController {
 		//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
 		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
 		Object jobj2 = jobj.get("data");
+		log.info("r============> {}", jobj2);
 		String data2 = objectMapper.writeValueAsString(jobj2);
 		JSONArray temp = (JSONArray)parser.parse(data2);
 
@@ -90,16 +121,6 @@ public class WholeSaleController {
 					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
 					wholeSaleVO.setSmall(jsonObj.get("small").toString());
 					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-					wholeSaleVO.setDanq(jsonObj.get("danq").toString());
-					wholeSaleVO.setDanCd(jsonObj.get("danCd").toString());
-					wholeSaleVO.setPojCd(jsonObj.get("pojCd").toString());
-					wholeSaleVO.setStd(jsonObj.get("std").toString());
-					wholeSaleVO.setSizeCd(jsonObj.get("sizeCd").toString());
-					wholeSaleVO.setSizeName(jsonObj.get("sizeName").toString());
-					wholeSaleVO.setLvCd(jsonObj.get("lvCd").toString());
-					wholeSaleVO.setLvName(jsonObj.get("lvName").toString());
-					wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
-					wholeSaleVO.setSanName(jsonObj.get("sanName").toString());
 					wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
 					wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
 					wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());

@@ -5,6 +5,7 @@
   
   <configuration>
   	<typeAliases>
+  			<typeAlias type="com.im.home.wholesale.WholeSaleVO" alias="WholeSaleVO"/>
   			<typeAlias type="com.im.home.members.MembersVO" alias="MembersVO"/>
   			<typeAlias type="com.im.home.members.RoleVO" alias="RoleVO"/>
   			
