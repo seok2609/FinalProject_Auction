@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.im.home.admin.AdminMembersVO;
 
@@ -224,7 +225,7 @@ public class MembersController {
 	}
 	
 	@PostMapping(value = "modify")
-	public ModelAndView setMembersModify(MembersVO membersVO) throws Exception{
+	public ModelAndView setMembersModify(MembersVO membersVO, Principal principal) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -233,22 +234,73 @@ public class MembersController {
 		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));
 		int result = membersService.setMembersModify(membersVO);
 		
-		
-		mv.setViewName("members/login");
+		log.info("내 수정정보 ===>> {}" ,principal);
+		log.info("수정된 닉네임 :::: {} " , membersVO.getNickName());
+//		mv.setViewName("members/login");
+		mv.setViewName("members/myPage");
 		
 		return mv;
 	}
 	
 	
 	//회원 탈퇴
+//	@GetMapping(value = "drop")
+//	@ResponseBody
+//	public ModelAndView setMembersDrop(MembersVO membersVO, HttpSession session, RedirectAttributes redirectAttributes, Principal principal
+//			) throws Exception{
+//		
+//		ModelAndView mv = new ModelAndView();
+//		
+//		log.info("id :{}" , principal.getName());
+//		log.info("현재 비밀번호 :: {}" ,membersVO.getPassword());
+//		
+//		MembersVO membersVO2 = (MembersVO)session.getAttribute("member");
+//		
+//		
+//		log.info("session비밀번호 :{} ", membersVO2.getPassword());
+//		
+//		//현재 세션에 들어있는 비밀번호
+////		String sessionPassWord = membersVO2.getPassword();
+//		
+//		//MemberVO로 들어오는 파라미터 비밀번호
+//		String paramPassWord = membersVO.getPassword();
+//		
+//		int resultDrop = membersService.setMembersDrop(membersVO);
+//		
+//		if(resultDrop == 1) {
+//			mv.setViewName("../");
+//			session.invalidate();
+//		}else {
+//			mv.setViewName("members/myPage");
+//		}
+//		
+////		if(!(sessionPassWord.equals(paramPassWord))) {	//현재 세션에 들어있는 비밀번호와 파라미터로 넘어온 비밀번호가 일치하지않다면
+////			redirectAttributes.addFlashAttribute("msg", false);	//jsp에 있는 메세지를 호출
+////			mv.setViewName("redirect:./myPage");
+////			
+////		}else {		//세션에 들어있는 비밀번호와 파라미터로 넘어온 비밀번호가 일치한다면 세션을 죽이고 탈퇴를 성공적으로 마침
+////			int resultDrop = membersService.setMembersDrop(membersVO);
+////			session.invalidate();
+////			mv.setViewName("redirect:../");
+////		}
+//		
+//		return mv;
+//	}
+	
+	//회원 탈퇴
 	@GetMapping(value = "drop")
 	@ResponseBody
-	public ModelAndView setMembersDrop(MembersVO membersVO, HttpSession session) throws Exception{
+	public ModelAndView setMembersDrop(MembersVO membersVO, HttpSession session, String passWord) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
 		Authentication authentication = context.getAuthentication();
 		MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
+		
+		//현재 들어있는 비밀번호 정보
+		String sessionPassWord = membersVO2.getPassword();
+		
+		String voPassWord = membersVO.getPassword();
 		
 		int resultDrop = membersService.setMembersDrop(membersVO2);
 		
@@ -261,6 +313,31 @@ public class MembersController {
 		
 		return mv;
 	}
+	
+	
+	//회원 탈퇴
+//		@GetMapping(value = "drop")
+//		@ResponseBody
+//		public ModelAndView setMembersDrop(MembersVO membersVO, HttpSession session) throws Exception{
+//			
+//			ModelAndView mv = new ModelAndView();
+//			SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
+//			log.info("context :{} " , context);
+//			Authentication authentication = context.getAuthentication();
+//			MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
+//			
+//			int resultDrop = membersService.setMembersDrop(membersVO2);
+//			
+//			if(resultDrop == 1) {
+//				mv.setViewName("redirect:../");
+//				session.invalidate();
+//			}else {
+//				mv.setViewName("members/myPage");
+//			}
+//			
+//			return mv;
+//		}
+	
 	
 	
 }

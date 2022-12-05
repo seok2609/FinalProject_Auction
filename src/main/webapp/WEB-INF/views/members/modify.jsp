@@ -73,8 +73,80 @@
 			</form>
 			
 			<input type="hidden" value="${resultDrop}" id="rd">
-			<button type="button" onclick="location='./drop'" id="dropBtn">회원탈퇴</button>
-	
+			<button type="button" id="dropBtn">회원탈퇴</button>
+			<div>
+				<c:if test="${message == false}">
+					비밀번호가 일치하지 않습니다.
+				</c:if>
+			</div>
+			<button type="button" id="hiBtn">ㅎㅇ</button>
+			
+			
+			<!-- Button trigger modal -->
+			<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="md">
+			  Launch demo modal
+			</button>
+			
+			Modal
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="exampleModalLabel">회원 탈퇴</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			       	<label class="form-label">현재 비밀번호 입력</label>
+                    <input type="password" id="inputPassWord" name="passWord" class="form-control" required>
+			      </div>
+			      <div class="modal-body">
+			       	<label class="form-label">입력한 비밀번호 재 입력</label>
+                    <input type="password" id="inputPassWordCheck" name="passWordCheck" class="form-control" required>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary">확인</button>
+			      </div>
+			    </div>
+			  </div>
+			</div> -->
+
+			
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="md">
+		  Launch demo modal
+		</button>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">회원탈퇴 검증</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <div class="mb-3">
+		           	<label class="form-label">현재 비밀번호 입력</label>
+                    <input type="password" id="inputPassWord" name="passWord" class="form-control" required>
+                    <span id="pwHelp" class="bc"></span>
+                </div>
+                
+                <div class="mb-3">
+		           	<label class="form-label">입력한 비밀번호 재 입력</label>
+                    <input type="password" id="inputPassWordCheck" name="passWordCheck" class="form-control" required>
+                     <span id="pwCheckHelp" class="bc"></span>
+                </div>
+		      </div>
+		      
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary" id="successBtn">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	
 
 	<c:import url="../common/footer.jsp"></c:import>

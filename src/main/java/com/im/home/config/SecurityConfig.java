@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.im.home.members.MemberSecurityService;
+import com.im.home.members.MembersSocialService;
 import com.im.home.members.security.LoginFailed;
 import com.im.home.members.security.LoginSuccess;
 import com.im.home.members.security.LogoutSuccess;
@@ -27,6 +28,8 @@ public class SecurityConfig {
 	private MemberSecurityService memberSecurityService;
 	@Autowired
 	private LogoutSuccess logoutSuccess;
+	@Autowired
+	private MembersSocialService membersSocialService;
 	
 	@Bean
 	//회원가입시 필터 적용 제외
@@ -82,6 +85,9 @@ public class SecurityConfig {
 				.userDetailsService(memberSecurityService)		//인증 절차를 실행할 UserDetailService, 필수
 				.authenticationSuccessHandler(loginSuccess)		//Login 성공
 				.and()
+			.oauth2Login() //Social Login 설정
+				.userInfoEndpoint()
+				.userService(membersSocialService)
 			
 			;
 		

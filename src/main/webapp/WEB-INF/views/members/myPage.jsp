@@ -65,8 +65,16 @@
               <div>
 	              <sec:authentication property="Principal" var="member"/>
 					<h5>아이디 : ${member.id}</h5> 
-					<h5>이름 : ${member.realName}</h5>	
-					<h5>닉네임 : ${member.nickName}</h5>	
+					<h5>이름 : ${member.realName}</h5>
+					<c:choose>	
+						<c:when test="${not empty membersVO}">				
+							<h5>수정된 닉네임 : ${membersVO.nickName}</h5>
+						</c:when>
+						
+						<c:otherwise>
+							<h5>닉네임 : ${member.nickName}</h5>
+						</c:otherwise>
+					</c:choose>
 			  </div>
              <!--  <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a> -->
             </div>

@@ -86,15 +86,15 @@
  		</select>
  		<!-- 1대1문의 detail페이지 -->
  		<select id="getInquiryDetail" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
-	 		 SELECT M.ID, IQ.*, IR.*, M.NICNNAME
-			FROM MEMBERS M
-			INNER JOIN
-			INQUIRY IQ
-			ON M.ID = IQ.ID
-			LEFT JOIN
-			INQUIRY_RESPONSE IR 
-			ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
-			WHERE M.ID = #{id} AND IQ.INQUIRY_NUM = #{inquiry_num}
+	 		SELECT M.ID, IQ.*, IR.*
+         FROM MEMBERS M
+         INNER JOIN
+         INQUIRY IQ
+         ON M.ID = IQ.ID
+         LEFT JOIN
+         INQUIRY_RESPONSE IR 
+         ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
+         WHERE M.ID = #{id} AND IQ.INQUIRY_NUM = #{inquiry_num}
  		</select>
 		<!-- 1대1 리스트 pager에 필요한 count -->
 		<select id="getInquiryRequestCount" resultType="Long" parameterType="AdminPager">

@@ -314,12 +314,25 @@ $("#signUpBtn").click(function(){
 
 
 //회원탈퇴 성공 메세지
+// $("#hiBtn").click(function(){
+
+//     console.log("버튼클릭");
+
+//     $("#md").trigger('click');
+
+// });
+
+
 $("#dropBtn").click(function(){
 
-    console.log("탈퇴버튼 클릭");
+    console.log("버튼클릭");
 
-    if($("#rd").val()=='1'){
-        alert("탈퇴가 되었습니다.")
-    }
+    $("#md").trigger('click');
+
+});
+
+$("#successBtn").click(function(){
+
+    location='./drop';
 
 });
