@@ -216,6 +216,8 @@
 							</form>
 						</div>
 
+            
+
 						<table class="table table-striped">
                             <thead>
                                 <tr class="text-success">
@@ -261,32 +263,31 @@
                     </div>
                   
                 </div>
-
+                
             </div>
-            <nav aria-label="Page navigation example">
-			<ul class="pagination">
-				<c:if test="${pager.pre}">
-					<li class="page-item"><a class="page-link"
-						href="./memberList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}">◁</a></li>
-				</c:if>
-
-				<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-					<li class="page-item"><a class="page-link"
-						href="./memberList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a>
-					</li>
-				</c:forEach>
-				<li class="page-item ${pager.next?'':'disabled'}"><a
-					class="page-link" href="./memberList?page=${pager.lastNum+1}">▷</a></li>
-			</ul>
-		</nav>
-
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
+            <div class="chefs section-bg" style="margin-left: 750px;">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                  <!-- 이전페이지가 없으면 	버튼 비활성화  -->
+                    <li class="page-item ${pager.pre?'':'disabled'}">
+                    <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
+                    <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
+                      <a class="page-link" href="./memberList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a> 
+                    </li> 
+                    <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
+                    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+                      <li class="page-item"><a class="page-link" href="./memberList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a> </li>
+                    </c:forEach> 
+                    <li class="page-item ${pager.next?'':'disabled'}">
+                      <a class="page-link" href="./memberList?page=${pager.lastNum}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
 
         </div>
 
@@ -301,7 +302,7 @@
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document"   >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
@@ -316,6 +317,37 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">신고 모달</button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="./reportRequest" method="post">
+              <input type="text" name="id" class="form-control" id="id" value=${membersReportVO.id}>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">신고당하는 사람의 닉네임</label>
+                <input type="text" class="form-control" id="report_id" name="report_id">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">신고 사유를 입력해주세요</label>
+                <textarea class="form-control" id="report_contents" name="report_contents"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">눈감아주기</button>
+            <button type="button" class="btn btn-success">신고하기</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->

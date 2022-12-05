@@ -210,7 +210,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            총 블랙 회원 수 </div>
+                                            블랙 회원</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${totalMembersBlack} 명</div>
                                     </div>
                                     <div class="col-auto">
@@ -221,9 +221,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
+				<!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- DataTales Example -->
@@ -233,6 +232,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                            
                                 <c:choose>
                                     <c:when test="${empty blackList}">
                                         블랙 회원이 없습니다.
@@ -243,23 +243,14 @@
                                                 <tr>
                                                     <th>블랙회원 아이디</th>
                                                     <th>신고 날짜</th>
-                                                    <!-- <th>처리</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${blackList}" var="blackLists">
-                                                    <tr onclick="location.href='/kdy/blackDetail?report_id=${blackLists.report_id}&id=${blackLists.id}';">
-                                                        <td>${blackLists.report_id}</td>
-                                                        <td>${blackLists.report_date}</td>
-                                                        <!-- <c:choose>
-                                                            <c:when test="${blackLists.membersVO.black == 2}">
-                                                                <td>처리완료</td>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <td>미처리</td>
-                                                            </c:otherwise>
-                                                        </c:choose> -->
-                                                    </tr>
+                                                                <tr onclick="location.href='/kdy/blackDetail?report_id=${blackLists.report_id}';">
+                                                                    <td>${blackLists.report_id}</td>
+                                                                    <td>${blackLists.report_date}</td>
+                                                                </tr> 
                                                 </c:forEach>
                                             </tbody>
                                         </table>
@@ -269,25 +260,38 @@
                             </div>
                         </div>
                     </div>
-
                     
-
+                    
+                    
                 </div>
                 <!-- /.container-fluid -->
-
+                
             </div>
+            
             <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+            <div class="chefs section-bg" style="margin-left: 750px;">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                  <!-- 이전페이지가 없으면 	버튼 비활성화  -->
+                    <li class="page-item ${pager.pre?'':'disabled'}">
+                    <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
+                    <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
+                      <a class="page-link" href="./memberBlackList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a> 
+                    </li> 
+                    <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
+                    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+                      <li class="page-item"><a class="page-link" href="./memberBlackList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a> </li>
+                    </c:forEach> 
+                    <li class="page-item ${pager.next?'':'disabled'}">
+                      <a class="page-link" href="./memberBlackList?page=${pager.lastNum}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
         </div>
         <!-- End of Content Wrapper -->
 
@@ -332,7 +336,12 @@
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
+    <script>
+        	$("#adad").click(function(){
+                console.log("s");
+             
+            })  
+    </script>
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
