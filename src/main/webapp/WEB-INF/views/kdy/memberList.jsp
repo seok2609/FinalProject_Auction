@@ -216,6 +216,8 @@
 							</form>
 						</div>
 
+            
+
 						<table class="table table-striped">
                             <thead>
                                 <tr class="text-success">
@@ -300,7 +302,7 @@
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document"   >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
@@ -315,6 +317,37 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">신고 모달</button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="./reportRequest" method="post">
+              <input type="text" name="id" class="form-control" id="id" value=${membersReportVO.id}>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">신고당하는 사람의 닉네임</label>
+                <input type="text" class="form-control" id="report_id" name="report_id">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">신고 사유를 입력해주세요</label>
+                <textarea class="form-control" id="report_contents" name="report_contents"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">눈감아주기</button>
+            <button type="button" class="btn btn-success">신고하기</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->

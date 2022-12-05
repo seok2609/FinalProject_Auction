@@ -33,7 +33,7 @@
                 <div class="form-group mt-3">
                     <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${reportDetail.report_contents}</textarea>
                 </div>
-                <div onclick="location.href='/kdy/responseReportNo?report_id=${reportDetail.report_id}&report_num=${reportDetail.report_num}';">거절하기</div>
+                <div onclick="location.href='/kdy/responseReportNo?report_id=${reportDetail.report_id}';">거절하기</div>
                 <div onclick="location.href='/kdy/responseReportOk?report_id=${reportDetail.report_id}';">승인하기</div>
                 <div onclick="location.href='/kdy/report';">뒤로가기</div>
             </div>
