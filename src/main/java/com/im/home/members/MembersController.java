@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.im.home.admin.AdminMembersVO;
 
+import io.openvidu.java.client.Session;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -149,7 +150,7 @@ public class MembersController {
 	}
 	
 	@GetMapping(value = "myPage")
-	public ModelAndView getMyPage(MembersVO membersVO, String id, Principal principal , Model model) throws Exception{
+	public ModelAndView getMyPage(MembersVO membersVO, String id, Principal principal , Model model, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		AdminMembersVO adminMembersVO = new AdminMembersVO();
 		
@@ -288,55 +289,74 @@ public class MembersController {
 //	}
 	
 	//회원 탈퇴
-	@GetMapping(value = "drop")
-	@ResponseBody
-	public ModelAndView setMembersDrop(MembersVO membersVO, HttpSession session, String passWord) throws Exception{
-		
-		ModelAndView mv = new ModelAndView();
-		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
-		Authentication authentication = context.getAuthentication();
-		MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
-		
-		//현재 들어있는 비밀번호 정보
-		String sessionPassWord = membersVO2.getPassword();
-		
-		String voPassWord = membersVO.getPassword();
-		
-		int resultDrop = membersService.setMembersDrop(membersVO2);
-		
-		if(resultDrop == 1) {
-			mv.setViewName("redirect:../");
-			session.invalidate();
-		}else {
-			mv.setViewName("members/myPage");
-		}
-		
-		return mv;
-	}
+//	@GetMapping(value = "drop")
+//	@ResponseBody
+//	public ModelAndView setMembersDrop(MembersVO membersVO, HttpSession session, String passWord, RedirectAttributes redirectAttributes) throws Exception{
+//		
+//		ModelAndView mv = new ModelAndView();
+//		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");	//스프링에 있는 세션이름(주소)
+//		Authentication authentication = context.getAuthentication();
+//		MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();	//로그인한 사용자의 모든 정보
+//		log.info("현재 세션에 저장된 비밀번호 ==>> {} " ,membersVO2.getPassword());
+//		
+//		
+//		//현재 들어있는 비밀번호 정보
+//		String sessionPassWord = membersVO2.getPassword();
+//		
+//		String voPassWord = membersVO.getPassword();
+//		
+//		mv.addObject("membersVO", membersVO2);
+//		
+////		if(resultDrop == 1) {
+////			mv.setViewName("redirect:../");
+////			session.invalidate();
+////		}else {
+////			mv.setViewName("members/myPage");
+////		}
+//		
+////		boolean check = membersService.isMatches(sessionPassWord, voPassWord);
+//		
+//		if(!sessionPassWord.equals(voPassWord)) {	//현재 확인용 비밀번호와 세션에 있는 비밀번호와 일치하지 않을때
+//			redirectAttributes.addFlashAttribute("message", false);	// jsp에 있는 메세지 호출
+//		}else {
+//			int resultDrop = membersService.setMembersDrop(membersVO2);
+//			session.invalidate();
+//			mv.setViewName("redirect:../");
+//		}
+//		
+//		return mv;
+//	}
 	
 	
 	//회원 탈퇴
-//		@GetMapping(value = "drop")
-//		@ResponseBody
-//		public ModelAndView setMembersDrop(MembersVO membersVO, HttpSession session) throws Exception{
-//			
-//			ModelAndView mv = new ModelAndView();
+		@GetMapping(value = "drop")
+
+		public ModelAndView setMembersDrop(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception{
+			
+			ModelAndView mv = new ModelAndView();
 //			SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
 //			log.info("context :{} " , context);
 //			Authentication authentication = context.getAuthentication();
 //			MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
-//			
-//			int resultDrop = membersService.setMembersDrop(membersVO2);
-//			
-//			if(resultDrop == 1) {
-//				mv.setViewName("redirect:../");
-//				session.invalidate();
-//			}else {
-//				mv.setViewName("members/myPage");
-//			}
-//			
-//			return mv;
-//		}
+			
+			String membersId = membersVO.getPassword();
+			
+			boolean check = false;
+			
+			int resultDrop = membersService.setMembersDrop(membersVO);
+			check = membersService.checkPassword(membersId, checkPassWord);
+			
+			if(resultDrop == 1 || !check) {
+				mv.setViewName("redirect:../");
+				session.invalidate();
+			}else {
+				redirectAttributes.addFlashAttribute("message", false);	// jsp에 있는 메세지 호출
+				mv.setViewName("members/myPage");
+			}
+			
+			
+			return mv;
+		}
 	
 	
 	

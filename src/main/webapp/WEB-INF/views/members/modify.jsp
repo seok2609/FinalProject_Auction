@@ -73,6 +73,7 @@
 			</form>
 			
 			<input type="hidden" value="${resultDrop}" id="rd">
+			<!-- <button type="button" id="dropBtn">회원탈퇴</button> -->
 			<button type="button" id="dropBtn">회원탈퇴</button>
 			<div>
 				<c:if test="${message == false}">
@@ -118,6 +119,7 @@
 		</button>
 		
 		<!-- Modal -->
+		<sec:authentication property="Principal" var="member"/>
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -126,17 +128,18 @@
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
+		      <input type="hidden" name="passWord" id="checkPassWord" value="${member.password}">
 		        <div class="mb-3">
 		           	<label class="form-label">현재 비밀번호 입력</label>
-                    <input type="password" id="inputPassWord" name="passWord" class="form-control" required>
-                    <span id="pwHelp" class="bc"></span>
+                    <input type="password" id="inputPassWord2" name="checkPassWord" class="form-control">
+                    <span id="pwHelp2" class="bc"></span>
                 </div>
                 
-                <div class="mb-3">
+           <!--      <div class="mb-3">
 		           	<label class="form-label">입력한 비밀번호 재 입력</label>
-                    <input type="password" id="inputPassWordCheck" name="passWordCheck" class="form-control" required>
-                     <span id="pwCheckHelp" class="bc"></span>
-                </div>
+                    <input type="password" id="inputPassWordCheck2" name="checkPassWord" class="form-control">
+                     <span id="pwCheckHelp2" class="bc"></span>
+                </div> -->
 		      </div>
 		      
 		      
@@ -150,5 +153,35 @@
 	
 
 	<c:import url="../common/footer.jsp"></c:import>
+
+<script>
+    $('#successBtn').click(function() {
+        const checkPassword = $('#inputPassWord2').val();
+        if(!checkPassword || checkPassword.trim() === ""){
+            alert("비밀번호를 입력하세요.");
+        } else{
+            $.ajax({
+                type: 'GET',
+                url: '/members/drop',
+                data: {'checkPassword': checkPassword},
+                datatype: "text"
+            }).done(function(result){
+                console.log(result);
+                if(result){
+                    console.log("비밀번호 일치");
+                    window.location.href="../";
+                } else if(!result){
+                    console.log("비밀번호 틀림");
+                    // 비밀번호가 일치하지 않으면
+                    alert("비밀번호가 맞지 않습니다.");
+                    window.location.reload();
+                }
+            }).fail(function(error){
+                alert(JSON.stringify(error));
+            })
+        }
+    });
+</script>
+
 </body>
 </html>

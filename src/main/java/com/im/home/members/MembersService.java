@@ -3,12 +3,20 @@ package com.im.home.members;
 import java.io.File;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.im.home.admin.AdminMembersVO;
@@ -27,7 +35,8 @@ public class MembersService {
 	
 	@Value("${app.upload.membersFile}")
 	private String path;
-	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	
@@ -151,9 +160,31 @@ public class MembersService {
 	
 	public int setMembersDrop(MembersVO membersVO) throws Exception{
 		
-		int result = membersMapper.setMembersDrop(membersVO);
+		int result = membersMapper.setMembersDrop(membersVO); 
 		
 		return result;
+	}
+	
+//	public boolean isMatches(String dbPassWord, String inputPassWord) throws Exception{
+//		boolean check = passwordEncoder.matches(dbPassWord, inputPassWord);
+//		
+//		return check;
+//	}
+	
+	public boolean checkPassword(String membersId, String checkPassWord) throws Exception{
+	
+//		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
+//		log.info("context :{} " , context);
+//		Authentication authentication = context.getAuthentication();
+//		MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
+		MembersVO membersVO = new MembersVO();
+		
+		String realPassWord = membersVO.getPassword();
+		boolean matches = passwordEncoder.matches(checkPassWord, realPassWord);
+		
+		return matches;
+		
+		
 	}
 	
 	

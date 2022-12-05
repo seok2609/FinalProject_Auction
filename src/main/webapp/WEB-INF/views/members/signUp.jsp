@@ -30,7 +30,7 @@
           <h2>일반회원 회원가입 페이지</h2>
         </div>
 	
-
+			<sec:authentication property="Principal" var="member"/>
           <div class="col-lg-8" id="signUpSt">
 			<form action="signUp" method="post" enctype="multipart/form-data" id="signUpForm">
             
@@ -43,7 +43,7 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="password" name="passWord" class="form-control" id="inputPassWord" placeholder="패스워드를 입력하세요">
+                  <input type="password" name="passWord" class="form-control" id="inputPassWord" value="" placeholder="패스워드를 입력하세요">
                   <span id="pwHelp" class="bc"></span>
                 </div>
                 
