@@ -46,7 +46,7 @@
 		</insert>
  		<!-- 1대1문의 detail페이지 -->
  		<select id="getInquiryDetail" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
-	 		 SELECT M.ID, IQ.*, IR.*
+	 		SELECT M.ID, IQ.*, IR.*
 			FROM MEMBERS M
 			INNER JOIN
 			INQUIRY IQ
@@ -92,7 +92,7 @@
 		</select>
 		<!-- 신고 요청 거절 -->
 		<delete id="setResponseReportNo" parameterType="MembersReportVO">
-			DELETE FROM REPORT WHERE REPORT_NUM=#{report_num}
+			DELETE FROM REPORT WHERE REPORT_id=#{report_id}
 		</delete>
 		<!-- 신고 요청 승인 -->
 		<update id="setResponseReportOk" parameterType="MembersReportVO">
@@ -103,8 +103,8 @@
 			SET M.BLACK =2 WHERE RP.REPORT_ID=#{report_id}
 		</update>
 		<!-- 블랙 리스트 디테일 -->
-		<select id="getBlackDetail" parameterType="MembersReportVO" resultMap="getReportResult">
-			SELECT M.*, RP.* FROM
+		<select id="getBlackDetail" parameterType="MembersReportVO" resultMap="getReportResult2">
+			SELECT RP.* FROM
 			MEMBERS M
 			LEFT JOIN
 			REPORT RP
@@ -117,7 +117,7 @@
 			INNER JOIN
 			REPORT RP
 			ON M.ID = RP.REPORT_ID 
-			SET M.BLACK = NULL WHERE RP.REPORT_ID=#{report_id};
+			SET M.BLACK = NULL WHERE RP.REPORT_ID=#{report_id}
 		</update>
 		<!-- 신고 요청 승인 -->
 		<update id="setBlack" parameterType="MembersVO">
@@ -343,12 +343,13 @@
  	</resultMap>
  	
  	<resultMap type="MembersReportVO" id="getReportResult">
+ 	
  		<id column="report_num" property="report_num"/>
  		<result column="id" property="id"/>
  		<result column="report_id" property="report_id"/>
  		<result column="report_contents" property="report_contents"/>
  		<result column="report_date" property="report_date"/>
- 		<association property="membersVO" javaType="MembersVO">
+		<association property="membersVO" javaType="MembersVO">
 	 		<id column="id" property="id"/>
 		 	<result column="passWord" property="passWord"/>
 		 	<result column="realName" property="realName"/>
@@ -359,13 +360,35 @@
 		 	<result column="phone" property="phone"/>
 		 	<result column="joinDate" property="joinDate"/>
 		 	<result column="black" property="black"/>
-		 	
 		 	<association property="roleVO" javaType="RoleVO">
 				<id column="roleNum" property="roleNum"/>
 				<result column="roleName" property="roleName"/>
 			</association>
-			
-	 	</association>
+	 	</association> 	
+ 	</resultMap>
+ 	
+ 	<resultMap type="MembersReportVO" id="getReportResult2">
+ 		<id column="report_num" property="report_num"/>
+ 		<result column="id" property="id"/>
+ 		<result column="report_id" property="report_id"/>
+ 		<result column="report_contents" property="report_contents"/>
+ 		<result column="report_date" property="report_date"/>
+	 	 	<collection property="membersVOs" javaType="List" ofType="MembersVO">
+	 		<id column="id" property="id"/>
+		 	<result column="passWord" property="passWord"/>
+		 	<result column="realName" property="realName"/>
+		 	<result column="nickName" property="nickName"/>
+		 	<result column="email" property="email"/>
+		 	<result column="birth" property="birth"/>
+		 	<result column="gender" property="gender"/>
+		 	<result column="phone" property="phone"/>
+		 	<result column="joinDate" property="joinDate"/>
+		 	<result column="black" property="black"/>
+		 	<association property="roleVO" javaType="RoleVO">
+				<id column="roleNum" property="roleNum"/>
+				<result column="roleName" property="roleName"/>
+			</association>
+	 	</collection>
  	</resultMap>
  	
  </mapper>

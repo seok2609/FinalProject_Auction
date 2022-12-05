@@ -265,6 +265,7 @@
                             <thead>
                                 <tr class="text-success">
                                     <th>아이디</th>
+                                    <th>닉네임</th>
                                     <th>등급</th>
                                     <th>제목</th>
                                     <th>문의 날짜</th>
@@ -277,12 +278,15 @@
                             <c:choose>
 	                            <c:when test="${empty inquiryList.inquiryResponseVO.inquiry_response_contents}">
                                             <td>${inquiryList.id}</td>
+                                            <td>${inquiryList.membersVO.nickName}</td>
                                             <td>${inquiryList.membersVO.roleVO.roleName}</td>
                                             <td>${inquiryList.inquiry_text}</td>
                                             <td>${inquiryList.inquiry_date}</td>
+
 	                            </c:when>
 	                            <c:otherwise>
                                             <td id="inquiryListCss">${inquiryList.id}</td>
+                                            <td id="inquiryListCss">${inquiryList.membersVO.nickName}</td>
                                             <td id="inquiryListCss">${inquiryList.membersVO.roleVO.roleName}</td>
                                             <td id="inquiryListCss">${inquiryList.inquiry_text}</td>
                                             <td id="inquiryListCss">${inquiryList.inquiry_date}</td>

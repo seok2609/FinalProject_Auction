@@ -243,12 +243,10 @@
                                                 <tr>
                                                     <th>블랙회원 아이디</th>
                                                     <th>신고 날짜</th>
-                                                    <!-- <th>처리</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${blackList}" var="blackLists">
-
                                                                 <tr onclick="location.href='/kdy/blackDetail?report_id=${blackLists.report_id}';">
                                                                     <td>${blackLists.report_id}</td>
                                                                     <td>${blackLists.report_date}</td>

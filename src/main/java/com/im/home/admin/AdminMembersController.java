@@ -1,6 +1,7 @@
 package com.im.home.admin;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,8 +194,8 @@ public class AdminMembersController {
 	@GetMapping("responseReportNo")
 	public ModelAndView setResponseResportNo(MembersReportVO membersReportVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		int result = adminMembersService.setResponseReportNo(membersReportVO);
 		int memberResult = adminMembersService.setBlackCancel(membersReportVO); 
+		int result = adminMembersService.setResponseReportNo(membersReportVO);
 		mv.setViewName("redirect:./report");
 		return mv;
 	}
@@ -223,6 +224,8 @@ public class AdminMembersController {
 	public ModelAndView getBalckDetail(MembersReportVO membersReportVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		 List<MembersReportVO> ar = adminMembersService.getBalckDetail(membersReportVO);
+		 log.info("arararararararararar ==>> {}", ar);
+		 log.info("ar(1)==>> {}", ar.get(0).getReport_id());
 		mv.addObject("blackDetail", ar);
 		return mv;
 	}
