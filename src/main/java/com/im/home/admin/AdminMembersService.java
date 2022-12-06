@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.im.home.adminInquiryResponse.InquiryResponseVO;
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
 import com.nimbusds.oauth2.sdk.token.BearerTokenError;
@@ -22,7 +21,8 @@ public class AdminMembersService {
 	public List<MembersVO> getAdminMembersList(AdminPager adminPager)throws Exception{
 		Long totalCount = adminMembersMapper.getAdminMembersCount(adminPager);
 		adminPager.getNum(totalCount);
-//		log.info("또딸 => {}", adminPager.getNum(totalCount));
+		log.info("total {}", totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getAdminMembersList(adminPager);
 	}
 	//메인 관리자페이지 1대1 5개 리스트
@@ -33,6 +33,7 @@ public class AdminMembersService {
 	public List<AdminMembersVO> getInquiryList(AdminPager adminPager)throws Exception{
 		Long totalCount = adminMembersMapper.getInquiryRequestCount(adminPager);
 		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getInquiryList(adminPager);
 	}
 	//1대1문의 detailPage
@@ -53,6 +54,9 @@ public class AdminMembersService {
 	}
 	//응답하지 않은 1대1문의 리스트
 	public List<AdminMembersVO> getInquiryNoResponseList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getNoInquiryResponseCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getInquiryNoResponseList(adminPager);
 	}
 	//응답하지 않은 1대1문의
@@ -67,7 +71,61 @@ public class AdminMembersService {
 	public Integer getTotalMembers(MembersVO membersVO)throws Exception{
 		return adminMembersMapper.getTotalMembers(membersVO);
 	}
-	
-	
+	//신고 요청
+	public int setRepoertRequest(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setRepoertRequest(membersReportVO);
+	}
+	//신고 요청 대기
+	public int setBlackWaiting(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setBlackWaiting(membersReportVO);
+	}
+	//신고 요청 건 수
+	public Integer getTotalReport(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.getTotalReport(membersReportVO);
+	}
+	//신고 리스트
+	public List<MembersReportVO> getReportList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getReportCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
+		return adminMembersMapper.getReportList(adminPager);
+	}
+	//신고 디테일
+	public MembersReportVO getReportDetail(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.getReportDetail(membersReportVO);
+	}
+	//신고 요청 거절
+	public int setResponseReportNo(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setResponseReportNo(membersReportVO);
+	}
+	//신고 요청 승인
+	public int setResponseReportOk(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setResponseReportOk(membersReportVO);
+	}
+	//블랙 리스트
+	public List<MembersReportVO> getBlackList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getBlackMembersCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
+		return adminMembersMapper.getBlackList(adminPager);
+	}
+	//블랙 회원 수
+	public Integer getTotalBlack(MembersVO membersVO)throws Exception{
+		return adminMembersMapper.getTotalBlack(membersVO);
+	}
+	//블랙 회원 디테일
+	public List<MembersReportVO> getBalckDetail(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.getBlackDetail(membersReportVO);
+	}
+	//블랙 해제
+	public int setBlackCancel(MembersReportVO membersReportVO)throws Exception{
+		return adminMembersMapper.setBlackCancel(membersReportVO);
+	}
+	public int setBlack(MembersVO membersVO)throws Exception{
+		return adminMembersMapper.setBlack(membersVO);
+	}
+	public int setBlackC(MembersVO membersVO)throws Exception{
+		return adminMembersMapper.setBlackC(membersVO);
+	}
 	
 }

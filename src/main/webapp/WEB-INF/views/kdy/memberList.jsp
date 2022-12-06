@@ -33,6 +33,19 @@
        #memberListSearch{
         margin-left: 50px;
        } 
+       #blackMembersCss{
+        color: seagreen;
+       }
+       #blackMembersCsss{
+        color: red
+       }
+       #blackListMembers{
+        margin-left: 15px;
+        color: red;
+       }
+       #blackMembersCssss{
+        color: mediumvioletred;
+       }
     </style>
 
 </head>
@@ -196,10 +209,14 @@
 											placeholder="닉네임을 입력해 주세요">
 										<button type="submit" class="btn btn-secondary" id="searchNull">검색
 										</button>
+                                        <div id="blackListMembers">블랙리스트 회원은 빨간색</div>
 									</div>
+                                    
 								</div>
 							</form>
 						</div>
+
+            
 
 						<table class="table table-striped">
                             <thead>
@@ -208,22 +225,37 @@
                                     <th>성  함</th>
                                     <th>닉네임</th>
                                     <th>이메일</th>
-                                    <th>성  별</th>
                                     <th>전화번호</th>
+                                    <th>등 급</th>
                                     <th>가입날짜</th>
+                                    
                                 </tr>
                             </thead>
                             
                             <tbody>
                                 <c:forEach items="${membersVO}" var="membersVO">
                                     <tr>
-                                        <td>${membersVO.id}</td>
-                                        <td>${membersVO.realName}</td>
-                                        <td>${membersVO.nickName}</td>
-                                        <td>${membersVO.email}</td>
-                                        <td>${membersVO.gender}</td>
-                                        <td>${membersVO.phone}</td>
-                                        <td>${membersVO.joinDate}</td>
+                                    <c:choose>
+                                        <c:when test="${membersVO.black < 2}">
+                                            <td id="blackMembersCss">${membersVO.id}</td>
+                                            <td id="blackMembersCss">${membersVO.realName}</td>
+                                            <td id="blackMembersCss">${membersVO.nickName}</td>
+                                            <td id="blackMembersCss">${membersVO.email}</td>
+                                            <td id="blackMembersCss">${membersVO.phone}</td>
+                                            <td id="blackMembersCssss" onclick="location.href='/kdy/black?id=${membersVO.id}'">${membersVO.roleVO.roleName}</td>
+                                            <td id="blackMembersCss">${membersVO.joinDate}</td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td id="blackMembersCsss">${membersVO.id}</td>
+                                            <td id="blackMembersCsss">${membersVO.realName}</td>
+                                            <td id="blackMembersCsss">${membersVO.nickName}</td>
+                                            <td id="blackMembersCsss">${membersVO.email}</td>
+                                            <td id="blackMembersCsss">${membersVO.phone}</td>
+                                            <td id="blackMembersCsss"  onclick="location.href='/kdy/blackC?id=${membersVO.id}'">블랙</td>
+                                            <td id="blackMembersCsss">${membersVO.joinDate}</td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                        
                                     </tr>
                                 </c:forEach> 
                             </tbody>
@@ -231,32 +263,31 @@
                     </div>
                   
                 </div>
-
+                
             </div>
-            <nav aria-label="Page navigation example">
-			<ul class="pagination">
-				<c:if test="${pager.pre}">
-					<li class="page-item"><a class="page-link"
-						href="./memberList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}">◁</a></li>
-				</c:if>
-
-				<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-					<li class="page-item"><a class="page-link"
-						href="./memberList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a>
-					</li>
-				</c:forEach>
-				<li class="page-item ${pager.next?'':'disabled'}"><a
-					class="page-link" href="./memberList?page=${pager.lastNum+1}">▷</a></li>
-			</ul>
-		</nav>
-
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
+            <div class="chefs section-bg" style="margin-left: 750px;">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                  <!-- 이전페이지가 없으면 	버튼 비활성화  -->
+                    <li class="page-item ${pager.pre?'':'disabled'}">
+                    <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
+                    <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
+                      <a class="page-link" href="./memberList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a> 
+                    </li> 
+                    <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
+                    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+                      <li class="page-item"><a class="page-link" href="./memberList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a> </li>
+                    </c:forEach> 
+                    <li class="page-item ${pager.next?'':'disabled'}">
+                      <a class="page-link" href="./memberList?page=${pager.lastNum}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
 
         </div>
 
@@ -271,7 +302,7 @@
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document"   >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
@@ -286,6 +317,37 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">신고 모달</button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="./reportRequest" method="post">
+              <input type="text" name="id" class="form-control" id="id" value=${membersReportVO.id}>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">신고당하는 사람의 닉네임</label>
+                <input type="text" class="form-control" id="report_id" name="report_id">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">신고 사유를 입력해주세요</label>
+                <textarea class="form-control" id="report_contents" name="report_contents"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">눈감아주기</button>
+            <button type="button" class="btn btn-success">신고하기</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->

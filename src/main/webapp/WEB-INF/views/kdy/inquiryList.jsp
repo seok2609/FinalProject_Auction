@@ -30,6 +30,9 @@
        #mydiv{
         margin-left: 250px;
        } 
+       #inquiryListCss{
+        color: tomato;
+       }
     </style>
 
 </head>
@@ -204,11 +207,11 @@
             <div class="row" id="mydiv">
                 <!-- End of Topbar -->
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2" >
+                    <div class="card border-left-success shadow h-100 py-2" >
                         <div class="card-body" onclick="location.href='../kdy/inquiryNoResponseList'">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <div class="text-success font-weight-bold text-primary text-uppercase mb-1">
                                         응답하지 않은 문의</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiryNo} 건</div>
                                 </div>
@@ -220,11 +223,11 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <div class="text-success font-weight-bold text-primary text-uppercase mb-1">
                                         응답완료</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiryYes} 건</div>
                                 </div>
@@ -236,11 +239,11 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <div class="text-success font-weight-bold text-primary text-uppercase mb-1">
                                         총 문의</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiry} 건</div>
                                 </div>
@@ -262,6 +265,7 @@
                             <thead>
                                 <tr class="text-success">
                                     <th>아이디</th>
+                                    <th>닉네임</th>
                                     <th>등급</th>
                                     <th>제목</th>
                                     <th>문의 날짜</th>
@@ -271,10 +275,23 @@
                             <tbody>
                                 <c:forEach items="${inquiryList}" var="inquiryList">
                                         <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
+                            <c:choose>
+	                            <c:when test="${empty inquiryList.inquiryResponseVO.inquiry_response_contents}">
                                             <td>${inquiryList.id}</td>
+                                            <td>${inquiryList.membersVO.nickName}</td>
                                             <td>${inquiryList.membersVO.roleVO.roleName}</td>
                                             <td>${inquiryList.inquiry_text}</td>
                                             <td>${inquiryList.inquiry_date}</td>
+
+	                            </c:when>
+	                            <c:otherwise>
+                                            <td id="inquiryListCss">${inquiryList.id}</td>
+                                            <td id="inquiryListCss">${inquiryList.membersVO.nickName}</td>
+                                            <td id="inquiryListCss">${inquiryList.membersVO.roleVO.roleName}</td>
+                                            <td id="inquiryListCss">${inquiryList.inquiry_text}</td>
+                                            <td id="inquiryListCss">${inquiryList.inquiry_date}</td>
+	                            </c:otherwise>
+                            </c:choose>
                                             <c:choose>
                                             	<c:when test="${empty inquiryList.inquiryResponseVO.inquiry_response_contents}">
                                             		<td>미답변</td>
@@ -288,27 +305,34 @@
                             </tbody>
                         </table>
                     </div>
-                    </div>
                 </div>
-            
+                
+            </div>
+            <div class="chefs section-bg" style="margin-left: 750px;">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                  <!-- 이전페이지가 없으면 	버튼 비활성화  -->
+                    <li class="page-item ${pager.pre?'':'disabled'}">
+                    <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
+                    <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
+                      <a class="page-link" href="./inquiryList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a> 
+                    </li> 
+                    <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
+                    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+                      <li class="page-item"><a class="page-link" href="./inquiryList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a> </li>
+                    </c:forEach> 
+                    <li class="page-item ${pager.next?'':'disabled'}">
+                      <a class="page-link" href="./inquiryList?page=${pager.lastNum}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
         </div>
-        <nav aria-label="Page navigation example">
-			<ul class="pagination">
-				<c:if test="${pager.pre}">
-					<li class="page-item"><a class="page-link"
-						href="./inquiryList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}">◁</a></li>
-				</c:if>
-
-				<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-					<li class="page-item"><a class="page-link"
-						href="./inquiryList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a>
-					</li>
-				</c:forEach>
-				<li class="page-item ${pager.next?'':'disabled'}"><a
-					class="page-link" href="./inquiryList?page=${pager.lastNum+1}">▷</a></li>
-			</ul>
-		</nav>
 
     </div>
     <!-- End of Page Wrapper -->
@@ -339,4 +363,4 @@
 
 </body>
 
-</html>
+</html> 

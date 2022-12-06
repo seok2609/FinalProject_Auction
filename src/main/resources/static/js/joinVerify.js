@@ -79,6 +79,7 @@ $("#inputPassWord").on({
         }else{
             $("#pwCheckHelp").html("비밀번호가 일치하지 않습니다.")
             $("#pwHelp").val("");   //비밀번호가 일치하지 않다면 비밀번호를 공백으로 바꾼다.
+            $("inputPassWordCheck").focus();
 
             results[1] = result;
         }
@@ -132,51 +133,161 @@ $("#inputNickName").blur(function(){
 });
 
 //이메일 검증
+// $("#inputEmail").blur(function(){
+
+//     let result = nullCheck($("#inputEmail").val());
+
+//     results[5] = result;
+
+//     if(result){
+//         $("#emailHelp").html("정상입니다.")
+//     }else{
+//         $("#emailHelp").html("이메일 입력은 필수입니다.");
+//     }
+// });
+
+//이메일 정규식 검증
+function isEmail(asValue) {
+	var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+
+
+	return regExp.test(asValue);
+
+}
+
 $("#inputEmail").blur(function(){
 
     let result = nullCheck($("#inputEmail").val());
-
     results[5] = result;
 
-    if(result){
-        $("#emailHelp").html("정상입니다.")
+    if($("#inputEmail").val()== ''){
+        $("#inputEmail").focus();
+        $("#emailHelp").html("이메일을 확인해주세요.");
+    }else if(!isEmail($("#inputEmail").val())){
+        $("#inputEmail").focus();
+        $("#emailHelp").html("이메일 형식을 확인해주세요");
     }else{
-        $("#emailHelp").html("이메일 입력은 필수입니다.");
+        $("#emailHelp").html("정상입니다.");
     }
 
-
 });
+
 
 //생년월일 검증
+// $("#inputBirth").blur(function(){
+
+//     let result = nullCheck($("#inputBirth").val());
+
+//     results[6] = result;
+
+//     if(result){
+//         $("#birthHelp").html("정상입니다.")
+
+//     }else{
+//         $("#birthHelp").html("생년월일 입력은 필수입니다.")
+//     }
+
+// });
+
+//  생년월일 - 하이픈 자동 생성
+function birth_keyup(obj){
+    let birth_len = obj.value.length;
+    if (event.keyCode==8){
+        obj.value = obj.value.slice(0,birth_len)
+        return 0;
+    }else if(birth_len==4 || birth_len==7){
+        obj.value += '-';
+    }
+}
+
+let birth_pattern = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/
+
 $("#inputBirth").blur(function(){
 
-    let result = nullCheck($("#inputBirth").val());
-
-    results[6] = result;
-
-    if(result){
-        $("#birthHelp").html("정상입니다.")
-
+     results[6] = result;
+    
+    if(!birth_pattern.test($("#inputBirth").val())){
+        $("#birthHelp").html("생년월일 8자리를 입력해주세요.");
+        $("#inputBirth").focus();
+    }else if($("#inputBirth").val() == ''){
+        $("#birthHelp").html("생년월일을 입력해주세요.");
+        $("#inputBirth").focus();
     }else{
-        $("#birthHelp").html("생년월일 입력은 필수입니다.")
+        $("#birthHelp").html('정상입니다.');
     }
 
-});
+})
 
 
 //전화번호 검증
+// $("#inputPhone").blur(function(){
+
+//     let result = nullCheck($("#inputPhone").val());
+
+//     results[7] = result;
+
+//     if(result){
+//         $("#phoneHelp").html("정상입니다.")
+//     }else{
+//         $("#phoneHelp").html("전화번호 입력은 필수입니다.");
+//     }
+
+// });
+
+
+
+const autoHyphen = (target) => {
+    target.value = target.value
+      .replace(/[^0-9]/g, '')
+     .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+   }
+
+// // 000-0000-0000
+// String.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/\-{1,2}$/g, "");
+ 
+// // 00-000-0000
+// String.replace(/^(\d{0,2})(\d{0,3})(\d{0,4})$/g, "$1-$2-$3").replace(/\-{1,2}$/g, "");
+
+
+function phoneFormat(phoneNumber){
+
+    
+    //특수문자 제거
+    const value = phoneNumber.replace(/[^0-9]/g, '');
+
+    // 00 또는 000 지정
+
+    const firstLength = value.length > 9 ? 3 : 2;
+
+
+  
+    
+        
+        // ({2,3}) - ({3,4}) - ({4})
+        return [
+            //첫번째 구간 (00 or 000)
+            value.slice(0, firstLength),
+            //두번째 구간 (000 or 0000)
+            value.slice(firstLength, value.length - 4),
+            //남은 마지막 모든 숫자
+            value.slice(value.length),
+        ].join('-');
+}
+
+phoneFormat('01012345678');
+
 $("#inputPhone").blur(function(){
+let result = nullCheck($("#inputPhone").val());
 
-    let result = nullCheck($("#inputPhone").val());
+results[7] = result;
 
-    results[7] = result;
-
-    if(result){
-        $("#phoneHelp").html("정상입니다.")
+    if($("#inputPhone").val() == ''){
+        $("#phoneHelp").focus();
+        $("#phoneHelp").html("휴대전화 번호를 입력해주세요.");
     }else{
-        $("#phoneHelp").html("전화번호 입력은 필수입니다.");
+        $("#phoneHelp").html("");
     }
-
 });
 
 $("#signUpBtn").click(function(){
