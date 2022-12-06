@@ -148,7 +148,7 @@
 	</update>
 	
 	<delete id="setMembersDrop" parameterType="MembersVO">
-		DELETE FROM MEMBERS WHERE ID = #{id} AND PASSWORD = #{passWord}
+		DELETE FROM MEMBERS WHERE ID = #{id}
 	</delete>
 	
 	

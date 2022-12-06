@@ -171,16 +171,18 @@ public class MembersService {
 //		return check;
 //	}
 	
-	public boolean checkPassword(String membersId, String checkPassWord) throws Exception{
+	public boolean checkPassWord(String membersId, String checkPassWord) throws Exception{
 	
 //		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
 //		log.info("context :{} " , context);
 //		Authentication authentication = context.getAuthentication();
 //		MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
 		MembersVO membersVO = new MembersVO();
+		membersVO = membersMapper.getMembersLogin(membersId);
 		
 		String realPassWord = membersVO.getPassword();
 		boolean matches = passwordEncoder.matches(checkPassWord, realPassWord);
+		
 		
 		return matches;
 		

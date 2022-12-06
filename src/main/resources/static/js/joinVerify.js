@@ -333,11 +333,11 @@ $("#dropBtn").click(function(){
 
 });
 
-$("#successBtn").click(function(){
+// $("#successBtn").click(function(){
 
-    location='./drop';
+//     location='./drop';
 
-});
+// });
 
 
 //모달창 pw검증

@@ -128,10 +128,10 @@
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-		      <input type="hidden" name="passWord" id="checkPassWord" value="${member.password}">
+		      <input type="hidden" name="passWord" id="checkPassWord2" value="${member.password}">
 		        <div class="mb-3">
 		           	<label class="form-label">현재 비밀번호 입력</label>
-                    <input type="password" id="inputPassWord2" name="checkPassWord" class="form-control">
+                    <input type="password" id=inputPassWord2 name="checkPassWord" class="form-control">
                     <span id="pwHelp2" class="bc"></span>
                 </div>
                 
@@ -156,21 +156,22 @@
 
 <script>
     $('#successBtn').click(function() {
-        const checkPassword = $('#inputPassWord2').val();
-        if(!checkPassword || checkPassword.trim() === ""){
+        const checkPassWord = $('#inputPassWord2').val();
+        console.log("checkPassWord", checkPassWord);
+        if(checkPassWord == ""){
             alert("비밀번호를 입력하세요.");
         } else{
             $.ajax({
                 type: 'GET',
-                url: '/members/drop',
-                data: {'checkPassword': checkPassword},
-                datatype: "text"
-            }).done(function(result){
-                console.log(result);
-                if(result){
+                url: '/members/drop?checkPassWord='+checkPassWord
+                
+            }).done(function(resultPw){
+                console.log(resultPw);
+                if(resultPw == 1){
                     console.log("비밀번호 일치");
+                    alert("회원탈퇴가 성공적으로 완료되었습니다. 이용해주셔서 감사합니다.");
                     window.location.href="../";
-                } else if(!result){
+                } else{
                     console.log("비밀번호 틀림");
                     // 비밀번호가 일치하지 않으면
                     alert("비밀번호가 맞지 않습니다.");

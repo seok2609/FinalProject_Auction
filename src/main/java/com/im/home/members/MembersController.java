@@ -330,8 +330,8 @@ public class MembersController {
 	
 	//회원 탈퇴
 		@GetMapping(value = "drop")
-
-		public ModelAndView setMembersDrop(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception{
+		@ResponseBody
+		public int setMembersDrop(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, Model model, HttpSession session, RedirectAttributes redirectAttributes) throws Exception{
 			
 			ModelAndView mv = new ModelAndView();
 //			SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
@@ -339,23 +339,28 @@ public class MembersController {
 //			Authentication authentication = context.getAuthentication();
 //			MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
 			
-			String membersId = membersVO.getPassword();
+			String membersId = membersVO.getId();
 			
 			boolean check = false;
+			int resultDrop = 0;
 			
-			int resultDrop = membersService.setMembersDrop(membersVO);
-			check = membersService.checkPassword(membersId, checkPassWord);
+			check = membersService.checkPassWord(membersId, checkPassWord);
 			
-			if(resultDrop == 1 || !check) {
-				mv.setViewName("redirect:../");
-				session.invalidate();
-			}else {
-				redirectAttributes.addFlashAttribute("message", false);	// jsp에 있는 메세지 호출
-				mv.setViewName("members/myPage");
+//			redirectAttributes.addFlashAttribute("message", false);	// jsp에 있는 메세지 호출
+			mv.setViewName("members/myPage");
+			
+			if(check) {
+				
+				 resultDrop = membersService.setMembersDrop(membersVO);
+				
+				if(resultDrop == 1) {
+				
+					session.invalidate();
+				}
 			}
 			
 			
-			return mv;
+			return resultDrop;
 		}
 	
 	
