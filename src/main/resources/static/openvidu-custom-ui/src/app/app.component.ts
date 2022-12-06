@@ -43,7 +43,7 @@ export class AppComponent {
   }
 
 
-  APPLICATION_SERVER_URL = 'http://192.168.1.6:5000/';
+  APPLICATION_SERVER_URL = 'http://localhost:5000/';
   sessionId = 'openvidu-custom-ui';
   tokens!: TokenModel;
 
