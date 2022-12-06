@@ -4,90 +4,98 @@ import lombok.Data;
 
 @Data
 public class AdminPager {
-   private Long page;
-   private Long perPage;
-   private Long startRow;
-   private Long startNum;
-   private Long lastNum;
-   private Long perBlock;
-   private boolean pre;
-   private boolean next;
-   private String kind;
-   private String search;
-   
-   public AdminPager() {
-      this.perPage = 10L;
-      this.perBlock = 5L;
-   }
-   
-   public Long getPage() {
-      if(this.page == null || this.page < 1) {
-         this.page = 1L;
-      }
-      return page;
-   }
-   
-   public Long getPerBlock() {
-	   if(this.perBlock < 1) {
-		   this.perBlock = 1L;
-	   }
-	   return perBlock;
-   }
-   
-   public Long getPerPage() {
-      if(this.perPage == null) {
-         this.perPage = 10L;
-      }
-      return perPage;
-   }
-   
-   public void getRowNum() throws Exception {
-      this.startRow = (this.getPage()-1)*perPage;
-   }
-   
-   public void getNum(Long totalCount) throws Exception{
-      Long totalPage = totalCount/this.getPerPage();
-      if(totalCount % this.getPerPage() != 0) {
-         totalPage++;
-      }
-      if(this.getPage()>totalPage) {
-         this.setPage(totalPage);
-      }
-      Long totalBlock = totalPage/this.getPerBlock();
-      if(totalPage % this.getPerBlock() != 0) {
-         totalBlock++;
-      }
-      Long curBlock = this.getPage()/this.getPerBlock();
-      if(this.getPage() % this.getPerBlock() != 0) {
-         curBlock++;
-      }
-      this.startNum = (curBlock - 1) * this.getPerBlock() + 1;
-      this.lastNum = curBlock*this.getPerBlock();
-      
-      if(curBlock == totalBlock) {
-         this.lastNum = totalPage;
-      }
-      
-      if(curBlock > 1) {
-         pre = true;
-      }
-      
-      if(curBlock < totalBlock) {
-         next = true;
-      }
-   }
-   	public Long getStartRow() {
-		if(this.startRow == null) {
-			this.startRow=0L;
-		}
-		return startRow;
+
+	private Long startRow;
+	private Long lastRow;
+	private Long startNum;
+	private Long lastNum;
+	private String search;
+	private Long page;
+	private Long perPage;
+	private Long perBlock;
+	private Long totalPage;
+	 private String kind;
+	
+		//이전 블럭의 유무-이전 블럭이 있으면 true, 없으면 false
+		private boolean pre;
+		//다음 블럭의 유무-다음 블럭이 있으면 true, 없으면 false
+		private boolean next;
 		
+	public AdminPager() {
+		this.perPage=10L;
+		this.perBlock=5L;
 	}
-   public String getSearch() {
-      if(this.search == null) {
-         this.search = "";
-      }
-      return search;
-   }
-   
+	
+	public void getRowNum() throws Exception{
+		this.startRow = (this.getPage()-1)*this.getPerPage();
+	}
+	
+	public Long getPage() {
+		if(this.page==null || this.page<1) {
+			this.page=1L;
+		}
+		return page;
+	}
+	
+	//jsp로 보내줄 페이지네이션 번호 계산
+		public void getNum(Long totalCount) throws Exception{
+			
+			//totalPage 계산
+			 Long totalPage = totalCount/this.getPerPage();
+			 //totalCount에서 perPage 나눴을때 0이 아니라면 totalPage는 +1
+			 //ex: totalCount:122 perPage:20 -> totalPage: 6+1 
+			 if(totalCount%this.getPerPage()!=0) {
+				 totalPage++;
+			 }
+			 
+			 this.totalPage = totalPage;
+			 
+			 if(this.getPage()>totalPage) {
+				 this.setPage(totalPage);
+			 }
+			 //totalBlock은 페이지네이션의 총 갯수
+			 Long totalBlock = totalPage/this.getPerBlock();
+			//totalPage를 PerBlock으로 나눴을때 0이 아니라면 totalBlock은 +1
+			 //ex: totalPage:7 perPage:5 -> totalBlock: 1+1 
+			 if(totalPage%this.getPerBlock()!=0) {
+				 totalBlock++;
+			 }
+			 
+			 //curBlock: 페이지네이션의 현재 번호
+			 Long curBlock = this.getPage()/this.getPerBlock();
+			 if(this.getPage()%this.getPerBlock()!=0) {
+				 curBlock++;
+			 }
+			 		 
+			 this.startNum = (curBlock-1)*this.getPerBlock()+1;
+			 this.lastNum = curBlock*this.getPerBlock();
+			 
+			 if(curBlock==totalBlock) {
+				 this.lastNum = totalPage;
+			 }
+			 
+			 if(curBlock>1) {
+					pre=true;
+				}
+				
+			if(curBlock<totalBlock) {
+					next=true;
+				}
+		}
+//		public Long getStartRow() {
+//			if(this.startRow == null) {
+//				this.startRow=0L;
+//			}
+//			return startRow;
+//			
+//		}
+	
+	public String getSearch() {
+		if(this.search==null) {
+			this.search="";
+		}
+		return search;
+	}
+
+
 }

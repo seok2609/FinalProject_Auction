@@ -17,6 +17,12 @@
         rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="/kdy/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+          #mydiv{
+        margin-left: 200px;
+       } 
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -187,20 +193,14 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">통계</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
-
+               
                     <!-- Content Row -->
                     <div class="row">
-
+                        <div class="row" id="mydiv" >
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
+                            <div class="card border-left-success shadow h-100 py-2" >
+                                <div class="card-body" onclick="location.href='../kdy/memberList'">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
@@ -218,12 +218,12 @@
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
+                                <div class="card-body" onclick="location.href='../kdy/report'">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                당일 방문자 수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">215,000</div>
+                                                대기중인 신고요청 </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${reportNoResponse}건</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -235,51 +235,23 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body" onclick="location.href='../kdy/inquiryNoResponseList'">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                대기중인 1대1 문의  </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${inquiryNoResponse}건</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Content Row -->
 
@@ -304,28 +276,7 @@
                     </div>
                         <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-						<c:choose>
-							<c:when test="${empty inquiryNoResponse}">
-							
-							</c:when>
-							<c:otherwise>
-		                        <div class="card-header py-3">
-		                            <a class="m-0 font-weight-bold text-success" href="../kdy/inquiryNoResponseList" >대기중인 1대1 문의 ${inquiryNoResponse}건</a>
-		                        </div>							
-							</c:otherwise>
-						</c:choose>
 						
-						<c:choose>
-							<c:when test="${empty reportNoResponse}">
-							
-							</c:when>
-							<c:otherwise>
-		                        <div  class="card-header py-3">
-		                            <a class="m-0 font-weight-bold text-success" href="../kdy/report" >대기중인 신고요청 ${reportNoResponse}건</a>
-		                        </div>
-							</c:otherwise>
-						</c:choose>
-
                         <div class="card-body">
                             <div class="table-responsive">
                               
@@ -336,7 +287,7 @@
                                         <c:otherwise>
                                             <table class="table table-striped">
                                                 <thead>
-                                                    <div class="card-header py-3">대기중인 1대1 문의 입니다.</div>
+                                                    <div class="card-header py-3">최신 1대1문의 5개 리스트</div>
                                                     <tr class="text-success">
                                                         <th>아이디</th>
                                                         <th>등급</th>
@@ -357,6 +308,8 @@
                                             </table>
                                         </c:otherwise>
                                     </c:choose>
+
+                                    
                               
                             </div>
                         </div>
