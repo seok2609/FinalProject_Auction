@@ -26,7 +26,6 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <style>
-
        #reportRequest{
         margin-left: 15px;
        } 
@@ -208,46 +207,70 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>신고 요청 아이디</th>
-                                            <th>신고 대상자 아이디</th>
-                                            <!-- <th>신고 사유</th> -->
-                                            <th>신고 요청 날짜</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    	<c:forEach items="${reportList}" var="reportLists">
-	                                        <tr>
-	                                            <td>${reportLists.id}</td>
-	                                            <td>${reportLists.report_id}</td>
-	                                            <!-- <td>${reportLists.report_contents}</td> -->
-	                                            <td>${reportLists.report_date}</td>
-	                                        </tr>
-                                    	</c:forEach>
-                                    </tbody>
-                                </table>
+                                <c:choose>
+                                	<c:when test="${empty reportList}">
+                                		신고 요청이 없습니다.
+                                	</c:when>
+                                	<c:otherwise>
+		                                <table class="table table-bordered">
+		                                    <thead>
+		                                        <tr>
+		                                            <th>신고자</th>
+		                                            <th>대상자</th>
+		                                            <th>신고 요청 날짜</th>
+		                                        </tr>
+		                                    </thead>
+		                                    <tbody>
+		                                    	<c:forEach items="${reportList}" var="reportLists">
+			                                        <tr onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
+			                                            <td>${reportLists.id}</td>
+			                                            <td>${reportLists.report_id}</td>
+			                                            <td>${reportLists.report_date}</td>
+			                                        </tr>
+		                                    	</c:forEach>
+		                                    </tbody>
+		                                </table>
+                                	</c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
 
                     
-
+                    
+                    
                 </div>
                 <!-- /.container-fluid -->
-
+                
             </div>
             <!-- End of Main Content -->
-
+            
+            <div class="chefs section-bg" style="margin-left: 750px;">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                  <!-- 이전페이지가 없으면 	버튼 비활성화  -->
+                    <li class="page-item ${pager.pre?'':'disabled'}">
+                    <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
+                    <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
+                      <a class="page-link" href="./report?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a> 
+                    </li> 
+                    <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
+                    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+                      <li class="page-item"><a class="page-link" href="./report?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a> </li>
+                    </c:forEach> 
+                    <li class="page-item ${pager.next?'':'disabled'}">
+                      <a class="page-link" href="./report?page=${pager.lastNum}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
+           
             <!-- End of Footer -->
 
         </div>
@@ -280,6 +303,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

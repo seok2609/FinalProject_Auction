@@ -28,6 +28,12 @@ public interface AdminMembersMapper {
 	public AdminMembersVO getInquiryDetail(AdminMembersVO adminMembersVO)throws Exception;
 	//1대1 리스트 pager에 필요한 count
 	public Long getInquiryRequestCount(AdminPager adminPager)throws Exception;
+	//응답하지 않은 1대1문의 페이징 카운트
+	public Long getNoInquiryResponseCount(AdminPager adminPager)throws Exception;
+	//신고요청 페이징 카운트
+	public Long getReportCount(AdminPager adminPager)throws Exception;
+	//블랙 리스트 페이징 카운트
+	public Long getBlackMembersCount(AdminPager adminPager)throws Exception;
 	//응답하지 않은 1대1문의 리스트
 	public List<AdminMembersVO> getInquiryNoResponseList(AdminPager adminPager)throws Exception;
 	//응답하지 않은 1대1문의
@@ -40,10 +46,28 @@ public interface AdminMembersMapper {
 	public Long getAdminMembersCount(AdminPager adminPager)throws Exception;
 	//신고 요청
 	public int setRepoertRequest(MembersReportVO membersReportVO)throws Exception;
+	//신고 요청 대기
+	public int setBlackWaiting(MembersReportVO membersReportVO)throws Exception;
 	//신고 요청 건 수
 	public Integer getTotalReport(MembersReportVO membersReportVO)throws Exception;
 	//신고 요청 리스트
 	public List<MembersReportVO> getReportList(AdminPager adminPager)throws Exception;
-
-
+	//신고 요청 디테일
+	public MembersReportVO getReportDetail(MembersReportVO membersReportVO)throws Exception;
+	//신고 요청 거절
+	public int setResponseReportNo(MembersReportVO membersReportVO)throws Exception;
+	//신고 요청 승인
+	public int setResponseReportOk(MembersReportVO membersReportVO)throws Exception;
+	//블랙 리스트
+	public List<MembersReportVO> getBlackList(AdminPager adminPager)throws Exception;
+	//블랙 회원 수
+	public Integer getTotalBlack(MembersVO membersVO)throws Exception;
+	//블랙 회원 디테일
+	public List<MembersReportVO> getBlackDetail(MembersReportVO membersReportVO)throws Exception;
+	//블랙 해제
+	public int setBlackCancel(MembersReportVO membersReportVO)throws Exception;
+	//블랙 해제
+	public int setBlack(MembersVO membersVO)throws Exception;
+	//블랙 해제
+	public int setBlackC(MembersVO membersVO)throws Exception;
 }
