@@ -62,7 +62,7 @@
 			
 				</div>
 			</div>
-              <div>
+         <%--      <div>
 	              <sec:authentication property="Principal" var="member"/>
 					<h5>아이디 : ${member.id}</h5> 
 					<h5>이름 : ${member.realName}</h5>
@@ -75,7 +75,12 @@
 							<h5>닉네임 : ${member.nickName}</h5>
 						</c:otherwise>
 					</c:choose>
-			  </div>
+			  </div> --%>
+			  <sec:authentication property="Principal" var="member"/>
+			  <h5>아이디 : ${member.id}</h5> 
+			  <h5>이름 : ${member.realName}</h5>
+			  <h5>닉네임 : ${member.nickName}</h5>
+			  
              <!--  <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a> -->
             </div>
           </div><!-- End Service Item -->
@@ -122,7 +127,7 @@
               </div>
               <h3 style="color: #008374;">회원정보 수정</h3>
               <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
-              <a href="./modify?id=${member.id}" id="" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+              <a href="./modify?id=${member.id}" id="amd" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -173,55 +178,82 @@
 		</form>
 		
 		<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="md">
-			  Launch demo modal
-			</button>
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="md">
+		  Launch demo modal
+		</button>
+		
+		<!-- Modal -->
+		<sec:authentication property="Principal" var="member"/>
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">회원수정 검증</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		      <input type="hidden" name="passWord" id="checkPassWord2" value="${member.password}">
+		        <div class="mb-3">
+		           	<label class="form-label">현재 비밀번호 입력</label>
+                    <input type="password" id=inputPassWord2 name="checkPassWord" class="form-control">
+                    <span id="pwHelp2" class="bc"></span>
+                </div>
+                
+           <!--      <div class="mb-3">
+		           	<label class="form-label">입력한 비밀번호 재 입력</label>
+                    <input type="password" id="inputPassWordCheck2" name="checkPassWord" class="form-control">
+                     <span id="pwCheckHelp2" class="bc"></span>
+                </div> -->
+		      </div>
+		      
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary" id="successBtn">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 			
-			<!-- Modal -->
-			<sec:authentication property="Principal" var="member"/>
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h1 class="modal-title fs-5" id="exampleModalLabel">정보 수정하기</h1>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			      </div>
-			      <div class="modal-body">
-				      <div class="form-group mt-3">
-				        <input type="password" name="passWord" id="inputPassWord" class="form-control" value="" placeholder="수정할 비밀번호를 입력하세요.">
-				        <span id="pwHelp" class="bc"></span>
-				       </div>
-				       
-				       <div class="form-group mt-3">
-				       		<input type="password" name="passWordCheck" id="inputPassWordCheck" class="form-control" placeholder="위에 입력한 비밀번호를 다시 한번 입력해주세요.">
-				       		<span id="pwCheckHelp" class="bc"></span>
-				       </div>
-				       
-				       <div class="form-group mt-3">
-				       		<input type="text" class="form-control" name="nickName" value="${member.nickName}" id="inputNickName" placeholder="수정할 닉네임을 입력해주세요">
-				       		<span id="nickNameHelp" class="bc"></span>
-				       </div>
-				       
-				       <div class="form-group mt-3">
-				       		<input type="text" class="form-control" name="email" value="${member.email}" id="inputEmail" placeholder="수정할 이메일을 입력해주세요.">
-				       		<span id="emailHelp" class="bc"></span>
-				       </div>
-				       
-				       <div class="form-group mt-3">
-				       		 <input type="text" name="phone" class="form-control" id="inputPhone" value="${member.phone}" oninput="autoHyphen(this)" maxlength="13" placeholder="수정할 핸드폰 번호를 입력해주세요.">
-                  			 <span id="phoneHelp" class="bc"></span>
-				       </div>
-			        
-			          
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary">확인</button>
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button> 
-			      </div>
-			    </div>
-			  </div>
-			</div>
+			
+			
+			
+			
+			
+			
 		
 <c:import url="../common/footer.jsp"></c:import>
+
+<script>
+    $('#successBtn').click(function() {
+        const checkPassWord = $('#inputPassWord2').val();
+        console.log("checkPassWord", checkPassWord);
+        if(checkPassWord == ""){
+            alert("비밀번호를 입력하세요.");
+        } else{
+            $.ajax({
+                type: 'GET',
+                url: '/members/drop?checkPassWord='+checkPassWord
+                
+            }).done(function(resultPw){
+                console.log(resultPw);
+                if(resultPw == 1){
+                    console.log("비밀번호 일치");
+                    alert("회원탈퇴가 성공적으로 완료되었습니다. 이용해주셔서 감사합니다.");
+                    window.location.href="../";
+                } else{
+                    console.log("비밀번호 틀림");
+                    // 비밀번호가 일치하지 않으면
+                    alert("비밀번호가 맞지 않습니다.");
+                    window.location.reload();
+                }
+            }).fail(function(error){
+                alert(JSON.stringify(error));
+            })
+        }
+    });
+</script>
+
+
 </body>
 </html>

@@ -80,7 +80,6 @@
 					비밀번호가 일치하지 않습니다.
 				</c:if>
 			</div>
-			<button type="button" id="hiBtn">ㅎㅇ</button>
 			
 			
 			<!-- Button trigger modal -->
