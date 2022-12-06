@@ -96,7 +96,6 @@
       <tr>
           <td>도매시장 : 
               <select name="whsalCd" id="whsalCd">
-                <option value="">전체</option>
                 <option value="110001">서울가락</option>
                 <option value="110008">서울강서</option>
                 <option value="310101">수원</option>
@@ -133,12 +132,12 @@
               </select>
               
           </td>
-          <td>도매일자 : 
+          <!-- <td>도매일자 : 
               <select name="saleDate" id="saleDate">
                   <option value="20221122">22일</option>
                   <option value="20221129">29일</option>
               </select> 
-          </td>
+          </td> -->
           <td>
             시작일<input type="text" id="datepicker_start" readonly="readonly" name="saleDateStart">
          </td>

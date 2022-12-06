@@ -3,12 +3,14 @@
           PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
           
-<mapper namespace="com.im.home.wholesale.WholeSaleMapper">
+	<mapper namespace="com.im.home.wholesale.WholeSaleMapper">
 
 <insert id="setAdd" parameterType="WholeSaleVO">
 		INSERT INTO SALE(rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, mid, midName,
 		small, smallName, totQty, totAmt, minAmt, maxAmt, avgAmt)
 		VALUES (#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{mid}, #{midName},
 		#{small}, #{smallName}, #{totQty}, #{totAmt}, #{minAmt}, #{maxAmt}, #{avgAmt})
-	</insert> 
+</insert> 
+
+
 	</mapper>

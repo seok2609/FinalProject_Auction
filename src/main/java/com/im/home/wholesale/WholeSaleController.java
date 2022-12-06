@@ -48,89 +48,91 @@ public class WholeSaleController {
 		return "wholesale/sale";
 	}
 	
+	
+	
+	//필수파라미터를 클라이언트가 선택해서 webclient로 json 호출, 데이터 VO로 받아서 뿌리기 -- 정산 데이터
 	@PostMapping("sale")
 	@ResponseBody
 	public ModelAndView sale(MustParamVO mustParamVO, String saleDateStart, String saleDateEnd)throws Exception{
-		log.info("============> {}", mustParamVO.getSaleDate());
+		ModelAndView mv = new ModelAndView();
+		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
 		
 		   int start = Integer.parseInt(saleDateStart);
 		   int end = Integer.parseInt(saleDateEnd);
-		for(int i=start; i<end+1; i++) {
-			log.info("date======> {}", i);
-		}
+		for(int j=start; j<end+1; j++) {
+			log.info("date======> {}", j);
+			mustParamVO.setSaleDate(String.valueOf(j));
+			log.info("setSaleDate======> {}", j);
+			//요청파라미터 값 없을 경우 공백처리. 파라미터가 null로 인식되면 주소 인식 안됨.
+			if(mustParamVO.getCmpCd()==null) {
+				mustParamVO.setCmpCd("");
+			}
+			if(mustParamVO.getSmallCd()==null) {
+				mustParamVO.setSmallCd("");
+			}
+			if(mustParamVO.getMidCd()==null){
+				mustParamVO.setMidCd("");
+			}
+			if(mustParamVO.getLargeCd()==null) {
+				mustParamVO.setLargeCd("");
+			}
+			
+			WebClient webClient = WebClient.builder()
+				    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
+					 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
+					 .build();
+			
+			Mono<String> res = webClient.get()
+					.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+mustParamVO.getWhsalCd()+"&saleDate="+mustParamVO.getSaleDate()+"&cmpCd="+mustParamVO.getCmpCd()+"&largeCd="+mustParamVO.getLargeCd()+"&midCd="+mustParamVO.getMidCd()+"&smallCd="+mustParamVO.getSmallCd())
+					.retrieve()
+					.bodyToMono(String.class);
+					
+	 		String r = res.block();
+			
+		ObjectMapper objectMapper = new ObjectMapper();
 		
-		//요청파라미터 값 없을 경우 공백처리. 파라미터가 null로 인식되면 주소 인식 안됨.
-		if(mustParamVO.getCmpCd()==null) {
-			mustParamVO.setCmpCd("");
-		}
-		if(mustParamVO.getSmallCd()==null) {
-			mustParamVO.setSmallCd("");
-		}
-		if(mustParamVO.getMidCd()==null){
-			mustParamVO.setMidCd("");
-		}
-		if(mustParamVO.getLargeCd()==null) {
-			mustParamVO.setLargeCd("");
-		}
+		JSONParser parser = new JSONParser();
+		Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
 		
-		ModelAndView mv = new ModelAndView();
-		WebClient webClient = WebClient.builder()
-			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
-				 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
-				 .build();
-		
-		Mono<String> res = webClient.get()
-				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+mustParamVO.getWhsalCd()+"&saleDate="+mustParamVO.getSaleDate()+"&cmpCd="+mustParamVO.getCmpCd()+"&largeCd="+mustParamVO.getLargeCd()+"&midCd="+mustParamVO.getMidCd()+"&smallCd="+mustParamVO.getSmallCd())
-				.retrieve()
-				.bodyToMono(String.class);
+			JSONObject jobj = new JSONObject(data);
+			String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
+			//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
+			//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
+			Object jobj2 = jobj.get("data");
+			log.info("r============> {}", jobj2);
+			String data2 = objectMapper.writeValueAsString(jobj2);
+			JSONArray temp = (JSONArray)parser.parse(data2);
+
+			for(int i =0; i<temp.size(); i++) {
+			
+				JSONObject jsonObj = (JSONObject)temp.get(i);
+			
+					log.info("array => {}", jsonObj);
+					if(temp.size()!=0) {
+						WholeSaleVO wholeSaleVO = new WholeSaleVO();
+						wholeSaleVO.setRn(jsonObj.get("rn").toString());
+						wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
+						wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
+						wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
+						wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
+						wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
+						wholeSaleVO.setLarge(jsonObj.get("large").toString());
+						wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
+						wholeSaleVO.setMid(jsonObj.get("mid").toString());
+						wholeSaleVO.setMidName(jsonObj.get("midName").toString());
+						wholeSaleVO.setSmall(jsonObj.get("small").toString());
+						wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
+						wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
+						wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
+						wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
+						wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
+						wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
+						wholeSaleVOs.add(i, wholeSaleVO);
 				
-		String r = res.block();
-		
-	ObjectMapper objectMapper = new ObjectMapper();
-	
-	JSONParser parser = new JSONParser();
-	Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
-	
-		JSONObject jobj = new JSONObject(data);
-		String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
-		//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
-		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
-		Object jobj2 = jobj.get("data");
-		log.info("r============> {}", jobj2);
-		String data2 = objectMapper.writeValueAsString(jobj2);
-		JSONArray temp = (JSONArray)parser.parse(data2);
+					}
+				
 
-		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
-
-		for(int i =0; i<temp.size(); i++) {
-		
-			JSONObject jsonObj = (JSONObject)temp.get(i);
-		
-				log.info("array => {}", jsonObj);
-				if(temp.size()!=0) {
-					WholeSaleVO wholeSaleVO = new WholeSaleVO();
-					wholeSaleVO.setRn(jsonObj.get("rn").toString());
-					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
-					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
-					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
-					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-					wholeSaleVO.setLarge(jsonObj.get("large").toString());
-					wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
-					wholeSaleVO.setMid(jsonObj.get("mid").toString());
-					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-					wholeSaleVO.setSmall(jsonObj.get("small").toString());
-					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-					wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
-					wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
-					wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
-					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
-					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
-					wholeSaleVOs.add(i, wholeSaleVO);
-			
-				}
-			
-
+			}
 		}
 		
 		mv.addObject("vo", wholeSaleVOs);
@@ -138,7 +140,11 @@ public class WholeSaleController {
 		return mv;
 	}
 	
+	
+	
 	// 실시간 데이터 가공 페이지
+	
+	
 	@GetMapping("realtime")
 	@ResponseBody
 	public ModelAndView realtime() throws Exception { //실시간 정보 출력 
