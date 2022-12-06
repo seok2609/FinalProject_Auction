@@ -1,16 +1,25 @@
 package com.im.home.members;
 
 import java.io.File;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.im.home.admin.AdminMembersVO;
 import com.im.home.util.MembersFileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +35,8 @@ public class MembersService {
 	
 	@Value("${app.upload.membersFile}")
 	private String path;
-	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	
@@ -128,6 +138,56 @@ public class MembersService {
 	}
 	
 	
+	//마이페이지에서 보이는 1:1문의 내역
+	public List<AdminMembersVO> getInquiryList(AdminMembersVO adminMembersVO) throws Exception{
+		
+		 
+		
+		return membersMapper.getInquiryList(adminMembersVO);
+	}
+	
+	
+	//회원정보 수정
+	public int setMembersModify(MembersVO membersVO) throws Exception{
+		
+		int result = membersMapper.setMembersModify(membersVO);
+		
+		return result;
+	}
+	
+	
+	//회원정보 탈퇴
+	
+	public int setMembersDrop(MembersVO membersVO) throws Exception{
+		
+		int result = membersMapper.setMembersDrop(membersVO); 
+		
+		return result;
+	}
+	
+//	public boolean isMatches(String dbPassWord, String inputPassWord) throws Exception{
+//		boolean check = passwordEncoder.matches(dbPassWord, inputPassWord);
+//		
+//		return check;
+//	}
+	
+	public boolean checkPassWord(String membersId, String checkPassWord) throws Exception{
+	
+//		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
+//		log.info("context :{} " , context);
+//		Authentication authentication = context.getAuthentication();
+//		MembersVO membersVO2 = (MembersVO)authentication.getPrincipal();
+		MembersVO membersVO = new MembersVO();
+		membersVO = membersMapper.getMembersLogin(membersId);
+		
+		String realPassWord = membersVO.getPassword();
+		boolean matches = passwordEncoder.matches(checkPassWord, realPassWord);
+		
+		
+		return matches;
+		
+		
+	}
 	
 	
 	

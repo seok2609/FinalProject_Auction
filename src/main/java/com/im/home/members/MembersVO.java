@@ -15,6 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.im.home.admin.AdminMembersVO;
+import com.im.home.admin.InquiryResponseVO;
+
 import lombok.Data;
 
 @Data
@@ -47,12 +50,16 @@ public class MembersVO implements UserDetails, OAuth2User{
 	
 	private MultipartFile files;
 	
+	private List<AdminMembersVO> adminMembersVOs;
+	private InquiryResponseVO inquiryResponseVO;
+
+	
 	
 	//OauthUser , Tocken 정보저장
 	private Map<String, Object> attributes;
 	private RoleVO roleVO;
 	private List<MembersVO> membersVOs;
-
+	
 
 	
 	
