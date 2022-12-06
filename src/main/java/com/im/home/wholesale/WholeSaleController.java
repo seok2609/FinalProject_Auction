@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,79 +33,106 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/wholesale/*")
 public class WholeSaleController {
 	
+	@GetMapping("sale2")
+	public String sale2() throws Exception{
+		
+		return "wholesale/sale2";
+	}
+	
 	// 고정데이터 가공 페이지
 	
-	@RequestMapping("sale")
+
+	@GetMapping("sale")
+	public String sale() throws Exception{
+		
+		return "wholesale/sale";
+	}
+	
+	
+	
+	//필수파라미터를 클라이언트가 선택해서 webclient로 json 호출, 데이터 VO로 받아서 뿌리기 -- 정산 데이터
+	@PostMapping("sale")
 	@ResponseBody
-	public ModelAndView sale() throws Exception{
-		
+	public ModelAndView sale(MustParamVO mustParamVO, String saleDateStart, String saleDateEnd)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		WebClient webClient = WebClient.builder()
-			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
-				 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
-				 .build();
-		
-		Mono<String> res = webClient.get()
-				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd=110001&saleDate=20221122")
-				.retrieve()
-				.bodyToMono(String.class);
-				
-		String r = res.block();
-	
-	ObjectMapper objectMapper = new ObjectMapper();
-	
-	JSONParser parser = new JSONParser();
-	Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
-	
-		JSONObject jobj = new JSONObject(data);
-		String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
-		//총개수로 파라미터 페이지 총 개수를 설정해놓고,
-		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
-		Object jobj2 = jobj.get("data");
-		String data2 = objectMapper.writeValueAsString(jobj2);
-		JSONArray temp = (JSONArray)parser.parse(data2);
-
 		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
-
-		for(int i =0; i<temp.size(); i++) {
 		
-			JSONObject jsonObj = (JSONObject)temp.get(i);
+		   int start = Integer.parseInt(saleDateStart);
+		   int end = Integer.parseInt(saleDateEnd);
+		for(int j=start; j<end+1; j++) {
+			log.info("date======> {}", j);
+			mustParamVO.setSaleDate(String.valueOf(j));
+			log.info("setSaleDate======> {}", j);
+			//요청파라미터 값 없을 경우 공백처리. 파라미터가 null로 인식되면 주소 인식 안됨.
+			if(mustParamVO.getCmpCd()==null) {
+				mustParamVO.setCmpCd("");
+			}
+			if(mustParamVO.getSmallCd()==null) {
+				mustParamVO.setSmallCd("");
+			}
+			if(mustParamVO.getMidCd()==null){
+				mustParamVO.setMidCd("");
+			}
+			if(mustParamVO.getLargeCd()==null) {
+				mustParamVO.setLargeCd("");
+			}
+			
+			WebClient webClient = WebClient.builder()
+				    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
+					 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
+					 .build();
+			
+			Mono<String> res = webClient.get()
+					.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+mustParamVO.getWhsalCd()+"&saleDate="+mustParamVO.getSaleDate()+"&cmpCd="+mustParamVO.getCmpCd()+"&largeCd="+mustParamVO.getLargeCd()+"&midCd="+mustParamVO.getMidCd()+"&smallCd="+mustParamVO.getSmallCd())
+					.retrieve()
+					.bodyToMono(String.class);
+					
+	 		String r = res.block();
+			
+		ObjectMapper objectMapper = new ObjectMapper();
 		
-				log.info("array => {}", jsonObj);
-				if(temp.size()!=0) {
-					WholeSaleVO wholeSaleVO = new WholeSaleVO();
-					wholeSaleVO.setRn(jsonObj.get("rn").toString());
-					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
-					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
-					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
-					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-					wholeSaleVO.setLarge(jsonObj.get("large").toString());
-					wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
-					wholeSaleVO.setMid(jsonObj.get("mid").toString());
-					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-					wholeSaleVO.setSmall(jsonObj.get("small").toString());
-					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-					wholeSaleVO.setDanq(jsonObj.get("danq").toString());
-					wholeSaleVO.setDanCd(jsonObj.get("danCd").toString());
-					wholeSaleVO.setPojCd(jsonObj.get("pojCd").toString());
-					wholeSaleVO.setStd(jsonObj.get("std").toString());
-					wholeSaleVO.setSizeCd(jsonObj.get("sizeCd").toString());
-					wholeSaleVO.setSizeName(jsonObj.get("sizeName").toString());
-					wholeSaleVO.setLvCd(jsonObj.get("lvCd").toString());
-					wholeSaleVO.setLvName(jsonObj.get("lvName").toString());
-					wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
-					wholeSaleVO.setSanName(jsonObj.get("sanName").toString());
-					wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
-					wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
-					wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
-					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
-					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
-					wholeSaleVOs.add(i, wholeSaleVO);
-			
-				}
-			
+		JSONParser parser = new JSONParser();
+		Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
+		
+			JSONObject jobj = new JSONObject(data);
+			String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
+			//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
+			//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
+			Object jobj2 = jobj.get("data");
+			log.info("r============> {}", jobj2);
+			String data2 = objectMapper.writeValueAsString(jobj2);
+			JSONArray temp = (JSONArray)parser.parse(data2);
 
+			for(int i =0; i<temp.size(); i++) {
+			
+				JSONObject jsonObj = (JSONObject)temp.get(i);
+			
+					log.info("array => {}", jsonObj);
+					if(temp.size()!=0) {
+						WholeSaleVO wholeSaleVO = new WholeSaleVO();
+						wholeSaleVO.setRn(jsonObj.get("rn").toString());
+						wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
+						wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
+						wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
+						wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
+						wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
+						wholeSaleVO.setLarge(jsonObj.get("large").toString());
+						wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
+						wholeSaleVO.setMid(jsonObj.get("mid").toString());
+						wholeSaleVO.setMidName(jsonObj.get("midName").toString());
+						wholeSaleVO.setSmall(jsonObj.get("small").toString());
+						wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
+						wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
+						wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
+						wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
+						wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
+						wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
+						wholeSaleVOs.add(i, wholeSaleVO);
+				
+					}
+				
+
+			}
 		}
 		
 		mv.addObject("vo", wholeSaleVOs);
@@ -106,7 +140,11 @@ public class WholeSaleController {
 		return mv;
 	}
 	
+	
+	
 	// 실시간 데이터 가공 페이지
+	
+	
 	@GetMapping("realtime")
 	@ResponseBody
 	public ModelAndView realtime() throws Exception { //실시간 정보 출력 
@@ -162,26 +200,6 @@ public class WholeSaleController {
 					wholeSaleVOs.add(i, wholeSaleVO);
 			
 				}
-//				if(temp.size()!=0) {
-//					WholeSaleVO wholeSaleVO = new WholeSaleVO();
-//					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-//					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
-//					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
-//					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
-//					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-//					wholeSaleVO.setLarge(jsonObj.get("large").toString());
-//					wholeSaleVO.setMid(jsonObj.get("mid").toString());
-//					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-//					wholeSaleVO.setSmall(jsonObj.get("small").toString());
-//					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-//					wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
-//					wholeSaleVO.setCost(jsonObj.get("cost").toString());
-//					wholeSaleVO.setQty(jsonObj.get("qty").toString());
-//					wholeSaleVO.setStd(jsonObj.get("std").toString());
-//					wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
-//					wholeSaleVOs.add(i, wholeSaleVO);
-//			
-//			}
 			
 
 		}
