@@ -31,7 +31,7 @@
 
         <div class="row gx-lg-0 gy-4" id="inquiryss">
           <div class="col-lg-8">
-            <form action="./reportRequest" method="post">
+            <form action="./reportRequest" method="post" enctype="multipart/form-data" >
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="id" class="form-control" id="id" readonly value=${membersReportVO.id}>
@@ -42,6 +42,11 @@
               </div>
               <div class="form-group mt-3">
                 <textarea class="form-control" name="report_contents" id="report_contents" rows="7" placeholder="신고내용을 입력해주세요" required></textarea>
+              </div>
+              
+              <div class="form-group mt-3">
+                <label for="formFileSm" class="form-label bc">증거 사진 첨부 (선택)</label>
+                <input class="form-control form-control-sm" id="reportFileAdd" name="files" type="file">
               </div>
               <div class="text-center" id="inquiryAddBottonST">
                 <button type="submit" id="inquiryAddBtn">문의하기</button>
