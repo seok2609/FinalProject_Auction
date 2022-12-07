@@ -1,13 +1,17 @@
 package com.im.home.admin;
 
+import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
-import com.nimbusds.oauth2.sdk.token.BearerTokenError;
+import com.im.home.util.MembersFileManager;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminMembersService {
 	@Autowired
 	private AdminMembersMapper adminMembersMapper;
+	@Autowired
+	private MembersFileManager membersFileManager;
+	
+	@Value("${app.upload.membersFile}")
+	private String path;
 	
 	//회원 리스트
 	public List<MembersVO> getAdminMembersList(AdminPager adminPager)throws Exception{
@@ -72,8 +81,26 @@ public class AdminMembersService {
 		return adminMembersMapper.getTotalMembers(membersVO);
 	}
 	//신고 요청
-	public int setRepoertRequest(MembersReportVO membersReportVO)throws Exception{
-		return adminMembersMapper.setRepoertRequest(membersReportVO);
+	public int setRepoertRequest(MembersReportVO membersReportVO, MultipartFile mpf)throws Exception{
+		int result = adminMembersMapper.setRepoertRequest(membersReportVO);
+		File file = new File(path);
+		if(!file.exists()) {
+			boolean check = file.mkdirs();
+		}
+		if(!mpf.isEmpty()) {
+			String fileName = membersFileManager.saveFile(mpf, path);
+			
+			ReportFileVO reportFileVO = new ReportFileVO();
+			reportFileVO.setReport_num(membersReportVO.getReport_num());
+			reportFileVO.setReport_fileName(fileName);
+			reportFileVO.setReport_oriName(mpf.getOriginalFilename());
+			adminMembersMapper.setReportFileAdd(reportFileVO);
+		}
+		return result;
+	}
+	//신고 파일
+	public int setReportFileAdd(ReportFileVO reportFileVO)throws Exception{
+		return adminMembersMapper.setReportFileAdd(reportFileVO);
 	}
 	//신고 요청 대기
 	public int setBlackWaiting(MembersReportVO membersReportVO)throws Exception{

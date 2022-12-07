@@ -29,6 +29,9 @@
        #reportRequest{
         margin-left: 15px;
        } 
+       #reportSearchCss{
+        margin-left: 20px;
+       }
     </style>
 
 </head>
@@ -199,12 +202,27 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-success">신고</h6>
                         </div>
+                        <div class="row" id="reportSearchCss">
+                            <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+                              <div class="col-12">
+                                <select  name="kind" class="form-select" id="kind">
+                                  <option class="kinds" value="report_id">대상자</option>
+                                  <option class="kinds" value="id">신고자</option>
+                                </select>
+                              </div>
+                              <div class="col-12">
+                                <div class="input-group">
+                                  <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="검색어를 입력해 주세요">
+                                  <button type="submit" class="btn btn-secondary" id="searchNull">검색</button>
+                                </div>
+                               </div>
+                              </form>
+                          </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <c:choose>
@@ -252,13 +270,13 @@
                     <li class="page-item ${pager.pre?'':'disabled'}">
                     <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
                     <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
-                      <a class="page-link" href="./report?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+                      <a class="page-link" href="./report?page=${pager.startNum-1}&kind=${pager.kind}&reportSearch=${pager.reportSearch}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                       </a> 
                     </li> 
                     <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
                     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-                      <li class="page-item"><a class="page-link" href="./report?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a> </li>
+                      <li class="page-item"><a class="page-link" href="./report?page=${i}&kind=${pager.kind}&reportSearch=${pager.reportSearch}">${i}</a> </li>
                     </c:forEach> 
                     <li class="page-item ${pager.next?'':'disabled'}">
                       <a class="page-link" href="./report?page=${pager.lastNum}" aria-label="Next">
