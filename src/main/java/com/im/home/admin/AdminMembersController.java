@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.im.home.members.MembersVO;
@@ -43,15 +44,6 @@ public class AdminMembersController {
 	public ModelAndView getAdminMembersList(AdminPager adminPager)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		List<MembersVO> membersVO =  adminMembersService.getAdminMembersList(adminPager);
-		
-		log.info("memberVO ==> {}", membersVO);
-		log.info("pagerLastNum ==>> {}", adminPager.getLastNum());
-		log.info("pagerLastRow ==>> {}", adminPager.getLastRow());
-		log.info("pagerPage ==>> {}", adminPager.getPage());
-		log.info("pagerStartNum ==>> {}", adminPager.getStartNum());
-		log.info("pagerStartRow ==>> {}", adminPager.getStartRow());
-		log.info("pagerpAGE ==>> {}", adminPager.getPerPage());
-		log.info("PAGE ==>> {}", adminPager.getPage());
 		
 		mv.addObject("membersVO", membersVO);
 		mv.addObject("pager", adminPager);
@@ -152,9 +144,11 @@ public class AdminMembersController {
 	}
 	//신고요청
 	@PostMapping("reportRequest")
-	public ModelAndView setReportRequest(MembersReportVO membersReportVO)throws Exception{
+	public ModelAndView setReportRequest(MembersReportVO membersReportVO, MultipartFile files)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		int result = adminMembersService.setRepoertRequest(membersReportVO);
+		log.info("report_num ---->>>>> {}", membersReportVO.getReport_num());
+		
+		int result = adminMembersService.setRepoertRequest(membersReportVO, files);
 		int blackResult = adminMembersService.setBlackWaiting(membersReportVO);
 		mv.addObject("reportRequest", result);
 		mv.addObject("memberResult", blackResult);
@@ -165,19 +159,12 @@ public class AdminMembersController {
 	@GetMapping("report")
 	public ModelAndView getReportList(AdminPager adminPager, MembersReportVO membersReportVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		log.info("cccccccccccccccccccccccccccccc");
 		List<MembersReportVO> ar = adminMembersService.getReportList(adminPager);
-		log.info("num -->> {}", membersReportVO.getReport_num());
-		log.info("id -->> {}", membersReportVO.getId());
-		log.info("report_id -->> {}", membersReportVO.getReport_id());
-		log.info("contents -->> {}", membersReportVO.getReport_contents());
-		log.info("date -->> {}", membersReportVO.getReport_date());
-		log.info("reportList ===:>>>>> {}", adminMembersService.getReportList(adminPager));
-		log.info("ar=============>>>>>>>>>> {} ", ar.size());
 		int result = adminMembersService.getTotalReport(membersReportVO);
 		mv.addObject("reportList", ar);
 		mv.addObject("totalReport", result);
 		mv.addObject("pager", adminPager);
+		mv.setViewName("/kdy/report");
 		return mv;
 	}
 	//신고 detail

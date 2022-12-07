@@ -46,6 +46,8 @@ public interface AdminMembersMapper {
 	public Long getAdminMembersCount(AdminPager adminPager)throws Exception;
 	//신고 요청
 	public int setRepoertRequest(MembersReportVO membersReportVO)throws Exception;
+	//신고 파일
+	public int setReportFileAdd(ReportFileVO reportFileVO)throws Exception;
 	//신고 요청 대기
 	public int setBlackWaiting(MembersReportVO membersReportVO)throws Exception;
 	//신고 요청 건 수

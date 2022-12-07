@@ -12,6 +12,14 @@
 			</choose>
 			LIKE concat ('%', #{search}, '%')
 		</sql>
+		
+		<sql id="reportSearch">
+			<choose>
+				<when test="kind == 'id'">M.ID</when>
+				<otherwise>RP.REPORT_ID</otherwise>
+			</choose>
+				LIKE concat ('%', #{reportSearch}, '%')
+		</sql>
 
 <!-- 1대1 문의 -->	 	
  		<!-- 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트 --> 
@@ -62,9 +70,13 @@
 		</select>
 <!-- 신고, 블랙 -->
 		<!-- 신고 요청 -->
-		<insert id="setRepoertRequest" parameterType="MembersReportVO">
+		<insert id="setRepoertRequest" parameterType="MembersReportVO" useGeneratedKeys="true" keyProperty="report_num">
 			INSERT INTO REPORT VALUES
 			(NULL, #{id}, #{report_id}, #{report_contents}, SYSDATE())
+		</insert>
+		<insert id="setReportFileAdd" parameterType="ReportFileVO">
+			INSERT INTO REPORT_FILES VALUES
+			(NULL, #{report_num}, #{report_fileName}, #{report_oriName})
 		</insert>
 		<!-- 신고 요청 대기 -->
 		<update id="setBlackWaiting" parameterType="MembersReportVO">
@@ -76,7 +88,7 @@
 		</update>
 		<!-- 신고 요청 DETAIL -->
 		<select id="getReportDetail" parameterType="MembersReportVO" resultMap="getReportResult">
-		    SELECT M.*, RP.* 
+		    SELECT M.*, RP.*, RF.*
 			FROM 
 			MEMBERS M
 			INNER JOIN
@@ -88,6 +100,9 @@
 			LEFT JOIN
 			REPORT RP
 			ON M.ID = RP.ID
+			LEFT JOIN 
+			REPORT_FILES RF 
+			ON RP.REPORT_NUM = RF.REPORT_NUM
 			WHERE RP.ID=#{id} AND RP.REPORT_ID=#{report_id} AND RP.REPORT_NUM=#{report_num}
 		</select>
 		<!-- 신고 요청 거절 -->
@@ -138,7 +153,6 @@
 	         ROLE R
 	         ON MR.ROLENUM = R.ROLENUM
 			 <include refid="search"/>
-<!-- 	         ORDER BY M.JOINDATE DESC -->
 			 LIMIT #{startRow}, #{perPage}
 	 	</select>
 		<!-- 1대1문의 리스트 -->
@@ -188,7 +202,11 @@
 			LEFT JOIN
 			MEMBERS M 
 			ON M.ID = RP.REPORT_ID
-			WHERE M.BLACK = 1
+			LEFT JOIN 
+			REPORT_FILES RF 
+			ON RP.REPORT_NUM = RF.REPORT_NUM
+			WHERE <include refid="reportSearch"/> AND M.BLACK = 1
+			LIMIT #{startRow}, #{perPage}
 		</select>
 		<!-- 블랙당한 회원 리스트 -->
 		<select id="getBlackList" parameterType="AdminPager" resultMap="getReportResult">
@@ -365,6 +383,12 @@
 				<result column="roleName" property="roleName"/>
 			</association>
 	 	</association> 	
+	 	<collection property="reportFileVOs" javaType="List" ofType="ReportFileVO">
+	 		<id column="report_file_num" property="report_file_num"/>
+	 		<result column="report_num" property="report_num"/>
+	 		<result column="report_fileName" property="report_fileName"/>
+	 		<result column="report_oriName" property="report_oriName"/>
+	 	</collection>
  	</resultMap>
  	
  	<resultMap type="MembersReportVO" id="getReportResult2">

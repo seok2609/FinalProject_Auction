@@ -9,17 +9,20 @@ public class AdminPager {
 	private Long lastRow;
 	private Long startNum;
 	private Long lastNum;
-	private String search;
 	private Long page;
 	private Long perPage;
 	private Long perBlock;
 	private Long totalPage;
-	 private String kind;
 	
-		//이전 블럭의 유무-이전 블럭이 있으면 true, 없으면 false
-		private boolean pre;
-		//다음 블럭의 유무-다음 블럭이 있으면 true, 없으면 false
-		private boolean next;
+	private String kind;
+	private String search;
+	private String reportSearch;
+	private String report_id;
+
+	//이전 블럭의 유무-이전 블럭이 있으면 true, 없으면 false
+	private boolean pre;
+	//다음 블럭의 유무-다음 블럭이 있으면 true, 없으면 false
+	private boolean next;
 		
 	public AdminPager() {
 		this.perPage=10L;
@@ -95,6 +98,12 @@ public class AdminPager {
 			this.search="";
 		}
 		return search;
+	}
+	public String getReportSearch() {
+		if(this.reportSearch==null) {
+			this.reportSearch="";
+		}
+		return reportSearch;
 	}
 
 
