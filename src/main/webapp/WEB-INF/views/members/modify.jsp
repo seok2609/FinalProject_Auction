@@ -65,8 +65,11 @@
 				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
 				  <input class="form-control form-control-sm" id="memberFileAdd" name="files" type="file">
 				</div>
-				dd
-				${membersVO.membersFileVOs.fileName}
+				
+				<div>
+					dd
+					${membersVO.membersFileVOs.fileName}				
+				</div>
 				<c:choose>
 					<c:when test="${not empty membersVO.membersFileVOs}">
 			<input type="text" value="${membersVO.membersFileVOs.size()}">
