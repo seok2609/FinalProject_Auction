@@ -11,17 +11,26 @@ import com.im.home.admin.AdminMembersVO;
 public interface MembersMapper {
 
 	
+	//로그인
 	public MembersVO getMembersLogin(String username) throws UsernameNotFoundException;
 	
+	//회원가입
 	public int setMembersSignUp(MembersVO membersVO) throws Exception;
 	
+	//파일추가
 	public int setMembersFileAdd(MembersFileVO membersFileVO) throws Exception;
 	
+	//마이페이지
 	public MembersVO getMyPage(MembersVO membersVO) throws Exception;
 	
+	//아이디 중복체크
 	public Integer getIdCheck(MembersVO membersVO) throws Exception;
 	
+	//등급부여
 	public int setMembersRole(MembersVO membersVO) throws Exception;
+
+	//사진삭제
+	public int setMembersFileDelete(MembersFileVO membersFileVO) throws Exception;
 	
 	//마이페이지에서 보이는 나의 1:1문의 내역
 	public List<AdminMembersVO> getInquiryList(AdminMembersVO adminMembersVO) throws Exception;
