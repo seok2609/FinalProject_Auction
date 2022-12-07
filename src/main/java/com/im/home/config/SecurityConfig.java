@@ -16,8 +16,10 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.im.home.members.MemberSecurityService;
+import com.im.home.members.MembersSocialService;
 import com.im.home.members.security.LoginFailed;
 import com.im.home.members.security.LoginSuccess;
+import com.im.home.members.security.LogoutSuccess;
 
 
 @Configuration
@@ -30,6 +32,10 @@ public class SecurityConfig {
 	private LoginFailed loginFailed;
 	@Autowired
 	private MemberSecurityService memberSecurityService;
+	@Autowired
+	private LogoutSuccess logoutSuccess;
+	//@Autowired
+	//private MembersSocialService membersSocialService;
 	
 	@Bean
 	//회원가입시 필터 적용 제외
@@ -51,12 +57,12 @@ public class SecurityConfig {
 	SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
 		
 		httpSecurity
-        .csrf()
-        .disable()
-        .cors()
-        .configurationSource(this.configurationSource())
-        .and()
-				.authorizeRequests()	//인가요청
+
+					.cors()
+					.and()
+					.csrf()
+					.disable()
+	.authorizeRequests()	//인가요청
 				.antMatchers("./login").permitAll()	// "./login"페이지는 아무나 아무나 접속을 허용
 				.anyRequest().permitAll()
 				.and()
@@ -70,17 +76,25 @@ public class SecurityConfig {
 				.failureHandler(loginFailed)
 				.permitAll()
 				.and()
-//			.logout()
-//				.logoutUrl("/members/logout")
-//				.invalidateHttpSession(true)					//로그인한 세션을 지운다(true)
+			.logout()
+				.logoutUrl("/members/logout")
+				.invalidateHttpSession(true)					//로그인한 세션을 지운다(true)
+				//.logoutSuccessUrl("/")
+				.logoutSuccessHandler(logoutSuccess)
+				.deleteCookies("JESSIONID")
+				.permitAll()
+				.and()
 			
-//			.rememberMe()	//RememberMe 설정
-//				.rememberMeParameter("rememberMe")				//파라미터명
-//				.tokenValiditySeconds(300)						//로그인 유지시간, 초단위
-//				.key("rememberMe")								// 인증받은 사용자의 정보로 Token 생성시 필요, 필수값 (키 값은 자기 맘대로)
-//				.userDetailsService(memberSecurityService)		//인증 절차를 실행할 UserDetailService, 필수
-//				.authenticationSuccessHandler(loginSuccess)		//Login 성공
-//				.and()
+			.rememberMe()	//RememberMe 설정
+				.rememberMeParameter("rememberMe")				//파라미터명
+				.tokenValiditySeconds(300)						//로그인 유지시간, 초단위
+				.key("rememberMe")								// 인증받은 사용자의 정보로 Token 생성시 필요, 필수값 (키 값은 자기 맘대로)
+				.userDetailsService(memberSecurityService)		//인증 절차를 실행할 UserDetailService, 필수
+				.authenticationSuccessHandler(loginSuccess)		//Login 성공
+				.and()
+			.oauth2Login() //Social Login 설정
+				.userInfoEndpoint()
+				//.userService(membersSocialService)
 			
 			;
 		
@@ -91,6 +105,7 @@ public class SecurityConfig {
 		
 	}
 	
+	//회원가입할때 패스워드를 노출안시키도록 HASH시켜주는 코드
 	@Bean
 	public PasswordEncoder getEncoder() {
 		

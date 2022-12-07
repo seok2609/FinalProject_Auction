@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,14 @@
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero">
+   		<!-- 로그인이 성공했다면 -->
+   		<%-- <div style= "float: right;">
+      	 	<sec:authorize access="isAuthenticated()">
+      		
+      			<sec:authentication property="Principal" var="member"/>
+      		<h3> <spring:message code="welcome" arguments="${member.nickName}"></spring:message> </h3>
+      		</sec:authorize>
+      	</div> --%>
     <div class="container position-relative">
       <div class="row gy-5" data-aos="fade-in">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
@@ -38,7 +48,7 @@
           <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-easel"></i></div>
-              <h4 class="title"><a href="" class="stretched-link">Lorem Ipsum</a></h4>
+              <h4 class="title"><a href="./members/agree" class="stretched-link">일반회원 회원가입</a></h4>
             </div>
           </div>
           <!--End Icon Box -->

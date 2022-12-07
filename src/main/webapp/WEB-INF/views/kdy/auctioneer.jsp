@@ -75,6 +75,7 @@
                     <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                     <a class="collapse-item" href="./memberList">회 원 조 회</a>
                     <a class="collapse-item" href="./inquiry">1 대 1 문 의</a>
+                    <a class="collapse-item" href="./auctioneer">구 인 구 직</a>
                 </div>
             </div>
         </li>
@@ -200,64 +201,14 @@
                         </li>
                     </ul>
                 </nav>
-            <div class="row" id="mydiv">
-                <!-- End of Topbar -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        응답하지 않은 문의</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">0 건</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        응답완료</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">0 건</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        총 문의</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">0 건</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">1대1 문의</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">구인구직</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
