@@ -73,12 +73,12 @@
                 </div> -->
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="birth" class="form-control" id="inputBirth" onkeyup="birth_keyup(this)" placeholder="생년월일을 입력해주세요." maxlength="10">
+                  <input type="text" name="birth" class="form-control" id="inputBirth" onkeyup="birth_keyup(this)" placeholder="생년월일을 입력해주세요.(숫자만 입력해주세요)" maxlength="10" >
                   <span id="birthHelp" class="bc"></span>
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력" oninput="autoHyphen(this)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="13">
+                  <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력(숫자만 입력해주세요)" oninput="autoHyphen(this)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="13">
                   <span id="phoneHelp" class="bc"></span>
                 </div>
                     

@@ -1,11 +1,15 @@
 package com.im.home.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -13,6 +17,8 @@ public class WebConfig implements WebMvcConfigurer {
 		// 정적자원 매핑
 		registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+		
+
 	}
 
 	@Override

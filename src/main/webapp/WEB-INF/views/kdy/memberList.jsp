@@ -200,8 +200,7 @@
                             <h6 class="m-0 font-weight-bold text-success">회원</h6>
                         </div>
 						<div class="row">
-							<form action="./memberList"
-								class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+							<form action="./memberList" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
 								<div class="col-12">
 									<div class="input-group" id="memberListSearch">
 										<input type="text" name="search" value="${param.search}"

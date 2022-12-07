@@ -46,7 +46,7 @@ public class MembersVO implements UserDetails, OAuth2User{
 	
 	private List<RoleVO> roleVOs;
 	
-	private List<MembersFileVO> membersFileVOs;
+	private MembersFileVO membersFileVO;
 	
 	private MultipartFile files;
 	
