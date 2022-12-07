@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 <c:import url="../temp/boot.jsp"></c:import>
 <script defer src="/js/joinVerify.js"></script>
+<script defer src="/js/membersFile.js"></script>
+<script defer src="/js/myPage.js"></script>
 <style>
 	#div1{
 		cursor: pointer;
@@ -57,12 +59,34 @@
                   <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력" oninput="autoHyphen(this)" maxlength="13">
                   <span id="phoneHelp" class="bc"></span>
                 </div>
-                    
-<!-- 				<div class="form-group mt-3">
+
+
+				<div class="form-group mt-3">
 				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
 				  <input class="form-control form-control-sm" id="memberFileAdd" name="files" type="file">
-				</div> -->
-                
+				</div>
+				dd
+				${membersVO.membersFileVOs.fileName}
+				<c:choose>
+					<c:when test="${not empty membersVO.membersFileVOs}">
+			<input type="text" value="${membersVO.membersFileVOs.size()}">
+				<div class="mb-3" id="membersFileAddResult" data-file-size="${membersVO.membersFileVOs.size()}">
+					<c:forEach items="${membersVO.membersFileVOs}" var="membersFileVO">
+					
+						<p>${membersFileVO.oriName}
+							<button type="button" class="deleteMemberFile" data-file-id="${membersFileVO.fileNum}">삭제</button>
+						</p>
+						
+					</c:forEach>
+			
+				</div> 
+				</c:when>
+					<c:otherwise>
+						<p>
+							현재 첨부파일이 존재하지 않습니다.
+						</p>
+					</c:otherwise>
+	           </c:choose>
               </div>
               <br>
 
@@ -111,6 +135,8 @@
 			  </div>
 			</div> -->
 
+
+		<!-- 회원탈퇴 모달 -->
 			
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="md">

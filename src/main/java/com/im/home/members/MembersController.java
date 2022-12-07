@@ -362,6 +362,19 @@ public class MembersController {
 			
 			return resultDrop;
 		}
+		
+		
+		//파일 삭제
+		@PostMapping(value = " fileDelete")
+		@ResponseBody
+		public int setMembersFileDelete (MembersFileVO membersFileVO) throws Exception{
+			
+			int result = membersService.setMembersFileDelete(membersFileVO);
+			
+			log.info("파일 삭제 성공");
+			
+			return result;
+		}
 	
 	
 	

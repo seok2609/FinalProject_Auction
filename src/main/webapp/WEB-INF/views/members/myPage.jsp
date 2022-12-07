@@ -17,6 +17,9 @@
 	#md{
 		display: none;
 	}
+	#imgMd{
+		display: none;
+	}
 </style>
 <!-- <script defer src="/js/membersFile.js"></script> -->
 </head>
@@ -62,6 +65,7 @@
 			
 				</div>
 			</div>
+		
          <%--      <div>
 	              <sec:authentication property="Principal" var="member"/>
 					<h5>아이디 : ${member.id}</h5> 

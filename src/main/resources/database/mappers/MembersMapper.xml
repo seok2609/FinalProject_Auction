@@ -50,6 +50,10 @@
 		INSERT INTO MEMBERS_FILE VALUES (null, #{fileName}, #{oriName}, #{id})
 	</insert>
 	
+	<delete id="setMembersFileDelete" parameterType="MembersFileVO">
+		DELETE FROM MEMBERS_FILE WHERE FILENUM = #{fileNum}
+	</delete>
+	
 	
 	<select id="getMyPage" parameterType="MembersVO" resultMap="getMyPageResult">
 	
@@ -96,7 +100,7 @@
 		SELECT COUNT(ID) FROM MEMBERS WHERE ID = #{id}
 	</select>
 	
-	<!-- 내가 작성한 1:1문의 리스트 -->
+	<!-- 마이페이지에서 내가 작성한 1:1문의 리스트 -->
 	<select id="getInquiryList" parameterType="MembersVO" resultMap="getInquiryListResult">
 		SELECT IQ.INQUIRY_NUM , M.ID, IQ.INQUIRY_CONTENTS, IQ.INQUIRY_TEXT, IQ.INQUIRY_DATE, IR.INQUIRY_RESPONSE_CONTENTS , IR.INQUIRY_RESPONSE_DATE
 			FROM INQUIRY IQ 

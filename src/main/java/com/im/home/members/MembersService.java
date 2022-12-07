@@ -78,6 +78,11 @@ public class MembersService {
 		return result;
 	}
 	
+	public int setMembersFileDelete(MembersFileVO membersFileVO) throws Exception{
+		
+		return membersMapper.setMembersFileDelete(membersFileVO);
+	}
+	
 	
 	public MembersVO getMyPage(MembersVO membersVO) throws Exception{
 		
