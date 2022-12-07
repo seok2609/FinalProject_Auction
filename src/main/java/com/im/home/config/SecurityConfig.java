@@ -28,8 +28,8 @@ public class SecurityConfig {
 	private MemberSecurityService memberSecurityService;
 	@Autowired
 	private LogoutSuccess logoutSuccess;
-	@Autowired
-	private MembersSocialService membersSocialService;
+	//@Autowired
+	//private MembersSocialService membersSocialService;
 	
 	@Bean
 	//회원가입시 필터 적용 제외
@@ -87,7 +87,7 @@ public class SecurityConfig {
 				.and()
 			.oauth2Login() //Social Login 설정
 				.userInfoEndpoint()
-				.userService(membersSocialService)
+				//.userService(membersSocialService)
 			
 			;
 		
