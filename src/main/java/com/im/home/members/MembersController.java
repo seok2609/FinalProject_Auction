@@ -172,8 +172,9 @@ public class MembersController {
 //			mv.setViewName("kdy/inquiryList");
 //		}
 		
-		model.addAttribute("membersVO", principal);
+//		model.addAttribute("membersVO", principal);
 		log.info("Principal => {} ", principal);
+		log.info("file ::::: {} " ,membersVO.getMembersFileVO().getFileName());
 		mv.addObject("membersVO", membersVO);
 //		mv.addObject("membersVO", membersVO2);
 		mv.setViewName("members/myPage");
@@ -220,25 +221,32 @@ public class MembersController {
 	
 	//회원정보 수정
 	@GetMapping(value = "modify")
-	public String setMembersModify(String id, MembersVO membersVO) throws Exception{
+	public String setMembersModify(String id, MembersVO membersVO, Model model, Principal principal) throws Exception{
+		
+		membersVO = membersService.getMyPage(membersVO);
+		model.addAttribute("membersVO", membersVO);
+		
+//		log.info("id :::: {} " , membersVO.getId());
+//		log.info("fileName ::: {} " , membersVO.getMembersFileVOs().get(0).getFileName());
+//		log.info("fileNNNNNAAAAMMMMEEE::::: {} ", membersVO.getFiles());
 		
 		return "members/modify";
 	}
 	
 	@PostMapping(value = "modify")
-	public ModelAndView setMembersModify(MembersVO membersVO, Principal principal) throws Exception{
+	public ModelAndView setMembersModify(MembersVO membersVO, Principal principal, MultipartFile files) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		
 		log.info("============================회원가입 수정==========================");
 		mv.addObject("membersVO", membersVO);
 		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));
-		int result = membersService.setMembersModify(membersVO);
+		int result = membersService.setMembersModify(membersVO, files);
 		
 		log.info("내 수정정보 ===>> {}" ,principal);
 		log.info("수정된 닉네임 :::: {} " , membersVO.getNickName());
 //		mv.setViewName("members/login");
-		mv.setViewName("members/myPage");
+		mv.setViewName("redirect:/members/myPage");
 		
 		return mv;
 	}
@@ -365,7 +373,7 @@ public class MembersController {
 		
 		
 		//파일 삭제
-		@PostMapping(value = " fileDelete")
+		@PostMapping(value = "fileDelete")
 		@ResponseBody
 		public int setMembersFileDelete (MembersFileVO membersFileVO) throws Exception{
 			

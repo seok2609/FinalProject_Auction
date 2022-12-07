@@ -82,17 +82,18 @@
 		<result column="phone" property="phone"/>
 		<result column="joinDate" property="joinDate"/>
 		
+		<association property="membersFileVO" javaType="MembersFileVO">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+			<result column="id" property="id"/>
+		</association>
+		
 		<collection property="roleVOs" javaType="List" ofType="RoleVO">
 			<id column="roleNum" property="roleNum"/>
 			<result column="roleName" property="roleName"/>
 		</collection>
 		
-		<collection property="membersFileVOs" javaType="List" ofType="MembersFileVO">
-			<id column="fileNum" property="fileNum"/>
-			<result column="fileName" property="fileName"/>
-			<result column="oriName" property="oriName"/>
-			<result column="id" property="id"/>
-		</collection>
 		
 	</resultMap>
 	

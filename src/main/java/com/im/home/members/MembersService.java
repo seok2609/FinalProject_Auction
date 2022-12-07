@@ -153,9 +153,32 @@ public class MembersService {
 	
 	
 	//회원정보 수정
-	public int setMembersModify(MembersVO membersVO) throws Exception{
+	public int setMembersModify(MembersVO membersVO, MultipartFile mpf) throws Exception{
 		
 		int result = membersMapper.setMembersModify(membersVO);
+		
+		File file = new File(path);
+		
+		if(!file.exists()) {	//파일이 존재하지 않다면~~
+			boolean check = file.mkdirs();
+			log.info("Check => {} " , check);
+			
+		}
+		
+		
+		if(!mpf.isEmpty()) {
+			log.info("FileName => {} " , mpf.getOriginalFilename());
+			
+			String fileName = membersFileManager.saveFile(mpf, path);
+			
+			MembersFileVO membersFileVO = new MembersFileVO();
+			membersFileVO.setFileName(fileName);
+			membersFileVO.setOriName(mpf.getOriginalFilename());
+			membersFileVO.setId(membersVO.getId());
+			
+			membersMapper.setMembersFileAdd(membersFileVO);
+			
+		}
 		
 		return result;
 	}

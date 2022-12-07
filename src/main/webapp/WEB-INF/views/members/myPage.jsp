@@ -54,13 +54,14 @@
 			
 					<div style="float:rignt;">
 					
-							<c:forEach items="${membersVO.membersFileVOs}" var="membersFileVO">
+							<%-- <c:forEach items="${membersVO.membersFileVO}" var="membersFileVO">
 								
 								<img alt="" class="rounded-circle" src="/file/membersFile/${membersFileVO.fileName}" width="35px" height="35px">
 								
 							
-							</c:forEach>
+							</c:forEach> --%>
 							
+							<img alt="" class="rounded-circle" src="/file/membersFile/${membersVO.membersFileVO.fileName}" width="35px" height="35px">
 					</div>
 			
 				</div>

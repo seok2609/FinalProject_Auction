@@ -73,7 +73,7 @@
                 </div> -->
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="birth" class="form-control" id="inputBirth" onkeyup="birth_keyup(this)" placeholder="생년월일을 입력해주세요.(숫자만 입력해주세요)" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                  <input type="text" name="birth" class="form-control" id="inputBirth" onkeyup="birth_keyup(this)" placeholder="생년월일을 입력해주세요.(숫자만 입력해주세요)" maxlength="10" >
                   <span id="birthHelp" class="bc"></span>
                 </div>
                 
