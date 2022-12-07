@@ -1,6 +1,8 @@
 package com.im.home.wholesale;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.im.home.util.Pager;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -32,6 +36,127 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequestMapping("/wholesale/*")
 public class WholeSaleController {
+	
+	@Autowired
+	private WholeSaleService wholeSaleService;
+	@Autowired
+	private WholeSaleMapper wholeSaleMapper;
+	
+	//정산 데이터 db에서 꺼내오는 메소드
+	@GetMapping("saleDB")
+	public String saleDB() throws Exception{
+		return "wholesale/sale";
+	}
+	
+	
+	@PostMapping("saleDB")
+	public void saleDB(Pager pager) throws Exception{
+		  SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	      Calendar c1 = Calendar.getInstance(); 
+	      c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1 
+	      String yesterday = sdf.format(c1.getTime()); // String으로 저장 
+	      int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
+             
+	      for(int j : mart)
+			{
+	    	  
+	    		ModelAndView mv = new ModelAndView();
+	    		WebClient webClient = WebClient.builder()
+	    			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
+	    				 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
+	    				 .build();
+	    		
+	    		Mono<String> res = webClient.get()
+	    				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j+"&saleDate="+yesterday)
+	    				.retrieve()
+	    				.bodyToMono(String.class);
+	    				
+	    		String r = res.block();
+	    	
+	    	ObjectMapper objectMapper = new ObjectMapper();
+	    	
+	    	JSONParser parser = new JSONParser();
+	    	Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
+	    	
+	    		JSONObject jobj = new JSONObject(data);
+	    		String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
+	    		//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
+	    		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
+	    		Object jobj2 = jobj.get("data");
+	    		String data2 = objectMapper.writeValueAsString(jobj2);
+	    		JSONArray temp = (JSONArray)parser.parse(data2);
+
+	    		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
+
+	    		for(int i =0; i<temp.size(); i++) {
+	    		
+	    			JSONObject jsonObj = (JSONObject)temp.get(i);
+	    		
+	    				log.info("array => {}", jsonObj);
+	    				if(temp.size()!=0) {
+	    					WholeSaleVO wholeSaleVO = new WholeSaleVO();
+	    					wholeSaleVO.setRn(jsonObj.get("rn").toString());
+	    					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
+	    					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
+	    					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
+	    					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
+	    					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
+	    					wholeSaleVO.setLarge(jsonObj.get("large").toString());
+	    					wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
+	    					wholeSaleVO.setMid(jsonObj.get("mid").toString());
+	    					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
+	    					wholeSaleVO.setSmall(jsonObj.get("small").toString());
+	    					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
+	    					wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
+	    					wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
+	    					wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
+	    					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
+	    					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
+	    					
+	    					wholeSaleMapper.setAdd(wholeSaleVO);
+	    				}
+	    			
+	    				}
+			}
+	
+	}
+
+		
+//		ModelAndView mv = new ModelAndView();
+//		List<WholeSaleVO> wholeSaleVOs = new ArrayList<>();
+//		//날짜 범위를 for문 돌려서
+//		int end = Integer.parseInt(pager.getSaleDateEnd());
+//		int start = Integer.parseInt(pager.getSaleDateStart());
+//		   
+//		  SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//	      Calendar c1 = Calendar.getInstance(); 
+//	      c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1 
+//	      String yesterday = sdf.format(c1.getTime()); // String으로 저장
+//	      log.info("ssssssssss=> {}",yesterday);
+//		   for(int j=start; j<end+1; j++) {
+//			log.info("date======> {}", j);
+//			pager.setSaleDate(String.valueOf(j));
+//			
+//			if(pager.getWhsalCd()==null) {
+//				pager.setWhsalCd("");
+//			}
+//			if(pager.getSaleDate()==null) {
+//				pager.setSaleDate("");
+//			}
+//			if(pager.getLarge()==null) {
+//				pager.setLarge("");
+//			}
+//			pager.setStartRow(1L);
+//			wholeSaleVOs.addAll(wholeSaleService.getList(pager));
+//			
+//		   }
+//			
+//		   
+//		
+//		mv.addObject("vo", wholeSaleVOs);
+//		mv.setViewName("wholesale/sale");
+//		return mv;
+	
 	
 	@GetMapping("sale2")
 	public String sale2() throws Exception{
@@ -59,7 +184,8 @@ public class WholeSaleController {
 		
 		   int start = Integer.parseInt(saleDateStart);
 		   int end = Integer.parseInt(saleDateEnd);
-		for(int j=start; j<end+1; j++) {
+		   
+		   for(int j=start; j<end+1; j++) {
 			log.info("date======> {}", j);
 			mustParamVO.setSaleDate(String.valueOf(j));
 			log.info("setSaleDate======> {}", j);

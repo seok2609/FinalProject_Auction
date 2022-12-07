@@ -8,6 +8,7 @@
   			<typeAlias type="com.im.home.wholesale.WholeSaleVO" alias="WholeSaleVO"/>
   			<typeAlias type="com.im.home.members.MembersVO" alias="MembersVO"/>
   			<typeAlias type="com.im.home.members.RoleVO" alias="RoleVO"/>
+  			<typeAlias type="com.im.home.util.Pager" alias="Pager"/>
   			
   			<!-- 경매 -->
   			<typeAlias type="com.im.home.aution.AuctionVO" alias="AuctionVO"/>

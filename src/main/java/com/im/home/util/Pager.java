@@ -5,6 +5,12 @@ import lombok.Data;
 @Data
 public class Pager {
 	
+	private String whsalCd;
+	private String saleDateStart;
+	private String saleDateEnd;
+	private String saleDate;
+	private String large;
+	
 	private Long startRow;
 	private Long lastRow;
 	private Long startNum;
@@ -20,14 +26,14 @@ public class Pager {
 		//다음 블럭의 유무-다음 블럭이 있으면 true, 없으면 false
 		private boolean next;
 		
+		public void makeRow() {
+			this.startRow = (this.getPage()-1)*perPage;
+			
+		}
+		
 	public Pager(){
-		this.perPage=5L;
-		this.perBlock=5L;
-	}
-	
-	public void getRowNum()throws Exception{
-		this.startRow = (this.getPage()-1)*this.getPerPage();
-		this.lastRow = (this.getPage())*(this.getPerPage());
+		this.perPage=10L;
+		this.perBlock=10L;
 	}
 	
 	public Long getPage(){
@@ -85,13 +91,6 @@ public class Pager {
 					next=true;
 				}
 		}
-	
-	public String getSearch() {
-		if(this.search==null) {
-			this.search="";
-		}
-		return search;
-	}
 
 
 }

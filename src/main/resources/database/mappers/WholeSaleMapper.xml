@@ -5,12 +5,17 @@
           
 	<mapper namespace="com.im.home.wholesale.WholeSaleMapper">
 
-<insert id="setAdd" parameterType="WholeSaleVO">
-		INSERT INTO SALE(rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, mid, midName,
+		<insert id="setAdd" parameterType="WholeSaleVO">
+		INSERT INTO SALE(saleNum, rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, mid, midName,
 		small, smallName, totQty, totAmt, minAmt, maxAmt, avgAmt)
-		VALUES (#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{mid}, #{midName},
+		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{mid}, #{midName},
 		#{small}, #{smallName}, #{totQty}, #{totAmt}, #{minAmt}, #{maxAmt}, #{avgAmt})
-</insert> 
+		</insert> 
 
-
+ 		<select id="getList" resultType="WholeSaleVO" parameterType="Pager">
+		 SELECT * from SALE
+		 WHERE whsalCd=#{whsalCd} or saleDate=#{saleDate} or large=#{large}
+		 LIMIT #{startRow}, #{perPage}
+		 </select>
+		 
 	</mapper>

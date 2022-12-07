@@ -1,6 +1,8 @@
 package com.im.home.wholesale;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -27,69 +29,77 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	@Autowired
 	private  WholeSaleMapper wholeSaleMapper;
 	
-	//@Scheduled(cron = "10 0 0 * * 1-5") //월-금 정각 10초에 실행
-	public void cron(MustParamVO mustParamVO) throws Exception {
-		
-	
-		ModelAndView mv = new ModelAndView();
-		WebClient webClient = WebClient.builder()
-			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
-				 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
-				 .build();
-		
-		Mono<String> res = webClient.get()
-				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+mustParamVO.getWhsalCd()+"&saleDate="+mustParamVO.getSaleDate()+
-						"&cmpCd="+mustParamVO.getCmpCd()+"&largeCd="+mustParamVO.getLargeCd()+"&midCd="+mustParamVO.getMidCd()+"&smallCd="+mustParamVO.getSmallCd())
-				.retrieve()
-				.bodyToMono(String.class);
+	@Scheduled(cron = "30 0 0 * * 1-5") //월-금 정각 10초에 실행
+	public void cron() throws Exception {
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	      Calendar c1 = Calendar.getInstance(); 
+	      c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1 
+	      String yesterday = sdf.format(c1.getTime()); // String으로 저장 
+	      int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
+            
+	      for(int j : mart)
+			{
+	    	  
+	    		ModelAndView mv = new ModelAndView();
+	    		WebClient webClient = WebClient.builder()
+	    			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
+	    				 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
+	    				 .build();
+	    		
+	    		Mono<String> res = webClient.get()
+	    				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j+"&saleDate="+yesterday)
+	    				.retrieve()
+	    				.bodyToMono(String.class);
+	    				
+	    		String r = res.block();
+	    	
+	    	ObjectMapper objectMapper = new ObjectMapper();
+	    	
+	    	JSONParser parser = new JSONParser();
+	    	Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
+	    	
+	    		JSONObject jobj = new JSONObject(data);
+	    		String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
+	    		//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
+	    		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
+	    		Object jobj2 = jobj.get("data");
+	    		String data2 = objectMapper.writeValueAsString(jobj2);
+	    		JSONArray temp = (JSONArray)parser.parse(data2);
+
+	    		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
+
+	    		for(int i =0; i<temp.size(); i++) {
+	    		
+	    			JSONObject jsonObj = (JSONObject)temp.get(i);
+	    		
+	    				log.info("array => {}", jsonObj);
+	    				if(temp.size()!=0) {
+	    					WholeSaleVO wholeSaleVO = new WholeSaleVO();
+	    					wholeSaleVO.setRn(jsonObj.get("rn").toString());
+	    					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
+	    					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
+	    					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
+	    					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
+	    					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
+	    					wholeSaleVO.setLarge(jsonObj.get("large").toString());
+	    					wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
+	    					wholeSaleVO.setMid(jsonObj.get("mid").toString());
+	    					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
+	    					wholeSaleVO.setSmall(jsonObj.get("small").toString());
+	    					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
+	    					wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
+	    					wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
+	    					wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
+	    					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
+	    					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
+	    					
+	    					wholeSaleMapper.setAdd(wholeSaleVO);
+	    				}
+	    			
+	    				}
 				
-		String r = res.block();
+			}
 	
-	ObjectMapper objectMapper = new ObjectMapper();
-	
-	JSONParser parser = new JSONParser();
-	Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
-	
-		JSONObject jobj = new JSONObject(data);
-		String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
-		//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
-		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
-		Object jobj2 = jobj.get("data");
-		String data2 = objectMapper.writeValueAsString(jobj2);
-		JSONArray temp = (JSONArray)parser.parse(data2);
-
-		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
-
-		for(int i =0; i<temp.size(); i++) {
-		
-			JSONObject jsonObj = (JSONObject)temp.get(i);
-		
-				log.info("array => {}", jsonObj);
-				if(temp.size()!=0) {
-					WholeSaleVO wholeSaleVO = new WholeSaleVO();
-					wholeSaleVO.setRn(jsonObj.get("rn").toString());
-					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
-					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
-					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
-					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-					wholeSaleVO.setLarge(jsonObj.get("large").toString());
-					wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
-					wholeSaleVO.setMid(jsonObj.get("mid").toString());
-					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-					wholeSaleVO.setSmall(jsonObj.get("small").toString());
-					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-					wholeSaleVO.setTotQty(jsonObj.get("totQty").toString());
-					wholeSaleVO.setTotAmt(jsonObj.get("totAmt").toString());
-					wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
-					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
-					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
-					wholeSaleVOs.add(i, wholeSaleVO);
-					
-					//log.info("Result {} ", wholeSaleMapper.setAdd(wholeSaleVO));
-				}
-			
-				}
 			
 			
 		}

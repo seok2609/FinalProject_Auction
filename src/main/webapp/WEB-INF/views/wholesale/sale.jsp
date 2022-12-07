@@ -89,7 +89,7 @@
 <c:import url="../common/header.jsp"></c:import>
 <!-- ================================ -->
 <h1> Real Time List</h1>
-<form action="sale" method="post">
+<form action="saleDB" method="post">
 
  <table class="table table-striped" id="api">
   <thead>
@@ -97,47 +97,15 @@
           <td>도매시장 : 
               <select name="whsalCd" id="whsalCd">
                 <option value="110001">서울가락</option>
-                <option value="110008">서울강서</option>
-                <option value="310101">수원</option>
-                <option value="310401">안양</option>
-                <option value="310901">안산</option>
                 <option value="311201">구리</option>
-                <option value="230001">인천남촌</option>
-                <option value="230003">인천삼산</option>
-                <option value="360301">순천</option>
-                <option value="240001">광주각화</option>
                 <option value="240004">광주서부</option>
-                <option value="350402">정읍</option>
-                <option value="350301">익산</option>
-                <option value="350101">전주</option>
                 <option value="250001">대전오정</option>
-                <option value="250003">대전노은</option>
-                <option value="330101">청주</option>
-                <option value="340101">천안</option>
-                <option value="330201">충주</option>
-                <option value="370401">안동</option>
-                <option value="371501">구미</option>
                 <option value="220001">대구북부</option>
-                <option value="380401">진주</option>
-                <option value="380101">창원팔용</option>
-                <option value="380303">창원내서</option>
                 <option value="210001">부산엄궁</option>
                 <option value="210009">부산반여</option>
-                <option value="380201">울산</option>
-                <option value="370101">포항</option>
-                <option value="320201">원주</option>
-                <option value="320101">춘천</option>
-                <option value="320301">강릉</option>
-                <option value="210005">부산국제수산</option>
               </select>
               
           </td>
-          <!-- <td>도매일자 : 
-              <select name="saleDate" id="saleDate">
-                  <option value="20221122">22일</option>
-                  <option value="20221129">29일</option>
-              </select> 
-          </td> -->
           <td>
             시작일<input type="text" id="datepicker_start" readonly="readonly" name="saleDateStart">
          </td>
@@ -223,7 +191,7 @@
           <li class="page-item ${pager.pre?'':'disabled'}">
           <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
           <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
-            <a class="page-link" href="./list?page=${pager.startNum-1}&search=${pager.search}" aria-label="Previous">
+            <a class="page-link" href="./saleDB?page=${pager.startNum-1}&whsalCd=${pager.whsalCd}&whsalCd=${pager.whsalCd}&whsalCd=${pager.whsalCd}" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a> 
           </li> 
