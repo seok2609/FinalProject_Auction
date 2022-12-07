@@ -288,6 +288,12 @@ results[7] = result;
     }else{
         $("#phoneHelp").html("");
     }
+
+    // if($("#inputPhone").val() != '1', '0', '2', '3', '4', '5', '6', '7', '8', '9', '-' ){
+    //     $("#phoneHelp").html("숫자를 입력해주세요");
+    // }else{
+    //     $("#phoneHelp").html("");
+    // }
 });
 
 $("#signUpBtn").click(function(){
@@ -301,3 +307,86 @@ $("#signUpBtn").click(function(){
 
 });
 
+
+
+
+
+
+
+//회원탈퇴 성공 메세지
+// $("#hiBtn").click(function(){
+
+//     console.log("버튼클릭");
+
+//     $("#md").trigger('click');
+
+// });
+
+
+$("#dropBtn").click(function(){
+
+    console.log("버튼클릭");
+    console.log($("#inputPassWord").val());
+
+    $("#md").trigger('click');
+
+
+});
+
+// $("#successBtn").click(function(){
+
+//     location='./drop';
+
+// });
+
+
+//모달창 pw검증
+//passWord체크
+
+// $("#inputPassWord2").on({
+//     blur:function(){
+//         let result = nullCheck($("#inputPassWord2").val());
+      
+//         if(result){
+//             $("#pwHelp2").html("정상");
+//         }else{
+//             $("#pwHelp2").html("패스워드는 필수입니다.");
+//             $("#inputPassWord2").focus();
+//         }
+
+//         if($("#inputPassWord2").val() != $("#checkPassWord").val()){
+//             $("#pwHelp2").html("현재 비밀번호와 다릅니다.");
+//             $("#inputPassWord2").focus();
+//         }else{
+//             $("#pwHelp2").html("");
+//         }
+//     },
+
+//     change:function(){
+//         let result = equals($("#inputPassWord2").val(), $("#inputPassWordCheck2").val());
+
+//         if(result){ //패스워드와 확인이 같다면,
+//             $("#pwCheckHelp2").html("");
+//         }else{
+//             $("#pwCheckHelp").html("비밀번호가 일치하지 않습니다.")
+//             $("#pwHelp2").val("");   //비밀번호가 일치하지 않다면 비밀번호를 공백으로 바꾼다.
+//             $("inputPassWordCheck2").focus();
+
+            
+//         }
+//     }
+// });
+
+// //패스워드 확인 검증
+// $("#inputPassWordCheck2").blur(function(){
+
+//     let result = equals($("#inputPassWord2").val(), $("#inputPassWordCheck2").val());
+
+//     if(result){
+//         $("#pwCheckHelp2").html("패스워드가 일치합니다.");
+        
+//     }else{
+//         $("#pwCheckHelp2").html("패스워드가 불일치 합니다.");
+//     }
+
+// });
