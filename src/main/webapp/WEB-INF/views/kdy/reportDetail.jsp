@@ -29,7 +29,6 @@
             </div>
 
             <div>
-              <img src="/file/membersFile/${reportDetail.reportFileVOs[0].report_fileName}">
               ${reportDetail.reportFileVOs[0].report_fileName}
             </div>
  
@@ -40,7 +39,7 @@
 
               <c:forEach items="${reportDetail.reportFileVOs}" var="reportFile">
                 <img alt="" src="/file/membersFile/${reportFile.report_fileName}">
-            </c:forEach>      
+              </c:forEach>      
 
                 <div class="form-group mt-3">
                    <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${reportDetail.report_contents}</textarea> 
