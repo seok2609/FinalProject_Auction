@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="../temp/boot.jsp"></c:import>
 <script defer src="/js/membersFile.js"></script>
 <script defer src="/js/joinVerify.js"></script>
 <style>
@@ -18,9 +17,16 @@
   .bc{
     color: #008374;
   }
+/*   #proDiv{
+  	display: none;
+  } */
+  #profileImg{
+  	cursor: pointer;
+  }
 </style>
 </head>
 <body>
+<c:import url="../temp/boot.jsp"></c:import>
 <c:import url="../common/header.jsp"></c:import>
 
 	<section id="contact" class="contact">
@@ -30,9 +36,9 @@
           <h2>일반회원 회원가입 페이지</h2>
         </div>
 	
-			<sec:authentication property="Principal" var="member"/>
           <div class="col-lg-8" id="signUpSt">
 			<form action="signUp" method="post" enctype="multipart/form-data" id="signUpForm">
+			<sec:authentication property="Principal" var="member"/>
             
               <div class="row" >
               
@@ -82,10 +88,12 @@
                   <span id="phoneHelp" class="bc"></span>
                 </div>
                     
-
-				<div class="form-group mt-3">
+                 <div id="profileImg">
+                 	<img alt="" src="/assets/img/profle.png" width="100px" height="100px" onclick="onClickUpload();"> 
+				 </div>
+				<div class="form-group mt-3" id="proDiv">
 				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
-				  <input class="form-control form-control-sm" id="memberFileAdd" name="files" type="file">
+				  <input class="form-control form-control-sm pro" id="memberFileAdd" name="files" type="file">
 				</div>
                 
               </div>

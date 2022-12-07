@@ -33,7 +33,7 @@
 
           <div class="col-lg-8" id="signUpSt">
 			<form action="signUp" method="post" enctype="multipart/form-data" id="signUpForm">
-            
+            <sec:authentication property="Principal" var="member"/>
               <div class="row" >
               
                 <div class="form-group mt-3">
@@ -68,7 +68,7 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="birth" class="form-control" id="inputBirth" placeholder="생년월일을 입력해주세요" maxlength="10" onkeyup="birth_keyup(this)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                  <input type="text" name="birth" class="form-control" id="inputBirth" placeholder="생년월일을 입력해주세요" maxlength="10" onkeyup="birth_keyup(this)">
                   <span id="birthHelp" class="bc"></span>
                 </div>
                 

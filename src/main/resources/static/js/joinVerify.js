@@ -47,13 +47,15 @@ $("#inputId").blur(function(){
                 $("#idHelp").html("사용가능한 ID 입니다!!");
                 results[0] = true;
             }else{
-                $("#idHelp").html("죄송합니다. 이미 사용중인 ID 입니다")
+                $("#idHelp").html("죄송합니다. 이미 사용중인 ID 입니다");
+                $("#inputId").focus();
                 results[0] = result;    //false
             }
         });
     }else{
         // ID가 중복도 안되고 입력도 하지 않으면.
         $("#idHelp").html("ID는 필수입니다.");
+        $("#inputId").focus();
     }
 });
 
