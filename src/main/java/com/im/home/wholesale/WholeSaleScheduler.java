@@ -29,17 +29,21 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	@Autowired
 	private  WholeSaleMapper wholeSaleMapper;
 	
-	@Scheduled(cron = "30 0 0 * * 1-5") //월-금 정각 10초에 실행
-	public void cron() throws Exception {
-		 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	@Scheduled(cron = "30 0 0 * * 1-7") // 매일 정각 30초에 실행
+	public void setTodayData() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	      Calendar c1 = Calendar.getInstance(); 
-	      c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1 
+	      Calendar c2 = Calendar.getInstance(); 
+	      c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1. 어제 날짜의 정산 DB삽입 위해. 
+	      c2.add(Calendar.DATE, -4); //오늘날짜로부터 3일전 일자 구함
+	      
 	      String yesterday = sdf.format(c1.getTime()); // String으로 저장 
+	      String delDay = sdf.format(c2.getTime()); 
+	      
 	      int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
-            
-	      for(int j : mart)
+           
+	      for(int j : mart) //어제 날짜의 도매시장 데이터 삽입. 
 			{
-	    	  
 	    		ModelAndView mv = new ModelAndView();
 	    		WebClient webClient = WebClient.builder()
 	    			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
@@ -68,12 +72,15 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 
 	    		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
 
-	    		for(int i =0; i<temp.size(); i++) {
+	    		if(temp.size()!=0) {
+				    wholeSaleMapper.deleteList(delDay); //3일전 데이터 삭제
+				    
+				    for(int i =0; i<temp.size(); i++) {
 	    		
 	    			JSONObject jsonObj = (JSONObject)temp.get(i);
 	    		
 	    				log.info("array => {}", jsonObj);
-	    				if(temp.size()!=0) {
+	    				      
 	    					WholeSaleVO wholeSaleVO = new WholeSaleVO();
 	    					wholeSaleVO.setRn(jsonObj.get("rn").toString());
 	    					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
@@ -97,7 +104,6 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	    				}
 	    			
 	    				}
-				
 			}
 	
 			

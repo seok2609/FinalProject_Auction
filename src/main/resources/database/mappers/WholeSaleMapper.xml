@@ -18,4 +18,9 @@
 		 LIMIT #{startRow}, #{perPage}
 		 </select>
 		 
+		 <delete id="deleteList" parameterType="String">
+		  DELETE FROM SALE WHERE saleDate=#{saleDate}
+		 </delete>
+		
+		 
 	</mapper>

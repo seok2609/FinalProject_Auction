@@ -12,10 +12,6 @@
   			<typeAlias type="com.im.home.util.Pager" alias="Pager"/>
 
   			<typeAlias type="com.im.home.members.MembersFileVO" alias="MembersFileVO"/>
-
-  			
-
-  			
   			<typeAlias type="com.im.home.admin.AdminMembersVO" alias="AdminMembersVO"/>
   			<typeAlias type="com.im.home.admin.MembersReportVO" alias="MembersReportVO"/>
   			<typeAlias type="com.im.home.admin.InquiryResponseVO" alias="InquiryResponseVO"/>

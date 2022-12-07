@@ -13,5 +13,8 @@ public interface WholeSaleMapper {
 
 	public List<WholeSaleVO> getList(Pager pager) throws Exception;
 	
+	public void deleteList() throws Exception;
+
+	public void deleteList(String delDay);
 	
 }

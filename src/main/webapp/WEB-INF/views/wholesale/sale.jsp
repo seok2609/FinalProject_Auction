@@ -89,7 +89,7 @@
 <c:import url="../common/header.jsp"></c:import>
 <!-- ================================ -->
 <h1> Real Time List</h1>
-<form action="saleDB" method="post">
+<form action="sale" method="post">
 
  <table class="table table-striped" id="api">
   <thead>

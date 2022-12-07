@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,22 @@ public class WholeSaleController {
 	@Autowired
 	private WholeSaleMapper wholeSaleMapper;
 	
+	
+	@GetMapping("pageTest")
+	public ModelAndView pageTest(Pager pager) throws Exception{
+		ModelAndView mv = new ModelAndView();
+
+		pager.setWhsalCd("110001");
+		pager.setSaleDate("20221206");
+		pager.setLarge("");
+		List<WholeSaleVO> wholeSaleVOs = wholeSaleService.getList(pager);
+		
+		mv.addObject("vo", wholeSaleVOs);
+		mv.addObject("pager", pager);
+		mv.setViewName("wholesale/sale");
+		return mv;
+		
+	}
 	//정산 데이터 db에서 꺼내오는 메소드
 	@GetMapping("saleDB")
 	public String saleDB() throws Exception{
@@ -53,8 +70,15 @@ public class WholeSaleController {
 	public void saleDB(Pager pager) throws Exception{
 		  SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	      Calendar c1 = Calendar.getInstance(); 
+	      Calendar c2 = Calendar.getInstance(); 
 	      c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1 
+	      c2.add(Calendar.DATE, -4); //오늘날짜로부터 3일전 일자 구함
+	      
 	      String yesterday = sdf.format(c1.getTime()); // String으로 저장 
+	      String delDay = sdf.format(c2.getTime()); 
+	      log.info("dddddddd => {}", delDay);
+	      wholeSaleMapper.deleteList(delDay); //3일전 데이터 삭제
+	      
 	      int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
              
 	      for(int j : mart)
@@ -92,7 +116,7 @@ public class WholeSaleController {
 	    		
 	    			JSONObject jsonObj = (JSONObject)temp.get(i);
 	    		
-	    				log.info("array => {}", jsonObj);
+	  
 	    				if(temp.size()!=0) {
 	    					WholeSaleVO wholeSaleVO = new WholeSaleVO();
 	    					wholeSaleVO.setRn(jsonObj.get("rn").toString());
@@ -113,7 +137,7 @@ public class WholeSaleController {
 	    					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
 	    					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
 	    					
-	    					wholeSaleMapper.setAdd(wholeSaleVO);
+	    					//wholeSaleMapper.setAdd(wholeSaleVO);
 	    				}
 	    			
 	    				}
