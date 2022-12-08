@@ -43,6 +43,11 @@ public class WholeSaleController {
 	@Autowired
 	private WholeSaleMapper wholeSaleMapper;
 	
+	@GetMapping("chart")
+	public String showChart()throws Exception{
+		return "wholesale/chart";
+	}
+	
 	
 	@GetMapping("pagerTest")
 	public ModelAndView pagerTest(Pager pager) throws Exception{
