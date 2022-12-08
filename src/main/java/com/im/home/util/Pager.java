@@ -6,10 +6,10 @@ import lombok.Data;
 public class Pager {
 	
 	private String whsalCd;
-	private String saleDateStart;
-	private String saleDateEnd;
+	private int saleDateStart;
+	private int saleDateEnd;
 	private String saleDate;
-	private String large;
+	private String largeCd;
 	
 	private Long startRow;
 	private Long lastRow;
@@ -91,6 +91,11 @@ public class Pager {
 					next=true;
 				}
 		}
-
+		public String getLargeCd() {
+			if(this.largeCd==null) {
+				this.largeCd="";
+			}
+			return largeCd;
+		}
 
 }

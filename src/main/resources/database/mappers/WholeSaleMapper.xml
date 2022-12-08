@@ -11,16 +11,21 @@
 		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{mid}, #{midName},
 		#{small}, #{smallName}, #{totQty}, #{totAmt}, #{minAmt}, #{maxAmt}, #{avgAmt})
 		</insert> 
-
+	
  		<select id="getList" resultType="WholeSaleVO" parameterType="Pager">
-		 SELECT * from SALE
-		 WHERE whsalCd=#{whsalCd} or saleDate=#{saleDate} or large=#{large}
+		 SELECT * FROM SALE
+		 WHERE whsalCd=#{whsalCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
 		 LIMIT #{startRow}, #{perPage}
 		 </select>
 		 
 		 <delete id="deleteList" parameterType="String">
 		  DELETE FROM SALE WHERE saleDate=#{saleDate}
 		 </delete>
+		 
+		 <select id="getListCount" resultType="Long" parameterType="Pager">
+		 SELECT COUNT(*) FROM SALE
+		 WHERE whsalCd=#{whsalCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
+		 </select>
 		
 		 
 	</mapper>

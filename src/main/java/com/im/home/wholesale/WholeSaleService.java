@@ -24,8 +24,12 @@ public class WholeSaleService {
 	
 	public List<WholeSaleVO> getList(Pager pager) throws Exception{
 		pager.makeRow();
-		pager.getNum(1000L);
 		return wholeSaleMapper.getList(pager);
+	}
+	
+	public Long getListCount(Pager pager)throws Exception{
+		
+		return wholeSaleMapper.getListCount(pager);
 	}
 
 }

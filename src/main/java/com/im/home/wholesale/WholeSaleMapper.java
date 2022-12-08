@@ -17,4 +17,6 @@ public interface WholeSaleMapper {
 
 	public void deleteList(String delDay);
 	
+	public Long getListCount(Pager pager)throws Exception;
+	
 }

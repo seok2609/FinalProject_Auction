@@ -88,8 +88,7 @@
 <!-- ===========header=============== -->
 <c:import url="../common/header.jsp"></c:import>
 <!-- ================================ -->
-<h1> Real Time List</h1>
-<form action="sale" method="post">
+<form action="pagerTest" method="post">
 
  <table class="table table-striped" id="api">
   <thead>
@@ -191,16 +190,16 @@
           <li class="page-item ${pager.pre?'':'disabled'}">
           <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
           <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
-            <a class="page-link" href="./saleDB?page=${pager.startNum-1}&whsalCd=${pager.whsalCd}&whsalCd=${pager.whsalCd}&whsalCd=${pager.whsalCd}" aria-label="Previous">
+            <a class="page-link" href="./pagerTest?page=${pager.startNum-1}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a> 
           </li> 
           <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
           <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-            <li class="page-item"><a class="page-link" href="./list?page=${i}&search=${pager.search}"> ${i}</a> </li>
+            <li class="page-item"><a class="page-link" href="./pagerTest?page=${i}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}" > ${i}</a> </li>
           </c:forEach> 
           <li class="page-item ${pager.next?'':'disabled'}">
-            <a class="page-link" href="./list?page=${pager.lastNum+1}&search=${pager.search}" aria-label="Next">
+            <a class="page-link" href="./pagerTest?page=${pager.lastNum+1}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}"  aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

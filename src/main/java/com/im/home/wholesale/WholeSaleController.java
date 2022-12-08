@@ -44,21 +44,36 @@ public class WholeSaleController {
 	private WholeSaleMapper wholeSaleMapper;
 	
 	
-	@GetMapping("pageTest")
-	public ModelAndView pageTest(Pager pager) throws Exception{
+	@GetMapping("pagerTest")
+	public ModelAndView pagerTest(Pager pager) throws Exception{
 		ModelAndView mv = new ModelAndView();
-
-		pager.setWhsalCd("110001");
-		pager.setSaleDate("20221206");
-		pager.setLarge("");
-		List<WholeSaleVO> wholeSaleVOs = wholeSaleService.getList(pager);
-		
+		   Long c = wholeSaleService.getListCount(pager);
+		   pager.getNum(c);
+		   List<WholeSaleVO> wholeSaleVOs = wholeSaleService.getList(pager);
+		   
 		mv.addObject("vo", wholeSaleVOs);
 		mv.addObject("pager", pager);
 		mv.setViewName("wholesale/sale");
 		return mv;
 		
 	}
+	
+	@PostMapping("pagerTest")
+	public ModelAndView pagerTest2(Pager pager) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		   Long c = wholeSaleService.getListCount(pager);
+		   pager.getNum(c);
+		   List<WholeSaleVO> wholeSaleVOs =wholeSaleService.getList(pager);
+		   
+		mv.addObject("vo", wholeSaleVOs);
+		mv.addObject("pager", pager);
+		mv.setViewName("wholesale/sale");
+		return mv;
+		
+	}
+	
+	
 	//정산 데이터 db에서 꺼내오는 메소드
 	@GetMapping("saleDB")
 	public String saleDB() throws Exception{
@@ -66,24 +81,21 @@ public class WholeSaleController {
 	}
 	
 	
-	@PostMapping("saleDB")
-	public void saleDB(Pager pager) throws Exception{
-		  SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	@GetMapping("schTest")
+	public void schTest(Pager pager) throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	      Calendar c1 = Calendar.getInstance(); 
 	      Calendar c2 = Calendar.getInstance(); 
-	      c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1 
+	      c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1. 어제 날짜의 정산 DB삽입 위해. 
 	      c2.add(Calendar.DATE, -4); //오늘날짜로부터 3일전 일자 구함
 	      
 	      String yesterday = sdf.format(c1.getTime()); // String으로 저장 
 	      String delDay = sdf.format(c2.getTime()); 
-	      log.info("dddddddd => {}", delDay);
-	      wholeSaleMapper.deleteList(delDay); //3일전 데이터 삭제
 	      
 	      int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
-             
-	      for(int j : mart)
+         
+	      for(int j : mart) //어제 날짜의 도매시장 데이터 삽입. 
 			{
-	    	  
 	    		ModelAndView mv = new ModelAndView();
 	    		WebClient webClient = WebClient.builder()
 	    			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
@@ -112,12 +124,15 @@ public class WholeSaleController {
 
 	    		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
 
-	    		for(int i =0; i<temp.size(); i++) {
+	    		if(temp.size()!=0) {
+				    wholeSaleMapper.deleteList(delDay); //3일전 데이터 삭제
+				    
+				    for(int i =0; i<temp.size(); i++) {
 	    		
 	    			JSONObject jsonObj = (JSONObject)temp.get(i);
 	    		
-	  
-	    				if(temp.size()!=0) {
+	    				log.info("array => {}", jsonObj);
+	    				      
 	    					WholeSaleVO wholeSaleVO = new WholeSaleVO();
 	    					wholeSaleVO.setRn(jsonObj.get("rn").toString());
 	    					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
@@ -137,7 +152,7 @@ public class WholeSaleController {
 	    					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
 	    					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
 	    					
-	    					//wholeSaleMapper.setAdd(wholeSaleVO);
+	    					wholeSaleMapper.setAdd(wholeSaleVO);
 	    				}
 	    			
 	    				}
