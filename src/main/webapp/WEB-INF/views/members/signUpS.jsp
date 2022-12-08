@@ -18,6 +18,12 @@
   .bc{
     color: #008374;
   }
+  	#proDiv{
+  	display: none;
+  } 
+  #profileImg{
+  	cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -34,6 +40,8 @@
           <div class="col-lg-8" id="signUpSt">
 			<form action="signUp" method="post" enctype="multipart/form-data" id="signUpForm">
             <sec:authentication property="Principal" var="member"/>
+            
+            <div class="d-flex flex-row" style="margin-left: 200px;">
               <div class="row" >
               
                 <div class="form-group mt-3">
@@ -78,10 +86,17 @@
                 </div>
                     
 
-				<div class="form-group mt-3">
-				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부</label>
-				  <input class="form-control form-control-sm" id="memberFileAdd" name="files" type="file">
 				</div>
+
+               <div style="margin-left: 50px; margin-top: 15px;">
+                        <div id="profileImg">
+                          <img alt="" src="/assets/img/profle.png" width="100px" height="100px" onclick="onClickUpload();"> 
+                </div>
+                <div class="form-group mt-3" id="proDiv">
+                  <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
+                  <input class="form-control form-control-sm pro" id="memberFileAdd" name="files" type="file">
+                </div>
+              </div>
                 
               </div>
 

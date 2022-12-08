@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <c:import url="../temp/boot.jsp"></c:import>
 <script defer src="/js/myPage.js"></script>
+<script defer src="/js/modify.js"></script>
 <style>
 	#div1{
 		cursor: pointer;
@@ -52,18 +53,13 @@
               <h3 style="color: #008374;">내 정보</h3>
               	<div>
 			
+			<!-- 프로필사진 첨부가 필수가 아니므로 사진이 없다면 이미지 오류 안나게 해주는 코드 -->
+				<c:if test="${not empty membersVO.membersFileVO.fileName}">
 					<div style="float:rignt;">
-					
-							<%-- <c:forEach items="${membersVO.membersFileVO}" var="membersFileVO">
-								
-								<img alt="" class="rounded-circle" src="/file/membersFile/${membersFileVO.fileName}" width="35px" height="35px">
-								
-							
-							</c:forEach> --%>
 							
 							<img alt="" class="rounded-circle" src="/file/membersFile/${membersVO.membersFileVO.fileName}" width="35px" height="35px">
 					</div>
-			
+				</c:if>
 				</div>
 			</div>
 		
@@ -119,7 +115,7 @@
               <div class="icon">
                 <i class="bi bi-bounding-box-circles"></i>
               </div>
-              <h3 style="color: #008374;">Asperiores Commodit</h3>
+              <h3 style="color: #008374;">경매 현황</h3>
               <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
               <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
             </div>
@@ -132,7 +128,8 @@
               </div>
               <h3 style="color: #008374;">회원정보 수정</h3>
               <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
-              <a href="./modify?id=${member.id}" id="amd" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+              <%-- <a href="./modify?id=${member.id}" id="amd" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a> --%>
+				<button type="button" id="amd">클릭</button>
             </div>
           </div><!-- End Service Item -->
 
@@ -229,6 +226,7 @@
 		
 <c:import url="../common/footer.jsp"></c:import>
 
+<!-- 마이페이지에서 수정쪽을 누르면 비밀번호 일치해야 수정페이지가 나오게 해주는 ajax -->
 <script>
     $('#successBtn').click(function() {
         const checkPassWord = $('#inputPassWord2').val();
@@ -238,19 +236,19 @@
         } else{
             $.ajax({
                 type: 'GET',
-                url: '/members/drop?checkPassWord='+checkPassWord
+                url: '/members/modify?id=id'&'checkPassWord='+checkPassWord
                 
             }).done(function(resultPw){
                 console.log(resultPw);
                 if(resultPw == 1){
                     console.log("비밀번호 일치");
-                    alert("회원탈퇴가 성공적으로 완료되었습니다. 이용해주셔서 감사합니다.");
-                    window.location.href="../";
+                    alert("회원수정 페이지로 이동합니다..");
+                    window.location.href="./members/modify";
                 } else{
                     console.log("비밀번호 틀림");
                     // 비밀번호가 일치하지 않으면
                     alert("비밀번호가 맞지 않습니다.");
-                    window.location.reload();
+                    window.location.href="/";
                 }
             }).fail(function(error){
                 alert(JSON.stringify(error));
