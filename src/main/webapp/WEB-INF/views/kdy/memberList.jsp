@@ -51,6 +51,7 @@
 </head>
 
 <body id="page-top">
+    <c:import url="../common/header.jsp"></c:import>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -157,63 +158,45 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    MAIN HOME
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    LOGOUT
-                                </a>
+                <div class="container-fluid" data-aos="fade-up" style="margin-top: 40px;" >
+                    <div class="row" id="mydiv" style="margin-left: -1px;">
+                        <!-- End of Topbar -->
+                        <div class="col-xl-3 col-md-6 mb-4" >
+                            <div class="card border-left-success  h-100 py-2"  >
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-success font-weight-bold text-primary text-uppercase mb-1">
+                                                총 회원</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 건</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="container-fluid">
+                        </div>
+                    </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-success">회원</h6>
+                        <div class="card-header py-3 row" style="background-color: #008374; ">
+                            <div class="m-0 font-weight-bold" style="color: white;">회원</div>
+
+                                <form action="./memberList" style="margin-left: -100px; margin-top: -25px;" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+                                    <div class="col-12">
+                                        <div class="input-group" id="memberListSearch">
+                                            <input type="text" name="search" value="${param.search}"
+                                                var="" class="form-control" id="search"
+                                                placeholder="닉네임을 입력해 주세요">
+                                            <button type="submit" class="btn btn-success" id="searchNull">검색
+                                            </button>
+                                        </div>
+                                        <div id="blackListMembers" style="color: white; margin-left: 90px; margin-top: 15px;">블랙리스트 회원은 빨간색</div>
+                                    </div>
+                                </form>
+                            
                         </div>
-						<div class="row">
-							<form action="./memberList" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
-								<div class="col-12">
-									<div class="input-group" id="memberListSearch">
-										<input type="text" name="search" value="${param.search}"
-											var="" class="form-control" id="search"
-											placeholder="닉네임을 입력해 주세요">
-										<button type="submit" class="btn btn-secondary" id="searchNull">검색
-										</button>
-                                        <div id="blackListMembers">블랙리스트 회원은 빨간색</div>
-									</div>
-                                    
-								</div>
-							</form>
-						</div>
 
             
 
@@ -348,6 +331,7 @@
         </div>
       </div>
     </div>
+    <c:import url="../common/footer.jsp"></c:import>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

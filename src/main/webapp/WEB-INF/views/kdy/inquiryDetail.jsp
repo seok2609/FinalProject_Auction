@@ -22,39 +22,64 @@
 <body>
     <c:import url="../common/header.jsp"></c:import>
     <!-- Begin Page Content -->
-    <div class="container-fluid">
-        <div class="container" data-aos="fade-up" id="inquirySt">
-            <div class="section-header">
+    <div id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+          <div class="section-header" style="margin-top: 90px;">
             <h2>${inquiryDetail.id}님의 문의 내용 입니다.</h2>
-            </div>
+          </div>
+          <div class="row gx-lg-0 gy-4 ">
 
-            <div class="row gx-lg-0 gy-4" id="inquiryss">
-            <div class="col-lg-8">
+           <div style="height: 50px;">
+               <div class="d-flex">
+                 <div class="info-item d-flex">
+                     <i class="bi bi-envelope flex-shrink-0"></i>
+                     <div>
+                       <h4>답변상태:</h4>
+                       <c:choose>
+                             <c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
+                                 <p>미답변</p>
+                             </c:when>
+                             <c:otherwise>
+                                 <p>답변완료</p>
+                             </c:otherwise>
+                     </c:choose>
+                     </div>
+                 </div><!-- End Info Item -->
+ 
+                 <div class="info-item d-flex">
+                   <i class="bi bi-envelope flex-shrink-0"></i>
+                   <div>
+                     <h4>${inquiryDetail.id}님의 Email:</h4>
+                     <p>${inquiryDetail.membersVO.email}</p>
+                   </div>
+                 </div><!-- End Info Item -->
+                   <div class="info-item d-flex">
+                   <i class="bi bi-envelope flex-shrink-0"></i>
+                   <div>
+                     <h4>${inquiryDetail.id}님의 Call:</h4>
+                     <p>${inquiryDetail.membersVO.phone}</p>
+                   </div>
+                 </div><!-- End Info Item -->
+               </div>
+           </div>
+  
+            <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
                 <div class="row">
-                    <div class="form-group mt-3">
-                        <input type="text" class="form-control" name="inquiryDetail_text" id="inquiryDetail_text" readonly value="${inquiryDetail.inquiry_text}">
-                    </div>
-                    <div class="form-group mt-3">
-                        <input type="text" class="form-control" name="inquiryDetail_date" id="inquiryDetail_date" readonly value="${inquiryDetail.inquiry_date}">
-                    </div>
-                    <div class="form-group mt-3">
-                        <!-- <input type="text" class="form-control" name="inquiryDetail_response" id="inquiryDetail_response" readonly value=${inquiryDetail.inquiry_response}> -->
-                        <c:choose>
-                            <c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
-                                <td>답변상태 : 미답변</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td>답변상태 : 답변완료</td>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+                  <div class="col-md-6 form-group">
+                    <input type="text" name="name" class="form-control" id="name"   readonly value="${inquiryDetail.id}">
+                  </div>
+                  <div class="col-md-6 form-group mt-3 mt-md-0">
+                    <input type="text" class="form-control" name="email" id="email"  readonly value="${inquiryDetail.inquiry_date}">
+                  </div>
                 </div>
                 <div class="form-group mt-3">
-                    <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiry_contents}</textarea>
+                  <input type="text" class="form-control" name="subject" id="subject" readonly value="${inquiryDetail.inquiry_text}">
                 </div>
-
+                <div class="form-group mt-3">
+                  <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiry_contents}</textarea>
+                </div>
                 
-				<c:choose>
+                <c:choose>
 					<c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
 		                <form action="./inquiryResponse" method="post">
 		                    <div>
@@ -74,13 +99,13 @@
 		                </div>
 					</c:otherwise>
 				</c:choose>
-   
-                
             </div>
-            </div>
+          </div> 
         </div>
-    </div>
-        <script src="../../../../resources/static/kdy/js/inquiryRequest.js"></script>
+  </div>
+
+
+   
         <c:import url="../common/footer.jsp"></c:import>
 </body>
 </html>
