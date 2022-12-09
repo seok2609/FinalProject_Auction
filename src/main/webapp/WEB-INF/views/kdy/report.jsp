@@ -37,6 +37,9 @@
 </head>
 
 <body id="page-top">
+    <div>
+        <c:import url="../common/header.jsp"></c:import>
+    </div>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -180,9 +183,10 @@
                         </li>
                     </ul>
                 </nav>
+                <div data-aos="fade-up">
                 <div id="reportRequest">
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card border-left-success h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -201,11 +205,11 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" >
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-success">신고</h6>
+                        <div class="card-header py-3" style="background-color: #008374; ">
+                            <h6 class="m-0 font-weight-bold " style="color: white;" >신고</h6>
                         </div>
                         <div class="row" id="reportSearchCss">
                             <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
@@ -223,35 +227,36 @@
                                </div>
                               </form>
                           </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <c:choose>
-                                	<c:when test="${empty reportList}">
-                                		신고 요청이 없습니다.
-                                	</c:when>
-                                	<c:otherwise>
-		                                <table class="table table-bordered">
-		                                    <thead>
-		                                        <tr>
-		                                            <th>신고자</th>
-		                                            <th>대상자</th>
-		                                            <th>신고 요청 날짜</th>
-		                                        </tr>
-		                                    </thead>
-		                                    <tbody>
-		                                    	<c:forEach items="${reportList}" var="reportLists">
-			                                        <tr onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
-			                                            <td>${reportLists.id}</td>
-			                                            <td>${reportLists.report_id}</td>
-			                                            <td>${reportLists.report_date}</td>
-			                                        </tr>
-		                                    	</c:forEach>
-		                                    </tbody>
-		                                </table>
-                                	</c:otherwise>
-                                </c:choose>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <c:choose>
+                                        <c:when test="${empty reportList}">
+                                            신고 요청이 없습니다.
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:forEach items="${reportList}" var="reportLists">
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
+                                                <div style="border-bottom: solid 1px gainsboro; height: 70px;" id="nonoresponse">
+                                                    <div class="d-flex">
+                                                        <div class="p-2 w-100">
+                                                            <div class="container2" >
+                                                                <div class="contents">${reportLists.id}님이 ${reportLists.report_id}님을 신고하였습니다.
+                                                                    <div class="contents2">
+                                                                       ${reportLists.report_date}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
                             </div>
-                        </div>
                     </div>
 
                     
@@ -259,6 +264,7 @@
                     
                 </div>
                 <!-- /.container-fluid -->
+            </div>
                 
             </div>
             <!-- End of Main Content -->
@@ -322,6 +328,9 @@
         </div>
     </div>
 
+    <div>
+        <c:import url="../common/footer.jsp"></c:import>
+    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
