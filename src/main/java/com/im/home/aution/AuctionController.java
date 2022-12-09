@@ -1,6 +1,9 @@
 package com.im.home.aution;
 
 import java.io.EOFException;
+import java.security.Principal;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,12 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.im.home.members.MembersVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/auction/*")
 @Slf4j
 public class AuctionController {
+	
+	
+	
 	
 	@GetMapping("vidu")
 	public void viduTest() {
@@ -54,6 +62,24 @@ public class AuctionController {
 	@GetMapping("list")
 	public void getList() throws Exception{
 		
+	}
+	
+	@GetMapping("nick")
+	   @ResponseBody
+	   public MembersVO getNick() throws Exception{
+		
+	      MembersVO membersVO = new MembersVO();
+	      
+	      
+	      
+	      
+	      return membersVO;
+	   }
+	
+	
+	public String getId(Principal principal) throws Exception{
+		String a =  principal.getName();
+		return a;
 	}
 	
 	

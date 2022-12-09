@@ -12,4 +12,6 @@ public class AuctionService {
 		return auctionMapper.setAdd(); 
 	}
 	
+	
+	
 }
