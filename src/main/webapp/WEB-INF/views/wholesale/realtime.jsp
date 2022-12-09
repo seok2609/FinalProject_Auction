@@ -20,14 +20,15 @@
      <thead>
          <tr>
              <td>도매시장 : 
+            
                  <select name="whsalCd" id="whsalCd">
-                   <option value="110001" selected>서울가락</option>
-                   <option value="311201">구리</option>
-                   <option value="240004">광주서부</option>
-                   <option value="250001">대전오정</option>
-                   <option value="220001">대구북부</option>
-                   <option value="210001">부산엄궁</option>
-                   <option value="210009">부산반여</option>
+                   <option value="110001" class="what">서울가락</option>
+                   <option value="311201" class="what">구리</option>
+                   <option value="240004" class="what">광주서부</option>
+                   <option value="250001" class="what">대전오정</option>
+                   <option value="220001" class="what">대구북부</option>
+                   <option value="210001" class="what">부산엄궁</option>
+                   <option value="210009" class="what">부산반여</option>
                  </select>
                 </td>
              <td>
@@ -97,6 +98,7 @@ $("#btn").click(function(){
 	},
     success: function(data){
         $("#frm").submit();
+        $("#whsalCd").val();
     },
     error: function(data){
 
