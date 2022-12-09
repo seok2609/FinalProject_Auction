@@ -6,15 +6,15 @@
 	<mapper namespace="com.im.home.wholesale.WholeSaleMapper">
 
 		<insert id="setAdd" parameterType="WholeSaleVO">
-		INSERT INTO SALE(saleNum, rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, mid, midName,
+		INSERT INTO SALE(saleNum, rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, large, largeName,
 		small, smallName, totQty, totAmt, minAmt, maxAmt, avgAmt)
-		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{mid}, #{midName},
+		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{large}, #{largeName},
 		#{small}, #{smallName}, #{totQty}, #{totAmt}, #{minAmt}, #{maxAmt}, #{avgAmt})
 		</insert> 
 	
  		<select id="getList" resultType="WholeSaleVO" parameterType="Pager">
 		 SELECT * FROM SALE
-		 WHERE whsalCd=#{whsalCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
+		 WHERE whsalCd=#{largeCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
 		 LIMIT #{startRow}, #{perPage}
 		 </select>
 		 

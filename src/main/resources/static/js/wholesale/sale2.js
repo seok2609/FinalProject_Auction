@@ -12,9 +12,6 @@ function getJSON(i) {
     let saleDate = $("#saleDate").val();
     let largeCd = $("#largeCd").val();
     console.log("pram=="+whsalCd);
-    // let whsalCd =110001;
-    // let saleDate = 20221122;
-    // let largeCd = 06;
    let url = 'https://cors-anywhere.herokuapp.com/'+apiURL
         $.ajax({
         type:"get",

@@ -18,7 +18,6 @@ public class WholeSaleService {
 	private WholeSaleMapper wholeSaleMapper;
 	
 	public int setAdd(WholeSaleVO wholeSaleVO) throws Exception{
-		
 		return wholeSaleMapper.setAdd(wholeSaleVO);
 	}
 	
@@ -28,7 +27,6 @@ public class WholeSaleService {
 	}
 	
 	public Long getListCount(Pager pager)throws Exception{
-		
 		return wholeSaleMapper.getListCount(pager);
 	}
 
