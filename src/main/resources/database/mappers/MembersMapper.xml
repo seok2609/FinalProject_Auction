@@ -6,8 +6,12 @@
 <mapper namespace="com.im.home.members.MembersMapper">
 
 	<insert id="setMembersSignUp" parameterType="MembersVO">
-		INSERT INTO MEMBERS (ID, PASSWORD, REALNAME, NICKNAME, EMAIL, BIRTH, GENDER, PHONE, JOINDATE)
-		 VALUES (#{id}, #{passWord}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE());
+
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null);
+	</insert>
+	
+	<insert id="setMembersRole" parameterType="MembersVO">
+		INSERT INTO MEMBERS_ROLE VALUES (#{id}, #{roleNum})
 	</insert>
 	
 	<select id="getMembersLogin" parameterType="String" resultMap="getMembersLoginResult">
@@ -27,17 +31,131 @@
 	<resultMap type="MembersVO" id="getMembersLoginResult">
 		<id column="id" property="id"/>
 		<result column="passWord" property="passWord"/>
+		<result column="realName" property="realName"/>
 		<result column="nickName" property="nickName"/>
 		<result column="email" property="email"/>
 		<result column="birth" property="birth"/>
 		<result column="gender" property="gender"/>
 		<result column="phone" property="phone"/>		
 		<result column="joinDate" property="joinDate"/>
+		<result column="black" property="black"/>
 		
 		<collection property="roleVOs" javaType="List" ofType="RoleVO">
 			<id column="roleNum" property="roleNum"/>
 			<result column="roleName" property="roleName"/>
 		</collection>
 	</resultMap>
+	
+	<insert id="setMembersFileAdd" parameterType="MembersFileVO">
+		INSERT INTO MEMBERS_FILE VALUES (null, #{fileName}, #{oriName}, #{id})
+	</insert>
+	
+	<delete id="setMembersFileDelete" parameterType="MembersFileVO">
+		DELETE FROM MEMBERS_FILE WHERE FILENUM = #{fileNum}
+	</delete>
+	
+	
+	<select id="getMyPage" parameterType="MembersVO" resultMap="getMyPageResult">
+	
+		SELECT * FROM 
+	         MEMBERS M
+	            INNER JOIN
+	         MEMBERS_ROLE MR
+	            ON M.ID = MR.ID
+	            INNER JOIN
+	         ROLE R
+	            ON MR.ROLENUM = R.ROLENUM
+	            INNER JOIN
+	         MEMBERS_FILE MF 
+	            ON M.ID = MF.ID
+	            WHERE M.ID = #{id}
+	</select>
+	
+	<resultMap type="MembersVO" id="getMyPageResult">
+		<id column="id" property="id"/>
+		<result column="passWord" property="passWord"/>
+		<result column="realName" property="realName"/>
+		<result column="nickName" property="nickName"/>
+		<result column="email" property="email"/>
+		<result column="birth" property="birth"/>
+		<result column="gender" property="gender"/>
+		<result column="phone" property="phone"/>
+		<result column="joinDate" property="joinDate"/>
+		
+		<association property="membersFileVO" javaType="MembersFileVO">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+			<result column="id" property="id"/>
+		</association>
+		
+		<collection property="roleVOs" javaType="List" ofType="RoleVO">
+			<id column="roleNum" property="roleNum"/>
+			<result column="roleName" property="roleName"/>
+		</collection>
+		
+		
+	</resultMap>
+	
+	<select id="getIdCheck" resultType="Integer" parameterType="MembersVO">
+		SELECT COUNT(ID) FROM MEMBERS WHERE ID = #{id}
+	</select>
+	
+	<!-- 마이페이지에서 내가 작성한 1:1문의 리스트 -->
+	<select id="getInquiryList" parameterType="MembersVO" resultMap="getInquiryListResult">
+		SELECT IQ.INQUIRY_NUM , M.ID, IQ.INQUIRY_CONTENTS, IQ.INQUIRY_TEXT, IQ.INQUIRY_DATE, IR.INQUIRY_RESPONSE_CONTENTS , IR.INQUIRY_RESPONSE_DATE
+			FROM INQUIRY IQ 
+				INNER JOIN
+			MEMBERS	M
+				ON M.ID = IQ.ID 
+				LEFT JOIN 
+			INQUIRY_RESPONSE IR
+			
+			ON IQ.INQUIRY_NUM  = IR.INQUIRY_NUM 
+			WHERE M.ID = #{id}
+				ORDER BY IQ.INQUIRY_NUM DESC;
+	</select>
+	
+ 	<resultMap type="AdminMembersVO" id="getInquiryListResult">
+		<id column="inquiry_num" property="inquiry_num"/>
+		<result column="id" property="id"/>
+		<result column="inquiry_contents" property="inquiry_contents"/>
+		<result column="inquiry_text" property="inquiry_text"/>
+		<result column="inquiry_date" property="inquiry_date"/>
+		
+		<association property="membersVO" javaType="MembersVO">
+			<id column="id" property="id"/>
+		</association>
+		
+		<association property="inquiryResponseVO" javaType="InquiryResponseVO">
+			<id column="inquiry_response_num" property="inquiry_response_num"/>
+			<result column="inquiry_num" property="inquiry_num"/>
+			<result column="inquiry_response_contents" property="inquiry_response_contents"/>
+			<result column="inquiry_response_date" property="inquiry_response_date"/>
+		</association>
+	</resultMap>
+	
+<!-- 	<resultMap type="MembersVO" id="getInquiryListResult">
+		<id column="id" property="id"/>
+		
+		<collection property="adminMembersVOs" javaType="List" ofType="AdminMembersVO">
+			<id column="inquiry_num" property="inquiry_num"/>
+			<result column="id" property="id"/>
+			<result column="inquiry_contents" property="inquiry_contents"/>
+			<result column="inquiry_text" property="inquiry_text"/>
+			<result column="inquiry_date" property="inquiry_date"/>
+		</collection>
+	</resultMap> -->
+	
+	
+	<update id="setMembersModify" parameterType="MembersVO">
+		UPDATE MEMBERS SET PASSWORD=#{passWord}, NICKNAME=#{nickName}, EMAIL=#{email}, PHONE=#{phone} WHERE ID = #{id}
+	</update>
+	
+	<delete id="setMembersDrop" parameterType="MembersVO">
+		DELETE FROM MEMBERS WHERE ID = #{id}
+	</delete>
+	
+	
 	
 </mapper>

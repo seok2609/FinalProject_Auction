@@ -1,5 +1,7 @@
 package com.im.home.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.im.home.members.MemberSecurityService;
+import com.im.home.members.MembersSocialService;
 import com.im.home.members.security.LoginFailed;
 import com.im.home.members.security.LoginSuccess;
+import com.im.home.members.security.LogoutSuccess;
+
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +32,10 @@ public class SecurityConfig {
 	private LoginFailed loginFailed;
 	@Autowired
 	private MemberSecurityService memberSecurityService;
+	@Autowired
+	private LogoutSuccess logoutSuccess;
+	//@Autowired
+	//private MembersSocialService membersSocialService;
 	
 	@Bean
 	//회원가입시 필터 적용 제외
@@ -45,11 +57,12 @@ public class SecurityConfig {
 	SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
 		
 		httpSecurity
-					.csrf()
-					.disable()
+
 					.cors()
 					.and()
-				.authorizeRequests()	//인가요청
+					.csrf()
+					.disable()
+	.authorizeRequests()	//인가요청
 				.antMatchers("./login").permitAll()	// "./login"페이지는 아무나 아무나 접속을 허용
 				.anyRequest().permitAll()
 				.and()
@@ -63,17 +76,25 @@ public class SecurityConfig {
 				.failureHandler(loginFailed)
 				.permitAll()
 				.and()
-//			.logout()
-//				.logoutUrl("/members/logout")
-//				.invalidateHttpSession(true)					//로그인한 세션을 지운다(true)
+			.logout()
+				.logoutUrl("/members/logout")
+				.invalidateHttpSession(true)					//로그인한 세션을 지운다(true)
+				//.logoutSuccessUrl("/")
+				.logoutSuccessHandler(logoutSuccess)
+				.deleteCookies("JESSIONID")
+				.permitAll()
+				.and()
 			
-//			.rememberMe()	//RememberMe 설정
-//				.rememberMeParameter("rememberMe")				//파라미터명
-//				.tokenValiditySeconds(300)						//로그인 유지시간, 초단위
-//				.key("rememberMe")								// 인증받은 사용자의 정보로 Token 생성시 필요, 필수값 (키 값은 자기 맘대로)
-//				.userDetailsService(memberSecurityService)		//인증 절차를 실행할 UserDetailService, 필수
-//				.authenticationSuccessHandler(loginSuccess)		//Login 성공
-//				.and()
+			.rememberMe()	//RememberMe 설정
+				.rememberMeParameter("rememberMe")				//파라미터명
+				.tokenValiditySeconds(300)						//로그인 유지시간, 초단위
+				.key("rememberMe")								// 인증받은 사용자의 정보로 Token 생성시 필요, 필수값 (키 값은 자기 맘대로)
+				.userDetailsService(memberSecurityService)		//인증 절차를 실행할 UserDetailService, 필수
+				.authenticationSuccessHandler(loginSuccess)		//Login 성공
+				.and()
+			.oauth2Login() //Social Login 설정
+				.userInfoEndpoint()
+				//.userService(membersSocialService)
 			
 			;
 		
@@ -84,11 +105,33 @@ public class SecurityConfig {
 		
 	}
 	
+	//회원가입할때 패스워드를 노출안시키도록 HASH시켜주는 코드
 	@Bean
 	public PasswordEncoder getEncoder() {
 		
 		return new BCryptPasswordEncoder();
 	}
 	
-	
+
+	CorsConfigurationSource configurationSource () {
+		CorsConfiguration configuration = new CorsConfiguration();
+		
+		//configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "*")); //asList(여기에 들어간 타입으로 제네릭을 만들어라.여러개넣을수있음.)
+		//Arrays : 	배열에 관련된 메서드가 있는 클래스.
+		// "*" = 어디서 접근하든 모두 허용 
+		//configuration.setAllowedMethods(Arrays.asList("GET", "POST")); //어떤 메소드 허용?
+		
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+		
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		//사이트 내 어떤 url에 적용할 것이냐 
+		//루트로 시작하는 것 모두 허용 
+		return source;
+	}
+
 }
