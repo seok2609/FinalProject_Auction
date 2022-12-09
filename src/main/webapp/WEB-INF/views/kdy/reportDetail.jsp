@@ -32,7 +32,35 @@
               ${reportDetail.reportFileVOs[0].report_fileName}
             </div>
  
-            <div class="row gx-lg-0 gy-4" id="inquiryss">
+            <div class="row gx-lg-0 gy-4">
+              <div style="height: 50px;">
+                <div class="d-flex">
+                  <div class="info-item d-flex">
+                      <i class="bi bi-envelope flex-shrink-0"></i>
+                      <div>
+                        <h4>답변상태:</h4>
+                        
+                      </div>
+                  </div><!-- End Info Item -->
+  
+                  <div class="info-item d-flex">
+                    <i class="bi bi-envelope flex-shrink-0"></i>
+                    <div>
+                      <h4>${inquiryDetail.id}님의 Email:</h4>
+                      <p>${inquiryDetail.membersVO.email}</p>
+                    </div>
+                  </div><!-- End Info Item -->
+                    <div class="info-item d-flex">
+                    <i class="bi bi-envelope flex-shrink-0"></i>
+                    <div>
+                      <h4>${inquiryDetail.id}님의 Call:</h4>
+                      <p>${inquiryDetail.membersVO.phone}</p>
+                    </div>
+                  </div><!-- End Info Item -->
+                </div>
+            </div>
+
+
             <div class="col-lg-8">
               
               <img alt="" src="/file/membersFile/${reportDetail.reportFileVOs[0].report_fileName}">

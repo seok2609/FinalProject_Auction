@@ -54,7 +54,7 @@
 		</insert>
  		<!-- 1대1문의 detail페이지 -->
  		<select id="getInquiryDetail" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
-	 		SELECT M.ID, IQ.*, IR.*
+	 		SELECT M.ID,M.EMAIL,M.PHONE, IQ.*, IR.*
 			FROM MEMBERS M
 			INNER JOIN
 			INQUIRY IQ
