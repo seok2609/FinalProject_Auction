@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import com.im.home.members.MembersVO;
 
 import lombok.extern.slf4j.Slf4j;
 
+@CrossOrigin(origins = "*")
 @Controller
 @RequestMapping("/auction/*")
 @Slf4j
@@ -39,10 +41,10 @@ public class AuctionController {
 	
 	@GetMapping("test")
 	@ResponseBody
-	public MembersVO testest(Model model) {
+	public String testest(Model model) {
 		MembersVO membersVO = membersMapper.getMembersLogin("11");
 		
-		return membersVO;
+		return "good";
 	}
 	
 	

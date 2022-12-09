@@ -6,6 +6,7 @@ var session;
 
 function joinSession() {
 
+
 	var mySessionId = document.getElementById("sessionId").value;
 	var myUserName = document.getElementById("userName").value;
 
@@ -53,6 +54,7 @@ function joinSession() {
 
 		// First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
 		// 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+
 		session.connect(token, { clientData: myUserName })
 			.then(() => {
 
@@ -61,6 +63,7 @@ function joinSession() {
 				document.getElementById('session-title').innerText = mySessionId;
 				document.getElementById('join').style.display = 'none';
 				document.getElementById('session').style.display = 'block';
+
 
 				// --- 6) Get your own camera stream with the desired properties ---
 
@@ -192,7 +195,7 @@ function initMainVideo(videoElement, userData) {
  * more about the integration of OpenVidu in your application server.
  */
 
-var APPLICATION_SERVER_URL = "http://192.168.1.28:5000/";
+var APPLICATION_SERVER_URL = "http://172.30.1.12:5000/";
 
 function getToken(mySessionId) {
 	return createSession(mySessionId).then(sessionId => createToken(sessionId));
