@@ -59,7 +59,7 @@
                      <h4>${inquiryDetail.id}님의 Call:</h4>
                      <p>${inquiryDetail.membersVO.phone}</p>
                    </div>
-                 </div><!-- End Info Item -->
+                 </div>
                </div>
            </div>
   
