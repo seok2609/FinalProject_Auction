@@ -20,6 +20,14 @@
 			</choose>
 				LIKE concat ('%', #{reportSearch}, '%')
 		</sql>
+		
+		<sql id="inquirySearch">
+			WHERE
+			<choose>
+				<otherwise>M.ID</otherwise>
+			</choose>
+			LIKE concat ('%', #{inquirySearch}, '%')
+		</sql>
 
 <!-- 1대1 문의 -->	 	
  		<!-- 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트 --> 
@@ -52,9 +60,24 @@
 			INSERT INTO INQUIRY_RESPONSE VALUES
 			(NULL, #{inquiry_num}, #{inquiry_response_contents}, SYSDATE())
 		</insert>
+		<!-- 회원 detail페이지  -->
+		<select id="getAdminMembersDetail" resultMap="getInquiryDetailResult" parameterType="AdminMembersVO">
+			SELECT M.*, MF.*, R.*FROM
+			MEMBERS M
+			LEFT JOIN
+			MEMBERS_FILE MF 
+			ON M.ID = MF.ID
+			INNER JOIN
+			MEMBERS_ROLE MR
+			ON M.ID = MR.ID
+			INNER JOIN
+			ROLE R
+			ON MR.ROLENUM = R.ROLENUM
+			WHERE M.ID = #{id}
+	 	</select> 
  		<!-- 1대1문의 detail페이지 -->
  		<select id="getInquiryDetail" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
-	 		SELECT M.ID, IQ.*, IR.*
+	 		SELECT M.ID,M.EMAIL,M.PHONE,M.JOINDATE, IQ.*, IR.*
 			FROM MEMBERS M
 			INNER JOIN
 			INQUIRY IQ
@@ -171,7 +194,8 @@
 	         LEFT  JOIN
 	         INQUIRY_RESPONSE IR
 	         ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
-	         ORDER BY INQUIRY_NUM DESC
+	         <include refid="inquirySearch"/>
+ 	         ORDER BY INQUIRY_NUM DESC 
 			 LIMIT #{startRow}, #{perPage}
  		</select>
 		<!-- 응답하지 않은 1대1문의 List -->
@@ -192,7 +216,7 @@
 			 ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
 	         WHERE INQUIRY_RESPONSE_CONTENTS IS NULL
 	         ORDER BY INQUIRY_NUM DESC
-	          LIMIT #{startRow}, #{perPage}
+	         LIMIT #{startRow}, #{perPage}
 		</select>
 		<!-- 신고요청 리스트 -->
 		<select id="getReportList" parameterType="AdminPager" resultType="MembersReportVO">

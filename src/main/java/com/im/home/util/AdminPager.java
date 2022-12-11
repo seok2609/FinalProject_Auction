@@ -17,6 +17,7 @@ public class AdminPager {
 	private String kind;
 	private String search;
 	private String reportSearch;
+	private String inquirySearch;
 	private String report_id;
 
 	//이전 블럭의 유무-이전 블럭이 있으면 true, 없으면 false
@@ -104,6 +105,12 @@ public class AdminPager {
 			this.reportSearch="";
 		}
 		return reportSearch;
+	}
+	public String getInquirySearch() {
+		if(this.inquirySearch==null) {
+			this.inquirySearch="";
+		}
+		return inquirySearch;
 	}
 
 
