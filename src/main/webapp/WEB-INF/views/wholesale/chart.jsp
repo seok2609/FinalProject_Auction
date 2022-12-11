@@ -8,32 +8,58 @@
 </head>
 <body>
     <div>
-        <canvas id="myChart"></canvas>
+        <canvas id="myPieChart"></canvas>
+        <div id="js-legend" class="chart-legend"></div>
       </div>
       
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       
       <script>
-        const ctx = document.getElementById('myChart');
+        var sum = Number("{{sum}}");
       
-        new Chart(ctx, {
-          type: 'bar',
+        // Pie Chart Example
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+          type: 'doughnut',
           data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ["Direct", "Referral", "Social"],
             datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              borderWidth: 1
-            }]
+              data: [sum, 50, 20],
+              backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+              hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+              hoverBorderColor: "rgba(234, 236, 244, 1)",
+            }],
           },
           options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            }
-          }
+            maintainAspectRatio: false,
+            tooltips: {
+              backgroundColor: "rgb(255,255,255)",
+              bodyFontColor: "#858796",
+              borderColor: '#dddfeb',
+              borderWidth: 1,
+              xPadding: 15,
+              yPadding: 15,
+              displayColors: false,
+              caretPadding: 10,
+            },
+            legend: {
+              display: false
+            },
+            cutoutPercentage: 0,
+          },
+          
         });
+
+        if (chart) {
+		chart.destroy();
+		chart = new Chart($('#myPieChart'), data)
+	}else {
+		chart = new Chart($('#myPieChart'), data)
+	}
+		 
+	$("#js-legend").html(chart.generateLegend());
+
+      
       </script>
 </body>
 </html>

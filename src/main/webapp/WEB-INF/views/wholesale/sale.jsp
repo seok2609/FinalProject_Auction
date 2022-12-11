@@ -88,7 +88,7 @@
 <!-- ===========header=============== -->
 <c:import url="../common/header.jsp"></c:import>
 <!-- ================================ -->
-<form action="pagerTest" method="post">
+<form action="fixData" method="get">
 
  <table class="table table-striped" id="api">
   <thead>

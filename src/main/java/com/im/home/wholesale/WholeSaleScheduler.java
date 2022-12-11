@@ -88,8 +88,8 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	    					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
 	    					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
 	    					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-	    					wholeSaleVO.setLarge(jsonObj.get("large").toString());
-	    					wholeSaleVO.setLargeName(jsonObj.get("largeName").toString());
+	    					wholeSaleVO.setMid(jsonObj.get("mid").toString());
+	    					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
 	    					wholeSaleVO.setMid(jsonObj.get("mid").toString());
 	    					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
 	    					wholeSaleVO.setSmall(jsonObj.get("small").toString());

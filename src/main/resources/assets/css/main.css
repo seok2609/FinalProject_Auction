@@ -814,7 +814,7 @@ section {
 
 .stats-counter .stats-item .purecounter {
   min-width: 90px;
-  padding-right: 15px;
+  padding-right: 5px;
 }
 
 .stats-counter .stats-item i {
