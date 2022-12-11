@@ -35,6 +35,19 @@
        #nonoresponse:hover{
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
        }
+       .name{
+            color: gray;
+            font-weight: 900;
+        }
+        .contents{
+            margin: 6px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .contents > .contents2{
+            font-size: 15px;
+            color: gray;
+        }
     </style>
 
 </head>
@@ -176,22 +189,6 @@
                         <div class="card-header py-3" style="background-color: #008374; ">
                             <h6 class="m-0 font-weight-bold " style="color: white;" >신고</h6>
                         </div>
-                        <div class="row" id="reportSearchCss">
-                            <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
-                              <div class="col-12">
-                                <select  name="kind" class="form-select" id="kind">
-                                  <option class="kinds" value="report_id">대상자</option>
-                                  <option class="kinds" value="id">신고자</option>
-                                </select>
-                              </div>
-                              <div class="col-12">
-                                <div class="input-group">
-                                  <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="검색어를 입력해 주세요">
-                                  <button type="submit" class="btn btn-secondary" id="searchNull">검색</button>
-                                </div>
-                               </div>
-                              </form>
-                          </div>
 
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -200,6 +197,22 @@
                                             신고 요청이 없습니다.
                                         </c:when>
                                         <c:otherwise>
+                                            <div class="row" id="reportSearchCss">
+                                                <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+                                                  <div class="col-12">
+                                                    <select  name="kind" class="form-select" id="kind">
+                                                      <option class="kinds" value="report_id">대상자</option>
+                                                      <option class="kinds" value="id">신고자</option>
+                                                    </select>
+                                                  </div>
+                                                  <div class="col-12">
+                                                    <div class="input-group">
+                                                      <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="검색어를 입력해 주세요">
+                                                      <button type="submit" class="btn btn-secondary" id="searchNull">검색</button>
+                                                    </div>
+                                                   </div>
+                                                  </form>
+                                              </div>    
                                             <c:forEach items="${reportList}" var="reportLists">
                                             <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 70px;" id="nonoresponse">

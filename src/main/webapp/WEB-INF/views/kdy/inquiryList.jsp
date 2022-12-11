@@ -207,7 +207,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-success     h-100 py-2">
+                    <div class="card border-left-success h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
@@ -246,7 +246,6 @@
                         <table class="table table-striped">
                             <tbody>
                                 <c:forEach items="${inquiryList}" var="inquiryList">
-                                      
                                     <c:choose>
                                         <c:when test="${empty inquiryList.inquiryResponseVO.inquiry_response_contents}">
                                                     <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
