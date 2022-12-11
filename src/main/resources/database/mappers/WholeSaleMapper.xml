@@ -14,7 +14,7 @@
 	
  		<select id="getList" resultType="WholeSaleVO" parameterType="Pager">
 		 SELECT * FROM SALE
-		 WHERE whsalCd=#{largeCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
+		 WHERE whsalCd=#{whsalCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
 		 LIMIT #{startRow}, #{perPage}
 		 </select>
 		 
@@ -26,6 +26,23 @@
 		 SELECT COUNT(*) FROM SALE
 		 WHERE whsalCd=#{whsalCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
 		 </select>
-		
 		 
+		 <select id="getMidMain" resultType="WholeSaleVO" parameterType="String">
+		 SELECT midName, COUNT(midName) dataCnt FROM SALE WHERE saleDate=#{saleDate}
+		 GROUP by midName ORDER by dataCnt desc LIMIT 1
+		</select>
+		
+		<select id="getWhsalMain" resultType="WholeSaleVO" parameterType="String">
+		 SELECT whsalName, COUNT(whsalName) totCnt FROM SALE WHERE saleDate=#{saleDate}
+		 GROUP by whsalName ORDER by totCnt desc LIMIT 1
+		</select>
+		 
+			<select id="getTotQty" resultType="WholeSaleVO" parameterType="String">
+		 SELECT ROUND(SUM(totQty)) totQty FROM SALE WHERE saleDate=#{saleDate}
+			</select>
+
+ 			<select id="getTotAmt" resultType="WholeSaleVO" parameterType="String">
+		 SELECT ROUND(SUM(totAmt)) totAmt FROM SALE WHERE saleDate=#{saleDate}
+			</select>
+
 	</mapper>

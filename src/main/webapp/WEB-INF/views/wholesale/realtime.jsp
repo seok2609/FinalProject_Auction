@@ -89,16 +89,18 @@
 <script>
 
 $("#btn").click(function(){
-
+    let val = $("#whsalCd").val();
+    console.log("sss"+val);
     $.ajax({
 	type:"get",
 	url :"/wholesale/realtime",
 	data:{
-        whsalCd:$("#whsalCd").val(),
+        whsalCd:val,
 	},
     success: function(data){
         $("#frm").submit();
-        $("#whsalCd").val();
+        console.log("sss"+val);
+        $("#whsalCd").val(val).prop("selected", true);
     },
     error: function(data){
 

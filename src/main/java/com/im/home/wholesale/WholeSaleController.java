@@ -50,7 +50,7 @@ public class WholeSaleController {
 		return "wholesale/chart";
 	}
 	
-	@GetMapping("pagerTest")
+	@GetMapping("fixData")
 	public ModelAndView pagerTest(Pager pager) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		   Long c = wholeSaleService.getListCount(pager);
