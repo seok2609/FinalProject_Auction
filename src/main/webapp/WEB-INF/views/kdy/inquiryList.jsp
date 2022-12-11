@@ -207,7 +207,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-success     h-100 py-2">
+                    <div class="card border-left-success h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
@@ -224,17 +224,28 @@
                 </div>
             </div>
                 <!-- Begin Page Content -->
-                 <form action="inquiryList" method="get" id="inquiryForm"> 
+           
                 <sec:authentication property="Principal" var="member"/>
                 <div class="container-fluid" style=" width: 1650px;">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" style="background-color: #008374; ">
                             <h6 class="m-0 font-weight-bold" style="color: white;">1대1 문의</h6>
+
+                            <form action="./inquiryList" style="margin-left: -100px; margin-top: -25px;" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+                                <div class="col-12">
+                                    <div class="input-group" id="memberListSearch">
+                                        <input type="text" name="inquirySearch" value="${param.inquirySearch}"
+                                            var="" class="form-control" id="inquirySearch"
+                                            placeholder="닉네임을 입력해 주세요">
+                                        <button type="submit" class="btn btn-success" id="searchNull">검색
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <table class="table table-striped">
                             <tbody>
                                 <c:forEach items="${inquiryList}" var="inquiryList">
-                                      
                                     <c:choose>
                                         <c:when test="${empty inquiryList.inquiryResponseVO.inquiry_response_contents}">
                                                     <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
@@ -285,7 +296,7 @@
                     </div>
                 </div>
             </div>
-            </form> 
+
         </div>
         <div class="chefs section-bg" style="margin-left: 750px;">
             <nav aria-label="Page navigation example">
@@ -294,13 +305,13 @@
                 <li class="page-item ${pager.pre?'':'disabled'}">
                 <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
                 <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
-                  <a class="page-link" href="./inquiryList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+                  <a class="page-link" href="./inquiryList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.inquirySearch}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a> 
                 </li> 
                 <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
                 <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-                  <li class="page-item"><a class="page-link" href="./inquiryList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a> </li>
+                  <li class="page-item"><a class="page-link" href="./inquiryList?page=${i}&kind=${pager.kind}&search=${pager.inquirySearch}">${i}</a> </li>
                 </c:forEach> 
                 <li class="page-item ${pager.next?'':'disabled'}">
                   <a class="page-link" href="./inquiryList?page=${pager.lastNum}" aria-label="Next">

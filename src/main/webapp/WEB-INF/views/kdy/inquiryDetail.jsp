@@ -17,6 +17,10 @@
     #inquiryAddBottonST{
       margin-top: 50px;
     }
+    #information{
+            font-size: 17px;
+            font-weight: bold;
+        }
   </style>
 </head>
 <body>
@@ -46,36 +50,37 @@
                      </div>
                  </div><!-- End Info Item -->
  
-                 <div class="info-item d-flex">
+                 <div class="info-item d-flex" onclick="location.href='/kdy/membersDetail?id=${inquiryDetail.id}';">
                    <i class="bi bi-envelope flex-shrink-0"></i>
                    <div>
-                     <h4>${inquiryDetail.id}님의 Email:</h4>
-                     <p>${inquiryDetail.membersVO.email}</p>
+                     <h4 >${inquiryDetail.id}님의 회원정보 보러 가기</h4>
+                     <p style="margin-bottom: 5PX;">${inquiryDetail.membersVO.email}</p>
                    </div>
                  </div><!-- End Info Item -->
                    <div class="info-item d-flex">
                    <i class="bi bi-envelope flex-shrink-0"></i>
                    <div>
-                     <h4>${inquiryDetail.id}님의 Call:</h4>
-                     <p>${inquiryDetail.membersVO.phone}</p>
+                     <h4>${inquiryDetail.id}님의 가입일</h4>
+                     <p>${inquiryDetail.membersVO.joinDate}</p>
                    </div>
-                 </div><!-- End Info Item -->
+                 </div>
                </div>
            </div>
   
             <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
                 <div class="row">
                   <div class="col-md-6 form-group">
-                    <input type="text" name="name" class="form-control" id="name"   readonly value="${inquiryDetail.id}">
+                    <input type="text" name="name" class="form-control" id="information" style="border: 0;"   readonly value="${inquiryDetail.id} 님">
                   </div>
                   <div class="col-md-6 form-group mt-3 mt-md-0">
-                    <input type="text" class="form-control" name="email" id="email"  readonly value="${inquiryDetail.inquiry_date}">
+                    <input type="text" class="form-control" name="email" id="information" style="border: 0;"  readonly value="문의 날짜 : ${inquiryDetail.inquiry_date}">
                   </div>
                 </div>
                 <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="subject" readonly value="${inquiryDetail.inquiry_text}">
+                  <input type="text" class="form-control" name="subject" id="information" style="border: 0;" readonly value="문의 제목 : ${inquiryDetail.inquiry_text}">
                 </div>
                 <div class="form-group mt-3">
+                  <div id="information">문의 내용 : </div>
                   <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiry_contents}</textarea>
                 </div>
                 
@@ -95,6 +100,7 @@
 					</c:when>
 					<c:otherwise>
 		                <div class="form-group mt-3">
+                      <div id="information">관리자 답변 : </div>
 		                    <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiryResponseVO.inquiry_response_contents}</textarea>
 		                </div>
 					</c:otherwise>

@@ -34,6 +34,9 @@ public class AdminMembersService {
 		adminPager.getRowNum();
 		return adminMembersMapper.getAdminMembersList(adminPager);
 	}
+	public AdminMembersVO getAdminMembersDetail(AdminMembersVO adminMembersVO)throws Exception{
+		return adminMembersMapper.getAdminMembersDetail(adminMembersVO);
+	}
 	//메인 관리자페이지 1대1 5개 리스트
 	public List<AdminMembersVO> getAdminPageInquiryList(AdminMembersVO adminMembersVO)throws Exception{
 		return adminMembersMapper.getAdminPageInquiryList(adminMembersVO);

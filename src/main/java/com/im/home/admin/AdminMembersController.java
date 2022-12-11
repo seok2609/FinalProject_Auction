@@ -106,6 +106,15 @@ public class AdminMembersController {
 		mv.setViewName("kdy/inquiryDetail");
 		return mv;
 	}
+	//회원 디테일
+	@GetMapping("membersDetail")
+	public ModelAndView getAdminMembersDetail(AdminMembersVO adminMembersVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		adminMembersVO = adminMembersService.getAdminMembersDetail(adminMembersVO);
+		mv.addObject("membersDetail", adminMembersVO);
+		mv.setViewName("kdy/membersDetail");
+		return mv;
+	}
 //	//1대1문의
 	@GetMapping("inquiryRequest")
 	public String setInquiryRequest(AdminMembersVO adminMembersVO, Principal principal)throws Exception{
