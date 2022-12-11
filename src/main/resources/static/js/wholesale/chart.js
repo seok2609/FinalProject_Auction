@@ -1,7 +1,5 @@
-
+//============= 도넛 차트====================
         var sum = Number("{{sum}}");
-      
-        // Pie Chart Example
         var ctx = document.getElementById("myPieChart");
         var myPieChart = new Chart(ctx, {
           type: 'doughnut',
@@ -34,18 +32,39 @@
           
         });
 
-        if (chart) {
-		chart.destroy();
-		chart = new Chart($('#myPieChart'), data)
-	}else {
-		chart = new Chart($('#myPieChart'), data)
-	}
+    //     if (chart) {
+	// 	chart.destroy();
+	// 	chart = new Chart($('#myPieChart'), data)
+	// }else {
+	// 	chart = new Chart($('#myPieChart'), data)
+	// }
 		 
-	$("#js-legend").html(chart.generateLegend());
+	// $("#js-legend").html(chart.generateLegend());
 
+//============= 막대 차트====================
 
+    const ctx2 = document.getElementById('myChart');
 
-    ////================== 메인에 고정데이터 차트 뽑아오기
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+//============= 메인에 차트 데이터 받아오기 테스트 ====================
 
 
 function getJSON(i) {

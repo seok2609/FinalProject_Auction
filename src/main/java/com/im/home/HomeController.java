@@ -81,7 +81,7 @@ public class HomeController {
 		JSONArray temp = (JSONArray)parser.parse(data2);
 		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
 		
-		if(temp.size()!=0) {
+		if(temp != null) {
 		for(int i =0; i<10; i++) {
 			JSONObject jsonObj = (JSONObject)temp.get(i);
 				log.info("array => {}", jsonObj);
@@ -121,7 +121,7 @@ public class HomeController {
 				 temp = (JSONArray)parser.parse(data2);
 				List<WholeSaleVO>  wholeSaleVOs2 = new ArrayList<>();
 				
-				if(temp.size()!=0) {
+				if(temp != null) {
 				for(int i =0; i<10; i++) {
 					JSONObject jsonObj = (JSONObject)temp.get(i);
 						log.info("array => {}", jsonObj);
@@ -161,7 +161,7 @@ public class HomeController {
 					 temp = (JSONArray)parser.parse(data2);
 					List<WholeSaleVO>  wholeSaleVOs3 = new ArrayList<>();
 					
-					if(temp.size()!=0) {
+					if(temp != null) {
 					for(int i =0; i<10; i++) {
 						JSONObject jsonObj = (JSONObject)temp.get(i);
 							log.info("array => {}", jsonObj);
