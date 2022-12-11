@@ -19,4 +19,12 @@ public interface WholeSaleMapper {
 	
 	public Long getListCount(Pager pager)throws Exception;
 	
+	public WholeSaleVO getWhsalMain(String saleDate)throws Exception;
+	
+	public WholeSaleVO getMidMain(String saleDate)throws Exception;
+	
+	public WholeSaleVO getTotQty(String saleDate)throws Exception;
+	
+	public WholeSaleVO getTotAmt(String saleDate)throws Exception;
+	
 }

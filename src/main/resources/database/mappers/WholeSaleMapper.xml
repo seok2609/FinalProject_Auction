@@ -6,9 +6,9 @@
 	<mapper namespace="com.im.home.wholesale.WholeSaleMapper">
 
 		<insert id="setAdd" parameterType="WholeSaleVO">
-		INSERT INTO SALE(saleNum, rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, mid, midName,
+		INSERT INTO SALE(saleNum, rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, large, largeName,
 		small, smallName, totQty, totAmt, minAmt, maxAmt, avgAmt)
-		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{mid}, #{midName},
+		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{large}, #{largeName},
 		#{small}, #{smallName}, #{totQty}, #{totAmt}, #{minAmt}, #{maxAmt}, #{avgAmt})
 		</insert> 
 	
@@ -26,6 +26,23 @@
 		 SELECT COUNT(*) FROM SALE
 		 WHERE whsalCd=#{whsalCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
 		 </select>
-		
 		 
+		 <select id="getMidMain" resultType="WholeSaleVO" parameterType="String">
+		 SELECT midName, COUNT(midName) dataCnt FROM SALE WHERE saleDate=#{saleDate}
+		 GROUP by midName ORDER by dataCnt desc LIMIT 1
+		</select>
+		
+		<select id="getWhsalMain" resultType="WholeSaleVO" parameterType="String">
+		 SELECT whsalName, COUNT(whsalName) totCnt FROM SALE WHERE saleDate=#{saleDate}
+		 GROUP by whsalName ORDER by totCnt desc LIMIT 1
+		</select>
+		 
+			<select id="getTotQty" resultType="WholeSaleVO" parameterType="String">
+		 SELECT ROUND(SUM(totQty)) totQty FROM SALE WHERE saleDate=#{saleDate}
+			</select>
+
+ 			<select id="getTotAmt" resultType="WholeSaleVO" parameterType="String">
+		 SELECT ROUND(SUM(totAmt)) totAmt FROM SALE WHERE saleDate=#{saleDate}
+			</select>
+
 	</mapper>

@@ -1,9 +1,71 @@
-//api authURL : URL을 상수로 선언. 보통은 properies에 선언하여 사용함
-let apiURL = 'https://at.agromarket.kr/openApi/price/sale.do';
+//============= 도넛 차트====================
+        var sum = Number("{{sum}}");
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ["당근", "샘플", "Test"],
+            datasets: [{
+              data: [sum, 50, 20],
+              backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+              hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+              hoverBorderColor: "rgba(234, 236, 244, 1)",
+            }],
+          },
+          options: {
+            maintainAspectRatio: false,
+            tooltips: {
+              backgroundColor: "rgb(255,255,255)",
+              bodyFontColor: "#858796",
+              borderColor: '#dddfeb',
+              borderWidth: 1,
+              xPadding: 15,
+              yPadding: 15,
+              displayColors: false,
+              caretPadding: 10,
+            },
+            legend: {
+              display: false
+            },
+            cutoutPercentage: 0,
+          },
+          
+        });
 
-//페이징 js에서 하는 이유 - 데이터를 js에서 가공하고 페이지이동없이 ajax로 처리하기 위함 
-//json 호출하기 
-//https://cors-anywhere.herokuapp.com/ 크로스 에러 떠서 프록시서버 설정 추가
+    //     if (chart) {
+	// 	chart.destroy();
+	// 	chart = new Chart($('#myPieChart'), data)
+	// }else {
+	// 	chart = new Chart($('#myPieChart'), data)
+	// }
+		 
+	// $("#js-legend").html(chart.generateLegend());
+
+//============= 막대 차트====================
+
+    const ctx2 = document.getElementById('myChart');
+
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+//============= 메인에 차트 데이터 받아오기 테스트 ====================
+
 
 function getJSON(i) {
     let pageNo = 1;
@@ -11,17 +73,19 @@ function getJSON(i) {
     let whsalCd = $("#whsalCd").val();
     let saleDate = $("#saleDate").val();
     let largeCd = $("#largeCd").val();
+    let today = new Date();
+    let yesterday = new Date(today.setDate(today.getDate() - 1));
     console.log("pram=="+whsalCd);
-   let url = 'https://cors-anywhere.herokuapp.com/'+apiURL
         $.ajax({
         type:"get",
-        url: url,
+        url: "wholesale/fixData",
         data: {
             serviceKey:'9596499878664F83A1D560AE3808376E',
             apiType:'json',
             pageNo:pageNo,
-            whsalCd:whsalCd,
-            saleDate:saleDate
+            whsalCd:"110001",
+            saleDateStart:yesterday,
+            saleDateEnd:yesterday
         },
         Headers:{
             "Access-Control-Allow-Origin":"*"
@@ -91,4 +155,3 @@ function getJSON(i) {
         }
     })
 }
-
