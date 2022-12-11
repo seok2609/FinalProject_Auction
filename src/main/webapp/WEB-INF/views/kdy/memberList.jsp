@@ -46,6 +46,9 @@
        #blackMembersCssss{
         color: mediumvioletred;
        }
+       #nonoresponse:hover{
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+       }
     </style>
 
 </head>
@@ -179,8 +182,8 @@
                         </div>
                     </div>
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 row" style="background-color: #008374; ">
+                    <div class="card shadow" >
+                        <div class="card-header py-3 row" style="background-color: #008374; width: 1650px; margin-left: 1px;">
                             <div class="m-0 font-weight-bold" style="color: white;">회원</div>
 
                                 <form action="./memberList" style="margin-left: -100px; margin-top: -25px;" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
@@ -198,50 +201,47 @@
                             
                         </div>
 
-            
-
-						<table class="table table-striped">
-                            <thead>
-                                <tr class="text-success">
-                                    <th>아이디</th>
-                                    <th>성  함</th>
-                                    <th>닉네임</th>
-                                    <th>이메일</th>
-                                    <th>전화번호</th>
-                                    <th>등 급</th>
-                                    <th>가입날짜</th>
-                                    
-                                </tr>
-                            </thead>
-                            
                             <tbody>
                                 <c:forEach items="${membersVO}" var="membersVO">
-                                    <tr>
                                     <c:choose>
                                         <c:when test="${membersVO.black < 2}">
-                                            <td id="blackMembersCss">${membersVO.id}</td>
-                                            <td id="blackMembersCss">${membersVO.realName}</td>
-                                            <td id="blackMembersCss">${membersVO.nickName}</td>
-                                            <td id="blackMembersCss">${membersVO.email}</td>
-                                            <td id="blackMembersCss">${membersVO.phone}</td>
-                                            <td id="blackMembersCssss" onclick="location.href='/kdy/black?id=${membersVO.id}'">${membersVO.roleVO.roleName}</td>
-                                            <td id="blackMembersCss">${membersVO.joinDate}</td>
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='/kdy/membersDetail?id=${membersVO.id}';">
+                                                <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
+                                                    <div class="d-flex">
+                                                        <div class="p-2 w-100">
+                                                            <div class="container2" >
+                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCss">아이디 : ${membersVO.id}</div>
+                                                                <div class="contents" id="blackMembersCss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
+                                                                <div id="blackMembersCssss" onclick="location.href='/kdy/black?id=${membersVO.id}'" style="font-weight: bold; width: 180px; margin-left: 1470px; margin-top: -45px;">
+                                                                    ${membersVO.roleVO.roleName}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <td id="blackMembersCsss">${membersVO.id}</td>
-                                            <td id="blackMembersCsss">${membersVO.realName}</td>
-                                            <td id="blackMembersCsss">${membersVO.nickName}</td>
-                                            <td id="blackMembersCsss">${membersVO.email}</td>
-                                            <td id="blackMembersCsss">${membersVO.phone}</td>
-                                            <td id="blackMembersCsss"  onclick="location.href='/kdy/blackC?id=${membersVO.id}'">블랙</td>
-                                            <td id="blackMembersCsss">${membersVO.joinDate}</td>
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" >
+                                                <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
+                                                    <div class="d-flex">
+                                                        <div class="p-2 w-100">
+                                                            <div class="container2" >
+                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCsss">아이디 : ${membersVO.id}</div>
+                                                                <div class="contents" id="blackMembersCsss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
+                                                                <div id="blackMembersCsss" onclick="location.href='/kdy/blackC?id=${membersVO.id}'" style="font-weight: bold; width: 100px; margin-left: 1500px; margin-top: -60px;">
+                                                                   블 랙
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </c:otherwise>
                                     </c:choose>
-                                        
-                                    </tr>
                                 </c:forEach> 
                             </tbody>
-                        </table>
+            
                     </div>
                   
                 </div>
