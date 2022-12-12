@@ -236,7 +236,7 @@
         } else{
             $.ajax({
                 type: 'GET',
-                url: '/members/modify?id=id'&'checkPassWord='+checkPassWord
+                url: '/members/modify?id='+id+'&checkPassWord='+checkPassWord
                 
             }).done(function(resultPw){
                 console.log(resultPw);
