@@ -61,7 +61,7 @@
 
        <!-- Sidebar -->
        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
-
+        
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./adminPage">
             <div class="sidebar-brand-icon rotate-n-15">
@@ -69,20 +69,16 @@
             </div>
             <div class="sidebar-brand-text mx-3">관리자<sup>PAGE</sup></div>
         </a>
-
+        
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
-
-    
-
         <!-- Divider -->
         <hr class="sidebar-divider">
-
+        
         <!-- Heading -->
         <div class="sidebar-heading">
             MEMBER
         </div>
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -92,10 +88,8 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                     <a class="collapse-item" href="./memberList">회 원 조 회</a>
                     <a class="collapse-item" href="./inquiryList">1 대 1 문 의</a>
-                    <a class="collapse-item" href="./auctioneer">구 인 구 직</a>
                 </div>
             </div>
         </li>
@@ -110,18 +104,14 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
                     <a class="collapse-item" href="./report">신 고 요 청</a>
                     <a class="collapse-item" href="./memberBlackList">블 랙 리 스 트</a>
-                    <!-- <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                    <a class="collapse-item" href="utilities-other.html">Other</a> -->
                 </div>
             </div>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
-
         <!-- Heading -->
         <div class="sidebar-heading">
             Addons
@@ -142,20 +132,9 @@
                 </div>
             </div>
         </li>
-
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
-
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
-
     </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
