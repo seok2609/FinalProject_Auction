@@ -187,10 +187,10 @@
                     <i class="bi bi-water"></i>
                   </div>
               
-                <c:if test="${!empty seoul}">
+                <c:if test="${!empty busan}">
                   <table class="table table-hover">
                     <tbody>
-                  <c:forEach items="${seoul}" var="vos">
+                  <c:forEach items="${busan}" var="vos">
                     <tr>
                       <td>${vos.cmpName}</td>
                       <td>${vos.midName}</td>
@@ -200,7 +200,7 @@
                   </tbody>
                 </table>
                 </c:if>
-                <c:if test="${empty seoul}">
+                <c:if test="${empty busan}">
                   <ul>
                     <li><i class="bi bi-check"></i>  No Real Time Data.</li></ul>
               
@@ -242,7 +242,7 @@
               <div class="icon">
                 <i class="bi bi-apple"></i>
               </div>
-              <c:if test="${!empty seoul}">
+              <c:if test="${!empty deagu}">
                   <table class="table table-hover">
                     <tbody>
                   <c:forEach items="${deagu}" var="vos">
@@ -255,7 +255,7 @@
                   </tbody>
                 </table>
                 </c:if>
-                <c:if test="${empty seoul}">
+                <c:if test="${empty deagu}">
                   <ul>
                     <li><i class="bi bi-check"></i>  No Real Time Data.</li></ul>
               
@@ -269,13 +269,33 @@
       </div>
     </section><!-- End Pricing Section -->
 
-    <!-- ======= About Us Section ======= -->
+    <!-- ======= Chart Section ======= -->
+    <input type="hidden" id="b1Name" value="${best[0].midName}">
+    <input type="hidden" id="b2Name" value="${best[1].midName}">
+    <input type="hidden" id="b3Name" value="${best[2].midName}">
+    <input type="hidden" id="b1Cnt" value="${best[0].dataCnt}">
+    <input type="hidden" id="b2Cnt" value="${best[1].dataCnt}">
+    <input type="hidden" id="b3Cnt" value="${best[2].dataCnt}">
+
+    <input type="hidden" id="w1Name" value="${bestW[0].whsalName}">
+    <input type="hidden" id="w2Name" value="${bestW[1].whsalName}">
+    <input type="hidden" id="w3Name" value="${bestW[2].whsalName}">
+    <input type="hidden" id="w4Name" value="${bestW[3].whsalName}">
+    <input type="hidden" id="w5Name" value="${bestW[4].whsalName}">
+    <input type="hidden" id="w6Name" value="${bestW[5].whsalName}">
+    <input type="hidden" id="w1Cnt" value="${bestW[0].totCnt}">
+    <input type="hidden" id="w2Cnt" value="${bestW[1].totCnt}">
+    <input type="hidden" id="w3Cnt" value="${bestW[2].totCnt}">
+    <input type="hidden" id="w4Cnt" value="${bestW[3].totCnt}">
+    <input type="hidden" id="w5Cnt" value="${bestW[4].totCnt}">
+    <input type="hidden" id="w6Cnt" value="${bestW[5].totCnt}">
     <section id="about" class="about">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
           <h2>Chart</h2>
-          <p>show chart</p>
+          <p>정산 경매 내역</p>
+         
         </div>
 
         <div class="row gy-4">
@@ -295,7 +315,7 @@
         </div>
 
       </div>
-    </section><!-- End About Us Section -->
+    </section><!-- End Chart Section -->
 
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients">

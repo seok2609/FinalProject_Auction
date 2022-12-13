@@ -26,11 +26,11 @@ public class WholeSaleService {
 		return wholeSaleMapper.getList(pager);
 	}
 	
-	public WholeSaleVO getWhsalMain(String saleDate)throws Exception{
+	public List<WholeSaleVO> getWhsalMain(String saleDate)throws Exception{
 		return wholeSaleMapper.getWhsalMain(saleDate);
 	}
 	
-	public WholeSaleVO getMidMain(String saleDate)throws Exception{
+	public List<WholeSaleVO> getMidMain(String saleDate)throws Exception{
 		return wholeSaleMapper.getMidMain(saleDate);
 	}
 	
