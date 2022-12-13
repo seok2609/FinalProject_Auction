@@ -29,12 +29,12 @@
 		 
 		 <select id="getMidMain" resultType="WholeSaleVO" parameterType="String">
 		 SELECT midName, COUNT(midName) dataCnt FROM SALE WHERE saleDate=#{saleDate}
-		 GROUP by midName ORDER by dataCnt desc LIMIT 1
+		 GROUP by midName ORDER by dataCnt desc LIMIT 3
 		</select>
 		
 		<select id="getWhsalMain" resultType="WholeSaleVO" parameterType="String">
 		 SELECT whsalName, COUNT(whsalName) totCnt FROM SALE WHERE saleDate=#{saleDate}
-		 GROUP by whsalName ORDER by totCnt desc LIMIT 1
+		 GROUP by whsalName ORDER by totCnt desc LIMIT 6
 		</select>
 		 
 			<select id="getTotQty" resultType="WholeSaleVO" parameterType="String">
@@ -44,5 +44,6 @@
  			<select id="getTotAmt" resultType="WholeSaleVO" parameterType="String">
 		 SELECT ROUND(SUM(totAmt)) totAmt FROM SALE WHERE saleDate=#{saleDate}
 			</select>
+			
 
 	</mapper>
