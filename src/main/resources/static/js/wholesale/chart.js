@@ -1,12 +1,32 @@
+let b1Name = $("#b1Name").val();
+let b2Name = $("#b2Name").val();
+let b3Name = $("#b3Name").val();
+let b1Cnt = $("#b1Cnt").val();
+let b2Cnt = $("#b2Cnt").val();
+let b3Cnt = $("#b3Cnt").val();
+
+let w1Name = $("#w1Name").val();
+let w2Name = $("#w2Name").val();
+let w3Name = $("#w3Name").val();
+let w4Name = $("#w4Name").val();
+let w5Name = $("#w5Name").val();
+let w6Name = $("#w6Name").val();
+let w1Cnt = $("#w1Cnt").val();
+let w2Cnt = $("#w2Cnt").val();
+let w3Cnt = $("#w3Cnt").val();
+let w4Cnt = $("#w4Cnt").val();
+let w5Cnt = $("#w5Cnt").val();
+let w6Cnt = $("#w6Cnt").val();
+
 //============= 도넛 차트====================
         var sum = Number("{{sum}}");
         var ctx = document.getElementById("myPieChart");
         var myPieChart = new Chart(ctx, {
           type: 'doughnut',
           data: {
-            labels: ["당근", "샘플", "Test"],
+            labels: [b1Name, b2Name, b3Name],
             datasets: [{
-              data: [sum, 50, 20],
+              data: [b1Cnt, b2Cnt, b3Cnt],
               backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
               hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
               hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -32,26 +52,18 @@
           
         });
 
-    //     if (chart) {
-	// 	chart.destroy();
-	// 	chart = new Chart($('#myPieChart'), data)
-	// }else {
-	// 	chart = new Chart($('#myPieChart'), data)
-	// }
-		 
-	// $("#js-legend").html(chart.generateLegend());
-
 //============= 막대 차트====================
 
     const ctx2 = document.getElementById('myChart');
 
     new Chart(ctx2, {
       type: 'bar',
+     
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [ w1Name, w2Name, w3Name, w4Name, w5Name],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: ['Red', 'Blue', 'Green', 'Purple', 'Orange'],
+          data: [w1Cnt, w2Cnt, w3Cnt, w4Cnt, w5Cnt],
           borderWidth: 1
         }]
       },
@@ -63,95 +75,3 @@
         }
       }
     });
-
-//============= 메인에 차트 데이터 받아오기 테스트 ====================
-
-
-function getJSON(i) {
-    let pageNo = 1;
-    let perPage = 10;
-    let whsalCd = $("#whsalCd").val();
-    let saleDate = $("#saleDate").val();
-    let largeCd = $("#largeCd").val();
-    let today = new Date();
-    let yesterday = new Date(today.setDate(today.getDate() - 1));
-    console.log("pram=="+whsalCd);
-        $.ajax({
-        type:"get",
-        url: "wholesale/fixData",
-        data: {
-            serviceKey:'9596499878664F83A1D560AE3808376E',
-            apiType:'json',
-            pageNo:pageNo,
-            whsalCd:"110001",
-            saleDateStart:yesterday,
-            saleDateEnd:yesterday
-        },
-        Headers:{
-            "Access-Control-Allow-Origin":"*"
-        },
-        crossOrigin: true,
-        dataType:"json",
-        success: function(jsonData){
-            let totPage = parseInt(jsonData.totCnt/10)+1 //총페이지수
-            let setSmallPage = jsonData.dataCnt/10 //페이지 당 뷰 수. 리스트 10개씩 뽑아올때 1Page당 몇 뷰가 생기는지. 
-            alert("미~~~~워~~~~~")
-            if(jsonData.dataCnt%10>0){ //나머지값이 있다면 뷰 추가
-                setSmallPage++
-            }
-            if(i<1){
-                i =1;
-            }
-            let startRow =(i-1)*perPage;;
-            let lastRow = i*perPage;
-            let pagings = '';
-            for(let i=1; i<setSmallPage; i++){
-                pagings += '<button type="button" onclick="getJSON('+i+')">'+i+'</button>';
-        
-            }
-
-           
-            console.log("통신성공");
-            console.log(jsonData);
-            console.log("cnt=="+jsonData.totCnt);//총데이터건수
-            console.log("cnt=="+jsonData.dataCnt);//페이지데이터건수
-            console.log("url=="+url);//요청 url
-            console.log(totPage);
-            console.log("setSmallpage ="+setSmallPage);
-            console.log("startRow ="+startRow);
-            console.log("lastRow ="+lastRow);
-            console.log("jsonData.data[2].saleDate"+jsonData.data[2].saleDate);
-
-            $('.table_body').empty();
-            $('.plsPage').empty();
-            $('.paging').empty();
-                
-
-            str = '<TR>'; 
-            for(let j=startRow; j<lastRow+1; j++){
-             str += '<TD>' + jsonData.data[j].saleDate + '</TD>'+
-                '<TD>' + jsonData.data[j].whsalName + '</TD>'+
-                '<TD>' + jsonData.data[j].cmpName + '</TD>'+
-                '<TD>' + jsonData.data[j].smallName + '</TD>';
-             str += '</TR>';
-             }
-
-                // $.each(jsonData.data , function(i){
-                //     str += '<TD>' + jsonData.data[i].saleDate + '</TD>'+
-                //            '<TD>' + jsonData.data[i].whsalName + '</TD>'+
-                //             '<TD>' + jsonData.data[i].cmpName + '</TD>'+
-                //            '<TD>' + jsonData.data[i].smallName + '</TD>';
-                //     str += '</TR>';
-                // });
-
-
-            $('.table_body').append(str);
-            $('.plsPage').append('<h3>총페이지수:'+totPage+'</h3>');
-            $('.paging').append(pagings);
-           
-        },
-        error:function(){
-            console.log("통신에러");
-        }
-    })
-}
