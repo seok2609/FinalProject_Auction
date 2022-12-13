@@ -71,7 +71,7 @@
 				 </div> -->
 				 
 	<div class="container">
-    <!-- Modal -->
+   <%--  <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
 
@@ -88,11 +88,11 @@
                     <form role="form">
                         <div class="form-group">
                             <label for="userEmail"><span class="glyphicon glyphicon-user"></span>email</label>
-                            <input type="text" class="form-control" id="userEmail" placeholder="가입시 등록한 이메일을 입력하세요.">
+                            <input type="text" class="form-control" id="userEmail" name="email" placeholder="가입시 등록한 이메일을 입력하세요.">
                         </div>
                         <div class="form-group">
                             <label for="userName"><span class="glyphicon glyphicon-eye-open"></span> name</label>
-                            <input type="text" class="form-control" id="userName" placeholder="가입시 등록한 이름을 입력하세요.">
+                            <input type="text" class="form-control" name="realName" id="realName" placeholder="가입시 등록한 이름을 입력하세요.">
                         </div>
                         <button type="button" class="btn btn-success btn-block" id="checkEmail">OK</button>
                     </form>
@@ -108,7 +108,8 @@
 
         </div>
     </div>
-</div>
+</div> --%>
+
 			 
 			 
 			  	
@@ -122,10 +123,74 @@
               </div>
             </form>
           </div><!-- End Contact Form -->
+          <!--임시 비번 모달-->
+<div id="findPw" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-login">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                    <div class="container my-auto">
+                        <div class="row">
+                            <div class="card z-index-0 fadeIn3 fadeInBottom">
+                                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                    <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                                        <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">비밀번호 찾기</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form role="form" class="text-start" action="/member/sendEmail" method="post" name="sendEmail">
+                                        <p>입력한 이메일로 임시 비밀번호가 전송됩니다.</p>
+                                        <div class="input-group input-group-outline my-3">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" id="userEmail" name="memberEmail" class="form-control" required>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2"
+                                                    id="checkEmail">비밀번호 발송</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                                            data-bs-target="#findPw">비밀번호를 잊으셨나요?</button>
+                                            </section>
+                                            <script>
+    $("#checkEmail").click(function () {
+        const userEmail = $("#userEmail").val();
+        const sendEmail = document.forms["sendEmail"];
+        $.ajax({
+            type: 'post',
+            url: 'emailDuplication',
+            data: {
+                'memberEmail': userEmail
+            },
+            dataType: "text",
+            success: function (result) {
+                if(result == "no"){
+                    // 중복되는 것이 있다면 no == 일치하는 이메일이 있다!
+                    alert('임시비밀번호를 전송 했습니다.');
+                    sendEmail.submit();
+                }else {
+                    alert('가입되지 않은 이메일입니다.');
+                }
+
+            },error: function () {
+                console.log('에러 체크!!')
+            }
+        })
+    });
+</script>
 
 	
 	
-</section>
+
 <c:import url="../common/footer.jsp"></c:import>
 </body>
 </html>

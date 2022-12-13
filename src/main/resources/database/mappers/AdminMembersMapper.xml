@@ -126,7 +126,7 @@
 		</select>
 		<!-- 응답하지 않은 1대1문의 List -->
 		<select id="getInquiryNoResponseList" parameterType="AdminPager" resultMap="getInquiryDetailResult">
-			SELECT M.*,R.*, IQ.* FROM
+			 SELECT M.*,R.*, IQ.* FROM
 	         MEMBERS M
 	         INNER JOIN
 	         MEMBERS_ROLE MR
@@ -138,12 +138,42 @@
 	         INQUIRY IQ
 	         ON M.ID = IQ.ID
 	         LEFT JOIN
-	 		  INQUIRY_RESPONSE IR
-			  ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
+	 		 INQUIRY_RESPONSE IR
+			 ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
 	         WHERE INQUIRY_RESPONSE_CONTENTS IS NULL
 	         ORDER BY INQUIRY_NUM DESC
 		</select>
-		
+		<!-- 신고 요청 -->
+		<insert id="setRepoertRequest" parameterType="MembersReportVO">
+			INSERT INTO REPORT VALUES
+			(NULL, #{id}, #{report_id}, #{report_contents}, SYSDATE())
+		</insert>
+		<!-- 신고요청 건 수 -->
+		<select id="getTotalReport" resultType="Integer" parameterType="MembersReportVO">
+			SELECT COUNT(ID) FROM REPORT
+		</select>
+		<!-- 신고요청 리스트 -->
+		<select id="getReportList" parameterType="AdminPager" resultType="MembersReportVO">
+			SELECT * FROM REPORT
+		</select>
+		<!-- 신고 요청 DETAIL -->
+		<select id="getReportDetail" parameterType="MembersReportVO" resultMap="getReportResult">
+			<!-- SELECT M.*, RP.* 
+			FROM 
+			MEMBERS M
+			INNER JOIN
+			MEMBERS_ROLE MR
+			ON M.ID = MR.ID
+			INNER JOIN
+			ROLE R
+			ON MR.ROLENUM = R.ROLENUM
+			LEFT JOIN
+			REPORT RP
+			ON M.ID = RP.ID
+			WHERE RP.ID=#{id} AND RP.REPORT_ID=#{report_id} AND RP.REPORT_NUM=#{report_num}  -->
+			SELECT * FROM REPORT
+			WHERE ID=#{id} AND REPORT_ID=#{report_id} AND REPORT_NUM=#{report_num}
+		</select>
 	<!-- memberList -->
  	<resultMap type="MembersVO" id="getAdminMembersListResult">
  			<id column="id" property="id"/>
@@ -160,7 +190,6 @@
 				<id column="roleNum" property="roleNum"/>
 				<result column="roleName" property="roleName"/>
 			</association>
-			
  	</resultMap>
  	<!-- 1대1문의 detail페이지,
  		 응답하지 않은 1대1문의 List,
@@ -189,12 +218,45 @@
 					<result column="roleName" property="roleName"/>
 				</association>
  			</association>
+ 			
  			<association property="inquiryResponseVO" javaType="inquiryResponseVO">
  				<id column="inquiry_response_num" property="inquiry_response_num"/>
  				<result column="inquiry_num" property="inquiry_num"/>
  				<result column="inquiry_response_contents" property="inquiry_response_contents"/>
  				<result column="inquiry_response_date" property="inquiry_response_date"/>
  			</association>
+ 			
+ 			<collection property="membersReportVOs" javaType="List" ofType="MembersReportVO">
+ 				<id column="report_num" property="report_num"/>
+ 				<result column="id" property="id"/>
+ 				<result column="report_id" property="report_id"/>
+ 				<result column="report_contents" property="report_contents"/>
+ 				<result column="report_date" property="report_date"/>
+ 			</collection>
+ 	</resultMap>
+ 	
+ 	<resultMap type="MembersReportVO" id="getReportResult">
+ 		<id column="report_num" property="report_num"/>
+ 		<result column="id" property="id"/>
+ 		<result column="report_id" property="report_id"/>
+ 		<result column="report_contents" property="report_contents"/>
+ 		<result column="report_date" property="report_date"/>
+ 		<association property="membersVO" javaType="MembersVO">
+	 		<id column="id" property="id"/>
+		 	<result column="passWord" property="passWord"/>
+		 	<result column="realName" property="realName"/>
+		 	<result column="nickName" property="nickName"/>
+		 	<result column="email" property="email"/>
+		 	<result column="birth" property="birth"/>
+		 	<result column="gender" property="gender"/>
+		 	<result column="phone" property="phone"/>
+		 	<result column="joinDate" property="joinDate"/>
+		 	
+		 	<association property="roleVO" javaType="RoleVO">
+				<id column="roleNum" property="roleNum"/>
+				<result column="roleName" property="roleName"/>
+			</association>
+	 	</association>
  	</resultMap>
  	
  </mapper>

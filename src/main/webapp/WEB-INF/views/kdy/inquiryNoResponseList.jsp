@@ -49,20 +49,14 @@
             </div>
             <div class="sidebar-brand-text mx-3">관리자<sup>PAGE</sup></div>
         </a>
-
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
-
-    
-
         <!-- Divider -->
         <hr class="sidebar-divider">
-
         <!-- Heading -->
         <div class="sidebar-heading">
             MEMBER
         </div>
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

@@ -199,11 +199,11 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 총 회원 수</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 명</div>
                                         </div>
@@ -292,20 +292,6 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">당월 일일 방문자 수</h6>
-                                    <!-- <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div> -->
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -318,33 +304,66 @@
                     </div>
                         <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <a class="m-0 font-weight-bold text-success" href="../kdy/inquiryNoResponseList" >대기중인 1대1 문의</a>
-                        </div>
+						<c:choose>
+							<c:when test="${empty inquiryNoResponse}">
+							
+							</c:when>
+							<c:otherwise>
+		                        <div class="card-header py-3">
+		                            <a class="m-0 font-weight-bold text-success" href="../kdy/inquiryNoResponseList" >대기중인 1대1 문의 ${inquiryNoResponse}건</a>
+		                        </div>							
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${empty reportNoResponse}">
+							
+							</c:when>
+							<c:otherwise>
+		                        <div  class="card-header py-3">
+		                            <a class="m-0 font-weight-bold text-success" href="../kdy/report" >대기중인 신고요청 ${reportNoResponse}건</a>
+		                        </div>
+							</c:otherwise>
+						</c:choose>
+
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr class="text-success">
-                                            <th>아이디</th>
-                                            <th>등급</th>
-                                            <th>제목</th>
-                                            <th>문의 날짜</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${adminInquiryList}" var="inquiryList">
-                                                <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
-                                                    <td>${inquiryList.id}</td>
-                                                    <td>${inquiryList.membersVO.roleVO.roleName}</td>
-                                                    <td>${inquiryList.inquiry_text}</td>
-                                                    <td>${inquiryList.inquiry_date}</td>
-                                                </tr>       
-                                        </c:forEach> 
-                                    </tbody>
-                                </table>
+                              
+                                    <c:choose>
+                                        <c:when test="${empty adminInquiryList}">
+                                            대기중인 1대1문의가 없습니다.
+                                        </c:when>
+                                        <c:otherwise>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <div class="card-header py-3">대기중인 1대1 문의 5개 입니다.</div>
+                                                    <tr class="text-success">
+                                                        <th>아이디</th>
+                                                        <th>등급</th>
+                                                        <th>제목</th>
+                                                        <th>문의 날짜</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${adminInquiryList}" var="inquiryList">
+                                                            <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
+                                                                <td>${inquiryList.id}</td>
+                                                                <td>${inquiryList.membersVO.roleVO.roleName}</td>
+                                                                <td>${inquiryList.inquiry_text}</td>
+                                                                <td>${inquiryList.inquiry_date}</td>
+                                                            </tr>       
+                                                    </c:forEach> 
+                                                </tbody>
+                                            </table>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    
+                              
                             </div>
                         </div>
+
+                        
                     </div>
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
