@@ -7,17 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function testABtn() {
-		console.log(document.getElementById('testAdd').value);
-		console.log(mapOption.center);
-		console.log("lat : "+lat);
-		console.log("lon : "+lon);
-		console.log("distance : "+checkD);
-		const showText = document.getElementById("#showText");
-		console.log("showText : ", showText.innerHTML);
-		
-    	//showText.innerText = checkD;
-	}
+	
 </script>
 <style>
 	html, body {width:100%;height:100%;margin:0;padding:0;} 
@@ -35,8 +25,6 @@
 </head>
 <body>
 	<h1>Test Map</h1>
-	<textarea id="testAdd"></textarea>
-	<button onclick="testABtn()">더하기</button>
 	<div class="map_wrap" style="width:450px; height: 400px;">
 		<!-- 지도를 표시할 div 입니다 -->
 		<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div> 
@@ -50,7 +38,7 @@
 	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(33.450701+(document.getElementById('testAdd').value), 126.570667), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 	        level: 9 // 지도의 확대 레벨
 	    };
 	
@@ -214,12 +202,7 @@
 	}
 	    
 	    //------------------------------------------------------------------------
-	    
-	    
-	    
-	    
-	    
-	    
+	      
 	 
 	    function displayCircleDot(position, distance) {
 	        if (distance > 0) {
@@ -247,6 +230,7 @@
 	<a href="./navi">네비실험</a>
 	<a href="./progress">바 실험</a>
 	<a href="./latlon">지도 좌표</a>
-	
+	<a href="./testProgress">바 실험2</a>
+	<a href="./testAnother">다른 맵api 실험</a>
 </body>
 </html>

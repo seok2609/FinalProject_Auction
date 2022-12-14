@@ -2,22 +2,26 @@ console.log("map Setting");
 
 const bar = document.getElementById("progressBar");
 const nowTime = document.getElementById("nowTime");
+let date = new Date();
+nowTime.innerText=date.getHours()+":"+date.getMinutes();
 const startTime = document.getElementById("startTime");
 const endTime = document.getElementById("endTime");
 const upTime = document.getElementById("upTime");
 const downTime = document.getElementById("downTime");
+const resultText = document.getElementById("result");
 
-// console.log("bar : "+bar);
-// console.log("bar.value : "+bar.value);
-// console.log("endTime : "+endTime);
-// console.log("endTime.value : "+endTime.value);
-// console.log("endTime.value : "+endTime.textContent);
+console.log("bar : "+bar);
+console.log("bar.value : "+bar.value);
+console.log("endTime : "+endTime);
+console.log("endTime.value : "+endTime.value);
+console.log("endTime.value : "+endTime.textContent);
 
 //----------------------
 console.log("Positions : ", positions);
 console.log("test", positions[0]);
 console.log("test lon", positions[1].latlng.La);
 console.log("test la", positions[1].latlng.Ma);
+
 var truckLa;
 var truckLo;
 
@@ -40,16 +44,22 @@ testBtn.addEventListener("click", function(){
     
 })
 
-
+increase(0);
 upTime.addEventListener("click", function(){
-    console.log("++");
-    var str = nowTime.textContent;
+    increase(1);
+
+});
+
+
+///증가 함수
+function increase(count){
+
+    var str = nowTime.textContent;//07:00
     var arr = str.split(':');
     console.log(arr[0]);
     
-    arr[0]= Number(arr[0])+1;
-    console.log("변경 전 : "+arr[0]);
-    
+    arr[0]= Number(arr[0])+count;
+ 
     if(arr[0] == 25){
         arr[0] = '00';
     }
@@ -60,7 +70,7 @@ upTime.addEventListener("click", function(){
 
     console.log("변경 후 : "+arr[0]);
 
-    nowTime.textContent = arr[0]+':00';
+    nowTime.textContent = arr[0]+":"+arr[1];
 
 
     //====================
@@ -79,23 +89,33 @@ upTime.addEventListener("click", function(){
         console.log("Number(s2[0]) : "+Number(s2[0]));
         console.log("Number(n2[0]) : "+Number(n2[0]));
         bar.value = (Number(n2[0])-Number(s2[0]))*100/barV;
+        
         console.log("bar.value : "+bar.value);
     }
 
     console.log("bar.value test :", Math.floor(bar.value));
     console.log("test : ",positions[1].latlng.La);
-    positions[1].latlng.La = positions[0].latlng.La + truckLoP*Math.floor(bar.value);
-    positions[1].latlng.Ma = positions[0].latlng.Ma + truckLaP*Math.floor(bar.value);
-    
+    positions[1].latlng.La = positions[0].latlng.La - truckLoP*Math.floor(bar.value);
+    positions[1].latlng.Ma = positions[0].latlng.Ma - truckLaP*Math.floor(bar.value);
 
+    b = positions[1].latlng.La;
+    a = positions[1].latlng.Ma;
+    
     console.log("1.La : ", positions[1].latlng.Ma);
     console.log("1.Lo : ", positions[1].latlng.La);
     
     MK();
-});
+
+
+}
+
+
+/////////////////////////
 
 downTime.addEventListener("click", function(){
     console.log("--");
+
+
     var str = nowTime.textContent;
     var arr = str.split(':');
     console.log(arr[0]);
@@ -113,7 +133,7 @@ downTime.addEventListener("click", function(){
 
     console.log("변경 후 : "+arr[0]);
 
-    nowTime.textContent = arr[0]+':00';
+    nowTime.textContent = arr[0]+":"+arr[1];
     
     //====================
     const e = endTime.textContent;
@@ -138,9 +158,14 @@ downTime.addEventListener("click", function(){
     console.log("test : ",positions[1].latlng.La);
     positions[1].latlng.La = positions[0].latlng.La + truckLoM*Math.floor(bar.value);
     positions[1].latlng.Ma = positions[0].latlng.Ma + truckLaM*Math.floor(bar.value);
+    
+    b = positions[1].latlng.La;
+    a = positions[1].latlng.Ma;
 
     console.log("1.La : ", positions[1].latlng.Ma);
     console.log("1.Lo : ", positions[1].latlng.La);
+
+    MK();
 });
 
 
