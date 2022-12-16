@@ -41,12 +41,13 @@ public class AdminMembersController {
 	}
 	//회원 조회
 	@GetMapping("memberList")
-	public ModelAndView getAdminMembersList(AdminPager adminPager)throws Exception{
+	public ModelAndView getAdminMembersList(AdminPager adminPager, MembersVO membersVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<MembersVO> membersVO =  adminMembersService.getAdminMembersList(adminPager);
-		
-		mv.addObject("membersVO", membersVO);
+		int result = adminMembersService.getTotalMembers(membersVO);
+		List<MembersVO> membersVOs =  adminMembersService.getAdminMembersList(adminPager);
+		mv.addObject("membersVO", membersVOs);
 		mv.addObject("pager", adminPager);
+		mv.addObject("result", result);
 		mv.setViewName("/kdy/memberList");
 		return mv;
 	};
@@ -86,9 +87,11 @@ public class AdminMembersController {
 	}
 	//응답하지 않은 1대1문의 리스트
 	@GetMapping("inquiryNoResponseList")
-	public ModelAndView getInquiryNoResponseList(AdminPager adminPager)throws Exception{
+	public ModelAndView getInquiryNoResponseList(AdminPager adminPager, AdminMembersVO adminMembersVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		List<AdminMembersVO> ar = adminMembersService.getInquiryNoResponseList(adminPager);
+		int totalInquiryNo = adminMembersService.getTotalInquiryNo(adminMembersVO);
+		mv.addObject("totalInquiryNo", totalInquiryNo);
 		mv.addObject("inquiryNoResponseList", ar);
 		mv.addObject("pager", adminPager);
 		return mv;
@@ -101,6 +104,15 @@ public class AdminMembersController {
 		adminMembersVO = adminMembersService.getInquiryDetail(adminMembersVO);
 		mv.addObject("inquiryDetail", adminMembersVO);
 		mv.setViewName("kdy/inquiryDetail");
+		return mv;
+	}
+	//회원 디테일
+	@GetMapping("membersDetail")
+	public ModelAndView getAdminMembersDetail(AdminMembersVO adminMembersVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		adminMembersVO = adminMembersService.getAdminMembersDetail(adminMembersVO);
+		mv.addObject("membersDetail", adminMembersVO);
+		mv.setViewName("kdy/membersDetail");
 		return mv;
 	}
 //	//1대1문의

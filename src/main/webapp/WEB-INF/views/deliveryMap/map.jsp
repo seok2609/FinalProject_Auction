@@ -7,35 +7,45 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function testABtn() {
-		console.log(document.getElementById('testAdd').value);
-		console.log(mapOption.center);
-		console.log("lat : "+lat);
-		console.log("lon : "+lon);
-		console.log("show distance : ",showDistance);
-	}
+	
 </script>
-
+<style>
+	html, body {width:100%;height:100%;margin:0;padding:0;} 
+	.map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
+	.radius_border{border:1px solid #919191;border-radius:5px;}     
+	.custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:70px;height:30px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+	.custom_typecontrol span {display:block;width:70px;height:30px;float:left;text-align:center;line-height:30px;cursor:pointer;} 
+	.custom_typecontrol .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+	.custom_typecontrol .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+	.custom_typecontrol .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+	.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+	.custom_typecontrol .selected_btn:hover {color:#fff;}   
+	          
+</style>
 </head>
 <body>
 	<h1>Test Map</h1>
-	<textarea id="testAdd"></textarea>
-	<button onclick="testABtn()">더하기</button>
-	<!-- 지도를 표시할 div 입니다 -->
-	<button onclick="panTo()">트럭 위치</button>
-	<div id="map" style="width:500px;height:350px;"></div>
+	<div class="map_wrap" style="width:450px; height: 400px;">
+		<!-- 지도를 표시할 div 입니다 -->
+		<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div> 
+		<div class="custom_typecontrol radius_border">
+			<span id="btnRoadmap" class="selected_btn" onclick="panTo()">현재 위치</span>
+		</div>
+	</div>
+	<!-- <div id="map" style="width:500px;height:350px;"></div> -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae6b0e9fe80d419505ac021baf944e44"></script>
 	<script>
 	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(33.450701+(document.getElementById('testAdd').value), 126.570667), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 	        level: 9 // 지도의 확대 레벨
 	    };
 	
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var map = new kakao.maps.Map(mapContainer, mapOption);
 	var lat, lon;
+	var checkD;
 	
 	// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 	if (navigator.geolocation) {
@@ -106,14 +116,14 @@
 		console.log("lon : "+lon);
 		// 마커를 표시할 위치와 title 객체 배열입니다 
 	    var positions = [ {
-	        title : "카카오",
-	        latlng : new daum.maps.LatLng(37.53946477, 126.82873744)
+	        title : "시작위치",
+	        latlng : new kakao.maps.LatLng(37.53946477, 126.82873744)
 	    }, {
 	    	title : "배달트럭",
-	    	latlng : new daum.maps.LatLng(lat, lon)
+	    	latlng : new kakao.maps.LatLng(lat, lon)
 	    }, {
-	        title : "제주공항",
-	        latlng : new daum.maps.LatLng(37.44597242, 126.88500282)
+	        title : "도착위치",
+	        latlng : new kakao.maps.LatLng(37.44597242, 126.88500282)
 	    } ];
 	 	
 	    // 마커 이미위치 프로그래스바지의 이미지 주소입니다
@@ -129,13 +139,13 @@
 	    for (var i = 0; i < positions.length; i++) {
 	 
 	        // 마커 이미지의 이미지 크기 입니다
-	        var imageSize = new daum.maps.Size(24, 35);
+	        var imageSize = new kakao.maps.Size(30, 35);
 	 
 	        // 마커 이미지를 생성합니다    
-	        var markerImage = new daum.maps.MarkerImage(imageSrc[i].image, imageSize);
+	        var markerImage = new kakao.maps.MarkerImage(imageSrc[i].image, imageSize);
 	 
 	        // 마커를 생성합니다
-	        var marker = new daum.maps.Marker({
+	        var marker = new kakao.maps.Marker({
 	            map : map, // 마커를 표시할 지도
 	            position : positions[i].latlng, // 마커를 표시할 위치
 	            title : positions[i].title,
@@ -146,7 +156,7 @@
 	
 	 
 	    var linePath;
-	    var lineLine = new daum.maps.Polyline();
+	    var lineLine = new kakao.maps.Polyline();
 	    var distance;
 	 
 	    //------------------------------------------------------------------------
@@ -156,7 +166,7 @@
 	            linePath = [ positions[0].latlng, positions[1].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
 		        lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
 		 
-		        var drawLine = new daum.maps.Polyline({
+		        var drawLine = new kakao.maps.Polyline({
 		            map : map, // 선을 표시할 지도입니다 
 		            path : linePath,
 		            strokeWeight : 3, // 선의 두께입니다 
@@ -183,7 +193,8 @@
 		        });
 		 
 		        distance = Math.round(lineLine.getLength());
-		        displayCircleDot(positions[2].latlng, distance);
+		        checkD = Math.round(lineLine.getLength());
+				displayCircleDot(positions[2].latlng, distance);
 	        };
 	         
 	    } 
@@ -191,12 +202,7 @@
 	}
 	    
 	    //------------------------------------------------------------------------
-	    
-	    
-	    
-	    
-	    
-	    
+	      
 	 
 	    function displayCircleDot(position, distance) {
 	        if (distance > 0) {
@@ -214,15 +220,17 @@
 	            distanceOverlay.setMap(map);
 	        }
 	    }
+
 	</script>
 	
-	<text id="showTest"></text>
+	<h3 id="showTest">테스트</h3>
 	<br>
 	
 	<a href="https://map.kakao.com/link/to/18375227">길찾기</a>
 	<a href="./navi">네비실험</a>
 	<a href="./progress">바 실험</a>
 	<a href="./latlon">지도 좌표</a>
-	
+	<a href="./testProgress">바 실험2</a>
+	<a href="./testAnother">다른 맵api 실험</a>
 </body>
 </html>

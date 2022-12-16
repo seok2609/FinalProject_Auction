@@ -3,17 +3,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+  #m{
+
+  font-size: 20px;
+  display: block;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 40px;
+
+  }
+</style>
+
 </head>
 
 <body>
 <!-- ===========header=============== -->
 <c:import url="./common/header.jsp"></c:import>
 <!-- ================================ -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- chart js -->
+<script defer src="/static/js/wholesale/chart.js"></script>
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero">
@@ -28,11 +45,11 @@
     <div class="container position-relative">
       <div class="row gy-5" data-aos="fade-in">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
-          <h2>Welcome to <span>Impact</span></h2>
-          <p>Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
+          <h2>Welcome to <span>wholeSale</span></h2>
+          <p>Hello. Here is WholeSale Homepage.</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="#about" class="btn-get-started">Get Started</a>
-            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+            <a href="#about" class="btn-get-started">ddd </a>
+            <a href="https://www.youtube.com/watch?v=yReQjeqXa6w" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Seoul Garak Market's AM</span></a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2">
@@ -87,48 +104,218 @@
 
   <main id="main">
 
-    <!-- ======= About Us Section ======= -->
+    <!-- ======= Stats Counter Section ======= -->
+    <section id="stats-counter" class="stats-counter">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4 align-items-center">
+
+          <div class="col-lg-6">
+            <img src="assets/img/stats-img.svg" alt="" class="img-fluid">
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="stats-item d-flex align-items-center">
+              <span data-purecounter-start="0" data-purecounter-end="${whsal.totCnt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">회&nbsp;</p>
+           
+              <c:if test="${empty whsal.totCnt}">
+                <p> 어제 일자의 경매 시장내역이 없습니다.</p>
+              </c:if>
+              <c:if test="${!empty whsal.totCnt}">
+                <p> 어제 거래량이 가장 많았던 시장은 <strong>${whsal.whsalName}</strong></p>
+              </c:if>
+ 
+            </div><!-- End Stats Item -->
+
+            <div class="stats-item d-flex align-items-center">
+              <span data-purecounter-start="0" data-purecounter-end="${mid.dataCnt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">회&nbsp;</p>
+			        <c:if test="${empty mid.dataCnt}">
+                <p> 어제 일자의 경매 품목내역이 없습니다.</p>
+              </c:if>
+              <c:if test="${!empty mid.dataCnt}">
+              <p> 어제 거래량이 가장 많았던 품목은 <strong>${mid.midName}</strong></p>
+             
+              </c:if>
+        
+            </div><!-- End Stats Item -->
+
+             <div class="stats-item d-flex align-items-center">
+              <span data-purecounter-start="0" data-purecounter-end="${totQty.totQty}" data-purecounter-duration="1" class="purecounter"></span><p id="m">톤&nbsp;</p>
+              <c:if test="${empty totQty.totQty}">
+                <p> 어제 일자의 경매 물량내역이 없습니다.</p>
+              </c:if>
+              <c:if test="${!empty totQty.totQty}">
+              <p> 어제 거래 총 물량은 </p>
+              
+              </c:if>
+        
+            </div><!-- End Stats Item -->
+            
+              <div class="stats-item d-flex align-items-center">
+                <span data-purecounter-start="0" data-purecounter-end="${totAmt.totAmt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">백만원&nbsp;</p>
+              <c:if test="${empty totAmt.totAmt}">
+                <p> 어제 일자의 경매 금액내역이 없습니다.</p>
+              </c:if>
+              <c:if test="${!empty totAmt.totAmt}">
+              <p> 어제 거래 총 금액은 </p>
+              </c:if>
+        
+            </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+    </section><!-- End Stats Counter Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing sections-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Real Time List</h2>
+          <c:set var="today" value="<%=new java.util.Date()%>" />
+          <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy년 MM월 dd일 실시간 경매내역" /></c:set> 
+           <p><c:out value="${date}" /></p>
+        </div>
+        <div class="row g-4 py-lg-5" data-aos="zoom-out" data-aos-delay="100">
+
+              <div class="col-lg-4">
+                <div class="pricing-item">
+                  <h3>Busan</h3>
+                  <div class="icon">
+                    <i class="bi bi-water"></i>
+                  </div>
+              
+                <c:if test="${!empty busan}">
+                  <table class="table table-hover">
+                    <tbody>
+                  <c:forEach items="${busan}" var="vos">
+                    <tr>
+                      <td>${vos.cmpName}</td>
+                      <td>${vos.midName}</td>
+                      <td>${vos.qty}개</td>
+                      </tr>
+                    </c:forEach>
+                  </tbody>
+                </table>
+                </c:if>
+                <c:if test="${empty busan}">
+                  <ul>
+                    <li><i class="bi bi-check"></i>  No Real Time Data.</li></ul>
+              
+                </c:if>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4">
+            <div class="pricing-item featured">
+              <h3>Seoul</h3>
+              <div class="icon">
+                <i class="bi bi-building"></i>
+              </div>
+              <c:if test="${!empty seoul}">
+                <table class="table table-hover">
+                  <tbody>
+                <c:forEach items="${seoul}" var="vos">
+                  <tr>
+                    <td>${vos.cmpName}</td>
+                    <td>${vos.midName}</td>
+                    <td>${vos.qty}개</td>
+                    </tr>
+                  </c:forEach>
+                </tbody>
+              </table>
+              </c:if>
+              <c:if test="${empty seoul}">
+                <ul>
+                  <li><i class="bi bi-check"></i>  No Real Time Data.</li></ul>
+            
+              </c:if>
+              <div class="text-center"><a href="/wholesale/sale" class="buy-btn">go to Detail</a></div>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4">
+            <div class="pricing-item">
+              <h3>Deagu</h3>
+              <div class="icon">
+                <i class="bi bi-apple"></i>
+              </div>
+              <c:if test="${!empty deagu}">
+                  <table class="table table-hover">
+                    <tbody>
+                  <c:forEach items="${deagu}" var="vos">
+                    <tr>
+                    <td>${vos.cmpName}</td>
+                    <td>${vos.midName}</td>
+                    <td>${vos.qty}개</td>
+                    </tr>
+                    </c:forEach>
+                  </tbody>
+                </table>
+                </c:if>
+                <c:if test="${empty deagu}">
+                  <ul>
+                    <li><i class="bi bi-check"></i>  No Real Time Data.</li></ul>
+              
+                </c:if>
+      
+            </div>
+          </div><!-- End Pricing Item -->
+
+        </div>
+
+      </div>
+    </section><!-- End Pricing Section -->
+
+    <!-- ======= Chart Section ======= -->
+    <input type="hidden" id="b1Name" value="${best[0].midName}">
+    <input type="hidden" id="b2Name" value="${best[1].midName}">
+    <input type="hidden" id="b3Name" value="${best[2].midName}">
+    <input type="hidden" id="b1Cnt" value="${best[0].dataCnt}">
+    <input type="hidden" id="b2Cnt" value="${best[1].dataCnt}">
+    <input type="hidden" id="b3Cnt" value="${best[2].dataCnt}">
+
+    <input type="hidden" id="w1Name" value="${bestW[0].whsalName}">
+    <input type="hidden" id="w2Name" value="${bestW[1].whsalName}">
+    <input type="hidden" id="w3Name" value="${bestW[2].whsalName}">
+    <input type="hidden" id="w4Name" value="${bestW[3].whsalName}">
+    <input type="hidden" id="w5Name" value="${bestW[4].whsalName}">
+    <input type="hidden" id="w6Name" value="${bestW[5].whsalName}">
+    <input type="hidden" id="w1Cnt" value="${bestW[0].totCnt}">
+    <input type="hidden" id="w2Cnt" value="${bestW[1].totCnt}">
+    <input type="hidden" id="w3Cnt" value="${bestW[2].totCnt}">
+    <input type="hidden" id="w4Cnt" value="${bestW[3].totCnt}">
+    <input type="hidden" id="w5Cnt" value="${bestW[4].totCnt}">
+    <input type="hidden" id="w6Cnt" value="${bestW[5].totCnt}">
     <section id="about" class="about">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>About Us</h2>
-          <p>Aperiam dolorum et et wuia molestias qui eveniet numquam nihil porro incidunt dolores placeat sunt id nobis omnis tiledo stran delop</p>
+          <h2>Chart</h2>
+          <p>정산 경매 내역</p>
+         
         </div>
 
         <div class="row gy-4">
           <div class="col-lg-6">
-            <h3>Voluptatem dignissimos provident quasi corporis</h3>
-            <img src="assets/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
-            <p>Ut fugiat ut sunt quia veniam. Voluptate perferendis perspiciatis quod nisi et. Placeat debitis quia recusandae odit et consequatur voluptatem. Dignissimos pariatur consectetur fugiat voluptas ea.</p>
-            <p>Temporibus nihil enim deserunt sed ea. Provident sit expedita aut cupiditate nihil vitae quo officia vel. Blanditiis eligendi possimus et in cum. Quidem eos ut sint rem veniam qui. Ut ut repellendus nobis tempore doloribus debitis explicabo similique sit. Accusantium sed ut omnis beatae neque deleniti repellendus.</p>
+            <h3>Best item</h3>
+            <!--여기에차트-->
+            <div>
+              <canvas id="myPieChart"></canvas>
+              <div id="js-legend" class="chart-legend"></div>
+            </div>
           </div>
           <div class="col-lg-6">
-            <div class="content ps-0 ps-lg-5">
-              <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
-              </p>
-              <ul>
-                <li><i class="bi bi-check-circle-fill"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="bi bi-check-circle-fill"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i class="bi bi-check-circle-fill"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-              </ul>
-              <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
-              </p>
-
-              <div class="position-relative mt-4">
-                <img src="assets/img/about-2.jpg" class="img-fluid rounded-4" alt="">
-                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
-              </div>
+            <div>
+              <canvas id="myChart"></canvas>
             </div>
           </div>
         </div>
 
       </div>
-    </section><!-- End About Us Section -->
+    </section><!-- End Chart Section -->
 
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients">
@@ -149,40 +336,6 @@
 
       </div>
     </section><!-- End Clients Section -->
-
-    <!-- ======= Stats Counter Section ======= -->
-    <section id="stats-counter" class="stats-counter">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row gy-4 align-items-center">
-
-          <div class="col-lg-6">
-            <img src="assets/img/stats-img.svg" alt="" class="img-fluid">
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="stats-item d-flex align-items-center">
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Happy Clients</strong> consequuntur quae diredo para mesta</p>
-            </div><!-- End Stats Item -->
-
-            <div class="stats-item d-flex align-items-center">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projects</strong> adipisci atque cum quia aut</p>
-            </div><!-- End Stats Item -->
-
-            <div class="stats-item d-flex align-items-center">
-              <span data-purecounter-start="0" data-purecounter-end="453" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hours Of Support</strong> aut commodi quaerat</p>
-            </div><!-- End Stats Item -->
-
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Stats Counter Section -->
 
     <!-- ======= Call To Action Section ======= -->
     <section id="call-to-action" class="call-to-action">
@@ -626,77 +779,6 @@
 
       </div>
     </section><!-- End Our Team Section -->
-
-    <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing sections-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-header">
-          <h2>Pricing</h2>
-          <p>Aperiam dolorum et et wuia molestias qui eveniet numquam nihil porro incidunt dolores placeat sunt id nobis omnis tiledo stran delop</p>
-        </div>
-
-        <div class="row g-4 py-lg-5" data-aos="zoom-out" data-aos-delay="100">
-
-          <div class="col-lg-4">
-            <div class="pricing-item">
-              <h3>Free Plan</h3>
-              <div class="icon">
-                <i class="bi bi-box"></i>
-              </div>
-              <h4><sup>$</sup>0<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> Quam adipiscing vitae proin</li>
-                <li><i class="bi bi-check"></i> Nec feugiat nisl pretium</li>
-                <li><i class="bi bi-check"></i> Nulla at volutpat diam uteera</li>
-                <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-              </ul>
-              <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-lg-4">
-            <div class="pricing-item featured">
-              <h3>Business Plan</h3>
-              <div class="icon">
-                <i class="bi bi-airplane"></i>
-              </div>
-
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> Quam adipiscing vitae proin</li>
-                <li><i class="bi bi-check"></i> Nec feugiat nisl pretium</li>
-                <li><i class="bi bi-check"></i> Nulla at volutpat diam uteera</li>
-                <li><i class="bi bi-check"></i> Pharetra massa massa ultricies</li>
-                <li><i class="bi bi-check"></i> Massa ultricies mi quis hendrerit</li>
-              </ul>
-              <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-lg-4">
-            <div class="pricing-item">
-              <h3>Developer Plan</h3>
-              <div class="icon">
-                <i class="bi bi-send"></i>
-              </div>
-              <h4><sup>$</sup>49<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> Quam adipiscing vitae proin</li>
-                <li><i class="bi bi-check"></i> Nec feugiat nisl pretium</li>
-                <li><i class="bi bi-check"></i> Nulla at volutpat diam uteera</li>
-                <li><i class="bi bi-check"></i> Pharetra massa massa ultricies</li>
-                <li><i class="bi bi-check"></i> Massa ultricies mi quis hendrerit</li>
-              </ul>
-              <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-        </div>
-
-      </div>
-    </section><!-- End Pricing Section -->
 
     <!-- ======= Frequently Asked Questions Section ======= -->
     <section id="faq" class="faq">

@@ -32,11 +32,30 @@
        #reportSearchCss{
         margin-left: 20px;
        }
+       #nonoresponse:hover{
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+       }
+       .name{
+            color: gray;
+            font-weight: 900;
+        }
+        .contents{
+            margin: 6px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .contents > .contents2{
+            font-size: 15px;
+            color: gray;
+        }
     </style>
 
 </head>
 
 <body id="page-top">
+    <div>
+        <c:import url="../common/header.jsp"></c:import>
+    </div>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -142,47 +161,10 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    MAIN HOME
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    LOGOUT
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
+                <div data-aos="fade-up" style="margin-top: 45px;">
                 <div id="reportRequest">
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card border-left-success h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -201,57 +183,58 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" >
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-success">신고</h6>
+                        <div class="card-header py-3" style="background-color: #008374; ">
+                            <h6 class="m-0 font-weight-bold " style="color: white;" >신고</h6>
                         </div>
-                        <div class="row" id="reportSearchCss">
-                            <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
-                              <div class="col-12">
-                                <select  name="kind" class="form-select" id="kind">
-                                  <option class="kinds" value="report_id">대상자</option>
-                                  <option class="kinds" value="id">신고자</option>
-                                </select>
-                              </div>
-                              <div class="col-12">
-                                <div class="input-group">
-                                  <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="검색어를 입력해 주세요">
-                                  <button type="submit" class="btn btn-secondary" id="searchNull">검색</button>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <c:choose>
+                                        <c:when test="${empty reportList}">
+                                            신고 요청이 없습니다.
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="row" id="reportSearchCss">
+                                                <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+                                                  <div class="col-12">
+                                                    <select  name="kind" class="form-select" id="kind">
+                                                      <option class="kinds" value="report_id">대상자</option>
+                                                      <option class="kinds" value="id">신고자</option>
+                                                    </select>
+                                                  </div>
+                                                  <div class="col-12">
+                                                    <div class="input-group">
+                                                      <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="검색어를 입력해 주세요">
+                                                      <button type="submit" class="btn btn-secondary" id="searchNull">검색</button>
+                                                    </div>
+                                                   </div>
+                                                  </form>
+                                              </div>    
+                                            <c:forEach items="${reportList}" var="reportLists">
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
+                                                <div style="border-bottom: solid 1px gainsboro; height: 70px;" id="nonoresponse">
+                                                    <div class="d-flex">
+                                                        <div class="p-2 w-100">
+                                                            <div class="container2" >
+                                                                <div class="contents">${reportLists.id}님이 ${reportLists.report_id}님을 신고하였습니다.
+                                                                    <div class="contents2">
+                                                                       ${reportLists.report_date}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
-                               </div>
-                              </form>
-                          </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <c:choose>
-                                	<c:when test="${empty reportList}">
-                                		신고 요청이 없습니다.
-                                	</c:when>
-                                	<c:otherwise>
-		                                <table class="table table-bordered">
-		                                    <thead>
-		                                        <tr>
-		                                            <th>신고자</th>
-		                                            <th>대상자</th>
-		                                            <th>신고 요청 날짜</th>
-		                                        </tr>
-		                                    </thead>
-		                                    <tbody>
-		                                    	<c:forEach items="${reportList}" var="reportLists">
-			                                        <tr onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
-			                                            <td>${reportLists.id}</td>
-			                                            <td>${reportLists.report_id}</td>
-			                                            <td>${reportLists.report_date}</td>
-			                                        </tr>
-		                                    	</c:forEach>
-		                                    </tbody>
-		                                </table>
-                                	</c:otherwise>
-                                </c:choose>
                             </div>
-                        </div>
                     </div>
 
                     
@@ -259,6 +242,7 @@
                     
                 </div>
                 <!-- /.container-fluid -->
+            </div>
                 
             </div>
             <!-- End of Main Content -->
@@ -322,6 +306,9 @@
         </div>
     </div>
 
+    <div>
+        <c:import url="../common/footer.jsp"></c:import>
+    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
