@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <title>Insert title here</title>
 <style>
     #inquirySt{
@@ -22,6 +23,7 @@
             font-weight: bold;
         }
   </style>
+      <script  defer src="/kdy/js/admin.js"></script>
 </head>
 <body>
     <c:import url="../common/header.jsp"></c:import>
@@ -94,7 +96,7 @@
 		                    <textarea class="form-control" name="inquiry_response_contents" id="inquiry_response_contents" rows="7" placeholder="관리자의 답변을 기다리고있어요~" required></textarea>
 		                    </div>  
 		                    <div class="text-center" id="inquiryAddBottonST">
-		                        <button type="submit" id="inquiryAddBtn">답변하기</button>
+		                        <button type="button" class="btn btn-success" id="inquiryAddBtn" onclick="inquiryResponseNullCheck()">답변하기</button>
 		                      </div>
 		                </form>
 					</c:when>

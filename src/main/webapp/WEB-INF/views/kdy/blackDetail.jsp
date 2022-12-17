@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
     #inquirySt{
       margin-top: 50px;
@@ -22,6 +23,7 @@
             font-weight: bold;
         }
   </style>
+  <script defer src="/kdy/js/admin.js"></script>
 </head>
 <body>
     <c:import url="../common/header.jsp"></c:import>
@@ -102,10 +104,10 @@
               
               <div class="d-flex" style="margin-left: 450px;">
                 <div class="text-center" id="inquiryAddBottonST" onclick="location.href='/kdy/balckCancel?report_id=${blackDetail[0].report_id}';">
-                  <button type="submit" id="inquiryAddBtn">블랙 해제</button>
+                  <button  type="submit" id="inquiryAddBtn">블랙 해제</button>
                 </div>
                 <div class="text-center" id="inquiryAddBottonST" onclick="location.href='/kdy/memberBlackList';">
-                  <button type="submit" id="inquiryAddBtn">뒤로가기</button>
+                  <button  type="submit" id="inquiryAddBtn">뒤로가기</button>
                 </div>
               </div>
           </div>

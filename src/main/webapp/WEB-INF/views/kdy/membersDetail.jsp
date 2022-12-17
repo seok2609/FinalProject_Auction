@@ -5,19 +5,29 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <style>
         #information{
             font-size: 17px;
             font-weight: bold;
         }
     </style>
+    <script  defer src="/kdy/js/admin.js"></script>
 </head>
 <body>
     <c:import url="../common/header.jsp"></c:import>
     <div id="contact" class="contact">
         <div class="container" data-aos="fade-up">
           <div class="section-header" style="margin-top: 90px;">
-            <h2>${membersDetail.id}님의 회원정보 입니다.</h2>
+            <c:choose>
+              <c:when  test="${membersDetail.membersVO.black < 2}">
+                <h2>${membersDetail.id}님의 회원정보 입니다.</h2>
+              </c:when>
+              <c:otherwise>
+                <h2 style="color: red;">${membersDetail.id}님은 블랙회원입니다.</h2>
+              </c:otherwise>
+            </c:choose>
+            
           </div>
           <div class="row gx-lg-0 gy-4 ">
 
@@ -73,6 +83,20 @@
                       <div class="col-md-6 form-group">
                         <input type="text" name="name" class="form-control" id="information" style="border: 0;" readonly value="가입일 : ${membersDetail.membersVO.joinDate}">
                       </div>
+                  </div><hr>
+                  <div>
+                    <c:choose>
+                      <c:when test="${membersDetail.membersVO.black < 2}">
+                        <button id="bl" type="button" class="btn btn-danger" style="margin-left: 1100px;" onclick="location.href='/kdy/black?id=${membersDetail.membersVO.id}';">
+                          블랙하기
+                        </button>
+                      </c:when>
+                      <c:otherwise>
+                        <button id="blc" type="button" class="btn btn-danger" style="margin-left: 1100px;" onclick="location.href='/kdy/blackC?id=${membersDetail.membersVO.id}'">
+                          블랙해제하기
+                        </button>
+                      </c:otherwise>
+                    </c:choose>
                   </div>
             </div>
           </div> 

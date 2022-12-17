@@ -29,7 +29,7 @@
     <style>
 
        #mydiv{
-        margin-left: 250px;
+        margin-left: 430px;
        } 
        #inquiryListCss{
         color: #00854b;

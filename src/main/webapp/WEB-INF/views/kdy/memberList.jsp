@@ -162,7 +162,7 @@
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow" >
-                        <div class="card-header py-3 row" style="background-color: #008374; width: 1650px; margin-left: 1px;">
+                        <div class="card-header py-3 row" style="background-color: #008374; width: 2055px; margin-left: 1px;">
                             <div class="m-0 font-weight-bold" style="color: white;">회원</div>
 
                                 <form action="./memberList" style="margin-left: -100px; margin-top: -25px;" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
@@ -191,7 +191,7 @@
                                                             <div class="container2" >
                                                                 <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCss">아이디 : ${membersVO.id}</div>
                                                                 <div class="contents" id="blackMembersCss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
-                                                                <div id="blackMembersCssss" onclick="location.href='/kdy/black?id=${membersVO.id}'" style="font-weight: bold; width: 180px; margin-left: 1470px; margin-top: -45px;">
+                                                                <div id="blackMembersCssss" style="font-weight: bold; width: 180px; margin-left: 1470px; margin-top: -45px;">
                                                                     ${membersVO.roleVO.roleName}
                                                                 </div>
                                                             </div>
@@ -201,7 +201,7 @@
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" >
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/membersDetail?id=${membersVO.id}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
                                                     <div class="d-flex">
                                                         <div class="p-2 w-100">
@@ -280,36 +280,6 @@
         </div>
     </div>
 
-    
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">신고 모달</button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="./reportRequest" method="post">
-              <input type="text" name="id" class="form-control" id="id" value=${membersReportVO.id}>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">신고당하는 사람의 닉네임</label>
-                <input type="text" class="form-control" id="report_id" name="report_id">
-              </div>
-              <div class="mb-3">
-                <label for="message-text" class="col-form-label">신고 사유를 입력해주세요</label>
-                <textarea class="form-control" id="report_contents" name="report_contents"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">눈감아주기</button>
-            <button type="button" class="btn btn-success">신고하기</button>
-          </div>
-        </div>
-      </div>
-    </div>
     <c:import url="../common/footer.jsp"></c:import>
 
     <!-- Bootstrap core JavaScript-->

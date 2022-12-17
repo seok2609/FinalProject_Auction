@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   <style>
     #inquirySt{
       margin-top: 50px;
@@ -18,7 +19,7 @@
       margin-top: 50px;
     }
   </style>
-
+    <script  defer src="/kdy/js/admin.js"></script>
 </head>
 <body>
 <c:import url="../common/header.jsp"></c:import>
@@ -31,7 +32,7 @@
 
         <div class="row gx-lg-0 gy-4" id="inquiryss">
           <div class="col-lg-8">
-            <form action="./reportRequest" method="post" enctype="multipart/form-data" >
+            <form action="./reportRequest" method="post" id="frm" enctype="multipart/form-data" >
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="id" class="form-control" id="id" readonly value=${membersReportVO.id}>
@@ -49,7 +50,7 @@
                 <input class="form-control form-control-sm" id="reportFileAdd" name="files" type="file">
               </div>
               <div class="text-center" id="inquiryAddBottonST">
-                <button type="submit" id="inquiryAddBtn">문의하기</button>
+                <button type="button" id="inquiryAddBtn" onclick="reportNullCheck()">문의하기</button>
               </div>
             </form>
           </div>
