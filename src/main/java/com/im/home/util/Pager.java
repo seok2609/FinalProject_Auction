@@ -10,7 +10,7 @@ public class Pager {
 	private int saleDateEnd;
 	private String saleDate;
 	private String largeCd;
-	
+	private String midCd;
 	private Long startRow;
 	private Long lastRow;
 	private Long startNum;
@@ -96,6 +96,14 @@ public class Pager {
 				this.largeCd="";
 			}
 			return largeCd;
+		}
+		
+		
+		public String getWhsalCd() {
+			if(this.whsalCd==null) {
+				this.whsalCd="110001";
+			}
+			return whsalCd;
 		}
 
 }
