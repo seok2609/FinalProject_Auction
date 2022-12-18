@@ -8,8 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>도매시장통합홈페이지</title>
 <style>
+
   #m{
 
   font-size: 20px;
@@ -32,6 +33,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- chart js -->
 <script defer src="/static/js/wholesale/chart.js"></script>
 
+
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero">
    		<!-- 로그인이 성공했다면 -->
@@ -45,8 +47,9 @@
     <div class="container position-relative">
       <div class="row gy-5" data-aos="fade-in">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
-          <h2>Welcome to <span>wholeSale</span></h2>
-          <p>Hello. Here is WholeSale Homepage.</p>
+          <h2>도매 유통정보의 핵심 <br><span>도매시장 통합 홈페이지</span></h2>
+          <p>전국 32개 공영도매시장에서 매일 수집되는 다양한 정보를 신속, 편리하게 제공하여<br>
+            농산물의 유통효율화 향상을 위해 지원합니다.</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
             <a href="#about" class="btn-get-started">ddd </a>
             <a href="https://www.youtube.com/watch?v=yReQjeqXa6w" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Seoul Garak Market's AM</span></a>

@@ -99,12 +99,11 @@
  <table class="table table-striped" id="api">
   <thead>
       <tr><!-- Example single danger button -->
+        <td>
         <div class="btn-group">
-          
           <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <input type="text" id="depInput" readonly value="">
+            <input type="text" id="depInput" readonly value="" style="border: none; background: transparent;">
           </button>
-         
           <ul class="dropdown-menu">
             <input id="dropId" name="whsalCd" > 
             <li class="deptLi" data-depNum="110001">서울가락</li>
@@ -114,7 +113,7 @@
             <li class="deptLi" data-depNum="5">생산팀</li>
           </ul>
         </div>
-
+        </td>
           <!-- <td>도매시장 : 
               <select name="whsalCd" id="whsalCd">
                 <option value="110001">서울가락</option>
