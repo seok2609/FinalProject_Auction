@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
     #inquirySt{
       margin-top: 50px;
@@ -22,6 +23,7 @@
             font-weight: bold;
         }
   </style>
+<script  defer src="/kdy/js/admin.js"></script>
 </head>
 <body>
     <c:import url="../common/header.jsp"></c:import>
@@ -112,10 +114,10 @@
               
               <div class="d-flex" style="margin-left: 400px;">
                 <div class="text-center" id="inquiryAddBottonST" onclick="location.href='/kdy/responseReportNo?report_id=${reportDetail.report_id}';">
-                  <button type="submit" id="inquiryAddBtn">거절</button>
+                  <button type="submit" id="inquiryAddBtn1">거절</button>
                 </div>
                 <div class="text-center" id="inquiryAddBottonST" onclick="location.href='/kdy/responseReportOk?report_id=${reportDetail.report_id}';">
-                  <button type="submit" id="inquiryAddBtn">승인</button>
+                  <button type="submit" id="inquiryAddBtn2">승인</button>
                 </div>
                 <div class="text-center" id="inquiryAddBottonST"  onclick="location.href='/kdy/report';">
                   <button type="submit" id="inquiryAddBtn">뒤로가기</button>
