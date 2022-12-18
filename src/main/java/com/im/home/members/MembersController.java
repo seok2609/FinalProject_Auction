@@ -174,7 +174,7 @@ public class MembersController {
 		
 //		model.addAttribute("membersVO", principal);
 		log.info("Principal => {} ", principal);
-		log.info("file ::::: {} " ,membersVO.getMembersFileVO().getFileName());
+//		log.info("file ::::: {} " ,membersVO.getMembersFileVO().getFileName());
 		mv.addObject("membersVO", membersVO);
 //		mv.addObject("membersVO", membersVO2);
 		mv.setViewName("members/myPage");
@@ -219,18 +219,30 @@ public class MembersController {
 		return mv;
 	}
 	
-	//회원정보 수정
+	//회원정보 수정										//@RequestParam ==> Ajax에서 컨트롤러로 넘길때 String으로 받는 경우
 	@GetMapping(value = "modify")
-	public String setMembersModify(String id, MembersVO membersVO, Model model, Principal principal) throws Exception{
+	public MembersVO setMembersModify(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, @RequestParam String id, Model model, Principal principal) throws Exception{
 		
-		membersVO = membersService.getMyPage(membersVO);
 		model.addAttribute("membersVO", membersVO);
 		
 //		log.info("id :::: {} " , membersVO.getId());
 //		log.info("fileName ::: {} " , membersVO.getMembersFileVOs().get(0).getFileName());
 //		log.info("fileNNNNNAAAAMMMMEEE::::: {} ", membersVO.getFiles());
 		
-		return "members/modify";
+		String membersId = membersVO.getId();
+		
+		boolean check = false;
+		
+		check = membersService.checkPassWord(membersId, checkPassWord);
+		
+		if(check) {
+			
+			membersVO = membersService.getMyPage(membersVO);
+		
+			
+		}
+	
+		return membersVO;
 	}
 	
 	@PostMapping(value = "modify")
