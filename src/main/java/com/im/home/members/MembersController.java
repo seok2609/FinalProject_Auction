@@ -150,7 +150,8 @@ public class MembersController {
 	}
 	
 	@GetMapping(value = "myPage")
-	public ModelAndView getMyPage(MembersVO membersVO, String id, Principal principal , Model model, HttpSession session) throws Exception{
+	@ResponseBody
+	public ModelAndView getMyPage(MembersVO membersVO, String id, String checkPassWord, Principal principal , Model model, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		AdminMembersVO adminMembersVO = new AdminMembersVO();
 		
@@ -221,6 +222,7 @@ public class MembersController {
 	
 	//회원정보 수정										//@RequestParam ==> Ajax에서 컨트롤러로 넘길때 String으로 받는 경우
 	@GetMapping(value = "modify")
+	@ResponseBody
 	public MembersVO setMembersModify(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, @RequestParam String id, Model model, Principal principal) throws Exception{
 		
 		model.addAttribute("membersVO", membersVO);
@@ -230,12 +232,13 @@ public class MembersController {
 //		log.info("fileNNNNNAAAAMMMMEEE::::: {} ", membersVO.getFiles());
 		
 		String membersId = membersVO.getId();
+		log.info("memberID : {} " ,membersId);
 		
 		boolean check = false;
 		
 		check = membersService.checkPassWord(membersId, checkPassWord);
 		
-		if(check) {
+		if(check) {	//현재 입력한 비밀번호와 db에있는 비밀번호가 일치(true)한다면
 			
 			membersVO = membersService.getMyPage(membersVO);
 		
@@ -243,6 +246,7 @@ public class MembersController {
 		}
 	
 		return membersVO;
+	
 	}
 	
 	@PostMapping(value = "modify")
