@@ -97,6 +97,7 @@
       		<li><a href="./members/myPage">마이페이지</a></li>
           <li><a href="./kdy/inquiryRequest">1대1문의</a></li>
           <li><a href="./kdy/reportRequest">신고요청</a></li>
+
       		</sec:authorize>
       		</sec:authorize>
       	<!-- 로그인을 하지 않았을때 -->
@@ -106,6 +107,7 @@
           </sec:authorize>
        
       
+
         </ul>
          
       </nav><!-- .navbar -->

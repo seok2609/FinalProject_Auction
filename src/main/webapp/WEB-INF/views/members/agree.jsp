@@ -16,8 +16,10 @@
 <c:import url="../common/header.jsp"></c:import>
 <!-- ================================ -->
 	  <section id="faq" class="faq">
-		<h1>약관동의 페이지</h1>
+	  
+	  
       <div class="container" data-aos="fade-up">
+		<h1>약관동의 페이지</h1>
 
         <div class="row gy-4">
 

@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="../temp/boot.jsp"></c:import>
 <script defer src="/js/membersFile.js"></script>
 <script defer src="/js/joinVerify.js"></script>
 <style>
@@ -18,9 +17,16 @@
   .bc{
     color: #008374;
   }
+	#proDiv{
+  	display: none;
+  } 
+  #profileImg{
+  	cursor: pointer;
+  }
 </style>
 </head>
 <body>
+<c:import url="../temp/boot.jsp"></c:import>
 <c:import url="../common/header.jsp"></c:import>
 
 	<section id="contact" class="contact">
@@ -30,10 +36,11 @@
           <h2>일반회원 회원가입 페이지</h2>
         </div>
 	
-			<sec:authentication property="Principal" var="member"/>
           <div class="col-lg-8" id="signUpSt">
 			<form action="signUp" method="post" enctype="multipart/form-data" id="signUpForm">
+			<sec:authentication property="Principal" var="member"/>
             
+            <div class="d-flex flex-row" style="margin-left: 200px;">
               <div class="row" >
               
                 <div class="form-group mt-3">
@@ -81,15 +88,22 @@
                   <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력(숫자만 입력해주세요)" oninput="autoHyphen(this)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="13">
                   <span id="phoneHelp" class="bc"></span>
                 </div>
-                    
-
-				<div class="form-group mt-3">
-				  <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
-				  <input class="form-control form-control-sm" id="memberFileAdd" name="files" type="file">
-				</div>
-                
+                   
               </div>
 
+               <div style="margin-left: 50px; margin-top: 15px;">
+                        <div id="profileImg">
+                          <img alt="" src="/assets/img/profle.png" width="100px" height="100px" onclick="onClickUpload();">
+                          <button type="button" class="btn btn-secondary" onclick="onClickUpload();">첨부파일</button> 
+                		</div>
+                <div class="form-group mt-3" id="proDiv">
+                  <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
+                  <input class="form-control form-control-sm pro" id="memberFileAdd" name="files" type="file">
+                </div>
+              </div>
+              
+               
+			</div>
               <div class="my-3">
 <!--                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
