@@ -51,28 +51,28 @@ public class HomeController {
 		if(wholeSaleService.getWhsalMain(saleDate).size()>=1) {
 			 whsal = wholeSaleService.getWhsalMain(saleDate).get(0);//어제날짜설정
 	     }else {
-	    	whsal = wholeSaleService.getWhsalMain(lastDate).get(0);
+	    	whsal = wholeSaleService.getWhsalMain("20221210").get(0);
 	     }
 		
 		WholeSaleVO mid =new WholeSaleVO();
 		if(wholeSaleService.getMidMain(saleDate).size()>=1) {
 			mid = wholeSaleService.getMidMain(saleDate).get(0);
 	     }else {
-	    	mid = wholeSaleService.getMidMain(lastDate).get(0);
+	    	mid = wholeSaleService.getMidMain("20221210").get(0);
 	     }
 		
 		WholeSaleVO totAmt = new WholeSaleVO();
 		if(wholeSaleService.getTotAmt(saleDate)!=null) {
 			totAmt = wholeSaleService.getTotAmt(saleDate);
 		}else {
-			 totAmt  = wholeSaleService.getTotAmt(lastDate);
+			 totAmt  = wholeSaleService.getTotAmt("20221210");
 	     }
 		
 		WholeSaleVO totQty = new WholeSaleVO();
 		if(wholeSaleService.getTotQty(saleDate)!=null) {
 			totQty = wholeSaleService.getTotQty(saleDate);
 	     }else {
-	    	 totQty = wholeSaleService.getTotQty(lastDate);
+	    	 totQty = wholeSaleService.getTotQty("20221210");
 	     }
 		
 		int q = Integer.parseInt(totQty.getTotQty())/1000;
@@ -90,10 +90,10 @@ public class HomeController {
 		List<WholeSaleVO> best = wholeSaleService.getMidMain(saleDate);
 		List<WholeSaleVO> bestW = wholeSaleService.getWhsalMain(saleDate);
 		if(best.size()<1) {
-			best = wholeSaleService.getMidMain(lastDate);
+			best = wholeSaleService.getMidMain("20221210");
 	     }
 		if(bestW.size()<1) {
-			bestW = wholeSaleService.getWhsalMain(lastDate);
+			bestW = wholeSaleService.getWhsalMain("20221210");
 	     }
 				
 		mv.addObject("best", best);
