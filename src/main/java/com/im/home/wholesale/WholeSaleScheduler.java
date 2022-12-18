@@ -25,11 +25,11 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽입 스케쥴러
 	
-	
 	@Autowired
 	private  WholeSaleMapper wholeSaleMapper;
 	
-	@Scheduled(cron = "0 0 7 * * 1-7") // 매일 오전 7시 실행
+	//@Scheduled(cron = "0 0 7 * * 1-7") // 매일 오전 7시 실행
+	//@Scheduled(cron = "30 * * * *  *") //test용 3분 마다 실행
 	public void setTodayData() throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	      Calendar c1 = Calendar.getInstance(); 
@@ -51,7 +51,7 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	    				 .build();
 	    		
 	    		Mono<String> res = webClient.get()
-	    				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j+"&saleDate="+yesterday)
+	    				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j+"&saleDate=20221210")
 	    				.retrieve()
 	    				.bodyToMono(String.class);
 	    				
@@ -112,7 +112,8 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 			
 		}
 	
-	@Scheduled(cron = "20 30 */5 * *  *") // 매일 3시간 간격으로 실행 
+	//@Scheduled(cron = "20 30 */5 * *  *") // 매일 3시간 간격으로 실행 
+	//@Scheduled(cron = "50 * * * *  *") //test용 3분 마다 실행
 	public ModelAndView setRealData() throws Exception {
 	
 	ModelAndView mv = new ModelAndView();
