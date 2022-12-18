@@ -68,7 +68,7 @@ $('#largeCd').change(function(){
     console.log("sss"+val);
     $.ajax({
 	type:"get",
-	url :"/wholesale/realtime",
+	url :"/wholesale/fixData",
 	data:{
         whsalCd:val,
 	},
@@ -81,4 +81,3 @@ $('#largeCd').change(function(){
     }
 })
 })
-

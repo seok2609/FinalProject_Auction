@@ -13,6 +13,17 @@
   .ui-block-a{
     margin-right: 10px;
   }
+  #btn{
+  	background: var(--color-primary);
+	border: 0;
+	padding: 14px 45px;
+	color: #fff;
+	transition: 0.4s;
+	border-radius: 50px;
+  width: 120px;
+  height: 30px;
+  }
+
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
@@ -100,17 +111,22 @@
   <thead>
       <tr><!-- Example single danger button -->
         <td>
+          도매시장 
         <div class="btn-group">
-          <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <input type="text" id="depInput" readonly value="" style="border: none; background: transparent;">
-          </button>
+
+            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dBtn" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #008374; width: 120px; height: 30px;">
+              <input type="text" id="depInput" readonly value="" style="border: none; background: transparent;">
+            </button>
+
           <ul class="dropdown-menu">
-            <input id="dropId" name="whsalCd" > 
+            <input id="dropId" name="whsalCd" type="hidden" > 
             <li class="deptLi" data-depNum="110001">서울가락</li>
             <li class="deptLi" data-depNum="311201">구리</li>
-            <li class="deptLi" data-depNum="3">인사팀</li>
-            <li class="deptLi" data-depNum="4">IT개발팀</li>
-            <li class="deptLi" data-depNum="5">생산팀</li>
+            <li class="deptLi" data-depNum="240004">광주서부</li>
+            <li class="deptLi" data-depNum="250001">대전오정</li>
+            <li class="deptLi" data-depNum="220001">대구북부</li>
+            <li class="deptLi" data-depNum="210001">부산엄궁</li>
+            <li class="deptLi" data-depNum="210009">부산반여</li>
           </ul>
         </div>
         </td>
@@ -126,13 +142,28 @@
               </select>
               
           </td> -->
+          <!-- <td>
+            시작일
+            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dBtn" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #008374; width: 120px; height: 30px;">
+              <input type="text" id="datepicker_start" readonly name="saleDateStart" style="border: none; background: transparent;">
+            </button>
+
+         </td>
+          <td>
+            마지막일
+
+            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dBtn" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #008374; width: 120px; height: 30px;">
+              <input type="text" id="datepicker_end" readonly name="saleDateEnd" style="border: none; background: transparent;">
+            </button>
+          </td> -->
           <td>
             시작일<input type="text" id="datepicker_start" readonly="readonly" name="saleDateStart">
          </td>
           <td>
             마지막일<input type="text" id="datepicker_end" readonly="readonly" name="saleDateEnd">
           </td>
-          <td>부류 : 
+          <td>부류 
+
               <select name="largeCd" id="largeCd">
                   <option value="">전체검색</option>
                   <option value="89">건제품</option>
