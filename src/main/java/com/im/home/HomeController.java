@@ -51,7 +51,7 @@ public class HomeController {
 		if(wholeSaleService.getWhsalMain(saleDate).size()>=1) {
 			 whsal = wholeSaleService.getWhsalMain(saleDate).get(0);//어제날짜설정
 	     }else {
-	    	whsal = wholeSaleService.getWhsalMain("20221210").get(0);
+	    	whsal = wholeSaleService.getWhsalMain("20221210").get(0);//없을 경우 샘플데이터
 	     }
 		
 		WholeSaleVO mid =new WholeSaleVO();

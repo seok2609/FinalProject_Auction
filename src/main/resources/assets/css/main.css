@@ -11,9 +11,9 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-primary: "Montserrat", sans-serif;
-  --font-secondary: "Poppins", sans-serif;
+  --font-default: "Open Sans",'Do Hyeon', sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-primary: "Montserrat", sans-serif, ;
+  --font-secondary: "Poppins", sans-serif, ;
 }
 
 /* Colors */
@@ -319,7 +319,7 @@ section {
 }
 
 .header .logo h1 {
-  font-size: 30px;
+  font-size: 40px;
   margin: 0;
   font-weight: 600;
   letter-spacing: 0.8px;
@@ -1926,7 +1926,7 @@ section {
 }
 
 .hero h2 {
-  font-size: 48px;
+  font-size: 35px;
   font-weight: 700;
   margin-bottom: 20px;
   color: #fff;
