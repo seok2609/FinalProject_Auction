@@ -79,12 +79,15 @@
       		<sec:authentication property="Principal" var="member"/>      		
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
       		
-     
-      		<li><a href="./members/logout">Logout</a></li>
-      		<li><a href="./members/myPage">MyPage</a></li>
-            <li><a href="./kdy/inquiryRequest">1대1 문의</a></li>
-            <li><a href="./kdy/reportRequest">신고 요청</a></li>
-            <li><a href="./kdy/adminPage">관리자</a></li>
+
+          <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
+      		<li><a href="/members/logout">Logout</a></li>
+      		<li><a href="/members/myPage">MyPage</a></li>
+            <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
+            <li><a href="/kdy/reportRequest">신고 요청</a></li>
+             <li><a href="./kdy/adminPage">관리자</a></li>
+
+
              
             
       		
@@ -93,8 +96,8 @@
       		</sec:authorize>
       	<!-- 로그인을 하지 않았을때 -->
   		<sec:authorize access="!isAuthenticated()">
-          <li><a href="./members/login">로그인</a></li>
-          <li><a href="./members/agree">회원가입</a></li>
+          <li><a href="/members/login">로그인</a></li>
+          <li><a href="/members/agree">회원가입</a></li>
          </sec:authorize>
          
           <li><a href="#hero">Home</a></li>

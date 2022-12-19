@@ -7,3 +7,34 @@ let count = 0;
 $("#membersFileAddResult").on("click", ".del", function(){
     $(this).remove();  //자신을 눌렀을때 삭제
 });
+
+
+// $("#profileImg").click(function(e){
+
+//     console.log("프로필 기본이미지 클릭");
+//     e.preventDefault();
+//     $("#proDiv").trigger('click');
+//     //$("#proDiv").click();
+
+// });
+
+// $(function () {
+ 
+//     $('#profileImg').click(function (e) {
+     
+//     e.preventDefault();
+     
+//     $('#proDiv').click();
+     
+//     });
+     
+//     });
+
+
+function onClickUpload(e) {
+
+    console.log("프로필 기본이미지 클릭");
+    // e.preventDefault();
+    $(".pro").trigger('click');
+
+}
