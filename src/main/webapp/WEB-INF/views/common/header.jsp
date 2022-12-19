@@ -27,6 +27,8 @@
   <!-- Template Main CSS File -->
   <link href="/assets/css/main.css" rel="stylesheet">
 
+  <!-- social login JavaScript -->
+  <script defer src="/js/header.js"></script>
   <!-- =======================================================
   * Template Name: Impact - v1.1.1
   * Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
@@ -36,6 +38,7 @@
   
   
   <!-- ======= Header ======= -->
+  
   <section id="topbar" class="topbar d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
       <div class="contact-info d-flex align-items-center">
@@ -53,7 +56,7 @@
 				</c:when>
 						
 				<c:otherwise>
-					<h5>${member.nickName}님 환영합니다!</h5>
+					<h5>${membersVO.nickName}님 환영합니다!</h5>
 				</c:otherwise>
 		</c:choose>
       	</sec:authorize>
@@ -105,9 +108,6 @@
           <li><a href="./members/login">로그인</a></li>
           <li><a href="./members/agree">회원가입</a></li>
           </sec:authorize>
-       
-      
-
         </ul>
          
       </nav><!-- .navbar -->

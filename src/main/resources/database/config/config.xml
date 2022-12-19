@@ -15,6 +15,7 @@
   			<typeAlias type="com.im.home.admin.AdminMembersVO" alias="AdminMembersVO"/>
   			<typeAlias type="com.im.home.admin.MembersReportVO" alias="MembersReportVO"/>
   			<typeAlias type="com.im.home.admin.InquiryResponseVO" alias="InquiryResponseVO"/>
+  			<typeAlias type="com.im.home.admin.CompanyNoticeVO" alias="CompanyNoticeVO"/>
   			<typeAlias type="com.im.home.admin.ReportFileVO" alias="ReportFileVO"/>
   			<typeAlias type="com.im.home.util.AdminPager" alias="AdminPager"/>
 
@@ -30,6 +31,9 @@
   			
   			<!-- 지도 -->
   			<typeAlias type="com.im.home.map.MapVO" alias="MapVO"/>
+  			<typeAlias type="com.im.home.map.StartPointVO" alias="StartPointVO"/>
+  			<typeAlias type="com.im.home.map.EndPointVO" alias="EndPointVO"/>
+  			<typeAlias type="com.im.home.map.DeliveryInfoVO" alias="DeliveryInfoVO"/>
   			
   			
   	</typeAliases>

@@ -55,29 +55,30 @@ try {
 return date;
 }
 
-$(".deptLi").click(function(){
-    console.log("gkswhdjdj");
-    $("#dropId").val($(this).attr("data-depNum")); //파라미터로 값넘겨주기
-    let value = $(".deptLi").attr("data-depNum");
-    $("#depInput").val($(this).text());//input 값 고정
-    console.log(value);
-});
-
 $('#largeCd').change(function(){
     let val = $("#largeCd").val();
+    let wh = $("#whsalCd").val();
+    let s = $("#datepicker_start").val();
+    let e = $("#datepicker_end").val();
     console.log("sss"+val);
+    $("#frm").submit();
     $.ajax({
 	type:"get",
 	url :"/wholesale/fixData",
 	data:{
-        whsalCd:val,
+        whsalCd:wh,
+        largeCd:val,
+        saleDateStart:s,
+        saleDateEnd:e
 	},
     success: function(data){
         $("#frm").submit();
-        console.log("sss"+val);
-        $("#largeCd").val(val).prop("selected", true);
+
+       
     },
     error: function(data){
     }
 })
+
 })
+

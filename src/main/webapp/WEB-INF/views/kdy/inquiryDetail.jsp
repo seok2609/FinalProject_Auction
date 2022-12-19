@@ -85,28 +85,33 @@
                   <div id="information">문의 내용 : </div>
                   <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiry_contents}</textarea>
                 </div>
-                
+      
                 <c:choose>
-					<c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
-		                <form action="./inquiryResponse" method="post">
-		                    <div>
-		                        <input type="hidden" id="inquiry_num" name="inquiry_num" value="${inquiryDetail.inquiry_num}">
-		                    </div>
-		                    <div class="form-group mt-3">
-		                    <textarea class="form-control" name="inquiry_response_contents" id="inquiry_response_contents" rows="7" placeholder="관리자의 답변을 기다리고있어요~" required></textarea>
-		                    </div>  
-		                    <div class="text-center" id="inquiryAddBottonST">
-		                        <button type="button" class="btn btn-success" id="inquiryAddBtn" onclick="inquiryResponseNullCheck()">답변하기</button>
-		                      </div>
-		                </form>
-					</c:when>
-					<c:otherwise>
-		                <div class="form-group mt-3">
-                      <div id="information">관리자 답변 : </div>
-		                    <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiryResponseVO.inquiry_response_contents}</textarea>
-		                </div>
-					</c:otherwise>
-				</c:choose>
+                  <c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
+                    <form action="./inquiryResponse" method="post">
+                      <div>
+                        <input type="hidden" id="inquiry_num" name="inquiry_num" value="${inquiryDetail.inquiry_num}">
+                                </div>
+                                <div class="form-group mt-3">
+                                  <textarea class="form-control" name="inquiry_response_contents" id="inquiry_response_contents" rows="7" placeholder="관리자의 답변을 기다리고있어요~" required></textarea>
+                                </div> 
+                                <div class="d-flex">
+                                  <div class="text-center">
+                                    <button type="button" class="btn btn-success" id="inquiryAddBtn" onclick="inquiryResponseNullCheck()">답변하기</button>
+                                    <button type="button" class="btn btn-success" class="text-center" onclick="location.href='/kdy/inquiryList';">뒤로가기</button>
+                                </div> 
+                              </form>
+                            </c:when>
+                            <c:otherwise>
+                              <div class="form-group mt-3">
+                                <div id="information">관리자 답변 : </div>
+                                <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiryResponseVO.inquiry_response_contents}</textarea>
+                              </div>
+                              <div class="text-center" onclick="location.href='/kdy/inquiryList';">
+                                <button type="button" class="btn btn-success">뒤로가기</button>
+                              </div>
+                            </c:otherwise>
+                          </c:choose>
             </div>
           </div> 
         </div>
