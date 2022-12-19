@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.2/dist/umd/popper.min.js"></script>
     
     <script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/js/tempus-dominus.js"></script>
@@ -156,6 +157,18 @@
 	    var options = 'top=10, left=10, width=700, height=600, status=no, menubar=no, toolbar=no, resizable=no';
 	    window.open(url, name, options);
 	}
+	
+	
+	
+	$.ajax({
+	      url:'/auction/nick',
+	      method:"GET",
+	      success:(response)=>{
+	        console.log("닉네임 : ", response);
+	      }
+	    })
+	  
+	
 	
 	</script>
 </body>

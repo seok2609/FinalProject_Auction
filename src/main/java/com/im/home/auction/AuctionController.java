@@ -1,22 +1,35 @@
 package com.im.home.auction;
 
 import java.io.EOFException;
+import java.lang.reflect.Member;
+import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.collections.map.MultiValueMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.im.home.auction.product.ProductMapper;
 import com.im.home.auction.product.ProductVO;
 import com.im.home.members.MembersMapper;
+import com.im.home.members.MembersService;
 import com.im.home.members.MembersVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,18 +46,49 @@ public class AuctionController {
 	@Autowired
 	private ProductMapper productMapper;
 	
+	@Autowired
+	private MembersService membersService;
+	
+	@Autowired
+	private AuctionService auctionService;
+	
 	
 	@GetMapping("vidu")
-	public void viduTest() {
-
+	public void viduTest(Cookie cookie, MembersVO membersVO) {
+		cookie.setDomain("http://192.168.1.28:4200");
+		cookie.setValue(membersVO.getName());
+		
 	}
+
+	
+	
 	
 	@GetMapping("test")
 	@ResponseBody
-	public String testest(Model model) {
-		MembersVO membersVO = membersMapper.getMembersLogin("11");
+	public void testest() {
 		
-		return "good";
+		RestTemplate restTemplate = new RestTemplate();
+		
+		//1.Header
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		//header : key : value 형식
+		//headers.add("key","value");
+		//headers.set헤더명("값");
+		
+		//2. 파라미
+
+		
+		
+		
+		
+		
+//		MembersVO membersVO = auctionService 
+//		
+//		//= membersMapper.getMembersLogin("goody");
+//		
+//		return membersVO;
 	}
 	
 	
@@ -91,6 +135,21 @@ public class AuctionController {
 	public void getList() throws Exception{
 		
 	}
+	
+	
+	@GetMapping("nick")
+	@ResponseBody
+	public String getNick(MembersVO membersVO,
+			@RequestParam String nickName ,
+			Principal principal, 
+			Authentication authentication, Cookie cookie) throws Exception{
+		
+		log.info("Principal : {}", principal);
+		
+		
+		return principal.getName();
+	}
+	
 	
 	
 	// ======================================= 판매 상품 ===========================================

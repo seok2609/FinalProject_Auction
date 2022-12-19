@@ -11,6 +11,11 @@
 <c:import url="../common/header.jsp"></c:import>
 </head>
 <body>
+	<section id="services" class="services sections-bg">
+	<div class="container" data-aos="fade-up">
+	<div class="section-header">
+          <h2 style="color: #008374;">상품 등록</h2>
+        </div>
 	<div class="container row" style="float: none; margin:0 auto; margin-top: 100px; margin-bottom: 100px;">
 		<form class="row g-3" method="post" action="./add">
 			<input type="text" value="nn" name="id" style="display: none;">
@@ -108,9 +113,10 @@
 		    <button type="submit" class="btn btn-primary">상품 등록 신청</button>
 		  </div>
 	</form>
-		
+	
 	</div>
-
+	</div>
+	</section>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
