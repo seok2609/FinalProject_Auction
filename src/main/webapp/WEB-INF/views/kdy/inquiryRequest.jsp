@@ -46,7 +46,7 @@
                 <textarea class="form-control" name="inquiry_contents" id="inquiry_contents" rows="7" placeholder="문의하실 내용을 입력해주세요" required></textarea>
               </div>
 
-              <div class="text-center" id="inquiryAddBottonST">
+              <div class="text-center">
                 <button type="button" id="inquiryAddBtn" onclick="inquryNullCheck()">문의하기</button>
               </div>
             </form>

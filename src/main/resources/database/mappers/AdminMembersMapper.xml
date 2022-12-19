@@ -28,7 +28,34 @@
 			</choose>
 			LIKE concat ('%', #{inquirySearch}, '%')
 		</sql>
-
+		
+<!-- 공지사항 -->
+		<!-- 등록 -->
+		<insert id="setCompanyNotice" parameterType="CompanyNoticeVO">
+		 	INSERT INTO COMPANY_NOTICE VALUES
+		 	(NULL, #{notice_title}, #{notice_contents}, 0, SYSDATE())
+		</insert>
+		<!-- 리스트 -->
+		<select id="getCompanyNoticeList" parameterType="AdminPager" resultType="CompanyNoticeVO">
+			SELECT * FROM COMPANY_NOTICE
+			ORDER BY NOTICE_NUM DESC
+		</select>
+			<!-- 공지사항 카운트 -->
+			<select id="getNoticeCount" parameterType="AdminPager" resultType="Long">
+				SELECT COUNT(NOTICE_NUM) FROM COMPANY_NOTICE
+			</select>
+		<!-- detail -->
+		<select id="getNoticeDetail" parameterType="CompanyNoticeVO" resultType="CompanyNoticeVO">
+			SELECT * FROM COMPANY_NOTICE WHERE NOTICE_NUM = #{notice_num}
+		</select>
+		<!-- 수정 -->
+		<update id="setNoticeUpdate" parameterType="CompanyNoticeVO">
+			UPDATE COMPANY_NOTICE SET NOTICE_TITLE = #{notice_title}, NOTICE_CONTENTS =#{notice_contents} WHERE NOTICE_NUM = #{notice_num} 
+		</update>
+		<!-- 삭제 -->	
+		<delete id="setNoticeDelete" parameterType="CompanyNoticeVO">
+			DELETE FROM COMPANY_NOTICE WHERE NOTICE_NUM = #{notice_num}
+		</delete>		
 <!-- 1대1 문의 -->	 	
  		<!-- 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트 --> 
  		<select id="getAdminPageInquiryList" parameterType="AdminMembersVO" resultMap="getInquiryDetailResult">
