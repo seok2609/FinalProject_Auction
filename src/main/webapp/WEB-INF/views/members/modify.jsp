@@ -19,8 +19,16 @@
 	#md{
 		display: none;
 	}
-	.bc{
+	.bc, #spa{
     color: #008374;
+  	}
+  	#updateBtn{
+	  	background: var(--color-primary);
+		border: 0;
+		padding: 14px 45px;
+		color: #fff;
+		transition: 0.4s;
+		border-radius: 50px;
   	}
 </style>
 </head>
@@ -31,7 +39,7 @@
           <h2>회원정보 수정페이지</h2>
     </div>
 	
-	<form action="modify" method="post" enctype="multipart/form-data" >
+	<form action="modify" method="post" enctype="multipart/form-data" id="modifyFrm">
             
               <div class="row" >
               <sec:authentication property="Principal" var="member"/>
@@ -76,16 +84,14 @@
 				
 				</c:when>
 					<c:otherwise>
-						<p>
-							현재 첨부파일이 존재하지 않습니다.
-						</p>
+						<span id="spa"></span>
 					</c:otherwise>
 	           </c:choose>
               </div>
               <br>
 
               <div class="text-center">
-              	<button type="submit" class="btn btn-primary">수정완료</button>
+              	<button type="submit" class="btn btn-primary" id="updateBtn">수정완료</button>
               </div>
          
 			</form>
@@ -203,6 +209,7 @@
         }
     });
 </script>
+<script  src="/js/modify.js"></script>
 
 </body>
 </html>
