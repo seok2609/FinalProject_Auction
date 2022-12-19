@@ -84,20 +84,35 @@
                         <input type="text" name="name" class="form-control" id="information" style="border: 0;" readonly value="가입일 : ${membersDetail.membersVO.joinDate}">
                       </div>
                   </div><hr>
-                  <div>
-                    <c:choose>
-                      <c:when test="${membersDetail.membersVO.black < 2}">
-                        <button id="bl" type="button" class="btn btn-danger" style="margin-left: 1100px;" onclick="location.href='/kdy/black?id=${membersDetail.membersVO.id}';">
-                          블랙하기
-                        </button>
-                      </c:when>
-                      <c:otherwise>
-                        <button id="blc" type="button" class="btn btn-danger" style="margin-left: 1100px;" onclick="location.href='/kdy/blackC?id=${membersDetail.membersVO.id}'">
-                          블랙해제하기
-                        </button>
-                      </c:otherwise>
-                    </c:choose>
-                  </div>
+           
+                    <div class="d-flex">
+                      <c:choose>
+                        <c:when test="${membersDetail.membersVO.black < 2}">
+                          <div class="d-flex">
+                            <button id="bl" type="button" class="btn btn-danger" style="margin-left: 1100px;" onclick="location.href='/kdy/black?id=${membersDetail.membersVO.id}';">
+                              블랙하기
+                            </button>
+                            <button type="button" class="btn btn-success" onclick="location.href='/kdy/memberList';">
+                              뒤로가기
+                            </button>
+                          </div>
+                        </c:when>
+                        <c:otherwise>
+                          <div class="d-flex">
+                            <button id="blc" type="button" class="btn btn-danger" style="margin-left: 1100px;" onclick="location.href='/kdy/blackC?id=${membersDetail.membersVO.id}'">
+                              블랙해제하기
+                            </button>
+                            <button type="button" class="btn btn-success" onclick="location.href='/kdy/memberList';">
+                              뒤로가기
+                            </button>
+                          </div>
+                        </c:otherwise>
+                      </c:choose>
+                     
+                    </div>
+           
+         
+           
             </div>
           </div> 
         </div>
