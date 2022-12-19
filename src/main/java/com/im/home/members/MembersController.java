@@ -222,8 +222,39 @@ public class MembersController {
 	
 	//회원정보 수정										//@RequestParam ==> Ajax에서 컨트롤러로 넘길때 String으로 받는 경우
 	@GetMapping(value = "modify")
+	public MembersVO setMembersModify(MembersVO membersVO, Model model, Principal principal) throws Exception{
+		
+		model.addAttribute("membersVO", membersVO);
+		
+//		log.info("id :::: {} " , membersVO.getId());
+//		log.info("fileName ::: {} " , membersVO.getMembersFileVOs().get(0).getFileName());
+//		log.info("fileNNNNNAAAAMMMMEEE::::: {} ", membersVO.getFiles());
+		
+		String membersId = membersVO.getId();
+		log.info("memberID : {} " ,membersId);
+		
+//		boolean check = false;
+		
+//		check = membersService.checkPassWord(membersId, checkPassWord);
+//		log.info("마이페이지 회원정보 수정 check :: {} " , check);
+		
+//		if(check) {	//현재 입력한 비밀번호와 db에있는 비밀번호가 일치(true)한다면
+			
+			membersVO = membersService.getMyPage(membersVO);
+		
+			
+//		}
+	
+		return membersVO;
+	
+	}
+	
+	
+	// 회원정보 수정을 들어갈때 비밀번호 일치시키는 ajax 용 GET 주소
+	//회원정보 수정										//@RequestParam ==> Ajax에서 컨트롤러로 넘길때 String으로 받는 경우
+	@GetMapping(value = "modify1")
 	@ResponseBody
-	public MembersVO setMembersModify(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, @RequestParam String id, Model model, Principal principal) throws Exception{
+	public boolean setMembersModify1(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, @RequestParam String id, Model model, Principal principal) throws Exception{
 		
 		model.addAttribute("membersVO", membersVO);
 		
@@ -237,6 +268,7 @@ public class MembersController {
 		boolean check = false;
 		
 		check = membersService.checkPassWord(membersId, checkPassWord);
+		log.info("마이페이지 회원정보 수정 check :: {} " , check);
 		
 		if(check) {	//현재 입력한 비밀번호와 db에있는 비밀번호가 일치(true)한다면
 			
@@ -245,7 +277,7 @@ public class MembersController {
 			
 		}
 	
-		return membersVO;
+		return check;
 	
 	}
 	

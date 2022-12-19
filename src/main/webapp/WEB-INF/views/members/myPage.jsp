@@ -228,10 +228,10 @@
 <c:import url="../common/footer.jsp"></c:import>
 
 <!-- 마이페이지에서 수정쪽을 누르면 비밀번호 일치해야 수정페이지가 나오게 해주는 ajax -->
-<script>
+<!-- <script>
     $('#successBtn').click(function() {
         const checkPassWord = $('#inputPassWord2').val();
-        const id = $("#thisId").();
+        const id = $("#thisId").val();
         console.log("checkPassWord :", checkPassWord);
         console.log("id: ", id);
         if(checkPassWord == ""){
@@ -258,7 +258,7 @@
             })
         }
     });
-</script>
+</script> -->
 
 
 </body>

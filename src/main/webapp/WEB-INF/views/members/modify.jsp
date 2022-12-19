@@ -74,8 +74,6 @@
 							<button type="button" class="deleteMemberFile" data-file-id="${membersVO.membersFileVO.fileNum}">삭제</button>
 						</p>
 				
-			
-			
 				</c:when>
 					<c:otherwise>
 						<p>
