@@ -44,6 +44,8 @@ public interface AdminMembersMapper {
 	public List<MembersVO> getAdminMembersList(AdminPager adminPager) throws Exception;	
 	//회원 리스트 pager에 필요한 count
 	public Long getAdminMembersCount(AdminPager adminPager)throws Exception;
+	//회원 detail
+	public AdminMembersVO getAdminMembersDetail(AdminMembersVO adminMembersVO)throws Exception;
 	//신고 요청
 	public int setRepoertRequest(MembersReportVO membersReportVO)throws Exception;
 	//신고 파일

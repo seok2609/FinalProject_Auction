@@ -46,18 +46,22 @@
        #blackMembersCssss{
         color: mediumvioletred;
        }
+       #nonoresponse:hover{
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+       }
     </style>
 
 </head>
 
 <body id="page-top">
+    <c:import url="../common/header.jsp"></c:import>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
        <!-- Sidebar -->
        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
-
+        
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./adminPage">
             <div class="sidebar-brand-icon rotate-n-15">
@@ -65,20 +69,16 @@
             </div>
             <div class="sidebar-brand-text mx-3">관리자<sup>PAGE</sup></div>
         </a>
-
+        
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
-
-    
-
         <!-- Divider -->
         <hr class="sidebar-divider">
-
+        
         <!-- Heading -->
         <div class="sidebar-heading">
             MEMBER
         </div>
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -88,10 +88,8 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                     <a class="collapse-item" href="./memberList">회 원 조 회</a>
                     <a class="collapse-item" href="./inquiryList">1 대 1 문 의</a>
-                    <a class="collapse-item" href="./auctioneer">구 인 구 직</a>
                 </div>
             </div>
         </li>
@@ -106,18 +104,14 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
                     <a class="collapse-item" href="./report">신 고 요 청</a>
                     <a class="collapse-item" href="./memberBlackList">블 랙 리 스 트</a>
-                    <!-- <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                    <a class="collapse-item" href="utilities-other.html">Other</a> -->
                 </div>
             </div>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
-
         <!-- Heading -->
         <div class="sidebar-heading">
             Addons
@@ -138,127 +132,95 @@
                 </div>
             </div>
         </li>
-
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
-
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
-
     </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    MAIN HOME
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    LOGOUT
-                                </a>
+                <div class="container-fluid" data-aos="fade-up" style="margin-top: 40px;" >
+                    <div class="row" id="mydiv" style="margin-left: -1px;">
+                        <!-- End of Topbar -->
+                        <div class="col-xl-3 col-md-6 mb-4" >
+                            <div class="card border-left-success  h-100 py-2"  >
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-success font-weight-bold text-primary text-uppercase mb-1">
+                                                총 회원</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 건</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="container-fluid">
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-success">회원</h6>
                         </div>
-						<div class="row">
-							<form action="./memberList" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
-								<div class="col-12">
-									<div class="input-group" id="memberListSearch">
-										<input type="text" name="search" value="${param.search}"
-											var="" class="form-control" id="search"
-											placeholder="닉네임을 입력해 주세요">
-										<button type="submit" class="btn btn-secondary" id="searchNull">검색
-										</button>
-                                        <div id="blackListMembers">블랙리스트 회원은 빨간색</div>
-									</div>
-                                    
-								</div>
-							</form>
-						</div>
+                    </div>
+                    <!-- DataTales Example -->
+                    <div class="card shadow" >
+                        <div class="card-header py-3 row" style="background-color: #008374; width: 2055px; margin-left: 1px;">
+                            <div class="m-0 font-weight-bold" style="color: white;">회원</div>
 
-            
-
-						<table class="table table-striped">
-                            <thead>
-                                <tr class="text-success">
-                                    <th>아이디</th>
-                                    <th>성  함</th>
-                                    <th>닉네임</th>
-                                    <th>이메일</th>
-                                    <th>전화번호</th>
-                                    <th>등 급</th>
-                                    <th>가입날짜</th>
-                                    
-                                </tr>
-                            </thead>
+                                <form action="./memberList" style="margin-left: -100px; margin-top: -25px;" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+                                    <div class="col-12">
+                                        <div class="input-group" id="memberListSearch">
+                                            <input type="text" name="search" value="${param.search}"
+                                                var="" class="form-control" id="search"
+                                                placeholder="닉네임을 입력해 주세요">
+                                            <button type="submit" class="btn btn-success" id="searchNull">검색
+                                            </button>
+                                        </div>
+                                        <div id="blackListMembers" style="color: white; margin-left: 90px; margin-top: 15px;">블랙리스트 회원은 빨간색</div>
+                                    </div>
+                                </form>
                             
+                        </div>
+
                             <tbody>
                                 <c:forEach items="${membersVO}" var="membersVO">
-                                    <tr>
                                     <c:choose>
                                         <c:when test="${membersVO.black < 2}">
-                                            <td id="blackMembersCss">${membersVO.id}</td>
-                                            <td id="blackMembersCss">${membersVO.realName}</td>
-                                            <td id="blackMembersCss">${membersVO.nickName}</td>
-                                            <td id="blackMembersCss">${membersVO.email}</td>
-                                            <td id="blackMembersCss">${membersVO.phone}</td>
-                                            <td id="blackMembersCssss" onclick="location.href='/kdy/black?id=${membersVO.id}'">${membersVO.roleVO.roleName}</td>
-                                            <td id="blackMembersCss">${membersVO.joinDate}</td>
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='/kdy/membersDetail?id=${membersVO.id}';">
+                                                <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
+                                                    <div class="d-flex">
+                                                        <div class="p-2 w-100">
+                                                            <div class="container2" >
+                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCss">아이디 : ${membersVO.id}</div>
+                                                                <div class="contents" id="blackMembersCss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
+                                                                <div id="blackMembersCssss" style="font-weight: bold; width: 180px; margin-left: 1470px; margin-top: -45px;">
+                                                                    ${membersVO.roleVO.roleName}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <td id="blackMembersCsss">${membersVO.id}</td>
-                                            <td id="blackMembersCsss">${membersVO.realName}</td>
-                                            <td id="blackMembersCsss">${membersVO.nickName}</td>
-                                            <td id="blackMembersCsss">${membersVO.email}</td>
-                                            <td id="blackMembersCsss">${membersVO.phone}</td>
-                                            <td id="blackMembersCsss"  onclick="location.href='/kdy/blackC?id=${membersVO.id}'">블랙</td>
-                                            <td id="blackMembersCsss">${membersVO.joinDate}</td>
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/membersDetail?id=${membersVO.id}';">
+                                                <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
+                                                    <div class="d-flex">
+                                                        <div class="p-2 w-100">
+                                                            <div class="container2" >
+                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCsss">아이디 : ${membersVO.id}</div>
+                                                                <div class="contents" id="blackMembersCsss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
+                                                                <div id="blackMembersCsss" onclick="location.href='/kdy/blackC?id=${membersVO.id}'" style="font-weight: bold; width: 100px; margin-left: 1500px; margin-top: -60px;">
+                                                                   블 랙
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </c:otherwise>
                                     </c:choose>
-                                        
-                                    </tr>
                                 </c:forEach> 
                             </tbody>
-                        </table>
+            
                     </div>
                   
                 </div>
@@ -318,36 +280,7 @@
         </div>
     </div>
 
-    
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">신고 모달</button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="./reportRequest" method="post">
-              <input type="text" name="id" class="form-control" id="id" value=${membersReportVO.id}>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">신고당하는 사람의 닉네임</label>
-                <input type="text" class="form-control" id="report_id" name="report_id">
-              </div>
-              <div class="mb-3">
-                <label for="message-text" class="col-form-label">신고 사유를 입력해주세요</label>
-                <textarea class="form-control" id="report_contents" name="report_contents"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">눈감아주기</button>
-            <button type="button" class="btn btn-success">신고하기</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <c:import url="../common/footer.jsp"></c:import>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

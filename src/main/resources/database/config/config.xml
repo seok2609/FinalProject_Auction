@@ -26,6 +26,11 @@
   			<typeAlias type="java.util.List" alias="List"/>
   			<typeAlias type="java.lang.String" alias="String"/>
   			<typeAlias type="java.lang.Integer" alias="Integer"/>
-  		
+  			
+  			
+  			<!-- 지도 -->
+  			<typeAlias type="com.im.home.map.MapVO" alias="MapVO"/>
+  			
+  			
   	</typeAliases>
   </configuration>

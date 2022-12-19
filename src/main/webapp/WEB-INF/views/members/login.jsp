@@ -18,6 +18,14 @@
   #pb{
   	display: none;
   }
+  #loginBtn{
+  	background: var(--color-primary);
+	border: 0;
+	padding: 14px 45px;
+	color: #fff;
+	transition: 0.4s;
+	border-radius: 50px;
+  }
 </style>
 <script defer src="/js/login.js"></script>
 		  
@@ -50,13 +58,14 @@
 
 
 				<div class="form-group mb-3">
-				    	ID저장하기
 				    <input type="checkbox" name="rememberId" class="form-check-input" id="exampleCheck2">
+				    	ID저장하기
 				 </div>
 				 
 				<div class="mb-3">
-				    <label for="password" class="form-label">자동로그인</label>
+				    <label for="password" class="form-label"></label>
 				    <input type="checkbox" name="rememberMe" class="form-check-input" id="exampleCheck2">
+				    자동로그인
 			  
 			  <!-- 아래 있는 비밀번호 찾기 모달 띄우기 -->
 				  <div style="float: right;" id="pwConfirm" data-bs-toggle="modal" data-bs-target="#myModal">
@@ -82,7 +91,7 @@
                 <div class="sent-message">Your message has been sent. Thank you!</div> -->
               </div>
               <div class="text-center">
-              	<button type="submit">로그인</button>
+              	<button type="submit" id="loginBtn">로그인</button>
               </div>
             </form>
           </div><!-- End Contact Form -->

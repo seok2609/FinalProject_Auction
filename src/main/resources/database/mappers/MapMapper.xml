@@ -3,7 +3,12 @@
           PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
           
-<mapper namespace="com.im.home.map.MembersMapper">
+<mapper namespace="com.im.home.map.MapMapper">
 	
-	<select id=""></select>
+	<select id="setStartPoint" parameterType="MapVO" resultType="MapVO">
+		SELECT * FROM STARTPOINT WHERE S_NUM = 3
+	</select>
+	<select id="setEndPoint" parameterType="MapVO" resultType="MapVO">
+		SELECT * FROM ENDPOINT WHERE E_NUM = 2
+	</select>
 </mapper>

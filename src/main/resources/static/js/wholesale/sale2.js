@@ -12,9 +12,6 @@ function getJSON(i) {
     let saleDate = $("#saleDate").val();
     let largeCd = $("#largeCd").val();
     console.log("pram=="+whsalCd);
-    // let whsalCd =110001;
-    // let saleDate = 20221122;
-    // let largeCd = 06;
    let url = 'https://cors-anywhere.herokuapp.com/'+apiURL
         $.ajax({
         type:"get",
@@ -34,6 +31,7 @@ function getJSON(i) {
         success: function(jsonData){
             let totPage = parseInt(jsonData.totCnt/10)+1 //총페이지수
             let setSmallPage = jsonData.dataCnt/10 //페이지 당 뷰 수. 리스트 10개씩 뽑아올때 1Page당 몇 뷰가 생기는지. 
+            alert("미~~~~워~~~~~")
             if(jsonData.dataCnt%10>0){ //나머지값이 있다면 뷰 추가
                 setSmallPage++
             }
@@ -93,7 +91,4 @@ function getJSON(i) {
         }
     })
 }
-
-
-
 

@@ -67,7 +67,7 @@
 
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Impact<span>.</span></h1>
+        <h1>Jiwon Room<span>.</span></h1>
       </a>
      
       <nav id="navbar" class="navbar">
@@ -79,11 +79,13 @@
       		<sec:authentication property="Principal" var="member"/>      		
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
       		
-          <li><a href="./kdy/inquiryRequest">1대1 문의</a></li>
-      		<li><a href="./members/logout">Logout</a></li>
-      		<li><a href="./members/myPage">MyPage</a></li>
-            <li><a href="./kdy/inquiryRequest">1대1 문의</a></li>
-            <li><a href="./kdy/reportRequest">신고 요청</a></li>
+
+          <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
+      		<li><a href="/members/logout">Logout</a></li>
+      		<li><a href="/members/myPage">MyPage</a></li>
+            <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
+            <li><a href="/kdy/reportRequest">신고 요청</a></li>
+
              
             
       		
@@ -92,15 +94,28 @@
       		</sec:authorize>
       	<!-- 로그인을 하지 않았을때 -->
   		<sec:authorize access="!isAuthenticated()">
-          <li><a href="./members/login">로그인</a></li>
-          <li><a href="./members/agree">회원가입</a></li>
+          <li><a href="/members/login">로그인</a></li>
+          <li><a href="/members/agree">회원가입</a></li>
          </sec:authorize>
          
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
+          <li class="dropdown"><a href="#"><span>wholeSale</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="/wholesale/realtime">realTime</a></li>
+              <li class="dropdown"><a href="#"><span>sale</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <ul>
+                  <li><a href="/wholesale/sale">sale1</a></li>
+                  <li><a href="/wholesale/chart">chart</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
           <li><a href="blog.html">Blog</a></li>
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
@@ -117,21 +132,6 @@
               <li><a href="#">Drop Down 2</a></li>
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-          
-               <li class="dropdown"><a href="#"><span>wholeSale</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="/wholesale/realtime">realTime</a></li>
-              <li class="dropdown"><a href="#"><span>sale</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="/wholesale/sale">sale1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
             </ul>
           </li>
         
