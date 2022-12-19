@@ -28,7 +28,7 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	@Autowired
 	private  WholeSaleMapper wholeSaleMapper;
 	
-	//@Scheduled(cron = "0 0 7 * * 1-7") // 매일 오전 7시 실행
+	@Scheduled(cron = "0 30 6 * * 1-7") // 매일 오전 6시 30분 실행
 	//@Scheduled(cron = "50 * * * *  *") //test용 3분 마다 실행
 	public void setTodayData() throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -112,8 +112,8 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 			
 		}
 	
-	//@Scheduled(cron = "20 30 */5 * *  *") // 매일 3시간 간격으로 실행 
-	@Scheduled(cron = "50 * * * *  *") //test용 3분 마다 실행
+	@Scheduled(cron = "20 30 */3 * *  *") // 매일 3시간 간격으로 실행 
+	//@Scheduled(cron = "50 * * * *  *") //test용 3분 마다 실행
 	public ModelAndView setRealData() throws Exception {
 	
 	ModelAndView mv = new ModelAndView();
