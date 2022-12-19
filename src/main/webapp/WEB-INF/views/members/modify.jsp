@@ -145,7 +145,7 @@
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel">회원탈퇴 검증</h1>
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">회원 수정 검증</h1>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
@@ -175,6 +175,7 @@
 
 	<c:import url="../common/footer.jsp"></c:import>
 
+<!-- 수정페이지에서 회원탈퇴 버튼을 누르면 비밀번호를 다시한번 치고 일치해야 탈퇴가 바로되는 ajax 코드 -->
 <script>
     $('#successBtn').click(function() {
         const checkPassWord = $('#inputPassWord2').val();

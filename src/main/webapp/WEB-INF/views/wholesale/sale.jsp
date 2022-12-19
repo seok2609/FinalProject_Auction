@@ -14,13 +14,19 @@
     margin-right: 10px;
   }
 </style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script defer src="/js/wholesale/sale.js"></script>
 </head>
 <body>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
 <script>
+  $(function() {
+    fn_default_datepicker();
+});
+</script>
+<!-- <script>
         
   $(function() {
           fn_default_datepicker();
@@ -83,7 +89,7 @@
       return date;
    }
    
-      </script>
+      </script> -->
 
 <!-- ===========header=============== -->
 <c:import url="../common/header.jsp"></c:import>
@@ -92,8 +98,24 @@
 
  <table class="table table-striped" id="api">
   <thead>
-      <tr>
-          <td>도매시장 : 
+      <tr><!-- Example single danger button -->
+        <div class="btn-group">
+          
+          <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <input type="text" id="depInput" readonly value="">
+          </button>
+         
+          <ul class="dropdown-menu">
+            <input id="dropId" name="whsalCd" > 
+            <li class="deptLi" data-depNum="110001">서울가락</li>
+            <li class="deptLi" data-depNum="311201">구리</li>
+            <li class="deptLi" data-depNum="3">인사팀</li>
+            <li class="deptLi" data-depNum="4">IT개발팀</li>
+            <li class="deptLi" data-depNum="5">생산팀</li>
+          </ul>
+        </div>
+
+          <!-- <td>도매시장 : 
               <select name="whsalCd" id="whsalCd">
                 <option value="110001">서울가락</option>
                 <option value="311201">구리</option>
@@ -104,7 +126,7 @@
                 <option value="210009">부산반여</option>
               </select>
               
-          </td>
+          </td> -->
           <td>
             시작일<input type="text" id="datepicker_start" readonly="readonly" name="saleDateStart">
          </td>
@@ -113,7 +135,7 @@
           </td>
           <td>부류 : 
               <select name="largeCd" id="largeCd">
-                  <option value="">전체</option>
+                  <option value="">전체검색</option>
                   <option value="89">건제품</option>
                   <option value="06">과실류</option>
                   <option value="08">과일과채류</option>
@@ -156,7 +178,6 @@
               </select> 
           </td>
           <td>
-              <button type="submit" >검색</button>
           </td>
       </tr>
     </form>
@@ -178,7 +199,6 @@
       </tr>
       </c:forEach>
       </tbody>
-
   </div>
   
  </table>
@@ -190,16 +210,16 @@
           <li class="page-item ${pager.pre?'':'disabled'}">
           <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
           <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
-            <a class="page-link" href="./pagerTest?page=${pager.startNum-1}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}" aria-label="Previous">
+            <a class="page-link" href="./fixData?page=${pager.startNum-1}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a> 
           </li> 
           <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
           <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-            <li class="page-item"><a class="page-link" href="./pagerTest?page=${i}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}" > ${i}</a> </li>
+            <li class="page-item"><a class="page-link" href="./fixData?page=${i}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}" > ${i}</a> </li>
           </c:forEach> 
           <li class="page-item ${pager.next?'':'disabled'}">
-            <a class="page-link" href="./pagerTest?page=${pager.lastNum+1}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}"  aria-label="Next">
+            <a class="page-link" href="./fixData?page=${pager.lastNum+1}&whsalCd=${pager.whsalCd}&saleDateStart=${pager.saleDateStart}&saleDateEnd=${pager.saleDateEnd}&largeCd=${pager.largeCd}"  aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -230,19 +250,7 @@
            var end = $("#datepicker_end").val();
        });    
   });
-   
 
-//   $("#datepicker_end").datepicker({beforeShow: customRange});
-// function customRange(input) {
-//     if($("#datepicker_start").val() ==''){   
-//         alert('시작일을 먼저 선택하세요');       
-//         return false;
-//     }
-//     var max_date  = $("#datepicker_start").datepicker('getDate');
-//     max_date.setDate(max_date.getDate()+3); // 가져온시작일에서 +7일추가
-//     var min_date = '+0';
-//     return { minDate: min_date,maxDate: max_date};
-// }
 
   </script>
 <!-- ===========footer=============== -->

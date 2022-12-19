@@ -6,9 +6,9 @@
 	<mapper namespace="com.im.home.wholesale.WholeSaleMapper">
 
 		<insert id="setAdd" parameterType="WholeSaleVO">
-		INSERT INTO SALE(saleNum, rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, large, largeName,
+		INSERT INTO SALE(saleNum, rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, mid, midName,
 		small, smallName, totQty, totAmt, minAmt, maxAmt, avgAmt)
-		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName}, #{large}, #{largeName},
+		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{cmpCd}, #{cmpName}, #{large}, #{largeName},#{mid},#{midName},
 		#{small}, #{smallName}, #{totQty}, #{totAmt}, #{minAmt}, #{maxAmt}, #{avgAmt})
 		</insert> 
 	
