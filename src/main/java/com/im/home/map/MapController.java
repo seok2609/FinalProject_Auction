@@ -23,13 +23,27 @@ public class MapController {
 	private MapService mapService;
 	
 	@GetMapping("map")
-	public String setIndex(Model model) throws Exception {
+	public ModelAndView setIndex() throws Exception {
+		ModelAndView mv = new ModelAndView();
 		System.out.println("setMap");
-		List<MapVO> arS = mapService.setStartPoint();
-		List<MapVO> arE = mapService.setEndPoint();
-		model.addAttribute("StartList", arS);
-		model.addAttribute("EndList", arE);
-		return "/deliveryMap/map";
+		
+		List<StartPointVO> arS = mapService.setStartPoint();
+		List<EndPointVO> arE = mapService.setEndPoint();
+		List<DeliveryInfoVO> arI = mapService.setInfo();
+		
+		mv.addObject("StartList", arS);
+		mv.addObject("EndList", arE);
+		mv.addObject("Info", arI);
+		mv.setViewName("/deliveryMap/map");
+		
+		System.out.println("=================");
+		System.out.println("StartList : "+ arS);
+		System.out.println("=================");
+		System.out.println("EndList : "+ arE);
+		System.out.println("=================");
+		System.out.println("EndList : "+ arI);
+		
+		return mv;
 	}
 	
 	@GetMapping("navi")
@@ -41,14 +55,17 @@ public class MapController {
 	@GetMapping("progress")
 	public ModelAndView setPro() throws Exception {
 		ModelAndView mv = new ModelAndView();
-		MapVO mapVO = new MapVO();
+		StartPointVO startPointVO = new StartPointVO();
+		EndPointVO endPointVO = new EndPointVO();
 		
-		List<MapVO> ar = mapService.setStartPoint();
+		List<StartPointVO> ar = mapService.setStartPoint();
 		mv.addObject("startList", ar);
+		System.out.println("=================");
 		System.out.println("StartList : "+ ar);
 		
-		List<MapVO> ar2 = mapService.setEndPoint();
+		List<EndPointVO> ar2 = mapService.setEndPoint();
 		mv.addObject("endList", ar2);
+		System.out.println("=================");
 		System.out.println("EndList : "+ ar2);
 		
 		LocalDate now = LocalDate.now();
@@ -56,8 +73,8 @@ public class MapController {
 		
 		SimpleDateFormat now2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date time = new Date();
-		String time1 = now2.format(time);
-		System.out.println("time1 : "+time1);
+		String timeNow = now2.format(time);
+		System.out.println("timeNow : "+timeNow);
 		
 		mv.setViewName("/deliveryMap/progress");
 		
