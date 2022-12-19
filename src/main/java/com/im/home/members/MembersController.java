@@ -282,18 +282,24 @@ public class MembersController {
 	}
 	
 	@PostMapping(value = "modify")
-	public ModelAndView setMembersModify(MembersVO membersVO, Principal principal, MultipartFile files) throws Exception{
+	public ModelAndView setMembersModify(String id, MembersVO membersVO, Principal principal, MultipartFile files) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		
+		membersVO.setId(principal.getName());	//시큐리티로 로그인한 아이디값을 가져오는 코드
+		
 		log.info("============================회원가입 수정==========================");
-		mv.addObject("membersVO", membersVO);
+		//수정할때 수정 비밀번호도 패스워드 해싱해줌
 		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));
 		int result = membersService.setMembersModify(membersVO, files);
 		
 		log.info("내 수정정보 ===>> {}" ,principal);
 		log.info("수정된 닉네임 :::: {} " , membersVO.getNickName());
+		log.info("수정된 전화번호 ::: {} " , membersVO.getPhone());
+//		log.info("수정된 파일 :: {} " , membersVO.getMembersFileVO().getFileName());
+//		log.info("수정된 파일 오리네임 ::: {} ", membersVO.getMembersFileVO().getOriName());
 //		mv.setViewName("members/login");
+		mv.addObject("membersVO", membersVO);
 		mv.setViewName("redirect:/members/myPage");
 		
 		return mv;

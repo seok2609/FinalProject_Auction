@@ -23,7 +23,7 @@ $("#memberFileAdd").change(function(){
     
         $("#spa").html("사진이 등록되었습니다.");
     }if(mv == null){
-        console.log("현재 없음")
+        console.log("현재 없음");
         $("#spa").html("현재 첨부파일이 존재하지 않습니다.")
     }
 });
@@ -31,7 +31,7 @@ $("#memberFileAdd").change(function(){
 $("#memberFileAdd").blur(function(){
 
     let mv = $("#memberFileAdd").val();
-    
+
     if(mv == null){
         console.log("현재 없음")
         $("#spa").html("현재 첨부파일이 존재하지 않습니다.")

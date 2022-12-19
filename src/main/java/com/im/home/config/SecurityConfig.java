@@ -58,10 +58,11 @@ public class SecurityConfig {
 		
 		httpSecurity
 
-					.cors()
-					.and()
-					.csrf()
-					.disable()
+				.csrf()							//csrf를 적용하면 tocken을 줌
+				.disable()
+				.cors()
+				.configurationSource(this.configurationSource())
+				.and()
 	.authorizeRequests()	//인가요청
 				.antMatchers("./login").permitAll()	// "./login"페이지는 아무나 아무나 접속을 허용
 				.anyRequest().permitAll()

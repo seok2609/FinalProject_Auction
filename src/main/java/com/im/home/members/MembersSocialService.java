@@ -1,6 +1,8 @@
 package com.im.home.members;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -28,9 +30,10 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		String social = userRequest.getClientRegistration().getRegistrationId();
 		log.info("Social : {} ", social);
 
+		OAuth2User oAuth2User = this.socailJoinCheck(userRequest);
 		
 		
-		return super.loadUser(userRequest);
+		return oAuth2User;
 	}
 	
 	
@@ -59,7 +62,37 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		
 		
 		log.info("ClassName : {} " , oAuth2User.getAttribute("properties").getClass());
-		return oAuth2User;
+		
+		Map<String, String> lm = oAuth2User.getAttribute("properties");
+		Map<String, Object> ks = oAuth2User.getAttribute("kakao_account");
+		
+		MembersVO membersVO = new MembersVO();
+		
+		membersVO.setId(oAuth2User.getName());
+		
+		//pw가 없으므로 비워두거나, 랜덤한 값으로 일단 채워넣는다
+		//membersVO.setPw(null);
+		
+		membersVO.setNickName(lm.get("nickname"));
+		membersVO.setEmail(ks.get("email").toString());
+		
+		membersVO.setSocial(userRequest.getClientRegistration().getRegistrationId());
+		
+		membersVO.setAttributes(oAuth2User.getAttributes());
+		
+		//Role을 임의로 작성
+		List<RoleVO> lr = new ArrayList<>();
+		RoleVO roleVO = new RoleVO();
+		
+		roleVO.setRoleName("ROLE_MEMBER");
+		
+		lr.add(roleVO);
+		
+		membersVO.setRoleVOs(lr);
+		
+		
+		
+		return membersVO;
 		
 		
 	}
