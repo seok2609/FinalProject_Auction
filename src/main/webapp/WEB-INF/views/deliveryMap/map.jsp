@@ -6,9 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-	
-</script>
 <style>
 	html, body {width:100%;height:100%;margin:0;padding:0;} 
 	.map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
@@ -20,11 +17,38 @@
 	.custom_typecontrol .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
 	.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
 	.custom_typecontrol .selected_btn:hover {color:#fff;}   
-	          
+	     
+	#progressBar{
+		width: 500px;
+  		height: 30px;
+	}     
+
+	body {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-moz-box-align: center;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-moz-box-pack: center;
+		-ms-flex-pack: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		flex-direction: column;
+		background-color: #eee;
+	}
 </style>
 </head>
 <body>
-	<h1>Test Map</h1>
+	
 	<div class="map_wrap" style="width:450px; height: 400px;">
 		<!-- 지도를 표시할 div 입니다 -->
 		<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div> 
@@ -36,9 +60,32 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae6b0e9fe80d419505ac021baf944e44"></script>
 	<script>
 	
+	console.log("start");
+	var stla;
+	var stlo;
+	var enla;
+	var enlo;
+	
+	var barS;
+	var barE;
+	
+	<c:forEach items="${StartList}" var="list">
+		stla = ${list.latitude};
+		stlo = ${list.longitude};
+	</c:forEach>
+	<c:forEach items="${EndList}" var="list">
+		enla = ${list.latitude};
+		enlo = ${list.longitude};
+	</c:forEach>
+	
+	console.log("stla : "+stla);
+	console.log("stlo : "+stlo);
+	console.log("enla : "+enla);
+	console.log("enlo : "+enlo);
+	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(stla, stlo), // 지도의 중심좌표
 	        level: 9 // 지도의 확대 레벨
 	    };
 	
@@ -117,13 +164,13 @@
 		// 마커를 표시할 위치와 title 객체 배열입니다 
 	    var positions = [ {
 	        title : "시작위치",
-	        latlng : new kakao.maps.LatLng(37.53946477, 126.82873744)
+	        latlng : new kakao.maps.LatLng(stla, stlo)
 	    }, {
 	    	title : "배달트럭",
 	    	latlng : new kakao.maps.LatLng(lat, lon)
 	    }, {
 	        title : "도착위치",
-	        latlng : new kakao.maps.LatLng(37.44597242, 126.88500282)
+	        latlng : new kakao.maps.LatLng(enla, enlo)
 	    } ];
 	 	
 	    // 마커 이미위치 프로그래스바지의 이미지 주소입니다
@@ -176,7 +223,7 @@
 		        });
 		 
 		        distance = Math.round(lineLine.getLength());
-		        
+		        barS = distance;
 	        };
 	        
 	        if (i == 2) {
@@ -194,13 +241,19 @@
 		 
 		        distance = Math.round(lineLine.getLength());
 		        checkD = Math.round(lineLine.getLength());
+		        barE = distance;
 				displayCircleDot(positions[2].latlng, distance);
+				
+				console.log("barE : "+barE);
 	        };
 	         
 	    } 
 	    
 	}
-	    
+
+		var testB = document.getElementById("progress Bar"); 
+
+
 	    //------------------------------------------------------------------------
 	      
 	 
@@ -220,16 +273,29 @@
 	            distanceOverlay.setMap(map);
 	        }
 	    }
-
+	    
+	    var points = [
+	 	    new kakao.maps.LatLng(stla, stlo),
+	 	    new kakao.maps.LatLng(enla, enlo)
+	 	];
+		var bounds = new kakao.maps.LatLngBounds();   
+		for (i = 0; i < points.length; i++) {
+		    bounds.extend(points[i]);
+		}
+		function setBounds() {
+		    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+		    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+		    map.setBounds(bounds);
+		}
+		setBounds();
+		
 	</script>
 	
-	<h3 id="showTest">테스트</h3>
+	<label for="progressBar">택배 오는중</label>
+	<progress id="progressBar" value=basS max=100></progress>
 	<br>
 	
-	<a href="https://map.kakao.com/link/to/18375227">길찾기</a>
-	<a href="./navi">네비실험</a>
 	<a href="./progress">바 실험</a>
-	<a href="./latlon">지도 좌표</a>
 	<a href="./testProgress">바 실험2</a>
 	<a href="./testAnother">다른 맵api 실험</a>
 </body>
