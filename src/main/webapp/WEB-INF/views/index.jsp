@@ -48,7 +48,7 @@
           <h2>Welcome to <span>wholeSale</span></h2>
           <p>Hello. Here is WholeSale Homepage.</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="http://192.168.1.28:4200" class="btn-get-started">Get Started</a>
+            <a href="http://localhost:4200" class="btn-get-started">Get Started</a>
             <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
           </div>
         </div>

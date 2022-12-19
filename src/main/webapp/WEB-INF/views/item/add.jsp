@@ -16,66 +16,13 @@
 	<div class="section-header">
           <h2 style="color: #008374;">상품 등록</h2>
         </div>
-	<div class="container row" style="float: none; margin:0 auto; margin-top: 100px; margin-bottom: 100px;">
+	<div class="container row" style="float: none; margin:0 auto; margin-top: 0px; margin-bottom: 100px;">
 		<form class="row g-3" method="post" action="./add">
-			<input type="text" value="nn" name="id" style="display: none;">
-		  <div class="col-md-6">
-		    <label for="name" class="form-label">상품명</label>
-		    <input type="text" class="form-control" id="name" name="name">
-		  </div>
-		  <div class="col-md-6">
-		    <label for="inputPassword4" class="form-label">상품 선택</label><br>
-		    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">경매 가능 상품보기</button>
-		  </div>
-		  <!-- Scrollable modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-scrollable" id="exampleModal">
-				  <div class="modal-content">
-				      <div class="modal-header">
-				        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      <div class="modal-body">
-				        
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary">Save changes</button>
-				      </div>
-				    </div>
-				</div>
-		  	</div>
-		  <div class="col-md-6">
-		    <label for="headCount" class="form-label">카테고리</label>
-		    <select class="form-select" aria-label="Default select example" name="category">
-			  <option selected>선택</option>
-			  <option value="배추">배추</option>
-			  <option value="무">무</option>
-			  <option value="당근">당근</option>
-			  <option value="양파">양파</option>
-			  <option value="부추">부추</option>
-			  <option value="마늘">마늘</option>
-			  <option value="기타">기타</option>
-			</select>
-		  </div>
-		  <div class="col-md-6">
-		  	<span></span><br>
-		  	* 경매 허용 인원 수는 최소 5명, 최대 10명 입니다.
-		  </div>
-		  <!-- <div class="col-12">
-		    <label for="inputAddress2" class="form-label">내용</label>
-		    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-		  </div> -->
+			
+
 		  
-		  <!-- <div class="col-12">
-			  <input type="text" class="form-control" id="sample6_postcode" placeholder="우편번호">
-			  <input type="button" class="form-control" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-			  <input type="text" class="form-control" id="sample6_address" placeholder="주소"><br>
-			  <input type="text" class="form-control" id="sample6_extraAddress" placeholder="주소2">
-			  <input type="text" class="form-control" id="sample6_detailAddress" placeholder="상세주소">
-		  </div> -->
-		  
-		  <div class="col-12">
+		  <div class="col-md-12">
+		  	<label for="inputCity" class="form-label">산지 검색</label>
 		  	<input type="button" class="form-control" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 		  </div>
 		  
@@ -95,14 +42,7 @@
 		    <label for="inputZip" class="form-label">우편번호</label>
 		    <input type="text" class="form-control" id="sample6_postcode" name="postcode">
 		  </div>
-		  <div class="col-12">
-		    <div class="form-check">
-		      <input class="form-check-input" type="checkbox" id="gridCheck">
-		      <label class="form-check-label" for="gridCheck">
-		        Check me out
-		      </label>
-		    </div>
-		  </div>
+		 
 		  
 		  <div class="mb-3">
 			  <label for="formFile" class="form-label"></label>
@@ -117,6 +57,7 @@
 	</div>
 	</div>
 	</section>
+	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
