@@ -151,11 +151,35 @@ public class AdminMembersService {
 	public int setBlackCancel(MembersReportVO membersReportVO)throws Exception{
 		return adminMembersMapper.setBlackCancel(membersReportVO);
 	}
+	//회원detail에서 블랙
 	public int setBlack(MembersVO membersVO)throws Exception{
 		return adminMembersMapper.setBlack(membersVO);
 	}
+	//회원detail에서 블랙해제
 	public int setBlackC(MembersVO membersVO)throws Exception{
 		return adminMembersMapper.setBlackC(membersVO);
 	}
-	
+	//공지사항 등록
+	public int setCompanyNotice(CompanyNoticeVO companyNoticeVO)throws Exception{
+		return adminMembersMapper.setCompanyNotice(companyNoticeVO);
+	}
+	//공지사항 리스트
+	public List<CompanyNoticeVO> getCompanyNoticeList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getNoticeCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
+		return adminMembersMapper.getCompanyNoticeList(adminPager);
+	}
+	//공지사항 detail
+	public CompanyNoticeVO getNoticeDetail(CompanyNoticeVO companyNoticeVO)throws Exception{
+		return adminMembersMapper.getNoticeDetail(companyNoticeVO);
+	}
+	//공지사항 수정
+	public int setNoticeUpdate(CompanyNoticeVO companyNoticeVO)throws Exception{
+		return adminMembersMapper.setNoticeUpdate(companyNoticeVO);
+	}
+	//공지사항 삭제
+	public int setNoticeDelete(CompanyNoticeVO companyNoticeVO)throws Exception{
+		return adminMembersMapper.setNoticeDelete(companyNoticeVO);
+	}
 }

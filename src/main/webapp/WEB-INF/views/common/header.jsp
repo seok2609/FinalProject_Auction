@@ -22,6 +22,8 @@
   <!-- Template Main CSS File -->
   <link href="/assets/css/main.css" rel="stylesheet">
 
+  <!-- social login JavaScript -->
+  <script defer src="/js/header.js"></script>
   <!-- =======================================================
   * Template Name: Impact - v1.1.1
   * Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
@@ -31,6 +33,7 @@
   
   
   <!-- ======= Header ======= -->
+  
   <section id="topbar" class="topbar d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
       <div class="contact-info d-flex align-items-center">
@@ -48,7 +51,7 @@
 				</c:when>
 						
 				<c:otherwise>
-					<h5>${member.nickName}님 환영합니다!</h5>
+					<h5>${membersVO.nickName}님 환영합니다!</h5>
 				</c:otherwise>
 		</c:choose>
       	</sec:authorize>
@@ -77,7 +80,7 @@
       	 	<sec:authorize access="isAuthenticated()">
       		
       		<sec:authentication property="Principal" var="member"/>      		
-      		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
+      	<%-- 	<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')"> --%>
       		
 
           <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
@@ -86,16 +89,26 @@
             <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
             <li><a href="/kdy/reportRequest">신고 요청</a></li>
 
+             <li><a href="./kdy/adminPage">관리자</a></li>
+
+
+<!--             <li><button type="button" id="kakao">kakao logout</button></li> -->
+	<!-- 		<form action="./members/logout" method="post" id="outForm">
+				<a href="./members/logout">로그아웃</a>
+			</form> -->
+
+
              
             
       		
       		</sec:authorize>
       		
-      		</sec:authorize>
+      	<%-- 	</sec:authorize> --%>
       	<!-- 로그인을 하지 않았을때 -->
   		<sec:authorize access="!isAuthenticated()">
           <li><a href="/members/login">로그인</a></li>
           <li><a href="/members/agree">회원가입</a></li>
+          <li><a href="/oauth2/authorization/kakao">KaKao Login</a></li>
          </sec:authorize>
          
           <li><a href="#hero">Home</a></li>

@@ -80,7 +80,8 @@
 			  <sec:authentication property="Principal" var="member"/>
 			  <h5>아이디 : ${member.id}</h5> 
 			  <h5>이름 : ${member.realName}</h5>
-			  <h5>닉네임 : ${member.nickName}</h5>
+			  <h5>닉네임 : ${membersVO.nickName}</h5>
+			  <input type="hidden" id="thisId" value="${member.id}" style="display: none;">
 			  
              <!--  <a href="#" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a> -->
             </div>
@@ -227,10 +228,12 @@
 <c:import url="../common/footer.jsp"></c:import>
 
 <!-- 마이페이지에서 수정쪽을 누르면 비밀번호 일치해야 수정페이지가 나오게 해주는 ajax -->
-<script>
+<!-- <script>
     $('#successBtn').click(function() {
         const checkPassWord = $('#inputPassWord2').val();
-        console.log("checkPassWord", checkPassWord);
+        const id = $("#thisId").val();
+        console.log("checkPassWord :", checkPassWord);
+        console.log("id: ", id);
         if(checkPassWord == ""){
             alert("비밀번호를 입력하세요.");
         } else{
@@ -248,14 +251,14 @@
                     console.log("비밀번호 틀림");
                     // 비밀번호가 일치하지 않으면
                     alert("비밀번호가 맞지 않습니다.");
-                    window.location.href="/";
+                    /* window.location.href="/"; */
                 }
             }).fail(function(error){
                 alert(JSON.stringify(error));
             })
         }
     });
-</script>
+</script> -->
 
 
 </body>
