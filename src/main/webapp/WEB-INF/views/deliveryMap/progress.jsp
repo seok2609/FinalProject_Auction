@@ -18,13 +18,42 @@
 	.custom_typecontrol .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
 	.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
 	.custom_typecontrol .selected_btn:hover {color:#fff;}   
+	
+	.testCSS{position:static;top:30%;right:30%; width:600px; height:300px;}
+	
+	#progressBar{
+		width: 500px;
+  		height: 30px;
+	}
+	#mapTable{
+		border: 1px solid;
+		text-align: center;	
+		margin-right:auto;
+		margin-left:auto;
+	}
 	          
+	
 </style>
 </head>
 <body>
-	<div id="map" style="width:500px;height:400px;"></div>
-	<div class="custom_typecontrol radius_border">
-			<span id="btnRoadmap" class="selected_btn" onclick="panTo()">현재 위치</span>
+<c:import url="../common/header.jsp"></c:import>
+<!-- <section class="container-fluid col-lg-10 mt-5"> -->
+		<section id="contact" class="contact">
+		<div class="section-header">
+          <h2>택배 위치</h2>
+        </div>
+	
+	<table id="mapTable">
+		<tr>
+			<th>
+	
+        
+	<div id="map" style="width:500px;height:400px;">
+		<div class="custom_typecontrol radius_border">
+				<span id="btnRoadmap" class="selected_btn" onclick="panTo()">현재 위치</span>
+		</div>
+		
+		
 	</div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae6b0e9fe80d419505ac021baf944e44"></script>
 	<script>
@@ -39,14 +68,18 @@
 		
 		var startT = 08;
 		var endT = 20;
+		var testST;
+		var testET;
 		
 		<c:forEach items="${startList}" var="list">
 			stla = ${list.latitude};
 			stlo = ${list.longitude};
+			//testST = ${list.startDate};
 		</c:forEach>
 		<c:forEach items="${endList}" var="list">
 			enla = ${list.latitude};
 			enlo = ${list.longitude};
+			//testET = ${list.endDate};
 		</c:forEach>
 		
 		
@@ -144,6 +177,7 @@
 				position : positions[1].latlng, // 마커를 표시할 위치
 				title : positions[1].title,
 				image : markerImage
+				
 			// 마커 이미지 
 			});
 			
@@ -229,33 +263,63 @@
 			map.panTo(moveLatLon);
 		}
 	 	MK();
+	 	
+	 	var points = [
+	 	    new kakao.maps.LatLng(stla, stlo),
+	 	    new kakao.maps.LatLng(a, b),
+	 	    new kakao.maps.LatLng(enla, enlo)
+	 	];
+		var bounds = new kakao.maps.LatLngBounds();   
+		for (i = 0; i < points.length; i++) {
+		    bounds.extend(points[i]);
+		}
+		function setBounds() {
+		    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+		    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+		    map.setBounds(bounds);
+		}
+		setBounds();
 	</script>
 	
-	<h1>Progress Bar</h1>
-<br>
-<br>
-
-<label for="progressBar">택배 오는중</label>
-<progress id="progressBar" value=Math.floor(disE/(disS+disE)) max="100"> 40% </progress>
-
-<br>
-<text>출발 예정시간 :</text>
-<text id="startTime" value=startT>07:00</text>
-<br>
-<text>도착 예정시간 :</text>
-<text id="endTime" value=endT>20:00</text>
-
-<br>
-<text>현재 시간 :</text>
-<text id="nowTime" value="08">8:00</text>
-<br>
-<text id="result"></text>
-<br>
-<button id="downTime">1시간 전</button>
-<button id="upTime">1시간 후</button>
-
-<br>
-<button id="testBtn">테스트</button>
 	
+	</th>
+			
+			<th>
+				<label for="progressBar">택배 오는중</label>
+	<progress id="progressBar" value="0" max="100"></progress>
+	<div class="testCSS">
+		
+		<br>
+		<text>출발 예정시간 :</text>
+		<text id="startTime" value=startT>07:00</text>
+		<br>
+		<text>출발 예정날짜 : </text>
+		<text>testST</text>
+		<br>
+		<text>도착 예정시간 :</text>
+		<text id="endTime" value=endT>20:00</text>
+		<br>
+		<text>도착 예정날짜 : </text>
+		
+		<br>
+		
+		<br>
+		<text>현재 시간 :</text>
+		<text id="nowTime" value="08">8:00</text>
+		<br>
+		<text id="result"></text>
+		
+		<br>
+		<button id="downTime">1시간 전</button>
+		<button id="upTime">1시간 후</button>
+	</div>		
+			</th>
+		</tr>
+	</table>	
+	
+	<br>
+	<button id="testBtn">테스트</button>
+	
+	<c:import url="../common/footer.jsp"></c:import>
 </body>
 </html>
