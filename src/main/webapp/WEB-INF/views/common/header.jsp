@@ -88,10 +88,10 @@
       		<li><a href="/members/myPage">MyPage</a></li>
             <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
             <li><a href="/kdy/reportRequest">신고 요청</a></li>
-            <li><button type="button" id="kakao">kakao logout</button></li>
-			<form action="./member/logout" method="post" id="outForm">
-				<a href="./member/logout">로그아웃</a>
-			</form>
+<!--             <li><button type="button" id="kakao">kakao logout</button></li> -->
+	<!-- 		<form action="./members/logout" method="post" id="outForm">
+				<a href="./members/logout">로그아웃</a>
+			</form> -->
 
              
             
