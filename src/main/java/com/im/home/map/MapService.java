@@ -11,13 +11,18 @@ public class MapService {
 		@Autowired
 		private MapMapper mapMapper;
 		
-		public List<MapVO> setStartPoint() throws Exception{
-			List<MapVO> ar = mapMapper.setStartPoint(); 
+		public List<StartPointVO> setStartPoint() throws Exception{
+			List<StartPointVO> ar = mapMapper.setStartPoint(); 
 			return ar;
 		}
 		
-		public List<MapVO> setEndPoint() throws Exception{
-			List<MapVO> ar = mapMapper.setEndPoint();
+		public List<EndPointVO> setEndPoint() throws Exception{
+			List<EndPointVO> ar = mapMapper.setEndPoint();
+			return ar;
+		}
+		
+		public List<DeliveryInfoVO> setInfo() throws Exception{
+			List<DeliveryInfoVO> ar = mapMapper.setInfo();
 			return ar;
 		}
 }
