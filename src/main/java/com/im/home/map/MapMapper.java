@@ -9,5 +9,5 @@ public interface MapMapper {
 	
 	public List<StartPointVO> setStartPoint() throws Exception;
 	public List<EndPointVO> setEndPoint() throws Exception;
-	
+	public List<DeliveryInfoVO> setInfo() throws Exception;
 }

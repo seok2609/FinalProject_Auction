@@ -22,32 +22,28 @@
 		width: 500px;
   		height: 30px;
 	}     
-
-	body {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: -webkit-box;
-		display: -moz-box;
-		display: -ms-flexbox;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-align: center;
-		-moz-box-align: center;
-		-webkit-align-items: center;
-		-ms-flex-align: center;
-		align-items: center;
-		-webkit-box-pack: center;
-		-moz-box-pack: center;
-		-ms-flex-pack: center;
-		-webkit-justify-content: center;
-		justify-content: center;
-		flex-direction: column;
-		background-color: #eee;
+	
+	#mapTable{
+		border: 1px solid;
+		text-align: center;	
+		margin-right:auto;
+		margin-left:auto;
 	}
+
 </style>
 </head>
 <body>
+	<c:import url="../common/header.jsp"></c:import>
+<!-- <section class="container-fluid col-lg-10 mt-5"> -->
+		
+		
+		<section id="contact" class="contact">
+		<div class="section-header">
+          <h2>택배 위치</h2>
+        </div>
+	<table id="mapTable">
+		<tr>
+		<th>
 	
 	<div class="map_wrap" style="width:450px; height: 400px;">
 		<!-- 지도를 표시할 div 입니다 -->
@@ -291,12 +287,40 @@
 		
 	</script>
 	
-	<label for="progressBar">택배 오는중</label>
-	<progress id="progressBar" value=basS max=100></progress>
+	</th>
+		<th>
+			<table>
+				<tr>
+					<th>경매장</th>
+					<th>이름</th>
+					<th>설명</th>
+					<th>가격</th>
+					<th>수량</th>
+				
+					<c:forEach items="${Info}" var="Info">
+						<th>${Info.category}</th>
+						<th>${Info.title}</th>
+						<th>${Info.contents}</th>
+						<th>${Info.award}</th>
+						<th>${Info.amount}</th>
+					</c:forEach>
+				</tr>
+			</table>
+		
+			<br>	
+			<label for="progressBar">진행도</label>
+			<br>
+			<progress id="progressBar" value=basS max=100></progress>
+		
+		</th>
+		</tr>
+	</table>
+	
 	<br>
 	
 	<a href="./progress">바 실험</a>
 	<a href="./testProgress">바 실험2</a>
 	<a href="./testAnother">다른 맵api 실험</a>
+	<c:import url="../common/footer.jsp"></c:import>
 </body>
 </html>

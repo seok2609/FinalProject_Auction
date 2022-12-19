@@ -20,4 +20,9 @@ public class MapService {
 			List<EndPointVO> ar = mapMapper.setEndPoint();
 			return ar;
 		}
+		
+		public List<DeliveryInfoVO> setInfo() throws Exception{
+			List<DeliveryInfoVO> ar = mapMapper.setInfo();
+			return ar;
+		}
 }

@@ -29,14 +29,19 @@ public class MapController {
 		
 		List<StartPointVO> arS = mapService.setStartPoint();
 		List<EndPointVO> arE = mapService.setEndPoint();
+		List<DeliveryInfoVO> arI = mapService.setInfo();
+		
 		mv.addObject("StartList", arS);
 		mv.addObject("EndList", arE);
+		mv.addObject("Info", arI);
 		mv.setViewName("/deliveryMap/map");
 		
 		System.out.println("=================");
 		System.out.println("StartList : "+ arS);
 		System.out.println("=================");
 		System.out.println("EndList : "+ arE);
+		System.out.println("=================");
+		System.out.println("EndList : "+ arI);
 		
 		return mv;
 	}

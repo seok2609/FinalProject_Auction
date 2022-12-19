@@ -25,32 +25,29 @@
 		width: 500px;
   		height: 30px;
 	}
-	          
-	body {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: -webkit-box;
-		display: -moz-box;
-		display: -ms-flexbox;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-box-align: center;
-		-moz-box-align: center;
-		-webkit-align-items: center;
-		-ms-flex-align: center;
-		align-items: center;
-		-webkit-box-pack: center;
-		-moz-box-pack: center;
-		-ms-flex-pack: center;
-		-webkit-justify-content: center;
-		justify-content: center;
-		flex-direction: column;
-		background-color: #eee;
+	#mapTable{
+		border: 1px solid;
+		text-align: center;	
+		margin-right:auto;
+		margin-left:auto;
 	}
+	          
+	
 </style>
 </head>
 <body>
+<c:import url="../common/header.jsp"></c:import>
+<!-- <section class="container-fluid col-lg-10 mt-5"> -->
+		<section id="contact" class="contact">
+		<div class="section-header">
+          <h2>택배 위치</h2>
+        </div>
+	
+	<table id="mapTable">
+		<tr>
+			<th>
+	
+        
 	<div id="map" style="width:500px;height:400px;">
 		<div class="custom_typecontrol radius_border">
 				<span id="btnRoadmap" class="selected_btn" onclick="panTo()">현재 위치</span>
@@ -284,9 +281,11 @@
 		setBounds();
 	</script>
 	
-	<br>
-	<br>
-	<label for="progressBar">택배 오는중</label>
+	
+	</th>
+			
+			<th>
+				<label for="progressBar">택배 오는중</label>
 	<progress id="progressBar" value="0" max="100"></progress>
 	<div class="testCSS">
 		
@@ -309,13 +308,18 @@
 		<text id="nowTime" value="08">8:00</text>
 		<br>
 		<text id="result"></text>
-		<textarea value=disE></textarea>
+		
 		<br>
 		<button id="downTime">1시간 전</button>
 		<button id="upTime">1시간 후</button>
-	</div>
+	</div>		
+			</th>
+		</tr>
+	</table>	
+	
 	<br>
 	<button id="testBtn">테스트</button>
 	
+	<c:import url="../common/footer.jsp"></c:import>
 </body>
 </html>

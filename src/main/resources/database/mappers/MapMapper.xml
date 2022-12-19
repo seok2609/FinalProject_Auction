@@ -12,4 +12,9 @@
 		SELECT * FROM ENDPOINT WHERE E_NUM = 3
 	</select>
 	
+	<select id="setInfo" parameterType="DeliveryInfoVO" resultType="DeliveryInfoVO">
+		SELECT A.CATEGORY, A.TITLE, A.CONTENTS ,A.AWARD, P.AMOUNT  FROM DELIVERY D INNER JOIN PAY P
+		ON (D.AUCTION_NUM = P.AUCTION_NUM) INNER JOIN AUCTION A
+		ON (P.AUCTION_NUM = A.AUCTION_NUM) WHERE A.AUCTION_NUM=1;
+	</select>
 </mapper>
