@@ -54,9 +54,8 @@ public class AuctionController {
 	
 	
 	@GetMapping("vidu")
-	public void viduTest(Cookie cookie, MembersVO membersVO) {
-		cookie.setDomain("http://192.168.1.28:4200");
-		cookie.setValue(membersVO.getName());
+	public void viduTest() {
+		
 		
 	}
 
