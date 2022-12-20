@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +29,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- chart js -->
 <script>
     $(function() {
       fn_default_datepicker();
@@ -46,11 +49,31 @@
 
                   <div class="pricing-item">
                     <c:if test="${!empty vo}">
-                        <h3> ${vo[0].whsalName} 상세 경매 내역 </h3>
+                        <h3> ${vo[0].whsalName} 경매 상세 내역 </h3>
+                        <br>
                       </c:if>
                       <c:if test="${empty vo}">
+                       <h3>조회 데이터가 없습니다.</h3>
+                       <br>
                       </c:if>
 
+                    
+
+
+    <input type="hidden" id="w1Name" value="${bestW[0].midName}">
+    <input type="hidden" id="w2Name" value="${bestW[1].midName}">
+    <input type="hidden" id="w3Name" value="${bestW[2].midName}">
+    <input type="hidden" id="w4Name" value="${bestW[3].midName}">
+    <input type="hidden" id="w5Name" value="${bestW[4].midName}">
+    <input type="hidden" id="w6Name" value="${bestW[5].midName}">
+    <input type="hidden" id="w1Cnt" value="${bestW[0].dataCnt}">
+    <input type="hidden" id="w2Cnt" value="${bestW[1].dataCnt}">
+    <input type="hidden" id="w3Cnt" value="${bestW[2].dataCnt}">
+    <input type="hidden" id="w4Cnt" value="${bestW[3].dataCnt}">
+    <input type="hidden" id="w5Cnt" value="${bestW[4].dataCnt}">
+    <input type="hidden" id="w6Cnt" value="${bestW[5].dataCnt}">
+
+    <canvas id="myLineChart"></canvas>
                     <table class="table table-hover" id="api">
                         <thead>
                             <tr>
@@ -189,7 +212,54 @@
       </section>
 
    
+<script>
 
+let w1Name = $("#w1Name").val();
+let w2Name = $("#w2Name").val();
+let w3Name = $("#w3Name").val();
+let w4Name = $("#w4Name").val();
+let w5Name = $("#w5Name").val();
+let w6Name = $("#w6Name").val();
+let w1Cnt = $("#w1Cnt").val();
+let w2Cnt = $("#w2Cnt").val();
+let w3Cnt = $("#w3Cnt").val();
+let w4Cnt = $("#w4Cnt").val();
+let w5Cnt = $("#w5Cnt").val();
+let w6Cnt = $("#w6Cnt").val();
+
+      var sum = Number("{{sum}}");
+        var ctx = document.getElementById("myLineChart");
+        var myPieChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: [w1Name, w2Name, w3Name],
+            datasets: [{
+              data: [w1Cnt, w2Cnt, w3Cnt],
+              backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+              hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+              hoverBorderColor: "rgba(234, 236, 244, 1)",
+            }],
+          },
+          options: {
+            maintainAspectRatio: false,
+            tooltips: {
+              backgroundColor: "rgb(255,255,255)",
+              bodyFontColor: "#858796",
+              borderColor: '#dddfeb',
+              borderWidth: 1,
+              xPadding: 15,
+              yPadding: 15,
+              displayColors: false,
+              caretPadding: 10,
+            },
+            legend: {
+              display: false
+            },
+            cutoutPercentage: 0,
+          },
+          
+        });
+</script>
 
 <script>
   

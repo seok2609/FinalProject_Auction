@@ -27,4 +27,6 @@ public interface WholeSaleMapper {
 	
 	public WholeSaleVO getTotAmt(String saleDate)throws Exception;
 	
+	public List<WholeSaleVO> getMidSale(Pager pager)throws Exception;
+	
 }

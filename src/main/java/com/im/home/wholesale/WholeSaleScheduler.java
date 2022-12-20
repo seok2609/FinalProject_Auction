@@ -28,8 +28,8 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	@Autowired
 	private  WholeSaleMapper wholeSaleMapper;
 	
-	@Scheduled(cron = "0 30 6 * * 1-7") // 매일 오전 6시 30분 실행
-	//@Scheduled(cron = "50 * * * *  *") //test용 3분 마다 실행
+	//@Scheduled(cron = "0 30 6 * * 1-7") // 매일 오전 6시 30분 실행
+	@Scheduled(cron = "50 10 * * *  *") //test용 3분 마다 실행
 	public void setTodayData() throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	      Calendar c1 = Calendar.getInstance(); 
@@ -51,7 +51,7 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	    				 .build();
 	    		
 	    		Mono<String> res = webClient.get()
-	    				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j+"&saleDate=20221210")
+	    				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j+"&saleDate=20221216")
 	    				.retrieve()
 	    				.bodyToMono(String.class);
 	    				
@@ -150,7 +150,6 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 						wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
 						wholeSaleVO.setMid(jsonObj.get("mid").toString());
 						wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-						wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
 						wholeSaleVO.setCost(jsonObj.get("cost").toString());
 						wholeSaleVO.setQty(jsonObj.get("qty").toString());
 						wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
@@ -190,7 +189,6 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 								wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
 								wholeSaleVO.setMid(jsonObj.get("mid").toString());
 								wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-								wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
 								wholeSaleVO.setCost(jsonObj.get("cost").toString());
 								wholeSaleVO.setQty(jsonObj.get("qty").toString());
 								wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
@@ -230,7 +228,6 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 									wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
 									wholeSaleVO.setMid(jsonObj.get("mid").toString());
 									wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-									wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
 									wholeSaleVO.setCost(jsonObj.get("cost").toString());
 									wholeSaleVO.setQty(jsonObj.get("qty").toString());
 									wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
