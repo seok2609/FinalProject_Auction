@@ -80,6 +80,5 @@ $('#largeCd').change(function(){
     }
 })
 
-
 })
 
