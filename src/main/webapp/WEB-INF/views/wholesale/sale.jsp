@@ -17,7 +17,6 @@
   padding: 15px;
   font-weight: 600;
     }
-
 </style>
 <script defer src="/js/wholesale/sale.js"></script>
 </head>
@@ -193,7 +192,6 @@
 
 
 <script>
-
   
 $(document).ready(function(){
     
@@ -214,8 +212,6 @@ $(document).ready(function(){
          var end = $("#datepicker_end").val();
      });    
 });
-
-
 </script>
 <!-- ===========footer=============== -->
 <c:import url="../common/footer.jsp"></c:import>
