@@ -84,12 +84,13 @@
           <li class="dropdown"><a href="#"><span>도매정보</span><i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="/wholesale/realtime">실시간경매</a></li>
-              <li class="dropdown"><a href="#"><span>정산경매</span><i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <li><a href="/wholesale/sale">거래정보</a></li>
+             <!-- <li class="dropdown"><a href="#"><span>정산경매</span><i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
                   <li><a href="/wholesale/sale">거래정보</a></li>
-                  <li><a href="/wholesale/chart">통계정보</a></li>
+                  <li><a href="/wholesale/chart">통계정보</a></li> 
                 </ul>
-              </li>
+              </li>-->
             </ul>
           </li>
       	 <!-- 로그인이 성공했다면 -->
