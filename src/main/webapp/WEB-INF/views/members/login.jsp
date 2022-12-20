@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,7 @@
   }
 </style>
 <script defer src="/js/login.js"></script>
+<script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		  
 </head>
 <body>
@@ -56,7 +58,23 @@
                 
               </div>
 
-
+              	<h3>${membersVO.social}</h3>              
+              <sec:authorize access="!isAuthenticated()">
+              
+              	<sec:authentication property="Principal" var="member"/>
+              	<h3>${membersVO.social}</h3>
+              
+              </sec:authorize>
+              
+              
+              
+               <!--  <a href="/oauth2/authorization/kakao">카카오 간편가입</a> -->
+               	<div style="float: right; margin-top: 10px; cursor: pointer;">
+					<input type="button" id="loginBtn" onclick="location='/oauth2/authorization/kakao'" value="카카오 간편가입">
+					<img alt="" src="/assets/img/kakao_login_medium_narrow.png" onclick="location='/oauth2/authorization/kakao'">
+				</div>
+				
+				
 				<div class="form-group mb-3">
 				    <input type="checkbox" name="rememberId" class="form-check-input" id="exampleCheck2">
 				    	ID저장하기
