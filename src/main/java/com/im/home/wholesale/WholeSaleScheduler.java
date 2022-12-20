@@ -51,7 +51,7 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	    				 .build();
 	    		
 	    		Mono<String> res = webClient.get()
-	    				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j+"&saleDate=20221216")
+	    				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j+"&saleDate="+yesterday)
 	    				.retrieve()
 	    				.bodyToMono(String.class);
 	    				
