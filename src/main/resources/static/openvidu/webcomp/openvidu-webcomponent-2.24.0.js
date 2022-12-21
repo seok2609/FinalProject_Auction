@@ -1,3 +1,4 @@
+
 (() => {
   "use strict";
   var e,
@@ -4632,12 +4633,11 @@
             }),
             (se.prototype.getTokenParams = function (g) {
               var O = g.match(
-                //?
-                /^(ws?)\:\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/
+                /^(wss?)\:\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/
               );
               if (O) {
                 var F = {
-                    protocol: 'ws',//O[1],
+                    protocol: O[1],
                     host: O[2],
                     hostname: O[3],
                     port: O[4],
@@ -4663,7 +4663,7 @@
                   sendBrowserLogs: I.sendBrowserLogs,
                   edition: I.edition,
                   wsUri: F.protocol + "://" + F.host + "/openvidu",
-                  httpUri: "http://" + F.host,
+                  httpUri: "https://" + F.host,
                 };
               }
               throw new Error('Token not valid: "'.concat(g, '"'));
@@ -17014,7 +17014,7 @@
         }
       }
       const UN =
-        /^(?:(?:http?|mailto|data|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi;
+        /^(?:(?:https?|mailto|data|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi;
       function Vd(t) {
         return (t = String(t)).match(UN) ? t : "unsafe:" + t;
       }
@@ -33296,7 +33296,7 @@
                 "GET" === e.method ||
                 "HEAD" === e.method ||
                 o.startsWith("http://") ||
-                o.startsWith("http://")
+                o.startsWith("https://")
               )
                 return i.handle(e);
               const r = this.tokenService.getToken();
@@ -47703,7 +47703,7 @@
         Z7 = /[\/?#]/,
         X7 = /[-+&@#/%=~_()|'$*\[\]{}\u2713]/,
         kI = /[?!:,.;^]/,
-        NI = /http?:\/\//i,
+        NI = /https?:\/\//i,
         J7 = new RegExp("^" + NI.source, "i"),
         e$ = new RegExp(kI.source + "$"),
         t$ = /^(javascript|vbscript):/i,
@@ -47733,7 +47733,7 @@
       var s$ =
           /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
         a$ = /[:/?#]/,
-        c$ = /^(http?:\/\/)?(www\.)?/i,
+        c$ = /^(https?:\/\/)?(www\.)?/i,
         u$ = /^\/\//,
         d$ = (function (t) {
           function n(e) {
@@ -62897,6 +62897,13 @@
               e && 13 === e.keyCode && (e.preventDefault(), this.sendMessage());
             }
             sendMessage() {
+              $.ajax({
+                type:"GET",
+                url:"http://192.168.1.28:81/auction/test",
+                success:function(result){
+                  console.log("ajax 결과 : ", result);
+                }
+              })
               this.message &&
                 (this.chatService.sendMessage(this.message),
                 (this.message = ""));
@@ -69743,6 +69750,7 @@
             this.onToolbarActivitiesPanelButtonClicked.emit();
           }
           _onToolbarFullscreenButtonClicked() {
+            console("asdfasdfasfd");
             this.onToolbarFullscreenButtonClicked.emit();
           }
           onStartRecordingClicked(e) {
