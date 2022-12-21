@@ -109,13 +109,13 @@
               </div>
               
               <div class="d-flex" style="margin-left: 400px;">
-                <div class="text-center" id="inquiryAddBottonST" onclick="location.href='/kdy/responseReportNo?report_id=${reportDetail.report_id}';">
+                <div class="text-center" id="inquiryAddBotton" onclick="location.href='/kdy/responseReportNo?report_id=${reportDetail.report_id}';">
                   <button type="submit" id="inquiryAddBtn1">거절</button>
                 </div>
-                <div class="text-center" id="inquiryAddBottonST" onclick="location.href='/kdy/responseReportOk?report_id=${reportDetail.report_id}';">
+                <div class="text-center" id="inquiryAddBotton" onclick="location.href='/kdy/responseReportOk?report_id=${reportDetail.report_id}';">
                   <button type="submit" id="inquiryAddBtn2">승인</button>
                 </div>
-                <div class="text-center" id="inquiryAddBottonST"  onclick="location.href='/kdy/report';">
+                <div class="text-center" id="inquiryAddBotton"  onclick="location.href='/kdy/report';">
                   <button type="submit" id="inquiryAddBtn">뒤로가기</button>
                 </div>
               </div>
