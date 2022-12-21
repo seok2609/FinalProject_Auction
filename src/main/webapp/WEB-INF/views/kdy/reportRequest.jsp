@@ -49,8 +49,8 @@
                 <label for="formFileSm" class="form-label bc">증거 사진 첨부 (선택)</label>
                 <input class="form-control form-control-sm" id="reportFileAdd" name="files" type="file">
               </div>
-              <div class="text-center">
-                <button type="button" id="inquiryAddBtn" onclick="reportNullCheck()">문의하기</button>
+              <div class="text-center" style="margin-top: 15px;">
+                <button type="button"  class="btn btn-success" id="inquiryAddBtn" onclick="reportNullCheck()">문의하기</button>
               </div>
             </form>
           </div>
