@@ -43,7 +43,7 @@
 
 
           <div class="col-lg-8" id="loginSt">
-            <form action="login" method="post">
+            <form action="login" method="post" id="frm">
               <div class="row" >
               
                 <div class="form-group mt-3">
@@ -91,7 +91,7 @@
                 <div class="sent-message">Your message has been sent. Thank you!</div> -->
               </div>
               <div class="text-center">
-              	<button type="submit" id="loginBtn">로그인</button>
+              	<button type="button" id="loginBtn" onclick="blackMem()">로그인</button>
               </div>
             </form>
           </div><!-- End Contact Form -->

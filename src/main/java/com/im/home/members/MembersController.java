@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.im.home.admin.AdminMembersService;
 import com.im.home.admin.AdminMembersVO;
 
 import io.openvidu.java.client.Session;
@@ -46,11 +47,13 @@ public class MembersController {
 	private PasswordEncoder passwordEncoder;
 //	@Autowired
 //	private MailSenderRunner mailSenderRunner;
+	@Autowired
+	private AdminMembersService adminMembersService;
 	
 	
 	@GetMapping(value = "login")
 	public String getMembersLogin() throws Exception{
-	
+		
 		return "members/login";
 	}
 	
@@ -438,6 +441,16 @@ public class MembersController {
 			return result;
 		}
 	
-	
-	
+		@PostMapping("black")
+		@ResponseBody
+		public int getBlack(MembersVO membersVO) throws Exception{
+			
+			membersVO = adminMembersService.getMemberBlack(membersVO);
+			int result = membersVO.getBlack();	
+			log.info("아아아아아아ㅏ앙 ===> {}", result);
+			return result;
+			
+		}
+		
+		
 }

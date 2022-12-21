@@ -56,7 +56,7 @@
 				</c:when>
 						
 				<c:otherwise>
-					<h5>${membersVO.nickName}님 환영합니다!</h5>
+					<h5>${member.nickName}님 환영합니다!</h5>
 				</c:otherwise>
 		</c:choose>
       	</sec:authorize>

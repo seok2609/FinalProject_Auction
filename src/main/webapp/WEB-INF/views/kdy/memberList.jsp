@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
                 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+                <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -184,6 +185,12 @@
                         <div class="card-header py-3 row" style="background-color: #008374; width: 1620px; margin-left: 1px;">
                             <div class="m-0 font-weight-bold" style="color: white;">회원</div>
 
+                            <sec:authorize access="isAuthenticated()">
+      		                    <sec:authentication property="Principal" var="member"/>
+                                <input type="hidden" name="id" value="${member.id}">
+                                </sec:authorize>
+
+                            
                                 <form action="./memberList" style="margin-left: -100px; margin-top: -25px;" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
                                     <div class="col-12">
                                         <div class="input-group" id="memberListSearch">
@@ -200,18 +207,18 @@
                         </div>
 
                             <tbody>
-                                <c:forEach items="${membersVO}" var="membersVO">
+                                <c:forEach items="${membersVO}" var="mVO">
                                     <c:choose>
-                                        <c:when test="${membersVO.black < 2}">
-                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='/kdy/membersDetail?id=${membersVO.id}';">
+                                        <c:when test="${mVO.black < 2}">
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='/kdy/membersDetail?id=${mVO.id}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
                                                     <div class="d-flex">
                                                         <div class="p-2 w-100">
                                                             <div class="container2" >
-                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCss">아이디 : ${membersVO.id}</div>
-                                                                <div class="contents" id="blackMembersCss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
+                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCss">아이디 : ${mVO.id}</div>
+                                                                <div class="contents" id="blackMembersCss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${mVO.nickName}</div>
                                                                 <div id="blackMembersCssss" style="font-weight: bold; width: 180px; margin-left: 1470px; margin-top: -45px;">
-                                                                    ${membersVO.roleVO.roleName}
+                                                                    ${mVO.roleVO.roleName}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -220,14 +227,14 @@
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/membersDetail?id=${membersVO.id}';">
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/membersDetail?id=${mVO.id}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
                                                     <div class="d-flex">
                                                         <div class="p-2 w-100">
                                                             <div class="container2" >
-                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCsss">아이디 : ${membersVO.id}</div>
-                                                                <div class="contents" id="blackMembersCsss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
-                                                                <div id="blackMembersCsss" onclick="location.href='/kdy/blackC?id=${membersVO.id}'" style="font-weight: bold; width: 100px; margin-left: 1500px; margin-top: -60px;">
+                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCsss">아이디 : ${mVO.id}</div>
+                                                                <div class="contents" id="blackMembersCsss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${mVO.nickName}</div>
+                                                                <div id="blackMembersCsss" onclick="location.href='/kdy/blackC?id=${mVO.id}'" style="font-weight: bold; width: 100px; margin-left: 1500px; margin-top: -60px;">
                                                                    블 랙
                                                                 </div>
                                                             </div>
