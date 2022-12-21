@@ -15,7 +15,7 @@
   #signUpSt{
     margin-left: 250px;
   }
-  .bc{
+  .bc, #imgSpan{
     color: #008374;
   }
   	#proDiv{
