@@ -29,7 +29,7 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	private  WholeSaleMapper wholeSaleMapper;
 	
 	@Scheduled(cron = "0 30 6 * * 1-7") // 매일 오전 6시 30분 실행
-	//@Scheduled(cron = "50 10 * * *  *") //test용 3분 마다 실행
+	//@Scheduled(cron = "10 37 * * *  *") //test용 3분 마다 실행
 	public void setTodayData() throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	      Calendar c1 = Calendar.getInstance(); 
