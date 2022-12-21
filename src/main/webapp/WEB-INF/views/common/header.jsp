@@ -101,6 +101,9 @@
       		<li><a href="./members/myPage">마이페이지</a></li>
           <li><a href="./kdy/inquiryRequest">1대1문의</a></li>
           <li><a href="./kdy/reportRequest">신고요청</a></li>
+             <sec:authorize access="hasAnyRole('ADMIN')">
+             <li><a href="/kdy/adminPage">Admin</a></li>
+			</sec:authorize>
 
       		</sec:authorize>
       		</sec:authorize>

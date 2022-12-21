@@ -123,6 +123,7 @@
                 <a class="collapse-item" href="./saleList">판 매 내 역</a>
                 <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
                 <a class="collapse-item" href="./paymentList">결 제 내 역</a>
+                <a class="collapse-item" href="./cNotice">공지사항 등록</a>
             </div>
         </div>
     </li>
@@ -144,9 +145,6 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             블랙 회원</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${totalMembersBlack} 명</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>

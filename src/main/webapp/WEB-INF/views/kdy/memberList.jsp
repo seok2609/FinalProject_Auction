@@ -18,7 +18,7 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <style>
 
        #mydiv{
@@ -44,11 +44,12 @@
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
        }
     </style>
-
+    <script  defer src="/kdy/js/admin.js"></script>
 </head>
 
 <body id="page-top">
     <c:import url="../common/header.jsp"></c:import>
+    
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -123,6 +124,7 @@
                     <a class="collapse-item" href="./saleList">판 매 내 역</a>
                     <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
                     <a class="collapse-item" href="./paymentList">결 제 내 역</a>
+                    <a class="collapse-item" href="./cNotice">공지사항 등록</a>
                 </div>
             </div>
         </li>
@@ -137,8 +139,8 @@
 
                     <div class="row" id="mydiv" style="margin-left: -1px;">
                         <!-- End of Topbar -->
-                        <div class="col-xl-3 col-md-6 mb-4" style="margin-left: 15px;" >
-                            <div class="card border-left-success  h-100 py-2"  >
+                        <div class="col-xl-3 col-md-6 mb-4" style="margin-left: 15px;"  id="cc">
+                            <div class="card border-left-success  h-100 py-2" >
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -146,14 +148,36 @@
                                                 총 회원</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 건</div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" style="display: none;" id="mobu" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Launch demo modal
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            ...
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
                     <!-- DataTales Example -->
                     <div class="container-fluid" style="width: 1650px;" >
                     <div class="card shadow mb-4" >

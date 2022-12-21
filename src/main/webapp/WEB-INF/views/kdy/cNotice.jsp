@@ -125,33 +125,46 @@
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
         </ul>
-        <!-- Content Wrapper -->
-        <div id="contact" class="contact" style="margin-left: 500px;">
+
+        <div id="contact" class="contact" style="margin-left: 350px;">
             <div class="container" data-aos="fade-up">
               <div class="section-header" style="margin-top: 90px;">
                 <h2>공지사항 등록</h2>
               </div>
-              <div class="row gx-lg-0 gy-4 ">
-    
+
+              <div class="row " style="width: 1000px;">
                <div style="height: 50px;">
                    <div class="d-flex">
-                     <div class="info-item" style="width: 900px; text-align: center;">
-                         <div>
-                           <h4 style="margin-top: 0px;">[ 안 내 ]</h4>
-                           <p>제목, 내용 작성은 필수입니다</p>
-                         </div>
+                     <div class="info-item d-flex">
+                        <div>
+                            <h4 style="margin-top: 0px;">[ 안 내 ]</h4>
+                            
+                          </div>
+                     </div><!-- End Info Item -->
+     
+                     <div class="info-item d-flex">
+                        <div>
+                            <p>제목, 내용 작성은 필수입니다</p>
+                          </div>
+                     </div><!-- End Info Item -->
+
+                     <div class="info-item d-flex">
+                        <div>
+                           
+                          </div>
                      </div><!-- End Info Item -->
                    </div>
                </div>
-               <form method="post" action="./cNotice" id="frm">
+             
                 <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
+                    <form method="post" action="./cNotice" id="frm">
                     <div class="form-group mt-3">
-                        <div id="information">공지사항 제목 : </div>
-                      <input type="text" class="form-control" name="notice_title" id="notice_title" style="color: red">
+                        공지사항 제목 : 
+                      <input type="text" class="form-control"name="notice_title" id="notice_title" style="color: red">
                     </div>
                     <div class="form-group mt-3">
-                      <div id="information">공지사항 내용 : </div>
-                      <textarea class="form-control" name="notice_contents" id="notice_contents" rows="7" ></textarea>
+                      <div id="information">공지 사항 : </div>
+                      <textarea class="form-control" name="notice_contents" id="notice_contents"  rows="7"></textarea>
                     </div>
                     <div class="d-flex">
                         <div class="text-center">
@@ -161,12 +174,12 @@
                             <button class="btn btn-success"  type="button" id="noticeB">뒤로가기</button>
                           </div>
                     </div>
+                    </form>
                 </div>
-               <form>
-
               </div> 
             </div>
       </div>
+    
            </div> 
     </div>
     
