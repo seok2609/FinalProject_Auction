@@ -43,7 +43,12 @@ $("#agreeBtn").click(function(){
     console.log(flag);
 
     if(!flag){  //약관을 모두 동의하지 않았다면
-        alert("필수약관을 모두 동의하셔야 합니다.");
+        // alert("필수약관을 모두 동의하셔야 합니다.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '필수약관을 모두 동의하셔야 합니다.',
+          })
     }else{
         location='./signUpHead';
     }

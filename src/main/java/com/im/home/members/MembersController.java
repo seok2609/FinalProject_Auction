@@ -196,11 +196,34 @@ public class MembersController {
 		return mv;
 	}
 	
+	
+	//아이디 중복검사
 	@GetMapping(value = "idCheck")
 	@ResponseBody	//응답을 거치지 않고 바로 View (JSP)로 보냄
 	public Integer getIdCheck(MembersVO membersVO) throws Exception{
 		
 		int result = membersService.getIdCheck(membersVO);
+		
+		return result;
+	}
+	
+	
+	//닉네임 중복검사
+	@GetMapping(value = "nickNameCheck")
+	@ResponseBody
+	public Integer getNickNameCheck(MembersVO membersVO) throws Exception{
+		
+		int result = membersService.getNickNameCheck(membersVO);
+		
+		return result;
+	}
+	
+	//전화번호 중복검사
+	@GetMapping(value = "phoneCheck")
+	@ResponseBody
+	public Integer getPhoneCheck(MembersVO membersVO) throws Exception{
+		
+		int result = membersService.getPhoneCheck(membersVO);
 		
 		return result;
 	}
