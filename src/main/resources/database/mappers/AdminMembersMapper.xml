@@ -70,6 +70,7 @@
 		<select id="getCompanyNoticeList" parameterType="AdminPager" resultType="CompanyNoticeVO">
 			SELECT * FROM COMPANY_NOTICE
 			ORDER BY NOTICE_NUM DESC
+			LIMIT #{startRow}, #{perPage}
 		</select>
 			<!-- 공지사항 카운트 -->
 			<select id="getNoticeCount" parameterType="AdminPager" resultType="Long">

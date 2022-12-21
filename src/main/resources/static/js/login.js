@@ -50,8 +50,6 @@ $("#checkEmail").click(function () {
     })
 })
 
-
-
 function blackMem(){
     let id = $("#id").val();
     console.log("아이디:",id);
@@ -63,7 +61,7 @@ function blackMem(){
         },
         success : function(result){
             if(result == 2){
-                alert("블랙회원");
+                alert("블랙회원은 로그인이 불가합니다.");
             }else{
               $("#frm").submit();  
             }
