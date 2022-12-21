@@ -91,10 +91,26 @@ public class MembersService {
 		return membersVO;
 	}
 
-	
+	//아이디 중복체크
 	public Integer getIdCheck(MembersVO membersVO) throws Exception{
 		
 		int result = membersMapper.getIdCheck(membersVO);
+		
+		return result;
+	}
+	
+	//닉네임 중복체크
+	public Integer getNickNameCheck(MembersVO membersVO) throws Exception{
+		
+		int result = membersMapper.getNickNameCheck(membersVO);
+		
+		return result;
+	}
+	
+	//전화번호 중복체크
+	public Integer getPhoneCheck(MembersVO membersVO) throws Exception{
+		
+		int result = membersMapper.getPhoneCheck(membersVO);
 		
 		return result;
 	}
