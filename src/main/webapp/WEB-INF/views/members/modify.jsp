@@ -99,7 +99,9 @@
 			
 			<input type="hidden" value="${resultDrop}" id="rd">
 			<!-- <button type="button" id="dropBtn">회원탈퇴</button> -->
-			<button type="button" id="dropBtn">회원탈퇴</button>
+
+				<button type="button" id="dropBtn" class="btn btn-danger">회원탈퇴</button>
+				
 			<div>
 				<c:if test="${message == false}">
 					비밀번호가 일치하지 않습니다.

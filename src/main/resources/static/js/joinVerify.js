@@ -251,7 +251,7 @@ $("#inputBirth").blur(function(){
      results[6] = result;
     
     if(!birth_pattern.test($("#inputBirth").val())){
-        $("#birthHelp").html("생년월일 8자리를 입력해주세요.");
+        $("#birthHelp").html("생년월일 날짜 형태를 확인해주세요. 유효하지 않은 일자 입니다.");
         $("#inputBirth").focus();
     }else if($("#inputBirth").val() == ''){
         $("#birthHelp").html("생년월일을 입력해주세요.");

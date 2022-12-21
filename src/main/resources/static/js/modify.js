@@ -3,15 +3,7 @@ console.log("modify.js");
 
 
 
-//console.log("mv : " , mv);
 
-// if(mv != null){
-    //     console.log("사진이 있따");
-    
-    //     $("#spa").html("");
-    // }else{
-        //     $("#spa").html("현재 첨부파일이 존재하지 않습니다.")
-        // }
         
 $("#memberFileAdd").change(function(){
 
@@ -22,7 +14,7 @@ $("#memberFileAdd").change(function(){
         console.log("사진이 있따");
     
         $("#spa").html("사진이 등록되었습니다.");
-    }if(mv == null){
+    }else if(mv == null){
         console.log("현재 없음");
         $("#spa").html("현재 첨부파일이 존재하지 않습니다.")
     }
@@ -38,6 +30,17 @@ $("#memberFileAdd").blur(function(){
     }
 
 });
+
+// $("#membrerFileAdd").ready(function(){
+
+//     let mv = $("#memberFileAdd").val();
+
+//     if(mv == null){
+//         console.log("현재 없음")
+//         $("#spa").html("현재 첨부파일이 존재하지 않습니다.")
+//     }
+
+// })
 
 
 

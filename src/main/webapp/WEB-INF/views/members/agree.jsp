@@ -8,6 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#agreeBtn{
+		background: var(--color-primary);
+		border: 0;
+		padding: 14px 45px;
+		color: #fff;
+		transition: 0.4s;
+		border-radius: 50px;
+	}
+</style>
 <script defer src="/js/agree.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -681,7 +691,7 @@
           </div>
             	<!-- 전체 약관동의 체크박스 -->
             	<div>
-              		전체동의<input type="checkbox" id="all">
+               		전체동의<input type="checkbox" id="all">
    			  	</div>
         </div>
         
