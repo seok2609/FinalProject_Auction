@@ -12,6 +12,7 @@
 <script defer src="/js/joinVerify.js"></script>
 <script defer src="/js/membersFile.js"></script>
 <script defer src="/js/myPage.js"></script>
+<script defer src="/js/modify.js"></script>
 <style>
 	#div1{
 		cursor: pointer;
@@ -170,7 +171,7 @@
 		      
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		        <button type="button" class="btn btn-primary" id="successBtn">확인</button>
+		        <button type="button" class="btn btn-primary" id="successBtn1">확인</button>
 		      </div>
 		    </div>
 		  </div>
@@ -181,7 +182,7 @@
 
 <!-- 수정페이지에서 회원탈퇴 버튼을 누르면 비밀번호를 다시한번 치고 일치해야 탈퇴가 바로되는 ajax 코드 -->
 <script>
-    $('#successBtn').click(function() {
+    $('#successBtn1').click(function() {
         const checkPassWord = $('#inputPassWord2').val();
         console.log("checkPassWord", checkPassWord);
         if(checkPassWord == ""){
@@ -209,7 +210,6 @@
         }
     });
 </script>
-<script  src="/js/modify.js"></script>
 
 </body>
 </html>
