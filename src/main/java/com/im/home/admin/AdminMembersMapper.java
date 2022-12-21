@@ -74,6 +74,8 @@ public interface AdminMembersMapper {
 	public int setBlack(MembersVO membersVO)throws Exception;
 	//회원detail에서 블랙해제
 	public int setBlackC(MembersVO membersVO)throws Exception;
+	//블랙회원 입구 컷	
+	public MembersVO getMemberBlack(MembersVO membersVO)throws Exception;
 	//공지사항 등록
 	public int setCompanyNotice(CompanyNoticeVO companyNoticeVO)throws Exception;
 	//공지사항 리스트

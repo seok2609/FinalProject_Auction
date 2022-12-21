@@ -88,7 +88,7 @@
       
                 <c:choose>
                   <c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
-                    <form action="./inquiryResponse" method="post">
+                    <form action="./inquiryResponse" method="post" id="frm">
                       <div>
                         <input type="hidden" id="inquiry_num" name="inquiry_num" value="${inquiryDetail.inquiry_num}">
                                 </div>

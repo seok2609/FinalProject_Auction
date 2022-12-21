@@ -51,55 +51,19 @@
           <p>전국 32개 공영도매시장에서 매일 수집되는 다양한 정보를 신속, 편리하게 제공하여<br>
             농산물의 유통효율화 향상을 위해 지원합니다.</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
-
-            <a href="#about" class="btn-get-started">이지원: 돼지</a>
-            <a href="https://www.youtube.com/watch?v=yReQjeqXa6w" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Seoul Garak Market's AM</span></a>
-
-            <a href="http://localhost:4200" class="btn-get-started">Get Started</a>
-
+            <a href="http://192.168.1.28:4200" class="btn-get-started" target="_blank">실시간 경매 참여하기</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2">
-          <img src="assets/img/hero-img.svg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+          <img src="assets/img/main_vegetable.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
         </div>
       </div>
     </div>
 
     <div class="icon-boxes position-relative">
       <div class="container position-relative">
-        <div class="row gy-4 mt-5">
+    
 
-          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-easel"></i></div>
-              <h4 class="title"><a href="./members/agree" class="stretched-link">일반회원 회원가입</a></h4>
-            </div>
-          </div>
-          <!--End Icon Box -->
-
-          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-gem"></i></div>
-              <h4 class="title"><a href="" class="stretched-link">Sed ut perspiciatis</a></h4>
-            </div>
-          </div>
-          <!--End Icon Box -->
-
-          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-geo-alt"></i></div>
-              <h4 class="title"><a href="" class="stretched-link">Magni Dolores</a></h4>
-            </div>
-          </div>
-          <!--End Icon Box -->
-
-          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-command"></i></div>
-              <h4 class="title"><a href="" class="stretched-link">Nemo Enim</a></h4>
-            </div>
-          </div>
-          <!--End Icon Box -->
 
         </div>
       </div>
