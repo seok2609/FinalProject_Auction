@@ -35,15 +35,6 @@ truckLoM= (positions[2].latlng.La - positions[0].latlng.La)/100;
 // console.log("la- :: ", truckLaM);
 // console.log("lon- :: ", truckLoM);
 
-
-const testBtn = document.getElementById("testBtn");
-testBtn.addEventListener("click", function(){
-    console.log("테스트버튼");
-    console.log("좌표 확인 : ",positions[1].latlng.Ma);
-    console.log("좌표 확인 : ",positions[1].latlng.La);
-    
-})
-
 increase(0);
 upTime.addEventListener("click", function(){
     increase(1);
