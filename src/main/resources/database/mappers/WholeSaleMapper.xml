@@ -49,6 +49,20 @@
 		 SELECT midName, COUNT(midName) dataCnt FROM SALE WHERE saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} 
 		 GROUP by midName ORDER by dataCnt desc LIMIT 6
 		</select>
+		
+		<insert id="setAddReal" parameterType="WholeSaleVO">
+		INSERT INTO RTIME(sNum ,rn, saleDate, whsalCd, whsalName, sbidtime, cmpName, midName, cost, qty)
+		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{sbidtime}, #{cmpName}, #{midName}, #{cost}, #{qty})
+		</insert> 
+		
+		 <select id="getRtime" resultType="WholeSaleVO" parameterType="String">
+		SELECT * From RTIME WHERE whsalCd=#{whsalCd}
+		ORDER by sNum desc LIMIT 10
+		</select>
+		
+		<delete id="deleteReal" parameterType="String">
+		  DELETE FROM RTIME WHERE whsalCd=#{whsalCd}
+		 </delete>
 			
 
 	</mapper>

@@ -10,18 +10,22 @@ import com.im.home.util.Pager;
 public interface WholeSaleMapper {
 	
 	public int setAdd(WholeSaleVO wholeSaleVO) throws Exception;
+	
+	public int setAddReal(WholeSaleVO wholeSaleVO) throws Exception;
 
 	public List<WholeSaleVO> getList(Pager pager) throws Exception;
-	
-	public void deleteList() throws Exception;
 
-	public void deleteList(String delDay);
+	public void deleteList(String delDay)throws Exception;
+	
+	public void deleteReal(String whsalCd)throws Exception;
 	
 	public Long getListCount(Pager pager)throws Exception;
 	
 	public List<WholeSaleVO> getWhsalMain(String saleDate)throws Exception;
 	
 	public List<WholeSaleVO> getMidMain(String saleDate)throws Exception;
+	
+	public List<WholeSaleVO> getRtime(String whsalCd)throws Exception;
 	
 	public WholeSaleVO getTotQty(String saleDate)throws Exception;
 	
