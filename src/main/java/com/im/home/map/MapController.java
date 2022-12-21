@@ -88,9 +88,32 @@ public class MapController {
 	}
 	
 	@GetMapping("testProgress")
-	public String setPro2() throws Exception {
+	public ModelAndView setPro2() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		StartPointVO startPointVO = new StartPointVO();
+		EndPointVO endPointVO = new EndPointVO();
 		
-		return "/deliveryMap/testProgress";
+		List<StartPointVO> ar = mapService.setStartPoint();
+		mv.addObject("startList", ar);
+		System.out.println("=================");
+		System.out.println("StartList : "+ ar);
+		
+		List<EndPointVO> ar2 = mapService.setEndPoint();
+		mv.addObject("endList", ar2);
+		System.out.println("=================");
+		System.out.println("EndList : "+ ar2);
+		
+		LocalDate now = LocalDate.now();
+		System.out.println("LocalDate : "+now);
+		
+		SimpleDateFormat now2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date time = new Date();
+		String timeNow = now2.format(time);
+		System.out.println("timeNow : "+timeNow);
+		
+		mv.setViewName("/deliveryMap/testProgress");
+		
+		return mv;
 	}
 	
 	@GetMapping("testAnother")

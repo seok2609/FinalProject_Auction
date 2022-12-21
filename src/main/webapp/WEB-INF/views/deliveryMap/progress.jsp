@@ -318,7 +318,7 @@
 	</table>	
 	
 	<br>
-	<button id="testBtn">테스트</button>
+
 	
 	<c:import url="../common/footer.jsp"></c:import>
 </body>

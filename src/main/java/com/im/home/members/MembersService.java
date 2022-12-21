@@ -218,6 +218,20 @@ public class MembersService {
 	}
 	
 	
+	//카카오 로그인
+	public MembersVO getKakaoLogin (MembersVO membersVO) throws Exception{
+		
+		return membersMapper.getKakaoLogin(membersVO);
+		
+	}
+	
+	//카카오 회원가입
+	public int setKakao(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.setKakao(membersVO);
+	}
+	
+	
 	
 	
 }

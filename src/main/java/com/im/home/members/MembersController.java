@@ -154,7 +154,7 @@ public class MembersController {
 	
 	@GetMapping(value = "myPage")
 	@ResponseBody
-	public ModelAndView getMyPage(MembersVO membersVO, String id, String checkPassWord, Principal principal , Model model, HttpSession session) throws Exception{
+	public ModelAndView getMyPage(MembersVO membersVO, String id, String checkPassWord, Principal principal , Model model, HttpSession session, Authentication authentication) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		AdminMembersVO adminMembersVO = new AdminMembersVO();
 		
@@ -164,6 +164,8 @@ public class MembersController {
 		membersVO.setId(principal.getName());	//시큐리티로 로그인한 아이디값을 가져오는 코드
 		
 		membersVO = membersService.getMyPage(membersVO);
+		
+		log.info("카카오오오오 ::: {} " , authentication.getPrincipal());
 		
 //		if(request2.getRequestURI() == "inquiryList") {
 //			adminMembersVO = membersService.getInquiryList(adminMembersVO);
@@ -180,6 +182,7 @@ public class MembersController {
 		log.info("Principal => {} ", principal);
 //		log.info("file ::::: {} " ,membersVO.getMembersFileVO().getFileName());
 		mv.addObject("membersVO", membersVO);
+		mv.addObject("kakao", authentication.getPrincipal());	//소셜로그인 했을때 
 //		mv.addObject("membersVO", membersVO2);
 		mv.setViewName("members/myPage");
 		
