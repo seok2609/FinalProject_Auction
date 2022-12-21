@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.im.home.admin.AdminMembersMapper;
 import com.im.home.admin.AdminMembersVO;
 
 import io.openvidu.java.client.Session;
@@ -46,6 +47,7 @@ public class MembersController {
 	private PasswordEncoder passwordEncoder;
 //	@Autowired
 //	private MailSenderRunner mailSenderRunner;
+
 	
 	
 	@GetMapping(value = "login")
@@ -440,7 +442,6 @@ public class MembersController {
 			
 			return result;
 		}
-	
 	
 	
 }
