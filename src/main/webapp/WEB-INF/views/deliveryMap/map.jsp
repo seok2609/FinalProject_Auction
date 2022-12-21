@@ -29,6 +29,12 @@
 		margin-right:auto;
 		margin-left:auto;
 	}
+	
+	#infoTable{
+		text-align: center;
+		margin-right:auto;
+		margin-left:auto;
+	}
 
 </style>
 </head>
@@ -289,14 +295,15 @@
 	
 	</th>
 		<th>
-			<table>
+			<table id="infoTable">
 				<tr>
 					<th>경매장</th>
 					<th>이름</th>
 					<th>설명</th>
 					<th>가격</th>
 					<th>수량</th>
-				
+				</tr>
+				<tr>
 					<c:forEach items="${Info}" var="Info">
 						<th>${Info.category}</th>
 						<th>${Info.title}</th>
@@ -318,9 +325,7 @@
 	
 	<br>
 	
-	<a href="./progress">바 실험</a>
-	<a href="./testProgress">바 실험2</a>
-	<a href="./testAnother">다른 맵api 실험</a>
+	<a href="./progress">시간별 위치</a>
 	<c:import url="../common/footer.jsp"></c:import>
 </body>
 </html>
