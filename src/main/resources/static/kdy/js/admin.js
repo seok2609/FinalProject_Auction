@@ -14,6 +14,10 @@ $("#bl").click(function(){
 $("#blc").click(function(){
     alert("블랙을 성공적으로 해제하였습니다. 리스트로 돌아갑니다.")
  })
+ //memberList.jsp
+ $("#cc").click(function(){
+    $("#mobu").submit();
+ })
 
 //  inquiryRequest.jsp
 function inquryNullCheck(){
@@ -58,5 +62,42 @@ $("#inquiryAddBtn2").click(function(){
 $("#inquiryAddBottonST").click(function(){
     alert("블랙을 해제하였습니다. 리스트로 돌아갑니다.")
 })
+
+//cNotice.jsp
+function cNoticeNullCheck(){
+    let notice = nullCheck($("#notice_title").val());
+    let notice2 = nullCheck($("#notice_contents").val());
+    if(notice&&notice2){
+        alert("공지사항을 정상적으로 등록하였습니다.")
+        frm.submit();
+    }else{
+        alert("제목, 내용은 필수입니다.")
+    }
+}
+$("#noticeB").click(function(){
+    alert("메인 관리자페이지로 돌아갑니다.")
+    $("#noticeB").submit();
+})
+
+//noticeDetail.jsp
+$("#nD").click(function(){
+    alert("공지사항이 성공적으로 삭제되었습니다.")
+})
+
+//noticeUpdate.jsp
+function noticeUpdate(){
+    let notice = nullCheck($("#notice_titleU").val());
+    let notice2 = nullCheck($("#notice_contentsU").val());
+    if(notice&&notice2){
+        alert("공지사항을 정상적으로 수정하였습니다.")
+        frm.submit();
+    }else{
+        alert("제목, 내용은 필수입니다.")
+    }
+}
+$("#noticeUpdateC").click(function(){
+    alert("수정을 취소합니다.")
+})
+
 
 

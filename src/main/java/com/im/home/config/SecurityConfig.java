@@ -34,8 +34,8 @@ public class SecurityConfig {
 	private MemberSecurityService memberSecurityService;
 	@Autowired
 	private LogoutSuccess logoutSuccess;
-	//@Autowired
-	//private MembersSocialService membersSocialService;
+	@Autowired
+	private MembersSocialService membersSocialService;
 	
 	@Bean
 	//회원가입시 필터 적용 제외
@@ -58,10 +58,11 @@ public class SecurityConfig {
 		
 		httpSecurity
 
-					.cors()
-					.and()
-					.csrf()
-					.disable()
+				.csrf()							//csrf를 적용하면 tocken을 줌
+				.disable()
+				.cors()
+				.configurationSource(this.configurationSource())
+				.and()
 	.authorizeRequests()	//인가요청
 				.antMatchers("./login").permitAll()	// "./login"페이지는 아무나 아무나 접속을 허용
 				.anyRequest().permitAll()
@@ -94,9 +95,9 @@ public class SecurityConfig {
 				.and()
 			.oauth2Login() //Social Login 설정
 				.userInfoEndpoint()
-				//.userService(membersSocialService)
+				.userService(membersSocialService)
 			
-			;
+				;
 		
 		
 		

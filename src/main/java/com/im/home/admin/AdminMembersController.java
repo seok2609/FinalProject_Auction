@@ -31,9 +31,13 @@ public class AdminMembersController {
 		ModelAndView mv = new ModelAndView();
 		int result = adminMembersService.getTotalMembers(membersVO);
 		List<AdminMembersVO> ar = adminMembersService.getAdminPageInquiryList(adminMembersVO);
+		int totalInquiry = adminMembersService.getTotalInquiry(adminMembersVO);
+		int totalMembersBlack = adminMembersService.getTotalBlack(membersVO);
 		int inquiryNoResponse = adminMembersService.getTotalInquiryNo(adminMembersVO);
 		int reportNoResponse = adminMembersService.getTotalReport(membersReportVO);
 		mv.addObject("inquiryNoResponse", inquiryNoResponse);
+		mv.addObject("totalInquiry", totalInquiry);
+		mv.addObject("totalMembersBlack", totalMembersBlack);
 		mv.addObject("reportNoResponse", reportNoResponse);
 		mv.addObject("adminInquiryList", ar);
 		mv.addObject("result", result);
@@ -43,6 +47,7 @@ public class AdminMembersController {
 	@GetMapping("memberList")
 	public ModelAndView getAdminMembersList(AdminPager adminPager, MembersVO membersVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
+//		membersVO.setId(principal.getName());
 		int result = adminMembersService.getTotalMembers(membersVO);
 		List<MembersVO> membersVOs =  adminMembersService.getAdminMembersList(adminPager);
 		mv.addObject("membersVO", membersVOs);
@@ -237,11 +242,60 @@ public class AdminMembersController {
 		mv.setViewName("redirect:./memberBlackList");
 		return mv;
 	}
-	
-	//경매인 구인구직
-	@GetMapping("auctioneer")
-	public String auctioneer()throws Exception{
-		return "kdy/auctioneer";
+	//공지사항 등록
+	@GetMapping("cNotice")
+	public String setCompanyNotice(CompanyNoticeVO companyNoticeVO, Principal principal)throws Exception{
+		companyNoticeVO.setId(principal.getName());
+		return "kdy/cNotice";
+	}
+	//공지사항 등록
+	@PostMapping("cNotice")
+	public ModelAndView setCompanyNotice(CompanyNoticeVO companyNoticeVO, ModelAndView mv)throws Exception{
+		int result = adminMembersService.setCompanyNotice(companyNoticeVO);
+		mv.addObject("result", result);
+		mv.setViewName("redirect:../kdy/cNoticeList");
+		return mv;
+	}
+	//공지사항 리스트
+	@GetMapping("cNoticeList")
+	public ModelAndView getCompanyNoticeList(AdminPager adminPager)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		List<CompanyNoticeVO> ar = adminMembersService.getCompanyNoticeList(adminPager);
+		mv.addObject("pager", adminPager);
+		mv.addObject("noticeList", ar);
+		return mv;
+	}
+	//공지사항detail
+	@GetMapping("noticeDetail")
+	public ModelAndView getNoticeDetail(CompanyNoticeVO companyNoticeVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		companyNoticeVO = adminMembersService.getNoticeDetail(companyNoticeVO);
+		adminMembersService.setHit(companyNoticeVO);
+		mv.addObject("noticeDetail", companyNoticeVO);
+		return mv;
+	}
+	//공지사항 수정
+	@GetMapping("noticeUpdate")
+	public ModelAndView setNoticeUpdate(CompanyNoticeVO companyNoticeVO, ModelAndView mv)throws Exception{
+		companyNoticeVO = adminMembersService.getNoticeDetail(companyNoticeVO);
+		mv.addObject("noticeUpdate", companyNoticeVO);
+		return mv;
+	}
+	//공지사항 수정
+	@PostMapping("noticeUpdate")
+	public ModelAndView setNoticeUpdate(CompanyNoticeVO companyNoticeVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result =  adminMembersService.setNoticeUpdate(companyNoticeVO);
+		mv.setViewName("redirect:./cNoticeList");
+		return mv;
+	}
+	//공지사항 삭제
+	@GetMapping("noticeDelete")
+	public ModelAndView setNoticeDelete(CompanyNoticeVO companyNoticeVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setNoticeDelete(companyNoticeVO);
+		mv.setViewName("redirect:./cNoticeList");
+		return mv;
 	}
 	//판매내역
 	@GetMapping("saleList")
