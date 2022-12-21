@@ -11,6 +11,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&display=swap');
+    </style>
+
 
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -70,84 +75,43 @@
 
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Jiwon Room<span>.</span></h1>
+        <h1>도매시장 통합 홈페이지<span>.</span></h1>
       </a>
      
       <nav id="navbar" class="navbar">
         <ul>
+          <li><a href="#hero">메인</a></li>
+          <li class="dropdown"><a href="#"><span>도매정보</span><i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="/wholesale/realtime">실시간경매</a></li>
+              <li><a href="/wholesale/sale">거래정보</a></li>
+             <!-- <li class="dropdown"><a href="#"><span>정산경매</span><i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <ul>
+                  <li><a href="/wholesale/sale">거래정보</a></li>
+                  <li><a href="/wholesale/chart">통계정보</a></li> 
+                </ul>
+              </li>-->
+            </ul>
+          </li>
       	 <!-- 로그인이 성공했다면 -->
-      
       	 	<sec:authorize access="isAuthenticated()">
-      		
       		<sec:authentication property="Principal" var="member"/>      		
-      	<%-- 	<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')"> --%>
-      		
+      		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
+      		<li><a href="./members/logout">로그아웃</a></li>
+      		<li><a href="./members/myPage">마이페이지</a></li>
+          <li><a href="./kdy/inquiryRequest">1대1문의</a></li>
+          <li><a href="./kdy/reportRequest">신고요청</a></li>
+             <sec:authorize access="hasAnyRole('ADMIN')">
+             <li><a href="/kdy/adminPage">Admin</a></li>
+			</sec:authorize>
 
-          <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
-      		<li><a href="/members/logout">Logout</a></li>
-      		<li><a href="/members/myPage">MyPage</a></li>
-            <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
-            <li><a href="/kdy/reportRequest">신고 요청</a></li>
-
-             <li><a href="./kdy/adminPage">관리자</a></li>
-
-
-<!--             <li><button type="button" id="kakao">kakao logout</button></li> -->
-	<!-- 		<form action="./members/logout" method="post" id="outForm">
-				<a href="./members/logout">로그아웃</a>
-			</form> -->
-
-
-             
-            
-      		
       		</sec:authorize>
-      		
-      	<%-- 	</sec:authorize> --%>
+      		</sec:authorize>
       	<!-- 로그인을 하지 않았을때 -->
   		<sec:authorize access="!isAuthenticated()">
-          <li><a href="/members/login">로그인</a></li>
-          <li><a href="/members/agree">회원가입</a></li>
-          <li><a href="/oauth2/authorization/kakao">KaKao Login</a></li>
-         </sec:authorize>
-         
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li class="dropdown"><a href="#"><span>wholeSale</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="/wholesale/realtime">realTime</a></li>
-              <li class="dropdown"><a href="#"><span>sale</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="/wholesale/sale">sale1</a></li>
-                  <li><a href="/wholesale/chart">chart</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><a href="blog.html">Blog</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-        
+          <li><a href="./members/login">로그인</a></li>
+          <li><a href="./members/agree">회원가입</a></li>
+          </sec:authorize>
         </ul>
          
       </nav><!-- .navbar -->

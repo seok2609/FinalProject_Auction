@@ -46,4 +46,8 @@ public class WholeSaleService {
 		return wholeSaleMapper.getListCount(pager);
 	}
 
+	
+	public List<WholeSaleVO> getMidSale(Pager pager)throws Exception{
+		return wholeSaleMapper.getMidSale(pager);
+	}
 }
