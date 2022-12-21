@@ -22,7 +22,7 @@ import io.openvidu.java.client.Session;
 import io.openvidu.java.client.SessionProperties;
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "http://localhost:4200")
 @RestController
 @Slf4j
 public class ViduController {

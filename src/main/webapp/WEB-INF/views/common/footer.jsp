@@ -7,9 +7,10 @@
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-info">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span>Impact</span>
+            <span>도매시장통합홈페이지</span>
           </a>
-          <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+          <p>전국 32개 공영도매시장에서 매일 수집되는 다양한 정보를 신속, 편리하게 제공하여
+농산물의 유통효율화 향상을 위해 지원합니다.</p>
           <div class="social-links d-flex mt-4">
             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -19,13 +20,13 @@
         </div>
 
         <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
+          <h4>고객센터</h4>
           <ul>
-            <li><a href="../kdy/cNoticeList">Notice</a></li>
+            <li><a href="../kdy/cNoticeList">공지사항</a></li>
             <li><a href="#">About us</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">개인정보 보호 정책</a></li>
           </ul>
         </div>
 
@@ -57,7 +58,7 @@
 
     <div class="container mt-4">
       <div class="copyright">
-        &copy; Copyright <strong><span>Impact</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Wholesale Auction</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->

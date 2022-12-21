@@ -41,13 +41,6 @@ $("#memberFileAdd").blur(function(){
 
 
 
-
-
-
-
-
-
-
 $("#amd").click(function(){
 
     console.log("엘렐레렐레레레레");
@@ -78,6 +71,12 @@ $('#successBtn').click(function() {
             if(check){  //비밀번호 비교가 true라면
                 console.log("비밀번호 일치");
                 alert("비밀번호가 일치하여 회원수정 페이지로 이동합니다..");
+                // swal({
+                //     title: "비밀번호 일치!",
+                //     text: "수정 페이지로 넘어갑니다.",
+                //     icon: "success",
+                //     button: "확인",
+                //   });
                 window.location.href="./modify";
             } else{
                 console.log("비밀번호 틀림");
