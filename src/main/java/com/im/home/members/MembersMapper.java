@@ -40,4 +40,10 @@ public interface MembersMapper {
 	
 	//일반회원 탈퇴
 	public int setMembersDrop (MembersVO membersVO) throws Exception;
+	
+	//카카오 로그인
+	public MembersVO getKakaoLogin(MembersVO membersVO) throws Exception;
+	
+	//카카오 회원가입
+	public int setKakao(MembersVO membersVO) throws Exception;
 }

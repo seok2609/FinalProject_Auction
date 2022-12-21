@@ -179,6 +179,7 @@ public class MembersController {
 		log.info("Principal => {} ", principal);
 //		log.info("file ::::: {} " ,membersVO.getMembersFileVO().getFileName());
 		mv.addObject("membersVO", membersVO);
+		mv.addObject("kakao", authentication.getPrincipal());	//소셜로그인 했을때 
 //		mv.addObject("membersVO", membersVO2);
 		mv.setViewName("members/myPage");
 		

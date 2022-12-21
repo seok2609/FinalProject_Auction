@@ -49,11 +49,11 @@
               <div class="row" >
               
                 <div class="form-group mt-3">
-                  <input type="text" name="id" value="${cookie.Id.value}" class="form-control" id="id" placeholder="아이디를 입력하세요">
+                  <input type="text" name="id" value="${cookie.Id.value}" class="form-control" id="id" placeholder="아이디를 입력하세요.">
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="passWord" name="passWord" class="form-control" id="passWord" placeholder="pw입력">
+                  <input type="passWord" name="passWord" class="form-control" id="passWord" placeholder="패스워드를 입력하세요.">
                 </div>
                 
               </div>

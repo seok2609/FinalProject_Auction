@@ -102,9 +102,9 @@
           <li><a href="/kdy/reportRequest">신고요청</a></li>
           
           <!-- 만약 방금 소셜로그인을 했다면 추가로 정보입력하는 창 띄우기 -->
-          <c:if test="${empty membersVO.joinDate}">
+ <%--          <c:if test="${kakao.profile}">
               	<li><a href="./members/socailInsert">추가정보입력</a></li>
-           </c:if>
+           </c:if> --%>
 
       		</sec:authorize>
       		</sec:authorize>
