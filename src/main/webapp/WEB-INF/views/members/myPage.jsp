@@ -21,6 +21,9 @@
 	#imgMd{
 		display: none;
 	}
+	#amd{
+		cursor: pointer;
+	}
 </style>
 <!-- <script defer src="/js/membersFile.js"></script> -->
 </head>
@@ -94,8 +97,8 @@
               <div class="icon">
                 <i class="bi bi-broadcast"></i>
               </div>
-              <h3 style="color: #008374;">내가 찜한 상품</h3>
-              <a href="#" class="readmore stretched-link"></a>
+              <h3 style="color: #008374;">회원정보 수정</h3>
+              <a id="amd" class="readmore stretched-link"></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -127,9 +130,9 @@
               <div class="icon">
                 <i class="bi bi-calendar4-week"></i>
               </div>
-              <h3 style="color: #008374;">회원정보 수정</h3>
-              <%-- <a href="./modify?id=${member.id}" id="amd" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a> --%>
-				<button type="button" id="amd">클릭</button>
+              <h3 style="color: #008374;">내가 찜한 상품</h3>
+              <a href="#" class="readmore stretched-link"></a>
+				<!-- <button type="button" id="amd">클릭</button> -->
             </div>
           </div><!-- End Service Item -->
 
@@ -139,7 +142,7 @@
                 <i class="bi bi-chat-square-text"></i>
               </div>
               <h3 style="color: #008374;">배달 현황</h3>
-              <a href="#" class="readmore stretched-link"></a>
+              <a href="/delivery/map" class="readmore stretched-link"></a>
             </div>
           </div><!-- End Service Item -->
 

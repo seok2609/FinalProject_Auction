@@ -24,7 +24,7 @@ function equals (data, checkDate) {
 // }
 
 // id, passWord, passWordCheck, realName, nickName, email, birth, phone
-let results = [false, false, false, false, false, false, false, false]
+let results = [false, false, false, false, false, false, false]
 
 //id 공백 체크
 $("#inputId").blur(function(){

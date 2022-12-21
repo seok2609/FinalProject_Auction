@@ -29,7 +29,7 @@
 	  
 	  
       <div class="container" data-aos="fade-up">
-		<h1>약관동의 페이지</h1>
+		<h1 style="color: #008374;">약관동의 페이지</h1>
 
         <div class="row gy-4">
 

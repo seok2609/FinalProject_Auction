@@ -13,7 +13,6 @@
 <style>
   #signUpSt{
     margin-left: 250px;
-    
   }
   .bc{
     color: #008374;
