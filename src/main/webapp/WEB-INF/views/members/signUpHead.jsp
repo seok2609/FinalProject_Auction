@@ -24,11 +24,11 @@
 <!-- ================================ -->
 
 <section id="hero" class="hero">
-		<div class="icon-boxes position-relative">
+		<div class="icon-boxes position-relative" style=" background-color: #fff; width: 2000px; padding-top: 50px;">
 		      <div class="container position-relative">
-		        <div class="row gy-4 mt-5">
+		        <div class="row" style="margin-left: 30px;">
 		
-		<form method="get" action="signUpC" id="getC" class="fc">
+<!-- 		<form method="get" action="signUpC" id="getC" class="fc">
 		          <div class="col-xl-3 col-md-3" data-aos="fade-up" data-aos-delay="100" id="rdc">
 		            <div class="icon-box">
 		              <div class="icon"><i class="bi bi-easel"></i></div>
@@ -37,22 +37,24 @@
 		            </div>
 		          </div>
 		          
-		</form>
+		</form> -->
 		          <!--End Icon Box -->
 		
-		<form action="signUpD" method="get" id="getD" class="fc">
+<!-- 		<div style="display: flex;"> -->
+		
 		          <div class="col-xl-3 col-md-3" data-aos="fade-up" data-aos-delay="200" id="rdd">
+		<form action="signUpD" method="get" id="getD" class="fc">
 		            <div class="icon-box">
 		              <div class="icon"><i class="bi bi-gem"></i></div>
 		              <h4 class="title"><a class="stretched-link">도매업자 회원가입</a></h4>
 		              <input type="radio" class="rc" name="roleNum" value="3" id="rd2" checked="">
 		            </div>
+		</form>
 		          </div>
 		          
-		</form>
 		          <!--End Icon Box -->
 		
-		<form action="signUpG" method="get" class="fc" id="getG">
+<!-- 		<form action="signUpG" method="get" class="fc" id="getG">
 		          <div class="col-xl-3 col-md-3" data-aos="fade-up" data-aos-delay="300" id="rdg">
 		            <div class="icon-box">
 		              <div class="icon"><i class="bi bi-geo-alt"></i></div>
@@ -61,36 +63,39 @@
 		            </div>
 		          </div>
 		          
-		</form>
+		</form> -->
 		          <!--End Icon Box -->
 		
-		<form action="signUpS" method="get" class="fc" id="getS">
 		          <div class="col-xl-3 col-md-3" data-aos="fade-up" data-aos-delay="400" id="rds">
+		<form action="signUpS" method="get" class="fc" id="getS">
 		            <div class="icon-box">
 		              <div class="icon"><i class="bi bi-command"></i></div>
 		              <h4 class="title"><a class="stretched-link">소매업자 회원가입</a></h4>
 		               <input type="radio" class="rc" name="roleNum" value="5" id="rd4" checked="">
 		            </div>
+		</form>
 		          </div>
 		          
-		</form>
 		          <!--End Icon Box -->
 		          
-		<form action="signUp" method="get" class="fc" id="getM">
 		          <div class="col-xl-3 col-md-3" data-aos="fade-up" data-aos-delay="500" id="rdm">
+		<form action="signUp" method="get" class="fc" id="getM">
 		            <div class="icon-box">
 		              <div class="icon"><i class="bi bi-command"></i></div>
 		              <h4 class="title"><a class="stretched-link">일반회원 회원가입</a></h4>
 		               <input type="radio" class="rc" name="roleNum" value="7" id="rd5" checked="">
 		            </div>
-		          </div>
 		</form>
+		          </div>
 		
 		
 		
 		        </div>
 		      </div>
 		    </div>
+		    </div>
+		    
+		    
 		   </section>
 
 <!— ===========footer=============== —>

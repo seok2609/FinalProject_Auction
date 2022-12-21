@@ -8,6 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#agreeBtn{
+		background: var(--color-primary);
+		border: 0;
+		padding: 14px 45px;
+		color: #fff;
+		transition: 0.4s;
+		border-radius: 50px;
+	}
+</style>
 <script defer src="/js/agree.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -19,7 +29,7 @@
 	  
 	  
       <div class="container" data-aos="fade-up">
-		<h1>약관동의 페이지</h1>
+		<h1 style="color: #008374;">약관동의 페이지</h1>
 
         <div class="row gy-4">
 
@@ -681,7 +691,7 @@
           </div>
             	<!-- 전체 약관동의 체크박스 -->
             	<div>
-              		전체동의<input type="checkbox" id="all">
+               		전체동의<input type="checkbox" id="all">
    			  	</div>
         </div>
         
