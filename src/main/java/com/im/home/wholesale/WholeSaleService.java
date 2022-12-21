@@ -50,4 +50,9 @@ public class WholeSaleService {
 	public List<WholeSaleVO> getMidSale(Pager pager)throws Exception{
 		return wholeSaleMapper.getMidSale(pager);
 	}
+	
+	public List<WholeSaleVO> getRtime(String whsalCd)throws Exception{
+		return wholeSaleMapper.getRtime(whsalCd);
+	}
+
 }

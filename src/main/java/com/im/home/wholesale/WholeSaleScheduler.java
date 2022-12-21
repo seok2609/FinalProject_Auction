@@ -28,6 +28,8 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	@Autowired
 	private  WholeSaleMapper wholeSaleMapper;
 	
+	
+	
 	@Scheduled(cron = "0 30 6 * * 1-7") // 매일 오전 6시 30분 실행
 	//@Scheduled(cron = "10 37 * * *  *") //test용 3분 마다 실행
 	public void setTodayData() throws Exception {
@@ -40,11 +42,12 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	      String yesterday = sdf.format(c1.getTime()); // String으로 저장 
 	      String delDay = sdf.format(c2.getTime()); 
 	      
+	      
 	      int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
            
 	      for(int j : mart) //어제 날짜의 도매시장 데이터 삽입. 
 			{
-	    		ModelAndView mv = new ModelAndView();
+	
 	    		WebClient webClient = WebClient.builder()
 	    			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
 	    				 .baseUrl("https://at.agromarket.kr/openApi/price/sale.do")
@@ -106,27 +109,40 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	    				}
 	    			
 	    				}
+	    		
 			}
 	
 			
 			
 		}
 	
-	@Scheduled(cron = "20 30 */5 * *  *") // 매일 3시간 간격으로 실행 
+	//@Scheduled(cron = "0 0 0 * * *") // 매일 3시간 간격으로 실행 
+	//실시간데이터 비우기
+	public void setRealDataDel() throws Exception {
+		 int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
+         
+	      for(int j : mart) //어제 날짜의 도매시장 데이터 삽입. 
+			{
+	    	  wholeSaleMapper.deleteReal(Integer.toString(j));
+			}
+	
+		}
+	@Scheduled(cron = "20 30 */3 * *  *") // 매일 3시간 간격으로 실행 
 	//@Scheduled(cron = "50 * * * *  *") //test용 3분 마다 실행
-	public ModelAndView setRealData() throws Exception {
-	
-	ModelAndView mv = new ModelAndView();
+	public void setRealData() throws Exception {
 	//====================================== 실시간 리스트 ===============================
-	
-			//===============서울=============
-			WebClient webClient = WebClient.builder()
+		   
+	      int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
+         
+	      for(int j : mart) //어제 날짜의 도매시장 데이터 삽입. 
+			{
+	  		WebClient webClient = WebClient.builder()
 				    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
 					 .baseUrl("https://at.agromarket.kr/openApi/price/real.do")
 					 .build();
 			
 			Mono<String> res = webClient.get()
-					.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd=110001")
+					.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+j)
 					.retrieve()
 					.bodyToMono(String.class);
 			String r = res.block();
@@ -144,105 +160,24 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 			for(int i =0; i<10; i++) {
 				JSONObject jsonObj = (JSONObject)temp.get(i);
 					log.info("array => {}", jsonObj);
-						WholeSaleVO wholeSaleVO = new WholeSaleVO();
-						wholeSaleVO.setRn(jsonObj.get("rn").toString());
-						wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-						wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-						wholeSaleVO.setMid(jsonObj.get("mid").toString());
-						wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-						wholeSaleVO.setCost(jsonObj.get("cost").toString());
-						wholeSaleVO.setQty(jsonObj.get("qty").toString());
-						wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
-						wholeSaleVOs.add(i, wholeSaleVO);
-				
+					WholeSaleVO wholeSaleVO = new WholeSaleVO();
+					wholeSaleVO.setRn("0");
+					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
+					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
+					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
+					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
+					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
+					wholeSaleVO.setCost(jsonObj.get("cost").toString());
+					wholeSaleVO.setQty(jsonObj.get("qty").toString());
+					wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
+					wholeSaleMapper.setAddReal(wholeSaleVO);
+					
 					}
 			}
-			
-			//===============대구=============
-				webClient = WebClient.builder()
-						    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
-							 .baseUrl("https://at.agromarket.kr/openApi/price/real.do")
-							 .build();
-					
-					res = webClient.get()
-							.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd=220001")
-							.retrieve()
-							.bodyToMono(String.class);
-				 r = res.block();
-				 objectMapper = new ObjectMapper();
-				 parser = new JSONParser();
-				 data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
-				
-					 jobj = new JSONObject(data);
-					 jobj2 = jobj.get("data");
-					 data2 = objectMapper.writeValueAsString(jobj2); 
-					 temp = (JSONArray)parser.parse(data2);
-					List<WholeSaleVO>  wholeSaleVOs2 = new ArrayList<>();
-					
-					if(temp != null) {
-					for(int i =0; i<10; i++) {
-						JSONObject jsonObj = (JSONObject)temp.get(i);
-							log.info("array => {}", jsonObj);
-								WholeSaleVO wholeSaleVO = new WholeSaleVO();
-								wholeSaleVO.setRn(jsonObj.get("rn").toString());
-								wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-								wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-								wholeSaleVO.setMid(jsonObj.get("mid").toString());
-								wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-								wholeSaleVO.setCost(jsonObj.get("cost").toString());
-								wholeSaleVO.setQty(jsonObj.get("qty").toString());
-								wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
-								wholeSaleVOs2.add(i, wholeSaleVO);
-						
-							}
-					}
-					
-					//===============부산=============
-					webClient = WebClient.builder()
-							    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
-								 .baseUrl("https://at.agromarket.kr/openApi/price/real.do")
-								 .build();
-						
-						res = webClient.get()
-								.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd=210001")
-								.retrieve()
-								.bodyToMono(String.class);
-					 r = res.block();
-					 objectMapper = new ObjectMapper();
-					 parser = new JSONParser();
-				data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
-					
-						 jobj = new JSONObject(data);
-						 jobj2 = jobj.get("data");
-						 data2 = objectMapper.writeValueAsString(jobj2); 
-						 temp = (JSONArray)parser.parse(data2);
-						List<WholeSaleVO>  wholeSaleVOs3 = new ArrayList<>();
-						
-						if(temp != null) {
-						for(int i =0; i<10; i++) {
-							JSONObject jsonObj = (JSONObject)temp.get(i);
-								log.info("array => {}", jsonObj);
-									WholeSaleVO wholeSaleVO = new WholeSaleVO();
-									wholeSaleVO.setRn(jsonObj.get("rn").toString());
-									wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-									wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-									wholeSaleVO.setMid(jsonObj.get("mid").toString());
-									wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-									wholeSaleVO.setCost(jsonObj.get("cost").toString());
-									wholeSaleVO.setQty(jsonObj.get("qty").toString());
-									wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
-									wholeSaleVOs3.add(i, wholeSaleVO);
-							
-								}
-						}
-					
-			mv.addObject("seoul", wholeSaleVOs);
-			mv.addObject("deagu", wholeSaleVOs2);
-			mv.addObject("busan", wholeSaleVOs3);
-			return mv;
-		
+			}
+	      }
 	}
+		
+					
+		
 	
-		
-	}
-
