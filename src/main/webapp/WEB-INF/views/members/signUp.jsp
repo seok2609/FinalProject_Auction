@@ -104,6 +104,7 @@
                         <div id="profileImg">
                           <img alt="" src="/assets/img/profle.png" width="100px" height="100px" onclick="onClickUpload();">
                           <button type="button" class="btn btn-secondary" id="imgBtn" onclick="onClickUpload();">첨부파일</button>
+                			<p id="imgSpan"></p>
                 		</div>
                 <div class="form-group mt-3" id="proDiv">
                   <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
