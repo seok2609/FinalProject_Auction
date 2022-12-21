@@ -9,7 +9,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../temp/boot.jsp"></c:import>
-<script defer src="/js/joinVerify.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script defer src="/js/joinVerify.js"></script> -->
 <script defer src="/js/membersFile.js"></script>
 <script defer src="/js/myPage.js"></script>
 <script defer src="/js/modify.js"></script>
@@ -152,7 +153,7 @@
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel">회원 수정 검증</h1>
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">회원 탈퇴 전 본인인증</h1>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
@@ -188,7 +189,11 @@
         const checkPassWord = $('#inputPassWord2').val();
         console.log("checkPassWord", checkPassWord);
         if(checkPassWord == ""){
-            alert("비밀번호를 입력하세요.");
+        	Swal.fire({
+	            icon: 'error',
+	            title: 'Oops...',
+	            text: '비밀번호를 입력해주세요.',
+	          })
         } else{
             $.ajax({
                 type: 'GET',
@@ -203,8 +208,12 @@
                 } else{
                     console.log("비밀번호 틀림");
                     // 비밀번호가 일치하지 않으면
-                    alert("비밀번호가 맞지 않습니다.");
-                    window.location.reload();
+                    Swal.fire({
+			            icon: 'error',
+			            title: 'Oops...',
+			            text: '비밀번호가 일치하지 않습니다.',
+			          })
+                    //window.location.reload();
                 }
             }).fail(function(error){
                 alert(JSON.stringify(error));
