@@ -41,6 +41,8 @@
         <div class="section-header">
           <h2 style="color: #008374;">마이페이지</h2>
         </div>
+        
+
 
         <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
 
