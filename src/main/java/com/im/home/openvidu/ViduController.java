@@ -22,9 +22,11 @@ import io.openvidu.java.client.ConnectionProperties;
 import io.openvidu.java.client.OpenVidu;
 import io.openvidu.java.client.Session;
 import io.openvidu.java.client.SessionProperties;
+import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin(origins = "*")
 @RestController
+@Slf4j
 public class ViduController {
 	
 	@Value("${OPENVIDU_URL}")
@@ -48,13 +50,13 @@ public class ViduController {
 	@PostMapping("/api/sessions")
 	public ResponseEntity<String> initializeSession(@RequestBody(required = false)Map<String, Object> params) throws Exception{
 		SessionProperties properties = SessionProperties.fromJson(params).build();
-		
 		Session session = openvidu.createSession(properties);
 		return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/api/sessions/{sessionId}/connections")
 	public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId, @RequestBody(required = false)Map<String, Object> params) throws Exception{
+
 		Session session = openvidu.getActiveSession(sessionId);
 		
 		if(session == null) {
@@ -63,6 +65,7 @@ public class ViduController {
 		
 		ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
 		Connection connection = session.createConnection(properties);
+		
 		
 		return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
 		

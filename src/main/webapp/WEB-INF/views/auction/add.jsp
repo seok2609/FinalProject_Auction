@@ -6,14 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.2/dist/umd/popper.min.js"></script>
     
     <script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/js/tempus-dominus.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/css/tempus-dominus.css"
-          rel="stylesheet">
-          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/css/tempus-dominus.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
 <c:import url="../common/header.jsp"></c:import>
 </head>
@@ -27,6 +26,7 @@
 		  <div class="col-md-6">
 		    <label for="inputPassword4" class="form-label">상품 선택</label><br>
 		    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">경매 가능 상품보기</button>
+		    <!-- <a href="javascript:openWindowPop('/auction/product/list','popup')">판매 가능상품 보기</a> -->
 		  </div>
 		  <!-- Scrollable modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -37,7 +37,25 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				        
+				        <table>
+							<thead>
+								<tr>
+									<th>상품 번호</th><th>공급자</th><th>품명</th><th>품목</th><th>수량</th><th>출하지</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${list}" var="vo">
+									<tr>
+										<td>${vo.product_num}</td>
+										<td>${vo.id}</td>
+										<td>${vo.name}</td>
+										<td>${vo.category}</td>
+										<td>${vo.quantity}</td>
+										<td>${vo.pickup_address}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -46,9 +64,11 @@
 				    </div>
 				</div>
 		  	</div>
+		  	
+		  	
 		  <div class="col-md-6">
-		    <label for="headCount" class="form-label">허용 인원 수</label>
-		    <select class="form-select" aria-label="Default select example" name="head_count">
+		    <label for="headCount" class="form-label">상품 카테고리</label>
+		    <select class="form-select" aria-label="Default select example" name="category">
 			  <option selected>선택</option>
 			  <option value="1">5명</option>
 			  <option value="2">6명</option>
@@ -60,7 +80,7 @@
 		  </div>
 		  <div class="col-md-6">
 		  	<span></span><br>
-		  	* 경매 허용 인원 수는 최소 5명, 최대 10명 입니다.
+		  	
 		  </div>
 		  <div class="col-12">
 		    <label for="inputAddress2" class="form-label">내용</label>
@@ -132,6 +152,24 @@
 	        },
 	    },
 	});
+	
+	function openWindowPop(url, name){
+	    var options = 'top=10, left=10, width=700, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+	    window.open(url, name, options);
+	}
+	
+	
+	
+	$.ajax({
+	      url:'/auction/nick',
+	      method:"GET",
+	      success:(response)=>{
+	        console.log("닉네임 : ", response);
+	      }
+	    })
+	  
+	
+	
 	</script>
 </body>
 </html>
