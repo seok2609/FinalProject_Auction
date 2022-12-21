@@ -50,7 +50,7 @@
                 <input class="form-control form-control-sm" id="reportFileAdd" name="files" type="file">
               </div>
               <div class="text-center" style="margin-top: 15px;">
-                <button type="button"  class="btn btn-success" id="inquiryAddBtn" onclick="reportNullCheck()">문의하기</button>
+                <button type="button"  class="btn btn-success" id="inquiryAddBtn" onclick="reportNullCheck()">신고하기</button>
               </div>
             </form>
           </div>
