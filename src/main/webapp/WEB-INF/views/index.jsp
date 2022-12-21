@@ -51,7 +51,7 @@
           <p>전국 32개 공영도매시장에서 매일 수집되는 다양한 정보를 신속, 편리하게 제공하여<br>
             농산물의 유통효율화 향상을 위해 지원합니다.</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="http://localhost:4200" class="btn-get-started" target="_blank">실시간 경매 방송</a>
+            <a href="http://192.168.1.28:4200" class="btn-get-started" target="_blank">실시간 경매 방송</a>
             <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
           </div>
         </div>
