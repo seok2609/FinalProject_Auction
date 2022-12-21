@@ -1,5 +1,6 @@
 testBtn = document.getElementById("testBtn");
 const bar = document.getElementById("progressBar");
+disCheck = document.getElementById("disCheck");
 
 console.log("mapTest!");
 console.log("disS : ",disS);
@@ -11,4 +12,6 @@ console.log("bar : ", bar.max);
 function barValue(){
     bar.value= disE;
     bar.max= disE+disS;
+
+    disCheck.append(""+disE);
 }

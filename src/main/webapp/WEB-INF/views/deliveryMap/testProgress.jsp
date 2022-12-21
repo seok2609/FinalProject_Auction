@@ -49,6 +49,11 @@
 		<div class="section-header">
           <h2>택배 위치</h2>
      </div>
+     
+     <table id="mapTable">
+		<tr>
+		<th>
+		
 	<div class="map_wrap" style="width:450px; height: 400px;">
 		<!-- 지도를 표시할 div 입니다 -->
 		<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div> 
@@ -58,6 +63,7 @@
 	</div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae6b0e9fe80d419505ac021baf944e44"></script>
 	<script>
+	
 	var stla;
 	var stlo;
 	var enla;
@@ -85,7 +91,7 @@
 	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(37.53946477, 126.82873744), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(37.4730836, 126.8788276), // 지도의 중심좌표
 	        level: 9 // 지도의 확대 레벨
 	    };
 	
@@ -100,7 +106,7 @@
         latlng : new daum.maps.LatLng(stla, stlo)
     }, {
     	title : "배달트럭",
-    	latlng : new daum.maps.LatLng(37.53946477, 126.82873744)
+    	latlng : new daum.maps.LatLng(37.4730836, 126.8788276)
     }, {
         title : "제주공항",
         latlng : new daum.maps.LatLng(enla, enlo)
@@ -243,6 +249,9 @@
         }
     }
     
+ 
+    
+    
     //------------------------------------------------------------------------
     
     
@@ -370,8 +379,14 @@
 	}
 	
 	</script>
-		<label for="progressBar">택배 오는중</label>
-		<progress id="progressBar" value="25" max="100"></progress>
+	
+		</th>
+		<th>
+			<label for="progressBar">택배 오는중</label>
+			<progress id="progressBar" value="25" max="100"></progress>		
+		</th>
+	</tr>
+	</table>
 	<div class="testCSS">
 	<c:import url="../common/footer.jsp"></c:import>
 </body>

@@ -312,8 +312,7 @@
 	</table>
 	
 	<br>
-	
-	<a href="./progress">시간별 위치</a>
+
 	<a href="./testProgress">클릭 이벤트</a>
 	<c:import url="../common/footer.jsp"></c:import>
 </body>
