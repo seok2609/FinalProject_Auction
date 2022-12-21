@@ -23,7 +23,7 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		
 		
 		log.info("===========소셜 로그인을 시도중입니다===========");
-		log.info("UserRequest {} ", userRequest);
+		log.info("UserRequest : {} ", userRequest);
 		log.info("AccessTocken : {} ", userRequest.getAccessToken());
 		log.info("ClientRegistration : {} ", userRequest.getClientRegistration());
 		
