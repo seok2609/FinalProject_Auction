@@ -51,7 +51,7 @@
       	<%-- 	<h3> <spring:message code="welcome" arguments="${member.nickName}"></spring:message> </h3> --%>
       	<c:choose>	
 				<c:when test="${not empty membersVO.id}">				
-					<h5>${membersVO.nickName}님 환영합니다!</h5>
+					<h5>${membersVO.realName}님 환영합니다!</h5>
 				</c:when>
 						
 				<c:otherwise>
@@ -95,7 +95,11 @@
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
 
       		<li><a href="/members/logout">로그아웃</a></li>
-      		<li><a href="/members/myPage">마이페이지</a></li>
+      		<!-- 관리자로 로그인했을땐 마이페이지가 보이면 안됌 -->
+      		<sec:authorize access="hasAnyRole('MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
+      			<li><a href="/members/myPage">마이페이지</a></li>
+      		</sec:authorize>
+      		
           <li><a href="/kdy/inquiryRequest">1대1문의</a></li>
           <li><a href="/kdy/reportRequest">신고요청</a></li>
           

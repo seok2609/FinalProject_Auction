@@ -15,8 +15,8 @@
 		
 		<sql id="reportSearch">
 			<choose>
-				<when test="kind == 'id'">M.ID</when>
-				<otherwise>RP.REPORT_ID</otherwise>
+				<when test="kind == 'report_id'">RP.REPORT_ID</when>
+				<otherwise>M.ID</otherwise>
 			</choose>
 				LIKE concat ('%', #{reportSearch}, '%')
 		</sql>

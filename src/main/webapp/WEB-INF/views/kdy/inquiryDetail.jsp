@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,13 +86,19 @@
                   <div id="information">문의 내용 : </div>
                   <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${inquiryDetail.inquiry_contents}</textarea>
                 </div>
-      
+		
+                <sec:authorize access="isAuthenticated()">	  
+                          
+      				
                 <c:choose>
                   <c:when test="${empty inquiryDetail.inquiryResponseVO.inquiry_response_contents}">
                     <form action="./inquiryResponse" method="post" id="frm">
                       <div>
                         <input type="hidden" id="inquiry_num" name="inquiry_num" value="${inquiryDetail.inquiry_num}">
                                 </div>
+                                
+                                <sec:authorize access="hasRole('ADMIN')">
+                                
                                 <div class="form-group mt-3">
                                   <textarea class="form-control" name="inquiry_response_contents" id="inquiry_response_contents" rows="7" placeholder="관리자의 답변을 기다리고있어요~" required></textarea>
                                 </div> 
@@ -100,8 +107,12 @@
                                     <button type="button" class="btn btn-success" id="inquiryAddBtn" onclick="inquiryResponseNullCheck()">답변하기</button>
                                     <button type="button" class="btn btn-success" class="text-center" onclick="location.href='/kdy/inquiryList';">뒤로가기</button>
                                 </div> 
+                            		</sec:authorize>
                               </form>
                             </c:when>
+                            
+                           
+                            
                             <c:otherwise>
                               <div class="form-group mt-3">
                                 <div id="information">관리자 답변 : </div>
@@ -112,6 +123,8 @@
                               </div>
                             </c:otherwise>
                           </c:choose>
+                      </sec:authorize>
+                          
             </div>
           </div> 
         </div>

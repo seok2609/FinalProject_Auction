@@ -34,10 +34,6 @@
             <div class="section-header">
             <h2>${reportDetail.id}님이 ${reportDetail.report_id}님을 신고한 사유(내용) 입니다.</h2>
             </div>
-
-            <div>
-              ${reportDetail.reportFileVOs[0].report_fileName}
-            </div>
  
             <div class="row gx-lg-0 gy-4">
               <div style="height: 50px;">
@@ -128,7 +124,6 @@
         </div>
       </div>
     </div>
-
         <c:import url="../common/footer.jsp"></c:import>
 </body>
 </html>
