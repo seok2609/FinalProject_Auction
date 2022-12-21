@@ -31,9 +31,13 @@ public class AdminMembersController {
 		ModelAndView mv = new ModelAndView();
 		int result = adminMembersService.getTotalMembers(membersVO);
 		List<AdminMembersVO> ar = adminMembersService.getAdminPageInquiryList(adminMembersVO);
+		int totalInquiry = adminMembersService.getTotalInquiry(adminMembersVO);
+		int totalMembersBlack = adminMembersService.getTotalBlack(membersVO);
 		int inquiryNoResponse = adminMembersService.getTotalInquiryNo(adminMembersVO);
 		int reportNoResponse = adminMembersService.getTotalReport(membersReportVO);
 		mv.addObject("inquiryNoResponse", inquiryNoResponse);
+		mv.addObject("totalInquiry", totalInquiry);
+		mv.addObject("totalMembersBlack", totalMembersBlack);
 		mv.addObject("reportNoResponse", reportNoResponse);
 		mv.addObject("adminInquiryList", ar);
 		mv.addObject("result", result);
@@ -43,6 +47,7 @@ public class AdminMembersController {
 	@GetMapping("memberList")
 	public ModelAndView getAdminMembersList(AdminPager adminPager, MembersVO membersVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
+//		membersVO.setId(principal.getName());
 		int result = adminMembersService.getTotalMembers(membersVO);
 		List<MembersVO> membersVOs =  adminMembersService.getAdminMembersList(adminPager);
 		mv.addObject("membersVO", membersVOs);
@@ -239,7 +244,8 @@ public class AdminMembersController {
 	}
 	//공지사항 등록
 	@GetMapping("cNotice")
-	public String setCompanyNotice(CompanyNoticeVO companyNoticeVO)throws Exception{
+	public String setCompanyNotice(CompanyNoticeVO companyNoticeVO, Principal principal)throws Exception{
+		companyNoticeVO.setId(principal.getName());
 		return "kdy/cNotice";
 	}
 	//공지사항 등록
@@ -264,6 +270,7 @@ public class AdminMembersController {
 	public ModelAndView getNoticeDetail(CompanyNoticeVO companyNoticeVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		companyNoticeVO = adminMembersService.getNoticeDetail(companyNoticeVO);
+		adminMembersService.setHit(companyNoticeVO);
 		mv.addObject("noticeDetail", companyNoticeVO);
 		return mv;
 	}
@@ -289,11 +296,6 @@ public class AdminMembersController {
 		int result = adminMembersService.setNoticeDelete(companyNoticeVO);
 		mv.setViewName("redirect:./cNoticeList");
 		return mv;
-	}
-	//경매인 구인구직
-	@GetMapping("auctioneer")
-	public String auctioneer()throws Exception{
-		return "kdy/auctioneer";
 	}
 	//판매내역
 	@GetMapping("saleList")

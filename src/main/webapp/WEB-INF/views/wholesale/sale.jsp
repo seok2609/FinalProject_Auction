@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,12 @@
   font-weight: 600;
     }
 
+    #ch{
+      width: 400px;
+      height:400px;
+      margin: auto;
+      padding-bottom: 50px;
+    }
 </style>
 <script defer src="/js/wholesale/sale.js"></script>
 </head>
@@ -28,6 +36,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- chart js -->
 <script>
     $(function() {
       fn_default_datepicker();
@@ -40,18 +49,32 @@
   
           <div class="section-header">
             <h2>경매 거래 정보</h2>
-            <p>최근 3일간의 거래내역 조회가 가능합니다.</p>
+            <p>최근 3일간의 거래내역 상세 조회가 가능합니다.</p>
           </div>
-
+          <input type="hidden" id="w1Name" value="${bestW[0].midName}">
+          <input type="hidden" id="w2Name" value="${bestW[1].midName}">
+          <input type="hidden" id="w3Name" value="${bestW[2].midName}">
+          <input type="hidden" id="w4Name" value="${bestW[3].midName}">
+          <input type="hidden" id="w5Name" value="${bestW[4].midName}">
+          <input type="hidden" id="w6Name" value="${bestW[5].midName}">
+          <input type="hidden" id="w1Cnt" value="${bestW[0].dataCnt}">
+          <input type="hidden" id="w2Cnt" value="${bestW[1].dataCnt}">
+          <input type="hidden" id="w3Cnt" value="${bestW[2].dataCnt}">
+          <input type="hidden" id="w4Cnt" value="${bestW[3].dataCnt}">
+          <input type="hidden" id="w5Cnt" value="${bestW[4].dataCnt}">
+          <input type="hidden" id="w6Cnt" value="${bestW[5].dataCnt}">
+         
           <div class="row g-4 py-lg-5" data-aos="zoom-out" data-aos-delay="100">
-
                   <div class="pricing-item">
                     <c:if test="${!empty vo}">
-                        <h3> ${vo[0].whsalName} 상세 경매 내역 </h3>
+                        <h3> ${vo[0].whsalName} 거래 내역 TOP 6 </h3>
+                        <br>
+                        <div id="ch"> <canvas id="myLineChart" width="400" height="400"></canvas></div>
                       </c:if>
                       <c:if test="${empty vo}">
+                       <h3>조회 데이터가 없습니다.</h3>
+                       <br>
                       </c:if>
-
                     <table class="table table-hover" id="api">
                         <thead>
                             <tr>
@@ -190,10 +213,56 @@
       </section>
 
    
-
-
 <script>
 
+let w1Name = $("#w1Name").val();
+let w2Name = $("#w2Name").val();
+let w3Name = $("#w3Name").val();
+let w4Name = $("#w4Name").val();
+let w5Name = $("#w5Name").val();
+let w6Name = $("#w6Name").val();
+let w1Cnt = $("#w1Cnt").val();
+let w2Cnt = $("#w2Cnt").val();
+let w3Cnt = $("#w3Cnt").val();
+let w4Cnt = $("#w4Cnt").val();
+let w5Cnt = $("#w5Cnt").val();
+let w6Cnt = $("#w6Cnt").val();
+
+      // var sum = Number("{{sum}}");
+        var ctx = document.getElementById("myLineChart");
+        var myPieChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: [w1Name, w2Name, w3Name,w4Name, w5Name, w6Name],
+            datasets: [{
+              data: [w1Cnt, w2Cnt, w3Cnt, w4Cnt, w5Cnt, w6Cnt],
+              backgroundColor: ['rgb(69, 60, 103)','rgb(109, 103, 228)','rgb(180, 205, 230)','rgb(245, 239, 230)','rgb(60, 35, 23)','rgb(98, 142, 144)'],
+              hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+              hoverBorderColor: "rgba(234, 236, 244, 1)",
+            }],
+          },
+          options: {
+            tooltips: {
+              backgroundColor: "rgb(255,255,255)",
+              bodyFontColor: "#858796",
+              borderColor: '#dddfeb',
+              borderWidth: 1,
+              xPadding: 15,
+              yPadding: 15,
+              displayColors: false,
+              caretPadding: 10,
+              responsive: false,
+            },
+            legend: {
+              display: false,
+            },
+            cutoutPercentage: 0,
+          },
+          
+        });
+</script>
+
+<script>
   
 $(document).ready(function(){
     
@@ -214,8 +283,6 @@ $(document).ready(function(){
          var end = $("#datepicker_end").val();
      });    
 });
-
-
 </script>
 <!-- ===========footer=============== -->
 <c:import url="../common/footer.jsp"></c:import>

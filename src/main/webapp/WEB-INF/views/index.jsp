@@ -51,8 +51,12 @@
           <p>전국 32개 공영도매시장에서 매일 수집되는 다양한 정보를 신속, 편리하게 제공하여<br>
             농산물의 유통효율화 향상을 위해 지원합니다.</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
+
             <a href="#about" class="btn-get-started">이지원: 돼지</a>
             <a href="https://www.youtube.com/watch?v=yReQjeqXa6w" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Seoul Garak Market's AM</span></a>
+
+            <a href="http://localhost:4200" class="btn-get-started">Get Started</a>
+
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2">
@@ -120,43 +124,43 @@
           <div class="col-lg-6">
 
             <div class="stats-item d-flex align-items-center">
-              <span data-purecounter-start="0" data-purecounter-end="${whsal.totCnt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">회&nbsp;</p>
+              <span data-purecounter-start="0" data-purecounter-end="${whsal.totCnt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">회!&nbsp;</p>
            
               <c:if test="${empty whsal.totCnt}">
                 <p> 어제 일자의 경매 시장내역이 없습니다.</p>
               </c:if>
               <c:if test="${!empty whsal.totCnt}">
-                <p> 어제 거래량이 가장 많았던 시장은 <strong>${whsal.whsalName}</strong></p>
+                <p> 어제 거래량이 가장 많았던 시장은 <strong>"${whsal.whsalName}"</strong></p>
               </c:if>
  
             </div><!-- End Stats Item -->
 
             <div class="stats-item d-flex align-items-center">
-              <span data-purecounter-start="0" data-purecounter-end="${mid.dataCnt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">회&nbsp;</p>
+              <span data-purecounter-start="0" data-purecounter-end="${mid.dataCnt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">회!&nbsp;</p>
 			        <c:if test="${empty mid.dataCnt}">
                 <p> 어제 일자의 경매 품목내역이 없습니다.</p>
               </c:if>
               <c:if test="${!empty mid.dataCnt}">
-              <p> 어제 거래량이 가장 많았던 품목은 <strong>${mid.midName}</strong></p>
+              <p> 어제 거래량이 가장 많았던 품목은 <strong>"${mid.midName}"</strong></p>
              
               </c:if>
         
             </div><!-- End Stats Item -->
 
              <div class="stats-item d-flex align-items-center">
-              <span data-purecounter-start="0" data-purecounter-end="${totQty.totQty}" data-purecounter-duration="1" class="purecounter"></span><p id="m">톤&nbsp;</p>
+              <span data-purecounter-start="0" data-purecounter-end="${totQty.totQty}" data-purecounter-duration="1" class="purecounter"></span><p id="m">톤!&nbsp;</p>
               <c:if test="${empty totQty.totQty}">
                 <p> 어제 일자의 경매 물량내역이 없습니다.</p>
               </c:if>
               <c:if test="${!empty totQty.totQty}">
               <p> 어제 거래 총 물량은 </p>
-              
+
               </c:if>
         
             </div><!-- End Stats Item -->
             
               <div class="stats-item d-flex align-items-center">
-                <span data-purecounter-start="0" data-purecounter-end="${totAmt.totAmt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">백만원&nbsp;</p>
+                <span data-purecounter-start="0" data-purecounter-end="${totAmt.totAmt}" data-purecounter-duration="1" class="purecounter"></span><p id="m">백만원!&nbsp;</p>
               <c:if test="${empty totAmt.totAmt}">
                 <p> 어제 일자의 경매 금액내역이 없습니다.</p>
               </c:if>
@@ -176,10 +180,13 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>Real Time List</h2>
+          <h2>
           <c:set var="today" value="<%=new java.util.Date()%>" />
           <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy년 MM월 dd일 실시간 경매내역" /></c:set> 
-           <p><c:out value="${date}" /></p>
+          
+          <c:out value="${date}" />
+         </h2>
+           <p>데이터는 30분 간격으로 갱신됩니다.</p>
         </div>
         <div class="row g-4 py-lg-5" data-aos="zoom-out" data-aos-delay="100">
 
@@ -235,7 +242,7 @@
                   <li><i class="bi bi-check"></i>  No Real Time Data.</li></ul>
             
               </c:if>
-              <div class="text-center"><a href="/wholesale/sale" class="buy-btn">go to Detail</a></div>
+              <div class="text-center"><a href="/wholesale/realtime" class="buy-btn">go to Detail</a></div>
             </div>
           </div><!-- End Pricing Item -->
 

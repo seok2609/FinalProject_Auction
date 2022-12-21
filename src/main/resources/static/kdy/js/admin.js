@@ -14,6 +14,10 @@ $("#bl").click(function(){
 $("#blc").click(function(){
     alert("블랙을 성공적으로 해제하였습니다. 리스트로 돌아갑니다.")
  })
+ //memberList.jsp
+ $("#cc").click(function(){
+    $("#mobu").submit();
+ })
 
 //  inquiryRequest.jsp
 function inquryNullCheck(){
