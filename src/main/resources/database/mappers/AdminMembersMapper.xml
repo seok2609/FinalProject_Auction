@@ -98,6 +98,10 @@
 		<delete id="setNoticeDelete" parameterType="CompanyNoticeVO">
 			DELETE FROM COMPANY_NOTICE WHERE NOTICE_NUM = #{notice_num}
 		</delete>
+		<!-- 공지사항 조회수 -->
+		<update id="setHit" parameterType="CompanyNoticeVO">
+			  UPDATE COMPANY_NOTICE SET NOTICE_HIT = NOTICE_HIT +1 WHERE NOTICE_NUM=#{notice_num}
+		</update>
 				
 <!-- 1대1 문의 -->	 	
 		<!-- 1대1문의 리스트 -->

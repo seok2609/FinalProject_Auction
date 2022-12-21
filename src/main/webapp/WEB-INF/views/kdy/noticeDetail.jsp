@@ -33,9 +33,6 @@
         <div class="container" data-aos="fade-up">
           <div class="section-header" style="margin-top: 90px;">
             <h2>공지사항</h2>
-            ${noticeDetail.membersVO.roleVO.roleName}
-            <sec:authentication property="Principal" var="member"/>
-            ${member.nickName}
           </div>
           <div class="row gx-lg-0 gy-4 ">
 

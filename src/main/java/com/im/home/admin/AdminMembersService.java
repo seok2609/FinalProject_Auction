@@ -182,4 +182,8 @@ public class AdminMembersService {
 	public int setNoticeDelete(CompanyNoticeVO companyNoticeVO)throws Exception{
 		return adminMembersMapper.setNoticeDelete(companyNoticeVO);
 	}
+	//공지사항 조회수
+	public int setHit(CompanyNoticeVO companyNoticeVO)throws Exception{
+		return adminMembersMapper.setHit(companyNoticeVO);
+	}
 }

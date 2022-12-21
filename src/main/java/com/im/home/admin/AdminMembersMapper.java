@@ -86,4 +86,6 @@ public interface AdminMembersMapper {
 	public int setNoticeUpdate(CompanyNoticeVO companyNoticeVO)throws Exception;
 	//공지사항 삭제
 	public int setNoticeDelete(CompanyNoticeVO companyNoticeVO)throws Exception;
+	//공지사항 조회수
+	public int setHit(CompanyNoticeVO companyNoticeVO)throws Exception;
 }
