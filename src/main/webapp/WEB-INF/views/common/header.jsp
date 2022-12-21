@@ -95,7 +95,11 @@
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
 
       		<li><a href="/members/logout">로그아웃</a></li>
-      		<li><a href="/members/myPage">마이페이지</a></li>
+      		<!-- 관리자로 로그인했을땐 마이페이지가 보이면 안됌 -->
+      		<sec:authorize access="hasAnyRole('MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
+      			<li><a href="/members/myPage">마이페이지</a></li>
+      		</sec:authorize>
+      		
           <li><a href="/kdy/inquiryRequest">1대1문의</a></li>
           <li><a href="/kdy/reportRequest">신고요청</a></li>
           
