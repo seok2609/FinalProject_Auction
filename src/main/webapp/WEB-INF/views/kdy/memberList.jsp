@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
                 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+                <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -18,7 +19,7 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <style>
 
        #mydiv{
@@ -44,11 +45,12 @@
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
        }
     </style>
-
+    <script  defer src="/kdy/js/admin.js"></script>
 </head>
 
 <body id="page-top">
     <c:import url="../common/header.jsp"></c:import>
+    
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -123,6 +125,7 @@
                     <a class="collapse-item" href="./saleList">판 매 내 역</a>
                     <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
                     <a class="collapse-item" href="./paymentList">결 제 내 역</a>
+                    <a class="collapse-item" href="./cNotice">공지사항 등록</a>
                 </div>
             </div>
         </li>
@@ -137,8 +140,8 @@
 
                     <div class="row" id="mydiv" style="margin-left: -1px;">
                         <!-- End of Topbar -->
-                        <div class="col-xl-3 col-md-6 mb-4" style="margin-left: 15px;" >
-                            <div class="card border-left-success  h-100 py-2"  >
+                        <div class="col-xl-3 col-md-6 mb-4" style="margin-left: 15px;"  id="cc">
+                            <div class="card border-left-success  h-100 py-2" >
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -146,20 +149,48 @@
                                                 총 회원</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 건</div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" style="display: none;" id="mobu" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Launch demo modal
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            ...
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
                     <!-- DataTales Example -->
                     <div class="container-fluid" style="width: 1650px;" >
                     <div class="card shadow mb-4" >
                         <div class="card-header py-3 row" style="background-color: #008374; width: 1620px; margin-left: 1px;">
                             <div class="m-0 font-weight-bold" style="color: white;">회원</div>
 
+                            <sec:authorize access="isAuthenticated()">
+      		                    <sec:authentication property="Principal" var="member"/>
+                                <input type="hidden" name="id" value="${member.id}">
+                                </sec:authorize>
+
+                            
                                 <form action="./memberList" style="margin-left: -100px; margin-top: -25px;" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
                                     <div class="col-12">
                                         <div class="input-group" id="memberListSearch">
@@ -176,18 +207,18 @@
                         </div>
 
                             <tbody>
-                                <c:forEach items="${membersVO}" var="membersVO">
+                                <c:forEach items="${membersVO}" var="mVO">
                                     <c:choose>
-                                        <c:when test="${membersVO.black < 2}">
-                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='/kdy/membersDetail?id=${membersVO.id}';">
+                                        <c:when test="${mVO.black < 2}">
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='/kdy/membersDetail?id=${mVO.id}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
                                                     <div class="d-flex">
                                                         <div class="p-2 w-100">
                                                             <div class="container2" >
-                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCss">아이디 : ${membersVO.id}</div>
-                                                                <div class="contents" id="blackMembersCss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
+                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCss">아이디 : ${mVO.id}</div>
+                                                                <div class="contents" id="blackMembersCss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${mVO.nickName}</div>
                                                                 <div id="blackMembersCssss" style="font-weight: bold; width: 180px; margin-left: 1470px; margin-top: -45px;">
-                                                                    ${membersVO.roleVO.roleName}
+                                                                    ${mVO.roleVO.roleName}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -196,14 +227,14 @@
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/membersDetail?id=${membersVO.id}';">
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/membersDetail?id=${mVO.id}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
                                                     <div class="d-flex">
                                                         <div class="p-2 w-100">
                                                             <div class="container2" >
-                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCsss">아이디 : ${membersVO.id}</div>
-                                                                <div class="contents" id="blackMembersCsss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${membersVO.nickName}</div>
-                                                                <div id="blackMembersCsss" onclick="location.href='/kdy/blackC?id=${membersVO.id}'" style="font-weight: bold; width: 100px; margin-left: 1500px; margin-top: -60px;">
+                                                                <div class="name" style="margin-left: 8px; margin-top: 15px;" id="blackMembersCsss">아이디 : ${mVO.id}</div>
+                                                                <div class="contents" id="blackMembersCsss" style="margin-left: 8px; margin-top: 15px; font-weight: bold; font-size: 20px;">닉네임 : ${mVO.nickName}</div>
+                                                                <div id="blackMembersCsss" onclick="location.href='/kdy/blackC?id=${mVO.id}'" style="font-weight: bold; width: 100px; margin-left: 1500px; margin-top: -60px;">
                                                                    블 랙
                                                                 </div>
                                                             </div>

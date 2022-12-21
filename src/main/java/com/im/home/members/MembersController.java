@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.im.home.admin.AdminMembersService;
 import com.im.home.admin.AdminMembersVO;
 
 import io.openvidu.java.client.Session;
@@ -46,11 +47,13 @@ public class MembersController {
 	private PasswordEncoder passwordEncoder;
 //	@Autowired
 //	private MailSenderRunner mailSenderRunner;
+	@Autowired
+	private AdminMembersService adminMembersService;
 	
 	
 	@GetMapping(value = "login")
 	public String getMembersLogin() throws Exception{
-	
+		
 		return "members/login";
 	}
 	
@@ -151,7 +154,7 @@ public class MembersController {
 	
 	@GetMapping(value = "myPage")
 	@ResponseBody
-	public ModelAndView getMyPage(MembersVO membersVO, String id, String checkPassWord, Principal principal , Model model, HttpSession session) throws Exception{
+	public ModelAndView getMyPage(MembersVO membersVO, String id, String checkPassWord, Principal principal , Model model, HttpSession session, Authentication authentication) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		AdminMembersVO adminMembersVO = new AdminMembersVO();
 		
@@ -161,6 +164,8 @@ public class MembersController {
 		membersVO.setId(principal.getName());	//시큐리티로 로그인한 아이디값을 가져오는 코드
 		
 		membersVO = membersService.getMyPage(membersVO);
+		
+		log.info("카카오오오오 ::: {} " , authentication.getPrincipal());
 		
 //		if(request2.getRequestURI() == "inquiryList") {
 //			adminMembersVO = membersService.getInquiryList(adminMembersVO);
@@ -177,6 +182,7 @@ public class MembersController {
 		log.info("Principal => {} ", principal);
 //		log.info("file ::::: {} " ,membersVO.getMembersFileVO().getFileName());
 		mv.addObject("membersVO", membersVO);
+		mv.addObject("kakao", authentication.getPrincipal());	//소셜로그인 했을때 
 //		mv.addObject("membersVO", membersVO2);
 		mv.setViewName("members/myPage");
 		
@@ -438,6 +444,16 @@ public class MembersController {
 			return result;
 		}
 	
-	
-	
+		@PostMapping("black")
+		@ResponseBody
+		public int getBlack(MembersVO membersVO) throws Exception{
+			
+			membersVO = adminMembersService.getMemberBlack(membersVO);
+			int result = membersVO.getBlack();	
+			log.info("아아아아아아ㅏ앙 ===> {}", result);
+			return result;
+			
+		}
+		
+		
 }
