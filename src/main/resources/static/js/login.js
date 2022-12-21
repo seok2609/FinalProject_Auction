@@ -49,3 +49,24 @@ $("#checkEmail").click(function () {
         }
     })
 })
+
+function blackMem(){
+    let id = $("#id").val();
+    console.log("아이디:",id);
+    $.ajax({
+        type : "POST",
+        url : "/members/black",
+        data : {
+            "id" : id
+        },
+        success : function(result){
+            if(result == 2){
+                alert("블랙회원은 로그인이 불가합니다.");
+            }else{
+              $("#frm").submit();  
+            }
+        }
+
+    })
+        
+}

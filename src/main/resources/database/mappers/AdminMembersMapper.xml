@@ -70,6 +70,7 @@
 		<select id="getCompanyNoticeList" parameterType="AdminPager" resultType="CompanyNoticeVO">
 			SELECT * FROM COMPANY_NOTICE
 			ORDER BY NOTICE_NUM DESC
+			LIMIT #{startRow}, #{perPage}
 		</select>
 			<!-- 공지사항 카운트 -->
 			<select id="getNoticeCount" parameterType="AdminPager" resultType="Long">
@@ -162,7 +163,8 @@
 	         ON IQ.INQUIRY_NUM = IR.INQUIRY_NUM 
 		  	 WHERE INQUIRY_RESPONSE_CONTENTS IS NULL
 	         ORDER BY INQUIRY_NUM DESC
- 			 LIMIT 0, 5;
+ 			 LIMIT 0, 5
+ 			 
  		</select>
  		 <!-- 1대1문의 -->
 		 <insert id="setInquiryRequest" parameterType="AdminMembersVO">
@@ -278,7 +280,7 @@
 			INNER JOIN
 			REPORT RP
 			ON M.ID = RP.REPORT_ID 
-			SET M.BLACK = 1 WHERE RP.REPORT_ID=#{report_id};
+			SET M.BLACK = 1 WHERE RP.REPORT_ID=#{report_id}
 		</update>
 		<!-- 신고 요청 DETAIL -->
 		<select id="getReportDetail" parameterType="MembersReportVO" resultMap="getReportResult">
@@ -351,7 +353,7 @@
 			LEFT JOIN
 			MEMBERS M 
 			ON M.ID = RP.REPORT_ID
-			WHERE M.BLACK = 1;
+			WHERE M.BLACK = 1
 		</select>
 		<!-- 블랙 회원 수 -->
 		<select id="getTotalBlack" parameterType="MembersVO" resultType="Integer">
@@ -360,7 +362,13 @@
 			LEFT JOIN
 			REPORT RP
 			ON M.ID = RP.REPORT_ID
-			WHERE M.BLACK=2 AND RP.REPORT_CONTENTS IS NOT NULL ;
+			WHERE M.BLACK=2 AND RP.REPORT_CONTENTS IS NOT NULL
+		</select>
+		<!-- 블랙 입구 컷 -->
+		<select id="getMemberBlack" parameterType="MembersVO" resultType="MembersVO">
+			SELECT ID, PASSWORD, BLACK 	
+			FROM MEMBERS
+			WHERE ID = #{id}
 		</select>
 
 <!--resultMap-->
