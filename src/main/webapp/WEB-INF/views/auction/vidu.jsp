@@ -55,6 +55,7 @@
 			<div id="main-video" class="col-md-6"><p></p><video autoplay playsinline="true"></video></div>
 			<div id="video-container" class="col-md-6"></div>
 		</div>
+		
 	</div>
 
 	<footer class="footer">

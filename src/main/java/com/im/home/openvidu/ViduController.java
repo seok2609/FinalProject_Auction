@@ -54,6 +54,7 @@ public class ViduController {
 	
 	@PostMapping("/api/sessions/{sessionId}/connections")
 	public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId, @RequestBody(required = false)Map<String, Object> params) throws Exception{
+
 		Session session = openvidu.getActiveSession(sessionId);
 		
 		if(session == null) {
