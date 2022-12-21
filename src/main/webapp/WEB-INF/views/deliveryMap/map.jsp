@@ -125,25 +125,7 @@
 	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
 	function displayMarker(locPosition, message) {
 
-	    // // 마커를 생성합니다
-	    // var marker = new kakao.maps.Marker({  
-	    //     map: map, 
-	    //     position: locPosition
-	    // }); 
 	    
-	    // var iwContent = message, // 인포윈도우에 표시할 내용
-	    //     iwRemoveable = true;
-
-	    // // // 인포윈도우를 생성합니다
-	    // var infowindow = new kakao.maps.InfoWindow({
-	    //     content : iwContent,
-	    //     removable : iwRemoveable
-	    // });
-	    
-	    // // 인포윈도우를 마커위에 표시합니다 
-	    // infowindow.open(map, marker);
-	    
-	    // 지도 중심좌표를 접속위치로 변경합니다
 	    map.setCenter(locPosition);      
 	    
 		
@@ -284,34 +266,40 @@
 		for (i = 0; i < points.length; i++) {
 		    bounds.extend(points[i]);
 		}
-		function setBounds() {
+		/* function setBounds() {
 		    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
 		    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
 		    map.setBounds(bounds);
 		}
-		setBounds();
+		setBounds(); */
 		
 	</script>
 	
 	</th>
 		<th>
 			<table id="infoTable">
-				<tr>
-					<th>경매장</th>
-					<th>이름</th>
-					<th>설명</th>
-					<th>가격</th>
-					<th>수량</th>
-				</tr>
-				<tr>
-					<c:forEach items="${Info}" var="Info">
+				<c:forEach items="${Info}" var="Info">
+					<tr>
+						<th>경매장 : </th>
 						<th>${Info.category}</th>
+					</tr>
+					<tr>
+						<th>이름 : </th>
 						<th>${Info.title}</th>
+					</tr>
+					<tr>
+						<th>설명 : </th>
 						<th>${Info.contents}</th>
+					</tr>
+					<tr>
+						<th>가격 : </th>
 						<th>${Info.award}</th>
+					</tr>
+					<tr>
+						<th>수량 : </th>
 						<th>${Info.amount}</th>
-					</c:forEach>
-				</tr>
+					</tr>
+				</c:forEach>
 			</table>
 		
 			<br>	
@@ -326,6 +314,7 @@
 	<br>
 	
 	<a href="./progress">시간별 위치</a>
+	<a href="./testProgress">클릭 이벤트</a>
 	<c:import url="../common/footer.jsp"></c:import>
 </body>
 </html>
