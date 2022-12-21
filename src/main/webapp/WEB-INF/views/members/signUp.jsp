@@ -23,6 +23,14 @@
   #profileImg{
   	cursor: pointer;
   }
+  #signUpBtn{
+  	background: var(--color-primary);
+	border: 0;
+	padding: 14px 45px;
+	color: #fff;
+	transition: 0.4s;
+	border-radius: 50px;
+  }
 </style>
 </head>
 <body>
@@ -94,7 +102,7 @@
                <div style="margin-left: 50px; margin-top: 15px;">
                         <div id="profileImg">
                           <img alt="" src="/assets/img/profle.png" width="100px" height="100px" onclick="onClickUpload();">
-                          <button type="button" class="btn btn-secondary" onclick="onClickUpload();">첨부파일</button> 
+                          <button type="button" class="btn btn-secondary" id="imgBtn" onclick="onClickUpload();">첨부파일</button> 
                 		</div>
                 <div class="form-group mt-3" id="proDiv">
                   <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>

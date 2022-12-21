@@ -24,6 +24,14 @@
   #profileImg{
   	cursor: pointer;
   }
+  #signUpBtn{
+  	background: var(--color-primary);
+	border: 0;
+	padding: 14px 45px;
+	color: #fff;
+	transition: 0.4s;
+	border-radius: 50px;
+  }
 </style>
 </head>
 <body>
@@ -77,12 +85,12 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="birth" class="form-control" id="inputBirth" placeholder="생년월일을 입력해주세요" maxlength="10" onkeyup="birth_keyup(this)">
+                  <input type="text" name="birth" class="form-control" id="inputBirth" placeholder="생년월일을 입력해주세요(숫자만 입력해주세요)" maxlength="10" onkeyup="birth_keyup(this)">
                   <span id="birthHelp" class="bc"></span>
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="phone" class="form-control" id="inputPhone" oninput="autoHyphen(this)" maxlength="13" placeholder="전화번호 입력" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                  <input type="text" name="phone" class="form-control" id="inputPhone" oninput="autoHyphen(this)" maxlength="13" placeholder="전화번호 입력(숫자만 입력해주세요)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                   <span id="phoneHelp" class="bc"></span>
                 </div>
                     
@@ -91,8 +99,9 @@
 
                <div style="margin-left: 50px; margin-top: 15px;">
                         <div id="profileImg">
-                          <img alt="" src="/assets/img/profle.png" width="100px" height="100px" onclick="onClickUpload();"> 
-                </div>
+                          <img alt="" src="/assets/img/profle.png" width="100px" height="100px" onclick="onClickUpload();">
+                          <button type="button" class="btn btn-secondary" id="imgBtn" onclick="onClickUpload();">첨부파일</button> 
+                		</div>
                 <div class="form-group mt-3" id="proDiv">
                   <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
                   <input class="form-control form-control-sm pro" id="memberFileAdd" name="files" type="file">

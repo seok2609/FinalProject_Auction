@@ -39,7 +39,7 @@
 		
 		<section id="contact" class="contact">
 		<div class="section-header">
-          <h2>로그인 페이지</h2>
+          <h2 style="color: #008374;">로그인 페이지</h2>
         </div>
 	
 
@@ -58,37 +58,28 @@
                 
               </div>
 
-              	<h3>${membersVO.social}</h3>              
-              <sec:authorize access="!isAuthenticated()">
-              
-              	<sec:authentication property="Principal" var="member"/>
-              	<h3>${membersVO.social}</h3>
-              
-              </sec:authorize>
-              
-              
               
                <!--  <a href="/oauth2/authorization/kakao">카카오 간편가입</a> -->
-               	<div style="float: right; margin-top: 10px; cursor: pointer;">
+<!--                	<div style="float: right; margin-top: 10px; cursor: pointer;">
 					<input type="button" id="loginBtn" onclick="location='/oauth2/authorization/kakao'" value="카카오 간편가입">
 					<img alt="" src="/assets/img/kakao_login_medium_narrow.png" onclick="location='/oauth2/authorization/kakao'">
-				</div>
+				</div> -->
 				
 				
 				<div class="form-group mb-3">
 				    <input type="checkbox" name="rememberId" class="form-check-input" id="exampleCheck2">
-				    	ID저장하기
+				    	<b style="color: #008374;">ID저장하기</b>
 				 </div>
 				 
 				<div class="mb-3">
 				    <label for="password" class="form-label"></label>
 				    <input type="checkbox" name="rememberMe" class="form-check-input" id="exampleCheck2">
-				    자동로그인
+				    	<b style="color: #008374;">자동로그인</b>
 			  
 			  <!-- 아래 있는 비밀번호 찾기 모달 띄우기 -->
-				  <div style="float: right;" id="pwConfirm" data-bs-toggle="modal" data-bs-target="#myModal">
+<!-- 				  <div style="float: right;" id="pwConfirm" data-bs-toggle="modal" data-bs-target="#myModal">
 					  	pw찾기
-				  </div>
+				  </div> -->
 				  
 				</div>
 				
@@ -97,7 +88,6 @@
 					</button>	
 				 </div> -->
 				 
-	<div class="container">
 
 
 			 
@@ -148,8 +138,8 @@
         </div>
     </div>
 </div>
-    <button type="button" class="btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#findPw">비밀번호를 잊으셨나요?</button>
+<!--     <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                                            data-bs-target="#findPw">비밀번호를 잊으셨나요?</button> -->
                                             </section>
                                             <script>
     $("#checkEmail").click(function () {
