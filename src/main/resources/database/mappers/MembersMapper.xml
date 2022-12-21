@@ -156,6 +156,15 @@
 		DELETE FROM MEMBERS WHERE ID = #{id}
 	</delete>
 	
+	<!-- 카카오로 로그인 했을때 우리의 DB에 인서트 -->
+	<insert id="setKakao" parameterType="MembersVO">
+		INSERT INTO MEMBERS (ID, ROLENUM, NICKNAME) VALUES (#{id}, #{roleNum}, #{nickName})
+	</insert>
+	
+	<select id="getKakaoLogin" parameterType="MembersVO" resultMap="getMembersLoginResult">
+		SELECT NICKNAME, ID, ROLENUM FROM MEMBERS WHERE ID = #{id}
+	</select>
+	
 	
 	
 </mapper>
