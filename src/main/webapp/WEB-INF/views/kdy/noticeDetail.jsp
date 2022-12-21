@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,24 +74,19 @@
                       </div>
                     </c:when>
                     <c:otherwise>
-                      <c:choose>
-                        <c:when test="${noticeDetail.membersVO.roleVO.roleName ne 'ROLE_ADMIN'}">
                           <div class="text-center" onclick="location.href='/kdy/cNoticeList';">
                             <button type="submit">뒤로가기</button>
                           </div>
-                        </c:when>
-                        <c:otherwise>
-                          <div class="text-center" onclick="location.href='/kdy/cNoticeList';">
-                            <button type="submit">뒤로가기</button>
-                          </div>
+                          <sec:authorize access="isAuthenticated()">
+                          <sec:authorize access="hasRole('ADMIN')">
                           <div class="text-center" onclick="location.href='./noticeUpdate?notice_num=${noticeDetail.notice_num}';">
                             <button type="submit">수정하기</button>
                           </div>
                           <div class="text-center" id="nD" onclick="location.href='./noticeDelete?notice_num=${noticeDetail.notice_num}';">
                             <button type="submit">삭제하기</button>
                           </div>
-                        </c:otherwise>
-                      </c:choose> 
+                        </sec:authorize>
+                        </sec:authorize>
                     </c:otherwise>
                   </c:choose>
                 </div>
