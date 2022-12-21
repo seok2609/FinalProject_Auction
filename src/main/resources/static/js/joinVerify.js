@@ -192,6 +192,46 @@ $("#inputEmail").blur(function(){
 
 // });
 
+// function isBirthday(dateStr) {
+
+// 	var year = Number(dateStr.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
+// 	var month = Number(dateStr.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
+// 	var day = Number(dateStr.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일)
+// 	var today = new Date(); // 날짜 변수 선언
+// 	var yearNow = today.getFullYear(); // 올해 연도 가져옴
+
+//     console.log("연도 : ", year);
+//     console.log("월 : ", month);
+//     console.log("일 : ", day);
+
+// 	if (dateStr.length <=8) {
+// 	// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
+// 		if (1900 > year || year > yearNow){
+// 			return false;
+// 		} else if (month < 1 || month > 12) {
+// 			return false;
+// 		} else if (day < 1 || day > 31) {
+// 			return false;
+// 		} else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+// 			return false;
+// 		} else if (month == 2) {
+
+// 			var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+// 			if (day>29 || (day==29 && !isleap)) {
+// 				return false;
+// 			} else {
+// 				return true;
+// 			} //end of if (day>29 || (day==29 && !isleap))
+// 		} else {
+// 			return true;
+// 		}//end of if
+// 	}
+// 	else {
+// 		//1.입력된 생년월일이 8자 초과할때 :  auth:false
+// 		return false;
+// 	}
+// }
+
 //  생년월일 - 하이픈 자동 생성
 function birth_keyup(obj){
     let birth_len = obj.value.length;
@@ -207,6 +247,7 @@ let birth_pattern = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|
 
 $("#inputBirth").blur(function(){
 
+    let result = nullCheck($("#inputBirth").val());
      results[6] = result;
     
     if(!birth_pattern.test($("#inputBirth").val())){
@@ -218,6 +259,21 @@ $("#inputBirth").blur(function(){
     }else{
         $("#birthHelp").html('정상입니다.');
     }
+
+    // let result1 = isBirthday(function(){
+
+    //     console.log(result1);
+
+    //     if(result1){
+    //         console.log("true");
+    //         $("#birthHelp").html("");
+    //     }else{
+    //         console.log("false");
+    //         $("#birthHelp").html("연/월/일을 확인해주세요.");
+    //         $("#inputBirth").focus();
+    //     }
+
+    // });
 
 })
 
@@ -337,60 +393,13 @@ $("#dropBtn").click(function(){
 
 });
 
-// $("#successBtn").click(function(){
 
-//     location='./drop';
+//수정 폼에서 수정완료를 누를때 닉네임을 수정하지 않거나 
 
-// });
+// $("#updateBtn").click(function(){
 
+//     console.log("수정폼에서 수정완료 버튼 클릭");
 
-//모달창 pw검증
-//passWord체크
+//     $("#modifyFrm").submit();
 
-// $("#inputPassWord2").on({
-//     blur:function(){
-//         let result = nullCheck($("#inputPassWord2").val());
-      
-//         if(result){
-//             $("#pwHelp2").html("정상");
-//         }else{
-//             $("#pwHelp2").html("패스워드는 필수입니다.");
-//             $("#inputPassWord2").focus();
-//         }
-
-//         if($("#inputPassWord2").val() != $("#checkPassWord").val()){
-//             $("#pwHelp2").html("현재 비밀번호와 다릅니다.");
-//             $("#inputPassWord2").focus();
-//         }else{
-//             $("#pwHelp2").html("");
-//         }
-//     },
-
-//     change:function(){
-//         let result = equals($("#inputPassWord2").val(), $("#inputPassWordCheck2").val());
-
-//         if(result){ //패스워드와 확인이 같다면,
-//             $("#pwCheckHelp2").html("");
-//         }else{
-//             $("#pwCheckHelp").html("비밀번호가 일치하지 않습니다.")
-//             $("#pwHelp2").val("");   //비밀번호가 일치하지 않다면 비밀번호를 공백으로 바꾼다.
-//             $("inputPassWordCheck2").focus();
-
-            
-//         }
-//     }
-// });
-
-// //패스워드 확인 검증
-// $("#inputPassWordCheck2").blur(function(){
-
-//     let result = equals($("#inputPassWord2").val(), $("#inputPassWordCheck2").val());
-
-//     if(result){
-//         $("#pwCheckHelp2").html("패스워드가 일치합니다.");
-        
-//     }else{
-//         $("#pwCheckHelp2").html("패스워드가 불일치 합니다.");
-//     }
-
-// });
+// })

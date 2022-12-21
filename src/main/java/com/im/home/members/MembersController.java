@@ -150,7 +150,8 @@ public class MembersController {
 	}
 	
 	@GetMapping(value = "myPage")
-	public ModelAndView getMyPage(MembersVO membersVO, String id, Principal principal , Model model, HttpSession session) throws Exception{
+	@ResponseBody
+	public ModelAndView getMyPage(MembersVO membersVO, String id, String checkPassWord, Principal principal , Model model, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		AdminMembersVO adminMembersVO = new AdminMembersVO();
 		
@@ -221,7 +222,7 @@ public class MembersController {
 	
 	//회원정보 수정										//@RequestParam ==> Ajax에서 컨트롤러로 넘길때 String으로 받는 경우
 	@GetMapping(value = "modify")
-	public MembersVO setMembersModify(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, @RequestParam String id, Model model, Principal principal) throws Exception{
+	public MembersVO setMembersModify(MembersVO membersVO, Model model, Principal principal) throws Exception{
 		
 		model.addAttribute("membersVO", membersVO);
 		
@@ -230,34 +231,75 @@ public class MembersController {
 //		log.info("fileNNNNNAAAAMMMMEEE::::: {} ", membersVO.getFiles());
 		
 		String membersId = membersVO.getId();
+		log.info("memberID : {} " ,membersId);
+		
+//		boolean check = false;
+		
+//		check = membersService.checkPassWord(membersId, checkPassWord);
+//		log.info("마이페이지 회원정보 수정 check :: {} " , check);
+		
+//		if(check) {	//현재 입력한 비밀번호와 db에있는 비밀번호가 일치(true)한다면
+			
+			membersVO = membersService.getMyPage(membersVO);
+		
+			
+//		}
+	
+		return membersVO;
+	
+	}
+	
+	
+	// 회원정보 수정을 들어갈때 비밀번호 일치시키는 ajax 용 GET 주소
+	//회원정보 수정										//@RequestParam ==> Ajax에서 컨트롤러로 넘길때 String으로 받는 경우
+	@GetMapping(value = "modify1")
+	@ResponseBody
+	public boolean setMembersModify1(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, @RequestParam String id, Model model, Principal principal) throws Exception{
+		
+		model.addAttribute("membersVO", membersVO);
+		
+//		log.info("id :::: {} " , membersVO.getId());
+//		log.info("fileName ::: {} " , membersVO.getMembersFileVOs().get(0).getFileName());
+//		log.info("fileNNNNNAAAAMMMMEEE::::: {} ", membersVO.getFiles());
+		
+		String membersId = membersVO.getId();
+		log.info("memberID : {} " ,membersId);
 		
 		boolean check = false;
 		
 		check = membersService.checkPassWord(membersId, checkPassWord);
+		log.info("마이페이지 회원정보 수정 check :: {} " , check);
 		
-		if(check) {
+		if(check) {	//현재 입력한 비밀번호와 db에있는 비밀번호가 일치(true)한다면
 			
 			membersVO = membersService.getMyPage(membersVO);
 		
 			
 		}
 	
-		return membersVO;
+		return check;
+	
 	}
 	
 	@PostMapping(value = "modify")
-	public ModelAndView setMembersModify(MembersVO membersVO, Principal principal, MultipartFile files) throws Exception{
+	public ModelAndView setMembersModify(String id, MembersVO membersVO, Principal principal, MultipartFile files) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		
+		membersVO.setId(principal.getName());	//시큐리티로 로그인한 아이디값을 가져오는 코드
+		
 		log.info("============================회원가입 수정==========================");
-		mv.addObject("membersVO", membersVO);
+		//수정할때 수정 비밀번호도 패스워드 해싱해줌
 		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));
 		int result = membersService.setMembersModify(membersVO, files);
 		
 		log.info("내 수정정보 ===>> {}" ,principal);
 		log.info("수정된 닉네임 :::: {} " , membersVO.getNickName());
+		log.info("수정된 전화번호 ::: {} " , membersVO.getPhone());
+//		log.info("수정된 파일 :: {} " , membersVO.getMembersFileVO().getFileName());
+//		log.info("수정된 파일 오리네임 ::: {} ", membersVO.getMembersFileVO().getOriName());
 //		mv.setViewName("members/login");
+		mv.addObject("membersVO", membersVO);
 		mv.setViewName("redirect:/members/myPage");
 		
 		return mv;

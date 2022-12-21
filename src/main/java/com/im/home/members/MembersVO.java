@@ -52,6 +52,9 @@ public class MembersVO implements UserDetails, OAuth2User{
 	
 	private List<AdminMembersVO> adminMembersVOs;
 	private InquiryResponseVO inquiryResponseVO;
+	
+	
+	private boolean enAbled;
 
 	
 	
@@ -60,6 +63,10 @@ public class MembersVO implements UserDetails, OAuth2User{
 	private RoleVO roleVO;
 	private List<MembersVO> membersVOs;
 	
+	
+	//=========소셜로그인===========
+	//Kakao
+	private String social;
 
 	
 	
@@ -71,6 +78,8 @@ public class MembersVO implements UserDetails, OAuth2User{
 		List<GrantedAuthority> autoAuthorities = new ArrayList<>();
 		for(RoleVO roleVO : roleVOs) {
 			//roleVo를 GrantedAuthority 타입으로 담아준다
+			// ?는 any 를 뜻함, extends GrantedAuthority 를 상속받는 아무타입이면 된다.
+		    // (+) <? super T> T나 T의 부모타입을 허용하겠다 라는 뜻
 			autoAuthorities.add(new SimpleGrantedAuthority(roleVO.getRoleName()));
 		}
 		
@@ -121,9 +130,12 @@ public class MembersVO implements UserDetails, OAuth2User{
 
 	@Override
 	public String getName() {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
 	
 	
 

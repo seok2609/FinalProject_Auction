@@ -10,17 +10,17 @@ const upTime = document.getElementById("upTime");
 const downTime = document.getElementById("downTime");
 const resultText = document.getElementById("result");
 
-console.log("bar : "+bar);
-console.log("bar.value : "+bar.value);
-console.log("endTime : "+endTime);
-console.log("endTime.value : "+endTime.value);
-console.log("endTime.value : "+endTime.textContent);
+// console.log("bar : "+bar);
+// console.log("bar.value : "+bar.value);
+// console.log("endTime : "+endTime);
+// console.log("endTime.value : "+endTime.value);
+// console.log("endTime.value : "+endTime.textContent);
 
-//----------------------
-console.log("Positions : ", positions);
-console.log("test", positions[0]);
-console.log("test lon", positions[1].latlng.La);
-console.log("test la", positions[1].latlng.Ma);
+// //----------------------
+// console.log("Positions : ", positions);
+// console.log("test", positions[0]);
+// console.log("test lon", positions[1].latlng.La);
+// console.log("test la", positions[1].latlng.Ma);
 
 var truckLa;
 var truckLo;
@@ -30,10 +30,10 @@ truckLoP= (positions[0].latlng.La - positions[2].latlng.La)/100;
 truckLaM= (positions[2].latlng.Ma - positions[0].latlng.Ma)/100;
 truckLoM= (positions[2].latlng.La - positions[0].latlng.La)/100;
 
-console.log("la+ :: ", truckLaP);
-console.log("lon+ :: ", truckLoP);
-console.log("la- :: ", truckLaM);
-console.log("lon- :: ", truckLoM);
+// console.log("la+ :: ", truckLaP);
+// console.log("lon+ :: ", truckLoP);
+// console.log("la- :: ", truckLaM);
+// console.log("lon- :: ", truckLoM);
 
 
 const testBtn = document.getElementById("testBtn");
@@ -68,7 +68,10 @@ function increase(count){
         arr[0] = '0'+arr[0];
     }
 
-    console.log("변경 후 : "+arr[0]);
+    if(1 <= arr[1] && arr[1] <= 9){
+        console.log("조건 달성");
+        arr[1] = '0'+arr[1];
+    }
 
     nowTime.textContent = arr[0]+":"+arr[1];
 
@@ -131,6 +134,11 @@ downTime.addEventListener("click", function(){
         arr[0] = '0'+arr[0];
     }
 
+    if(1 <= arr[1] && arr[1] <= 9){
+        console.log("조건 달성");
+        arr[0] = '0'+arr[1];
+    }
+
     console.log("변경 후 : "+arr[0]);
 
     nowTime.textContent = arr[0]+":"+arr[1];
@@ -169,23 +177,4 @@ downTime.addEventListener("click", function(){
 });
 
 
-console.log("bar.value : "+bar.value);
-
-const e = endTime.textContent;
-var e2 = e.split(':')
-const s = startTime.textContent;
-var s2 = s.split(':')
-const n = nowTime.textContent;
-var n2 = n.split(':');
-console.log("n2 : "+n2[0]);
-
-const barV = Number(e2[0]) - Number(s2[0]);
-console.log("barV : "+barV);
-
-if(s2[0]<=n2[0] && n2[0]<=e2[0]){
-    console.log("Number(s2[0]) : "+Number(s2[0]));
-    console.log("Number(n2[0]) : "+Number(n2[0]));
-    bar.value = (Number(n2[0])-Number(s2[0]))*100/barV;
-    console.log("bar.value : "+bar.value);
-}
 
