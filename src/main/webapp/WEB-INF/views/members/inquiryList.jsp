@@ -44,7 +44,7 @@
                             <tbody>
                                 <c:forEach items="${inquiryList}" var="inquiryList">
 								<input type="hidden" name="id" value="${param.id}">
-                                       <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';">
+                                       <tr onclick="location.href='/kdy/inquiryDetail?id=${inquiryList.id}&inquiry_num=${inquiryList.inquiry_num}';" style="cursor: pointer;">
                             <c:choose>
 	                            <c:when test="${empty inquiryList.inquiryResponseVO.inquiry_response_contents}">
                             		<!-- 관리자가 답변 안했을때 -->
