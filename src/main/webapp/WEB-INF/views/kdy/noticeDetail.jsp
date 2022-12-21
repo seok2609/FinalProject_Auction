@@ -32,6 +32,9 @@
         <div class="container" data-aos="fade-up">
           <div class="section-header" style="margin-top: 90px;">
             <h2>공지사항</h2>
+            ${noticeDetail.membersVO.roleVO.roleName}
+            <sec:authentication property="Principal" var="member"/>
+            ${member.nickName}
           </div>
           <div class="row gx-lg-0 gy-4 ">
 
@@ -57,21 +60,39 @@
   
             <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
                 <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="information" style="border: 0;" readonly value="[공 지] ${noticeDetail.notice_title}">
+                  <input type="text" class="form-control" name="subject" id="information" style="border: 0; color: red;" readonly value="[공 지] ${noticeDetail.notice_title}">
                 </div>
                 <div class="form-group mt-3">
                   <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${noticeDetail.notice_contents}</textarea>
                 </div>
                 <div class="d-flex">
-                  <div class="text-center" onclick="location.href='/kdy/cNoticeList';">
-                    <button type="submit">뒤로가기</button>
-                  </div>
-                  <div class="text-center" onclick="location.href='./noticeUpdate?notice_num=${noticeDetail.notice_num}';">
-                    <button type="submit">수정하기</button>
-                  </div>
-                  <div class="text-center" id="nD" onclick="location.href='./noticeDelete?notice_num=${noticeDetail.notice_num}';">
-                    <button type="submit">삭제하기</button>
-                  </div>
+                  <c:choose>
+                    <c:when test="${empty noticeDetail.membersVO.roleVO.roleName}">
+                      <div class="text-center" onclick="location.href='/kdy/cNoticeList';">
+                        <button type="submit">뒤로가기</button>
+                      </div>
+                    </c:when>
+                    <c:otherwise>
+                      <c:choose>
+                        <c:when test="${noticeDetail.membersVO.roleVO.roleName ne 'ROLE_ADMIN'}">
+                          <div class="text-center" onclick="location.href='/kdy/cNoticeList';">
+                            <button type="submit">뒤로가기</button>
+                          </div>
+                        </c:when>
+                        <c:otherwise>
+                          <div class="text-center" onclick="location.href='/kdy/cNoticeList';">
+                            <button type="submit">뒤로가기</button>
+                          </div>
+                          <div class="text-center" onclick="location.href='./noticeUpdate?notice_num=${noticeDetail.notice_num}';">
+                            <button type="submit">수정하기</button>
+                          </div>
+                          <div class="text-center" id="nD" onclick="location.href='./noticeDelete?notice_num=${noticeDetail.notice_num}';">
+                            <button type="submit">삭제하기</button>
+                          </div>
+                        </c:otherwise>
+                      </c:choose> 
+                    </c:otherwise>
+                  </c:choose>
                 </div>
             </div>
           </div> 

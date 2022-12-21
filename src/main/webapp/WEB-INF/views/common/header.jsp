@@ -44,7 +44,7 @@
       	<%-- 	<h3> <spring:message code="welcome" arguments="${member.nickName}"></spring:message> </h3> --%>
       	<c:choose>	
 				<c:when test="${not empty membersVO.id}">				
-					<h5>${membersVO.nickName}님 환영합니다!</h5>
+					<h5>${member.nickName}님 환영합니다!</h5>
 				</c:when>
 						
 				<c:otherwise>
@@ -80,7 +80,7 @@
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
       		
 
-          <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>
+ 
       		<li><a href="/members/logout">Logout</a></li>
       		<li><a href="/members/myPage">MyPage</a></li>
             <li><a href="/kdy/inquiryRequest">1대1 문의</a></li>

@@ -31,9 +31,13 @@ public class AdminMembersController {
 		ModelAndView mv = new ModelAndView();
 		int result = adminMembersService.getTotalMembers(membersVO);
 		List<AdminMembersVO> ar = adminMembersService.getAdminPageInquiryList(adminMembersVO);
+		int totalInquiry = adminMembersService.getTotalInquiry(adminMembersVO);
+		int totalMembersBlack = adminMembersService.getTotalBlack(membersVO);
 		int inquiryNoResponse = adminMembersService.getTotalInquiryNo(adminMembersVO);
 		int reportNoResponse = adminMembersService.getTotalReport(membersReportVO);
 		mv.addObject("inquiryNoResponse", inquiryNoResponse);
+		mv.addObject("totalInquiry", totalInquiry);
+		mv.addObject("totalMembersBlack", totalMembersBlack);
 		mv.addObject("reportNoResponse", reportNoResponse);
 		mv.addObject("adminInquiryList", ar);
 		mv.addObject("result", result);
@@ -239,7 +243,8 @@ public class AdminMembersController {
 	}
 	//공지사항 등록
 	@GetMapping("cNotice")
-	public String setCompanyNotice(CompanyNoticeVO companyNoticeVO)throws Exception{
+	public String setCompanyNotice(CompanyNoticeVO companyNoticeVO, Principal principal)throws Exception{
+		companyNoticeVO.setId(principal.getName());
 		return "kdy/cNotice";
 	}
 	//공지사항 등록

@@ -144,6 +144,7 @@
                    </div>
                </div>
                <form method="post" action="./cNotice" id="frm">
+                <input type="text" name="id" class="form-control" id="id" s style="display: none;" value=${companyNoticeVO.id}>
                 <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
                     <div class="form-group mt-3">
                         <div id="information">공지사항 제목 : </div>

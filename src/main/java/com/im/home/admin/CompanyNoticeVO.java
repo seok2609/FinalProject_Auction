@@ -14,4 +14,6 @@ public class CompanyNoticeVO {
 	private String notice_contents;
 	private int notice_hit;
 	private Date notice_date;
+	private String id;
+	private MembersVO membersVO;
 }

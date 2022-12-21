@@ -145,14 +145,11 @@
                                                 총 회원 수</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 명</div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4" id="nonoresponse">
                             <div class="card border-left-success shadow h-100 py-2">
@@ -163,14 +160,11 @@
                                                 대기중인 신고요청 </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${reportNoResponse}건</div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4" id="nonoresponse">
                             <div class="card border-left-success shadow h-100 py-2">
@@ -181,27 +175,53 @@
                                                 대기중인 1대1 문의  </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${inquiryNoResponse}건</div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div style="margin-left: 400px; margin-top: 40px; margin-bottom: 40px;" class="row">
+                        <div class="col-xl-3 col-md-6 mb-4" id="nonoresponse">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body" onclick="location.href='../kdy/inquiryList'">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                총 1대1문의  </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${totalInquiry}건</div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4" id="nonoresponse">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body" onclick="location.href='../kdy/memberBlackList'">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                우리 사이트의 블랙회원  </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${totalMembersBlack}명</div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-                    <!-- Content Row -->
-                    <div class="row">
-                        <!-- Area Chart -->
+
+                    <!-- <div class="row">
                         <div class="col-xl-12 col-lg-7">
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">당월 일일 방문자 수</h6>
                                 </div>
-                                <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <canvas id="myAreaChart"></canvas>
@@ -209,7 +229,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                         <!-- DataTales Example -->
                     <div class="card shadow mb-4" >
 						
