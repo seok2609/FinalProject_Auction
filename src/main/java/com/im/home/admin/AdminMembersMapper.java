@@ -70,8 +70,22 @@ public interface AdminMembersMapper {
 	public List<MembersReportVO> getBlackDetail(MembersReportVO membersReportVO)throws Exception;
 	//블랙 해제
 	public int setBlackCancel(MembersReportVO membersReportVO)throws Exception;
-	//블랙 해제
+	//회원detail에서 블랙
 	public int setBlack(MembersVO membersVO)throws Exception;
-	//블랙 해제
+	//회원detail에서 블랙해제
 	public int setBlackC(MembersVO membersVO)throws Exception;
+	//공지사항 등록
+	public int setCompanyNotice(CompanyNoticeVO companyNoticeVO)throws Exception;
+	//공지사항 리스트
+	public List<CompanyNoticeVO> getCompanyNoticeList(AdminPager adminPager)throws Exception;
+	//공지사항 리스트 카운트
+	public Long getNoticeCount(AdminPager adminPager)throws Exception;
+	//공지사항 detail
+	public CompanyNoticeVO getNoticeDetail(CompanyNoticeVO companyNoticeVO)throws Exception;
+	//공지사항 수정
+	public int setNoticeUpdate(CompanyNoticeVO companyNoticeVO)throws Exception;
+	//공지사항 삭제
+	public int setNoticeDelete(CompanyNoticeVO companyNoticeVO)throws Exception;
+	//공지사항 조회수
+	public int setHit(CompanyNoticeVO companyNoticeVO)throws Exception;
 }

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MapMapper {
 	
-	public List<MapVO> setStartPoint() throws Exception;
-	public List<MapVO> setEndPoint() throws Exception;
-	
+	public List<StartPointVO> setStartPoint() throws Exception;
+	public List<EndPointVO> setEndPoint() throws Exception;
+	public List<DeliveryInfoVO> setInfo() throws Exception;
 }

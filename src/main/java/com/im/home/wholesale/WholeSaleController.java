@@ -56,8 +56,9 @@ public class WholeSaleController {
 		   Long c = wholeSaleService.getListCount(pager);
 		   pager.getNum(c);
 		   List<WholeSaleVO> wholeSaleVOs = wholeSaleService.getList(pager);
-		   
+		   List<WholeSaleVO> bestW = wholeSaleService.getMidSale(pager);
 		mv.addObject("vo", wholeSaleVOs);
+		mv.addObject("bestW", bestW);
 		mv.addObject("pager", pager);
 		mv.setViewName("wholesale/sale");
 		return mv;
@@ -220,7 +221,7 @@ public class WholeSaleController {
 					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
 					wholeSaleVO.setSmall(jsonObj.get("small").toString());
 					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-					wholeSaleVO.setSanCd(jsonObj.get("sanCd").toString());
+	
 					wholeSaleVO.setCost(jsonObj.get("cost").toString());
 					wholeSaleVO.setQty(jsonObj.get("qty").toString());
 					wholeSaleVO.setStd(jsonObj.get("std").toString());

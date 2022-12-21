@@ -116,6 +116,7 @@
                 <a class="collapse-item" href="./saleList">판 매 내 역</a>
                 <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
                 <a class="collapse-item" href="./paymentList">결 제 내 역</a>
+                <a class="collapse-item" href="./cNotice">공지사항 등록</a>
             </div>
         </div>
     </li>
@@ -129,7 +130,7 @@
             <div id="content">
                 <div data-aos="fade-up">
                 <div id="reportRequest">
-                    <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4" style="margin-top: 25px;">
                         <div class="card border-left-success h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -137,9 +138,6 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             대기중인 신고요청</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${totalReport} 건</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -155,22 +153,7 @@
                         <div class="card-header py-3" style="background-color: #008374; ">
                             <h6 class="m-0 font-weight-bold " style="color: white;" >신고</h6>
                         </div>
-                        <div class="row" id="reportSearchCss">
-                            <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
-                              <div class="col-12">
-                                <select  name="kind" class="form-select" id="kind">
-                                  <option class="kinds" value="report_id">대상자</option>
-                                  <option class="kinds" value="id">신고자</option>
-                                </select>
-                              </div>
-                              <div class="col-12">
-                                <div class="input-group">
-                                  <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="검색어를 입력해 주세요">
-                                  <button type="submit" class="btn btn-secondary" id="searchNull">검색</button>
-                                </div>
-                               </div>
-                              </form>
-                          </div>
+                       
 
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -179,6 +162,22 @@
                                             신고 요청이 없습니다.
                                         </c:when>
                                         <c:otherwise>
+                                            <div class="row" id="reportSearchCss">
+                                                <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+                                                  <div class="col-12">
+                                                    <select  name="kind" class="form-select" id="kind">
+                                                      <option class="kinds" value="report_id">대상자</option>
+                                                      <option class="kinds" value="id">신고자</option>
+                                                    </select>
+                                                  </div>
+                                                  <div class="col-12">
+                                                    <div class="input-group">
+                                                      <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="검색어를 입력해 주세요">
+                                                      <button type="submit" class="btn btn-secondary" id="searchNull">검색</button>
+                                                    </div>
+                                                   </div>
+                                                  </form>
+                                              </div>
                                             <c:forEach items="${reportList}" var="reportLists">
                                             <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  onclick="location.href='/kdy/reportDetail?id=${reportLists.id}&report_id=${reportLists.report_id}&report_num=${reportLists.report_num}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 70px;" id="nonoresponse">
