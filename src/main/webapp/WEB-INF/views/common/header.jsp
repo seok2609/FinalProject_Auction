@@ -51,7 +51,7 @@
       	<%-- 	<h3> <spring:message code="welcome" arguments="${member.nickName}"></spring:message> </h3> --%>
       	<c:choose>	
 				<c:when test="${not empty membersVO.id}">				
-					<h5>${membersVO.nickName}님 환영합니다!</h5>
+					<h5>${membersVO.realName}님 환영합니다!</h5>
 				</c:when>
 						
 				<c:otherwise>

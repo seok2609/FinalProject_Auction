@@ -176,60 +176,9 @@ public class WholeSaleController {
 	@ResponseBody
 	public ModelAndView realtime(Pager pager) throws Exception { //실시간 정보 출력 
 	
-		log.info("dsfffdfdfdfdf==> {}",pager.getWhsalCd());
-		
 		ModelAndView mv = new ModelAndView();
-		WebClient webClient = WebClient.builder()
-			    .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(-1))
-				 .baseUrl("https://at.agromarket.kr/openApi/price/real.do")
-				 .build();
-		
-		Mono<String> res = webClient.get()
-				.uri("?serviceKey=9596499878664F83A1D560AE3808376E&apiType=json&pageNo=1&whsalCd="+pager.getWhsalCd())
-				.retrieve()
-				.bodyToMono(String.class);
-				
-		String r = res.block();
-	
-	ObjectMapper objectMapper = new ObjectMapper();
-	
-	JSONParser parser = new JSONParser();
-	Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
-	
-		JSONObject jobj = new JSONObject(data);
-		Object jobj2 = jobj.get("data");
-		String data2 = objectMapper.writeValueAsString(jobj2); 
-		JSONArray temp = (JSONArray)parser.parse(data2);
+		List<WholeSaleVO> wholeSaleVOs = wholeSaleService.getRtime(pager.getWhsalCd());
 
-		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
-
-		for(int i =0; i<20; i++) {
-		
-			JSONObject jsonObj = (JSONObject)temp.get(i);
-		
-				log.info("array => {}", jsonObj);
-
-					WholeSaleVO wholeSaleVO = new WholeSaleVO();
-					wholeSaleVO.setRn(jsonObj.get("rn").toString());
-					wholeSaleVO.setSaleDate(jsonObj.get("saleDate").toString());
-					wholeSaleVO.setWhsalCd(jsonObj.get("whsalCd").toString());
-					wholeSaleVO.setWhsalName(jsonObj.get("whsalName").toString());
-					wholeSaleVO.setCmpCd(jsonObj.get("cmpCd").toString());
-					wholeSaleVO.setCmpName(jsonObj.get("cmpName").toString());
-					wholeSaleVO.setLarge(jsonObj.get("large").toString());
-					wholeSaleVO.setMid(jsonObj.get("mid").toString());
-					wholeSaleVO.setMidName(jsonObj.get("midName").toString());
-					wholeSaleVO.setSmall(jsonObj.get("small").toString());
-					wholeSaleVO.setSmallName(jsonObj.get("smallName").toString());
-	
-					wholeSaleVO.setCost(jsonObj.get("cost").toString());
-					wholeSaleVO.setQty(jsonObj.get("qty").toString());
-					wholeSaleVO.setStd(jsonObj.get("std").toString());
-					wholeSaleVO.setSbidtime(jsonObj.get("sbidtime").toString());
-					wholeSaleVOs.add(i, wholeSaleVO);
-			
-				}
-		
 		mv.addObject("vo", wholeSaleVOs);
 		mv.setViewName("wholesale/realtime");
 		return mv;
