@@ -159,6 +159,10 @@ public class AdminMembersService {
 	public int setBlackC(MembersVO membersVO)throws Exception{
 		return adminMembersMapper.setBlackC(membersVO);
 	}
+	//블랙회원 입구 컷
+	public MembersVO getMemberBlack(MembersVO membersVO)throws Exception{
+		return adminMembersMapper.getMemberBlack(membersVO);
+	}
 	//공지사항 등록
 	public int setCompanyNotice(CompanyNoticeVO companyNoticeVO)throws Exception{
 		return adminMembersMapper.setCompanyNotice(companyNoticeVO);
