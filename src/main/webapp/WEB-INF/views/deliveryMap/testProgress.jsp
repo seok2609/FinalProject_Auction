@@ -383,7 +383,7 @@
 		</th>
 		<th>
 			<label for="progressBar">택배 오는중</label>
-			<progress id="progressBar" value="25" max="100"></progress>		
+			<progress id="progressBar" value="95" max="100"></progress>		
 		</th>
 	</tr>
 	</table>
