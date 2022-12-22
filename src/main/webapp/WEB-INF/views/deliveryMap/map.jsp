@@ -305,7 +305,7 @@
 			<br>	
 			<label for="progressBar">진행도</label>
 			<br>
-			<progress id="progressBar" value="80" max="100"></progress>
+			<progress id="progressBar" value="95" max="100"></progress>
 		
 		</th>
 		</tr>
