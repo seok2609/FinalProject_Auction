@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script defer src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <c:import url="../temp/boot.jsp"></c:import>
 <script defer src="/js/myPage.js"></script>
 <script defer src="/js/modify.js"></script>
@@ -236,7 +237,11 @@
 	    console.log("checkPassWord :", checkPassWord);
 	    console.log("id: ", id);
 	    if(checkPassWord == ""){
-	        alert("비밀번호를 입력하세요.");
+	    	Swal.fire({
+	            icon: 'error',
+	            title: 'Oops...',
+	            text: '비밀번호를 입력하세요',
+	          })
 	    } else{
 	        $.ajax({
 	            type: 'GET',
@@ -257,7 +262,11 @@
 	            } else{
 	                console.log("비밀번호 틀림");
 	                // 비밀번호가 일치하지 않으면
-	                alert("비밀번호가 맞지 않습니다.");
+	                Swal.fire({
+			            icon: 'error',
+			            title: 'Oops...',
+			            text: '비밀번호가 일치하지 않습니다.',
+			          })
 	                /* window.location.href="/"; */
 	            }
 	        }).fail(function(error){
