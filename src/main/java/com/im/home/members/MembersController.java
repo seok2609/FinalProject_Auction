@@ -478,5 +478,12 @@ public class MembersController {
 			
 		}
 		
+		//소셜로그인을 누른 회원을 우리 회원으로 insert시키기 위해 추가정보 입력
+		@GetMapping(value = "socialAdd")
+		public String getSocailAdd (MembersVO membersVO) throws Exception{
+			
+			return "members/socialAdd";
+		}
+		
 		
 }
