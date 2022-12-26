@@ -14,6 +14,7 @@ public interface AdminMembersMapper {
 	//메인페이지 총 회원 수
 	public Integer getTotalMembers(MembersVO membersVO)throws Exception;
 	
+	
 	//메인 관리자페이지 1대1 5개 리스트
 	public List<AdminMembersVO> getAdminPageInquiryList(AdminMembersVO adminMembersVO)throws Exception;
 	//총 1대1문의 글 
