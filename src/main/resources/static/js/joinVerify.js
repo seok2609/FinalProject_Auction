@@ -421,15 +421,7 @@ $("#signUpBtn").click(function(){
 // });
 
 
-$("#dropBtn").click(function(){
 
-    console.log("버튼클릭");
-    console.log($("#inputPassWord").val());
-
-    $("#md").trigger('click');
-
-
-});
 
 
 //수정 폼에서 수정완료를 누를때 닉네임을 수정하지 않거나 
