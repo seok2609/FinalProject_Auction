@@ -207,7 +207,6 @@ public class AdminMembersService {
 			adminMembersMapper.setProductFileAdd(productFileVO);
 		}
 		return result;
-		
 	}
 	//상품 이미지
 	public int setProductFileAdd(ProductFileVO productFileVO)throws Exception{
@@ -217,5 +216,12 @@ public class AdminMembersService {
 	public List<ProductVO> getProductList(AdminPager adminPager)throws Exception{
 		return adminMembersMapper.getProductList(adminPager);
 	}
-	
+	//상품 디테일
+	public ProductVO getProductDetail(ProductVO productVO)throws Exception{
+		return adminMembersMapper.getProductDetail(productVO);
+	}
+	//상품 보류, 판매, 매진
+	public int setProductHold(ProductVO productVO)throws Exception{
+		return adminMembersMapper.setProductHold(productVO);
+	}
 }

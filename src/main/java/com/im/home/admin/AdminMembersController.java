@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -317,6 +318,21 @@ public class AdminMembersController {
 		int result = adminMembersService.setProductAdd(productVO, files);
 		mv.addObject("result", result);
 		mv.setViewName("redirect:../kdy/saleTypeList");
+		return mv;
+	}
+	//상품 detail
+	@GetMapping("productDetail")
+	public ModelAndView getProductDetail(ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		productVO = adminMembersService.getProductDetail(productVO);
+		mv.addObject("productVO", productVO);
+		return mv;
+	}
+	@GetMapping("productHold")
+	public ModelAndView setProductHold(ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setProductHold(productVO);
+		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
 		return mv;
 	}
 	//결제내역

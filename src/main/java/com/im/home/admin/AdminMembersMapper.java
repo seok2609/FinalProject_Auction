@@ -97,4 +97,8 @@ public interface AdminMembersMapper {
 	public int setProductFileAdd(ProductFileVO productFileVO)throws Exception;
 	//상품 리스트
 	public List<ProductVO> getProductList(AdminPager adminPager) throws Exception;
+	//상품 detail
+	public ProductVO getProductDetail(ProductVO productVO)throws Exception;
+	//상품 보류, 판매, 매진
+	public int setProductHold(ProductVO productVO)throws Exception;
 }

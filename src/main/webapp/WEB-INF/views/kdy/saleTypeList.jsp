@@ -157,7 +157,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                             <c:forEach items="${proList}" var="pro">
-                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px"  >
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='./productDetail?product_num=${pro.product_num}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 70px;" id="nonoresponse">
                                                     <div class="d-flex">
                                                         <div class="p-2 w-100">
@@ -170,7 +170,7 @@
                                                             </div>
                                                             <div style="font-size: 20px; font-weight: bold; width: 100px; margin-left: 1450px; margin-top: -50px; height: 45px; text-align: center;">
                                                                 <c:choose>
-                                                                    <c:when test="${pro.sales == 1}">
+                                                                    <c:when test="${pro.sales == 3}">
                                                                         보류
                                                                     </c:when>
                                                                     <c:when test="${pro.sales == 2}">

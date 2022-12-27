@@ -84,10 +84,20 @@
 			</select>
 		<!-- 상품 detail  -->
 		<select id="getProductDetail" parameterType="ProductVO" resultMap="productResult">
-			
+			  SELECT * FROM 
+			  PRODUCT P
+			  INNER JOIN
+			  PRODUCT_GRADE PG 
+			  ON P.GRADE_NUM = PG.GRADE_NUM
+			  LEFT JOIN
+			  PRODUCT_FILE PF 
+			  ON P.PRODUCT_NUM = PF.PRODUCT_NUM
+			  WHERE P.PRODUCT_NUM = #{product_num}
 		</select>
-		
-		
+		<!-- 상품 보류, 판매, 매진-->
+		<update id="setProductHold" parameterType="ProductVO">
+			UPDATE PRODUCT SET SALES = #{sales} WHERE PRODUCT_NUM = #{product_num}
+		</update>
 <!-- 공지사항 관리 -->
 		<!-- 등록 -->
 		<insert id="setCompanyNotice" parameterType="CompanyNoticeVO">
