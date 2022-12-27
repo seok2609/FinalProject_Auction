@@ -99,5 +99,20 @@ $("#noticeUpdateC").click(function(){
     alert("수정을 취소합니다.")
 })
 
+//productAdd.jsp
+function productAddNullCheck(){
+   let rName = nullCheck($("#name").val());
+   let rAddress = nullCheck($("#product_address").val());
+   let rGrade_num = nullCheck($("#grade_num").val());
+   let rQuantity = nullCheck($("#quantity").val());
+   let rWeight = nullCheck($("#weight").val());
+   if(rName&&rAddress&&rGrade_num&&rQuantity&&rWeight){
+    alert("상품을 성공적으로 등록하였습니다.")
+    frm.submit();
+}else{
+    alert("모두 필수로 입력해주셔야합니다.")
+} 
+}
+
 
 

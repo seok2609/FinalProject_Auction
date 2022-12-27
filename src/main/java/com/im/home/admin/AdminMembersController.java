@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -297,19 +298,51 @@ public class AdminMembersController {
 		mv.setViewName("redirect:./cNoticeList");
 		return mv;
 	}
-	//판매내역
-	@GetMapping("saleList")
-	public String saleList()throws Exception{
-		return "kdy/saleList";
-	}
 	//판매 품목
 	@GetMapping("saleTypeList")
-	public String saleTypeList()throws Exception{
-		return "kdy/saleTypeList";
+	public ModelAndView getProductList(AdminPager adminPager)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		List<ProductVO> ar = adminMembersService.getProductList(adminPager);
+		mv.addObject("proList", ar);
+		mv.addObject("pager", adminPager);
+		return mv;
+	}
+	//상품 등록
+	@GetMapping("productAdd")
+	public String setProductAdd(ProductVO productVO)throws Exception{
+		return "kdy/productAdd";
+	}
+	//상품 등록
+	@PostMapping("productAdd")
+	public ModelAndView setProductAdd(ProductVO productVO, ModelAndView mv, MultipartFile files)throws Exception{
+		int result = adminMembersService.setProductAdd(productVO, files);
+		mv.addObject("result", result);
+		mv.setViewName("redirect:../kdy/saleTypeList");
+		return mv;
+	}
+	//상품 detail
+	@GetMapping("productDetail")
+	public ModelAndView getProductDetail(ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		productVO = adminMembersService.getProductDetail(productVO);
+		mv.addObject("productVO", productVO);
+		return mv;
+	}
+	@GetMapping("productHold")
+	public ModelAndView setProductHold(ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setProductHold(productVO);
+		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
+		return mv;
 	}
 	//결제내역
 	@GetMapping("paymentList")
 	public String paymentList()throws Exception{
 		return "kdy/paymentList";
+	}
+	//판매내역
+	@GetMapping("saleList")
+	public String saleList()throws Exception{
+		return "kdy/saleList";
 	}
 }
