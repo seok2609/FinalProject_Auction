@@ -18,7 +18,7 @@
   			<typeAlias type="com.im.home.admin.CompanyNoticeVO" alias="CompanyNoticeVO"/>
   			<typeAlias type="com.im.home.admin.ReportFileVO" alias="ReportFileVO"/>
 			<typeAlias type="com.im.home.admin.ProductVO" alias="ProductVO"/>
-			<typeAlias type="com.im.home.admin.Product_fileVO" alias="Product_fileVO"/>
+			<typeAlias type="com.im.home.admin.ProductFileVO" alias="ProductFileVO"/>
 			<typeAlias type="com.im.home.admin.ProductGradeVO" alias="ProductGradeVO"/>
   			<typeAlias type="com.im.home.util.AdminPager" alias="AdminPager"/>
 

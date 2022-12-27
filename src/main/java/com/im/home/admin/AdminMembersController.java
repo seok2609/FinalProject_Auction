@@ -297,15 +297,27 @@ public class AdminMembersController {
 		mv.setViewName("redirect:./cNoticeList");
 		return mv;
 	}
+	//판매 품목
+	@GetMapping("saleTypeList")
+	public ModelAndView getProductList(AdminPager adminPager)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		List<ProductVO> ar = adminMembersService.getProductList(adminPager);
+		mv.addObject("proList", ar);
+		mv.addObject("pager", adminPager);
+		return mv;
+	}
 	//상품 등록
 	@GetMapping("productAdd")
 	public String setProductAdd(ProductVO productVO)throws Exception{
 		return "kdy/productAdd";
 	}
-	//판매 품목
-	@GetMapping("saleTypeList")
-	public String saleTypeList()throws Exception{
-		return "kdy/saleTypeList";
+	//상품 등록
+	@PostMapping("productAdd")
+	public ModelAndView setProductAdd(ProductVO productVO, ModelAndView mv, MultipartFile files)throws Exception{
+		int result = adminMembersService.setProductAdd(productVO, files);
+		mv.addObject("result", result);
+		mv.setViewName("redirect:../kdy/saleTypeList");
+		return mv;
 	}
 	//결제내역
 	@GetMapping("paymentList")

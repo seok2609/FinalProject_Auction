@@ -8,7 +8,7 @@ import com.im.home.members.MembersVO;
 import lombok.Data;
 
 @Data
-public class Product_FileVO {
+public class ProductFileVO {
 	private Long fileNum;
 	private Long product_num;
 	private String fileName;

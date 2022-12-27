@@ -93,4 +93,8 @@ public interface AdminMembersMapper {
 	public int setHit(CompanyNoticeVO companyNoticeVO)throws Exception;
 	//상품 등록
 	public int setProductAdd(ProductVO productVO)throws Exception;
+	//상품 이미지
+	public int setProductFileAdd(ProductFileVO productFileVO)throws Exception;
+	//상품 리스트
+	public List<ProductVO> getProductList(AdminPager adminPager) throws Exception;
 }

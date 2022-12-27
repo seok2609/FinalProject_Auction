@@ -191,7 +191,31 @@ public class AdminMembersService {
 		return adminMembersMapper.setHit(companyNoticeVO);
 	}
 	//상품 등록
-	public int setProductAdd(ProductVO productVO)throws Exception{
-		return adminMembersMapper.setProductAdd(productVO);
+	public int setProductAdd(ProductVO productVO, MultipartFile files)throws Exception{
+		int result = adminMembersMapper.setProductAdd(productVO);
+		File file = new File(path);
+		if(!file.exists()) {
+			boolean check = file.mkdirs();
+		}
+		if(!files.isEmpty()) {
+			String fileName = membersFileManager.saveFile(files, path);
+			
+			ProductFileVO productFileVO = new ProductFileVO();
+			productFileVO.setProduct_num(productVO.getProduct_num());
+			productFileVO.setFileName(fileName);
+			productFileVO.setOriName(files.getOriginalFilename());
+			adminMembersMapper.setProductFileAdd(productFileVO);
+		}
+		return result;
+		
 	}
+	//상품 이미지
+	public int setProductFileAdd(ProductFileVO productFileVO)throws Exception{
+		return adminMembersMapper.setProductFileAdd(productFileVO);
+	}
+	//상품 리스트
+	public List<ProductVO> getProductList(AdminPager adminPager)throws Exception{
+		return adminMembersMapper.getProductList(adminPager);
+	}
+	
 }
