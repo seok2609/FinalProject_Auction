@@ -54,7 +54,7 @@ public class AuctionController {
 	
 	@GetMapping("test")
 	public String firstTest() {
-		return "auction/test2";
+		return "auction/test";
 	}
 
 	
