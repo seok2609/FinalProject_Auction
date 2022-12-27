@@ -8,7 +8,6 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.map.MultiValueMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -55,7 +54,7 @@ public class AuctionController {
 	
 	@GetMapping("test")
 	public String firstTest() {
-		return "auction/test";
+		return "auction/test2";
 	}
 
 	
