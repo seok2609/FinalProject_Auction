@@ -190,4 +190,8 @@ public class AdminMembersService {
 	public int setHit(CompanyNoticeVO companyNoticeVO)throws Exception{
 		return adminMembersMapper.setHit(companyNoticeVO);
 	}
+	//상품 등록
+	public int setProductAdd(ProductVO productVO)throws Exception{
+		return adminMembersMapper.setProductAdd(productVO);
+	}
 }

@@ -28,7 +28,6 @@
 			</choose>
 			LIKE concat ('%', #{inquirySearch}, '%')
 		</sql>
-		
 <!-- memberList -->
 	<!-- memberList -->
 	 	<select id="getAdminMembersList" parameterType="AdminPager" resultMap="getAdminMembersListResult">
@@ -60,7 +59,14 @@
 	         ON MR.ROLENUM = R.ROLENUM
 		</select>
 		
-<!-- 공지사항 -->
+<!-- 상품 관리-->
+	<!-- 상품 등록 -->
+		<insert id="setProductAdd" parameterType="ProductVO">
+			INSERT INTO PRODUCT VALUES
+			(NULL, NULL, #{grade_num}, #{name}, #{product_address}, #{quantity}, #{weight}, 1)
+		</insert>
+		
+<!-- 공지사항 관리 -->
 		<!-- 등록 -->
 		<insert id="setCompanyNotice" parameterType="CompanyNoticeVO">
 		 	INSERT INTO COMPANY_NOTICE VALUES

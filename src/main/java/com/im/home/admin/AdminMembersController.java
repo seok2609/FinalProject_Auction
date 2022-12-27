@@ -297,10 +297,10 @@ public class AdminMembersController {
 		mv.setViewName("redirect:./cNoticeList");
 		return mv;
 	}
-	//판매내역
-	@GetMapping("saleList")
-	public String saleList()throws Exception{
-		return "kdy/saleList";
+	//상품 등록
+	@GetMapping("productAdd")
+	public String setProductAdd(ProductVO productVO)throws Exception{
+		return "kdy/productAdd";
 	}
 	//판매 품목
 	@GetMapping("saleTypeList")
@@ -311,5 +311,10 @@ public class AdminMembersController {
 	@GetMapping("paymentList")
 	public String paymentList()throws Exception{
 		return "kdy/paymentList";
+	}
+	//판매내역
+	@GetMapping("saleList")
+	public String saleList()throws Exception{
+		return "kdy/saleList";
 	}
 }
