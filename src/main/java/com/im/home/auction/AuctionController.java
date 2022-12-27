@@ -53,42 +53,11 @@ public class AuctionController {
 	private AuctionService auctionService;
 	
 	
-	@GetMapping("vidu")
-	public void viduTest() {
-		
-		
-	}
-
-	
-	
-	
 	@GetMapping("test")
-	@ResponseBody
-	public void testest() {
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		//1.Header
-		
-		HttpHeaders headers = new HttpHeaders();
-		
-		//header : key : value 형식
-		//headers.add("key","value");
-		//headers.set헤더명("값");
-		
-		//2. 파라미
-
-		
-		
-		
-		
-		
-//		MembersVO membersVO = auctionService 
-//		
-//		//= membersMapper.getMembersLogin("goody");
-//		
-//		return membersVO;
+	public String firstTest() {
+		return "auction/test";
 	}
+
 	
 	
 	@GetMapping("chat")
