@@ -107,6 +107,10 @@
 		<update id="setProductHold" parameterType="ProductVO">
 			UPDATE PRODUCT SET SALES = #{sales} WHERE PRODUCT_NUM = #{product_num}
 		</update>
+		<!-- 상품 등급 수정 -->
+		<update id="setProductGrade" parameterType="ProductVO">
+			UPDATE PRODUCT SET GRADE_NUM = #{grade_num} WHERE PRODUCT_NUM = #{product_num}
+		</update>
 		
 <!-- 공지사항 관리 -->
 		<!-- 등록 -->

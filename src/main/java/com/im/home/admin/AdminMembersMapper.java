@@ -103,4 +103,6 @@ public interface AdminMembersMapper {
 	public ProductVO getProductDetail(ProductVO productVO)throws Exception;
 	//상품 보류, 판매, 매진
 	public int setProductHold(ProductVO productVO)throws Exception;
+	//상품 등급 수정
+	public int setProductGrade(ProductVO productVO)throws Exception;
 }

@@ -338,6 +338,14 @@ public class AdminMembersController {
 		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
 		return mv;
 	}
+	//상품 등급 수정
+	@GetMapping("productGrade")
+	public ModelAndView setProductGrade(ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setProductGrade(productVO);
+		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
+		return mv;
+	}
 	//결제내역
 	@GetMapping("paymentList")
 	public String paymentList()throws Exception{

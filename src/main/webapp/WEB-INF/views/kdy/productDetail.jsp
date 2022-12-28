@@ -37,23 +37,6 @@
             <div class="row gx-lg-0 gy-4">
               <div style="height: 50px;">
                 <div class="d-flex">
-                  <!-- <div class="info-item d-flex" >
-                      <i class="bi bi-envelope flex-shrink-0"></i>
-                      <div>
-                        <h4>상품 판매 여부</h4>
-                          <c:choose>
-                             <c:when test="${productVO.sales == 3}">
-                              보류
-                             </c:when>
-                             <c:when test="${productVO.sales == 2}">
-                              SOLD OUT
-                             </c:when>
-                             <c:otherwise>
-                              판매중
-                             </c:otherwise>
-                          </c:choose>
-                      </div>
-                  </div>End Info Item -->
                   <div class="info-item d-flex" >
                     <i class="bi bi-envelope flex-shrink-0"></i>
                     <div>
@@ -76,18 +59,63 @@
                               <div onclick="location.href='/kdy/productHold?sales=2&product_num=${productVO.product_num}';">SOLDOUT</div>
                              </c:otherwise>
                           </c:choose>
-
                         </div>
                     </div>
                 </div><!-- End Info Item -->
 
-                  <div class="info-item d-flex">
+                  <!-- <div class="info-item d-flex">
                     <i class="bi bi-envelope flex-shrink-0"></i>
                     <div>
                       <h4>상품 등급</h4>
                         ${productVO.productGradeVO.grade_name}
                     </div>
-                </div><!-- End Info Item -->
+                  </div> -->
+
+                  <div class="info-item d-flex">
+                    <i class="bi bi-envelope flex-shrink-0"></i>
+                    <div>
+                      <h4>상품 등급</h4>
+                        <div class="d-flex" style="color: black;">
+                          <c:choose>
+                             <c:when test="${productVO.grade_num == 5}">
+                              <div onclick="location.href='/kdy/productGrade?grade_num=1&product_num=${productVO.product_num}';">특</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=2&product_num=${productVO.product_num}';">상</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=3&product_num=${productVO.product_num}';">중</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=4&product_num=${productVO.product_num}';">하</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=5&product_num=${productVO.product_num}';" style="color: aliceblue;">미처리</div>
+                             </c:when>
+                             <c:when test="${productVO.grade_num == 4}">
+                              <div onclick="location.href='/kdy/productGrade?grade_num=1&product_num=${productVO.product_num}';">특</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=2&product_num=${productVO.product_num}';">상</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=3&product_num=${productVO.product_num}';">중</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=4&product_num=${productVO.product_num}';" style="color: aliceblue;">하</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=5&product_num=${productVO.product_num}';">미처리</div>
+                             </c:when>
+                             <c:when test="${productVO.grade_num == 3}">
+                              <div onclick="location.href='/kdy/productGrade?grade_num=1&product_num=${productVO.product_num}';">특</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=2&product_num=${productVO.product_num}';">상</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=3&product_num=${productVO.product_num}';" style="color: aliceblue;">중</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=4&product_num=${productVO.product_num}';">하</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=5&product_num=${productVO.product_num}';">미처리</div>
+                             </c:when>
+                             <c:when test="${productVO.grade_num == 2}">
+                              <div onclick="location.href='/kdy/productGrade?grade_num=1&product_num=${productVO.product_num}';">특</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=2&product_num=${productVO.product_num}';" style="color: aliceblue;">상</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=3&product_num=${productVO.product_num}';">중</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=4&product_num=${productVO.product_num}';">하</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=5&product_num=${productVO.product_num}';">미처리</div>
+                             </c:when>
+                             <c:otherwise>
+                              <div onclick="location.href='/kdy/productGrade?grade_num=1&product_num=${productVO.product_num}';" style="color: aliceblue;">특</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=2&product_num=${productVO.product_num}';">상</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=3&product_num=${productVO.product_num}';">중</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=4&product_num=${productVO.product_num}';">하</div>&emsp;
+                              <div onclick="location.href='/kdy/productGrade?grade_num=5&product_num=${productVO.product_num}';">미처리</div>
+                             </c:otherwise>
+                          </c:choose>
+                        </div>   
+                    </div>
+                  </div><!-- End Info Item -->
   
                     <div class="info-item d-flex">
                     <i class="bi bi-envelope flex-shrink-0"></i>
