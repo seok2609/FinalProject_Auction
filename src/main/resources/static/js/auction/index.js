@@ -1,15 +1,5 @@
 
 
-
-
-
-
-
-
-
-
-
-
 // ......................................................
 // .......................UI Code........................
 // ......................................................
@@ -40,10 +30,13 @@ function joinRoom(){
 	
 	if(document.querySelector("#localVideo").paused){
 		connection.join(123);
-		console.log("비디오 실행");
 	}
 }
 
+
+function selectVideoDevice(){
+    
+}
 
 
 
