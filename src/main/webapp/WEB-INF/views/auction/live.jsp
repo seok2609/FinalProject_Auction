@@ -8,7 +8,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>경매방송 테스트</title>
+  <title>도매시장 경매방송</title>
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -23,42 +23,22 @@
 </head>
 <body>
   
-  <%-- <c:import url="../template/header.jsp"></c:import> --%>
+  <c:import url="../common/header.jsp"></c:import>
   
+  <!-- ==========================관리자============================================ -->
+  <sec:authorize access="hasRole('ROLE_ADMIN')">
+  
+  <sec:authentication property="Principal" var="user"/>
+  <section class="" style="padding-top: 20px;">
+  
+  <div class="section-header" style="margin-top: 90px;">
+            <h2>관리자 - 경매방송 관리</h2>
+  </div>
   <div>
 	<div>
-		<p id="real">경매를 진행하고 있지 않습니다..</p>
+		<p id="real">현재 경매를 진행하고 있지 않습니다..</p>
 	</div>
-  <section class="" style="padding-top: 20px;">
-		<!-- Button trigger modal -->
-		<!-- <div>
-			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color : white; border : none; " >
-				<img src="/images/warning.png" alt="" width="10%;" height="100%">
-		</div> -->
 		
-		<!-- Modal -->
-		<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-				<h1 class="modal-title fs-5" id="exampleModalLabel" style="text-align: center;">실시간 경매 주의사항</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<p>✅ 입찰 시, 본인의 포인트보다 높게 금액을 입력할 수 없습니다.</p>
-					<p>✅ 경매 시작 전 입찰 금액 입력 시 반영이 되지 않습니다.</p>
-					<p>✅ 경매 진행 중 욕설이나 타인을 비난하는 행위, 도배를 하는 행위는 강퇴를 당하실 수 있습니다. </p>
-					<p>✅ 강퇴를 당하면 실시간 경매에 참여할 수 없습니다.</p>
-					<p>✅ 경매 종료 시, 낙찰되셨을 때 바로 포인트가 차감됩니다.</p>
-					<p>✅ 입찰은 1000원 단위로만 가능합니다.</p>
-
-				</div>
-				<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
-				</div>
-			</div>
-			</div>
-		</div> -->
     <!-- 방송 시작 부분 -->
 		<div id="videos-container" style="margin: 20px 0;">
 			<div id="media-container" class = "media-container shadowBox col-sm-12">
@@ -76,7 +56,7 @@
 						<div id= "blackVideo" style="width: 100%; height: 100%; color: #a8a8a8; display:flex; align-items: center; justify-content: center;">
 							<div>현재 실시간 경매를 진행하고 있지 않습니다.</div>
 						</div>
-						<video id="localVideo" autoplay playsinline hidden style="left: 50%;" ></video>
+						<video id="localVideo" autoplay playsinline style="left: 50%;" ></video>
 						
 						
 						<div id = "mediaControls" style="width: 100%;  position: absolute;">
@@ -92,8 +72,6 @@
 					
 				</div>
 				
-		
-	
 		
         <div class="chat-container">	
 			<div id= "chat-header" >
@@ -195,8 +173,8 @@
   </div>
   </section>
 </div>
-
-<%-- <c:import url="../temp/footer.jsp"></c:import> --%>
+	
+<c:import url="../common/footer.jsp"></c:import>
 
 <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -259,6 +237,25 @@
 	 localVideo.removeAttribute("hidden"); */
 </script>
 
+
+</sec:authorize>
+<!-- ========================================================================== -->
+
+
+<!-- =================================== 도매업자 ==================================== -->
+<sec:authorize access="hasRole('ROLE_WHOLESALER')">
+
+
+
+
+
+
+
+</sec:authorize>
+<!-- ======================================================================= -->
+<div class="section-header" style="margin-top: 90px;">
+            <h2>로그인한 도매업자 회원만 참여가 가능합니다.</h2>
+  </div>
 
 </body>
 </html>

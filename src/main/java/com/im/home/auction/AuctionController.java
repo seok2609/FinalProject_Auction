@@ -52,7 +52,7 @@ public class AuctionController {
 	
 	
 	@GetMapping("live")
-	public String firstTest() {
+	public String getLive() {
 		return "auction/live";
 	}
 
