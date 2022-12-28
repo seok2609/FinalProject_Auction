@@ -13,11 +13,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <%-- <c:import url="../template/boot.jsp"></c:import> --%>
-  <link href="/css/reset.css" rel="stylesheet">
-  <link href="/css/chat.css" rel="stylesheet">
-  <link rel="stylesheet" media="only screen and (min-width:200px) and (max-width:480px)" href="/css/liveAuctionM.css">
+  <link href="/static/css/reset.css" rel="stylesheet">
+  <link href="/static/css/auction/chat.css" rel="stylesheet">
+  <link rel="stylesheet" media="only screen and (min-width:200px) and (max-width:480px)" href="/static/css/auction/liveAuctionM.css">
   <!-- <link href="/images/miniLogo_BidCoin.png" rel="shortcut icon" type="image/x-icon"> -->
-  <link rel="stylesheet" href="/css/getHTMLMediaElement.css">
+  <link rel="stylesheet" href="/static/css/auction/getHTMLMediaElement.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 
 </head>
@@ -180,16 +180,16 @@
     
     
     </div></div>
-    <%-- </sec:authorize> --%>
+    <%-- <%-- </sec:authorize> --%>
 
 	
     
   </div>
 	<div style="display: none;">
-      <%-- <h2 id="id">${member}</h2>
-      <h2 id="loginnum">${num}</h2>
-      <h2 id="point">${point}</h2>
-      <h2 id="role">${role[0].roleName}</h2> --%>
+      <h2 id="id">테스트멤버</h2>
+      <h2 id="loginnum">111</h2>
+      <h2 id="point">30000</h2>
+      <h2 id="role">도매업자</h2>
 	</div>
 	<div id="room-urls" style="width : 200px;text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
   </div>
@@ -205,7 +205,7 @@
 <script src='/static/js/auction/chat.js'></script>
 <script src="/static/js/auction/RTCMultiConnection.js"></script>
 <!-- <script src="/socket.io/socket.io.js"></script> -->
-<script src="https://localhost:9559/socket.io/socket.io.js"></script>
+<script src="http://localhost:9001/socket.io/socket.io.js"></script>
 <script src="/static/js/auction/getHTMLMediaElement.js"></script>
 <script src='/static/js/auction/index.js'></script>
 
@@ -215,19 +215,19 @@
 
   <script src="https://www.webrtc-experiment.com/common.js"></script>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 
-	<sec:authorize access="hasRole('ROLE_ADMIN')" >
+	// <sec:authorize access="hasRole('ROLE_ADMIN')" >
 		adminChat();
 		adminBroadCast();
-	</sec:authorize>
+	// </sec:authorize>
 	
 	
 	
 	joinRoom();
 	
 	
-</script> -->
+</script>
 
 
 </body>
