@@ -120,15 +120,7 @@
                     <div class="info-item d-flex">
                     <i class="bi bi-envelope flex-shrink-0"></i>
                     <div>
-                      <h4>경매 번호</h4>
-                      <c:choose>
-                        <c:when test="${empty productVO.auction_num}">
-                          경매 미정
-                        </c:when>
-                        <c:otherwise>
-                          ${productVO.auction_num}번 입니다.
-                        </c:otherwise>
-                      </c:choose>
+                      <h4>경매 하기</h4>
                     </div>
                   </div><!-- End Info Item -->
                 </div>
@@ -180,9 +172,6 @@
               </div>
               
               <div class="d-flex" style="margin-left: 400px;">
-                <div class="text-center">
-                  <button type="submit" id="inquiryAddBtn">경매하기</button>
-                </div>
                 <div class="text-center"   onclick="location.href='/kdy/saleTypeList';">
                   <button type="submit" id="inquiryAddBtn">뒤로가기</button>
                 </div>
