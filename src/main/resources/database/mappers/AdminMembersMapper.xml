@@ -63,7 +63,7 @@
 		<!-- 상품 등록 -->
 		<insert id="setProductAdd" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="product_num">
 			INSERT INTO PRODUCT VALUES
-			(NULL, NULL, #{grade_num}, #{name}, #{product_address}, #{quantity}, #{weight}, 1)
+			(NULL, #{grade_num}, #{name}, #{product_address}, #{quantity}, #{weight}, 1)
 		</insert>
 		<insert id="setProductFileAdd" parameterType="ProductFileVO">
 			INSERT INTO PRODUCT_FILE VALUES

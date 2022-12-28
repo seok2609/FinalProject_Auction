@@ -33,7 +33,6 @@ import com.im.home.members.MembersVO;
 
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "*")
 @Controller
 @RequestMapping("/auction/*")
 @Slf4j
@@ -52,9 +51,9 @@ public class AuctionController {
 	private AuctionService auctionService;
 	
 	
-	@GetMapping("test")
+	@GetMapping("live")
 	public String firstTest() {
-		return "auction/test2";
+		return "auction/live";
 	}
 
 	

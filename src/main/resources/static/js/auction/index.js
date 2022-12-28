@@ -15,6 +15,8 @@
 // ......................................................
 
 function adminBroadCast(){
+
+
 	document.getElementById('open-room').onclick = function() {
 //	    disableInputButtons();
 	    connection.open(document.getElementById('room-id').value, function() {
@@ -73,7 +75,7 @@ var connection = new RTCMultiConnection();
 
 // by default, socket.io server is assumed to be deployed on your own URL
 //connection.socketURL = 'https://muazkhan.com:9001/';
-connection.socketURL = 'https://localhost:9559/';
+connection.socketURL = 'http://localhost:9001/';
 
 // comment-out below line if you do not have your own socket.io server
 // connection.socketURL = 'https://muazkhan.com:9001/';
