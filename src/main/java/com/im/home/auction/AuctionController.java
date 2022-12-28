@@ -51,9 +51,9 @@ public class AuctionController {
 	private AuctionService auctionService;
 	
 	
-	@GetMapping("test")
+	@GetMapping("live")
 	public String firstTest() {
-		return "auction/test";
+		return "auction/live";
 	}
 
 	
