@@ -66,7 +66,7 @@ var pattern_num = /[0-9]/;	// 숫자 판별
 var userlist = [];
 var rank = [aaa,"id"]; //최고값, id
 
-ws = new WebSocket("ws://" + location.host + "/socket");
+ws = new WebSocket("ws://" + location.host + "/chat");
 
 
 //입장 시
@@ -540,6 +540,7 @@ function sendresult() {
 
 //user 입장 함수
 function usercome(){
+	console.log("유저입장");
 	data5.usercome = "emocresu"; //list 
 	data5.come = userid.innerText;
 	data5.ppp = "potsss";
@@ -550,6 +551,7 @@ function usercome(){
 	data5.goods = "sdoog";
 	data5.tt = "wpahrwpahr";
 	var temp =JSON.stringify(data5);
+	console.log("ws.send(temp) 실행 전");
 	ws.send(temp);
 }
 
@@ -733,6 +735,8 @@ function adminChat(){
 	
 	$("#open-room").click(function(){
 		
+		console.log("나와라");
+
 		setTimeout(function(){
 			data15.joinRoom=true;
 			var temp = JSON.stringify(data15);
