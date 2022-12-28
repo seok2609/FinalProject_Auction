@@ -214,7 +214,14 @@ public class AdminMembersService {
 	}
 	//상품 리스트
 	public List<ProductVO> getProductList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getProductCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
 		return adminMembersMapper.getProductList(adminPager);
+	}
+	//상품 수
+	public Long getProductCount(AdminPager adminPager)throws Exception{
+		return adminMembersMapper.getProductCount(adminPager);
 	}
 	//상품 디테일
 	public ProductVO getProductDetail(ProductVO productVO)throws Exception{
