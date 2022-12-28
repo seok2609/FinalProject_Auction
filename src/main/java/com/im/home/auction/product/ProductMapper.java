@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.im.home.admin.ProductVO;
+
 @Mapper
 public interface ProductMapper {
 	
