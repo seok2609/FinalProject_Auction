@@ -303,6 +303,8 @@ public class AdminMembersController {
 	public ModelAndView getProductList(AdminPager adminPager)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> ar = adminMembersService.getProductList(adminPager);
+		Long result = adminMembersService.getProductCount(adminPager);
+		mv.addObject("result", result);
 		mv.addObject("proList", ar);
 		mv.addObject("pager", adminPager);
 		return mv;
@@ -328,6 +330,7 @@ public class AdminMembersController {
 		mv.addObject("productVO", productVO);
 		return mv;
 	}
+	// 상품 판매 가능 여부
 	@GetMapping("productHold")
 	public ModelAndView setProductHold(ProductVO productVO)throws Exception{
 		ModelAndView mv = new ModelAndView();

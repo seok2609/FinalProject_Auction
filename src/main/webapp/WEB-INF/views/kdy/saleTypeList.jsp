@@ -136,7 +136,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                            등록 상품</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalReport} 건</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${result} 건</div>
                                     </div>
                                 </div>
                             </div>
@@ -151,6 +151,17 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" style="background-color: #008374; ">
                             <button class="m-0 font-weight-bold" style="border: 0;" onclick="location.href='/kdy/productAdd';">상품 추가하기</button>
+                            <form action="./saleTypeList" style="margin-left: -100px; margin-top: -25px;" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+                                <div class="col-12">
+                                    <div class="input-group" id="memberListSearch">
+                                        <input type="text" name="productSearch" value="${param.productSearch}"
+                                            var="" class="form-control" id="productSearch"
+                                            placeholder="상품 번호를 검색해보세요">
+                                        <button type="submit" class="btn btn-success" id="searchNull">검색
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                        
 
@@ -207,16 +218,16 @@
                     <li class="page-item ${pager.pre?'':'disabled'}">
                     <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
                     <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
-                      <a class="page-link" href="./report?page=${pager.startNum-1}&kind=${pager.kind}&reportSearch=${pager.reportSearch}" aria-label="Previous">
+                      <a class="page-link" href="./saleTypeList?page=${pager.startNum-1}&kind=${pager.kind}&productSearch=${pager.productSearch}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                       </a> 
                     </li> 
                     <!-- 조정된 다음 페이지를 기준으로 startNum t0 lastNum까지 반복문돌려 블럭 형성  -->
                     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-                      <li class="page-item"><a class="page-link" href="./report?page=${i}&kind=${pager.kind}&reportSearch=${pager.reportSearch}">${i}</a> </li>
+                      <li class="page-item"><a class="page-link" href="./saleTypeList?page=${i}&kind=${pager.kind}&productSearch=${pager.productSearch}">${i}</a> </li>
                     </c:forEach> 
                     <li class="page-item ${pager.next?'':'disabled'}">
-                      <a class="page-link" href="./report?page=${pager.lastNum}" aria-label="Next">
+                      <a class="page-link" href="./saleTypeList?page=${pager.lastNum}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                       </a>
                     </li>

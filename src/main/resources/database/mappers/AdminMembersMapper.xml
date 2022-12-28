@@ -12,7 +12,6 @@
 			</choose>
 			LIKE concat ('%', #{search}, '%')
 		</sql>
-		
 		<sql id="reportSearch">
 			<choose>
 				<when test="kind == 'report_id'">RP.REPORT_ID</when>
@@ -20,7 +19,6 @@
 			</choose>
 				LIKE concat ('%', #{reportSearch}, '%')
 		</sql>
-		
 		<sql id="inquirySearch">
 			WHERE
 			<choose>
@@ -28,6 +26,14 @@
 			</choose>
 			LIKE concat ('%', #{inquirySearch}, '%')
 		</sql>
+		<sql id="productSearch">
+			WHERE
+			<choose>
+				<otherwise>PRODUCT_NUM</otherwise>
+			</choose>
+			LIKE concat ('%', #{productSearch}, '%')
+		</sql>
+		
 <!-- memberList -->
 	<!-- memberList -->
 	 	<select id="getAdminMembersList" parameterType="AdminPager" resultMap="getAdminMembersListResult">
@@ -77,9 +83,12 @@
 			INNER JOIN
 			PRODUCT_GRADE PG
 			ON P.GRADE_NUM = PG.GRADE_NUM
+			<include refid="productSearch"/>
+			ORDER BY PRODUCT_NUM DESC 
+			LIMIT #{startRow}, #{perPage}
 		</select>
 			<!-- 상품 수 -->
-			<select id="getProductCount" parameterType="AdminPager" resultType="ProductVO">
+			<select id="getProductCount" parameterType="AdminPager" resultType="Long">
 				SELECT COUNT(PRODUCT_NUM) FROM PRODUCT
 			</select>
 		<!-- 상품 detail  -->
@@ -98,6 +107,7 @@
 		<update id="setProductHold" parameterType="ProductVO">
 			UPDATE PRODUCT SET SALES = #{sales} WHERE PRODUCT_NUM = #{product_num}
 		</update>
+		
 <!-- 공지사항 관리 -->
 		<!-- 등록 -->
 		<insert id="setCompanyNotice" parameterType="CompanyNoticeVO">
@@ -410,7 +420,6 @@
 		</select>
 
 <!--resultMap-->
-	
  	<resultMap type="MembersVO" id="getAdminMembersListResult">
  			<id column="id" property="id"/>
  			<result column="passWord" property="passWord"/>
