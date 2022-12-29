@@ -8,12 +8,12 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>도매시장 경매방송</title>
+  <title>세상의 모든 경매: BIDCOIN</title>
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <%-- <c:import url="../template/boot.jsp"></c:import> --%>
-  <link href="/static/css/reset.css" rel="stylesheet">
+  <!-- <link href="/static/css/auction/reset.css" rel="stylesheet"> -->
   <link href="/static/css/auction/chat.css" rel="stylesheet">
   <link rel="stylesheet" media="only screen and (min-width:200px) and (max-width:480px)" href="/static/css/auction/liveAuctionM.css">
   <!-- <link href="/images/miniLogo_BidCoin.png" rel="shortcut icon" type="image/x-icon"> -->
@@ -25,19 +25,11 @@
   
   <c:import url="../common/header.jsp"></c:import>
   
-  <!-- ==========================관리자============================================ -->
-  <sec:authorize access="hasRole('ROLE_ADMIN')">
-  
-  <sec:authentication property="Principal" var="user"/>
-  <section class="" style="padding-top: 20px;">
-  
-  <div class="section-header" style="margin-top: 90px;">
-            <h2>관리자 - 경매방송 관리</h2>
-  </div>
   <div>
 	<div>
-		<p id="real">현재 경매를 진행하고 있지 않습니다..</p>
+		<p id="real">경매를 진행하고 있지 않습니다..</p>
 	</div>
+  <section class="" style="padding-top: 20px;">
 		
     <!-- 방송 시작 부분 -->
 		<div id="videos-container" style="margin: 20px 0;">
@@ -54,9 +46,9 @@
 				
 					<div id="media-box" class="media-box" style="position: relative;">
 						<div id= "blackVideo" style="width: 100%; height: 100%; color: #a8a8a8; display:flex; align-items: center; justify-content: center;">
-							<div>현재 실시간 경매를 진행하고 있지 않습니다.</div>
+							<div>방송 준비 중..</div>
 						</div>
-						<video id="localVideo" autoplay playsinline style="left: 50%;" ></video>
+						<video id="localVideo" autoplay playsinline hidden style="left: 50%;" ></video>
 						
 						
 						<div id = "mediaControls" style="width: 100%;  position: absolute;">
@@ -72,6 +64,8 @@
 					
 				</div>
 				
+		
+	
 		
         <div class="chat-container">	
 			<div id= "chat-header" >
@@ -110,7 +104,7 @@
 	  	
     </div>
     <input  type="hidden" id="room-id" value="123" readonly="readonly" autocorrect=off autocapitalize=off size=20>
-    <%-- <sec:authorize access="hasRole('ROLE_ADMIN')" > --%>
+    <sec:authorize access="hasRole('ROLE_ADMIN')" >
     
     <div style="display: flex; justify-content: center;">
     <div class="shadowBox media-container">
@@ -158,32 +152,32 @@
     
     
     </div></div>
-    <%-- <%-- </sec:authorize> --%>
+    </sec:authorize>
 
 	
     
   </div>
 	<div style="display: none;">
-      <h2 id="id">테스트멤버</h2>
-      <h2 id="loginnum">111</h2>
-      <h2 id="point">30000</h2>
-      <h2 id="role">도매업자</h2>
+      <h2 id="id">${member}</h2>
+      <h2 id="loginnum">3</h2>
+      <h2 id="point">3000000</h2>
+      <h2 id="role">member</h2>
 	</div>
 	<div id="room-urls" style="width : 200px;text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
   </div>
   </section>
 </div>
-	
-<c:import url="../common/footer.jsp"></c:import>
 
-<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+<!-- <c:import url="../common/footer.jsp"></c:import> -->
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 <script src='/static/js/auction/chat.js'></script>
 <script src="/static/js/auction/RTCMultiConnection.js"></script>
 <!-- <script src="/socket.io/socket.io.js"></script> -->
-<script src="http://localhost:9001/socket.io/socket.io.js"></script>
+<script src="https://192.168.10.85:9001/socket.io/socket.io.js"></script>
 <script src="/static/js/auction/getHTMLMediaElement.js"></script>
 <script src='/static/js/auction/index.js'></script>
 
@@ -194,68 +188,18 @@
   <script src="https://www.webrtc-experiment.com/common.js"></script>
 
 <script type="text/javascript">
-
-	// <sec:authorize access="hasRole('ROLE_ADMIN')" >
+	<sec:authorize access="hasRole('ROLE_ADMIN')" >
 		adminChat();
 		adminBroadCast();
-	// </sec:authorize>
+	</sec:authorize>
 	
 	
 	
 	joinRoom();
 	
-/* 	// On this codelab, you will be streaming only video (video: true).
-	const mediaStreamConstraints = {
-	  video: true,
-	};
-
-	// Video element where stream will be placed.
-	const localVideo = document.querySelector('#localVideo');
-
-	// Local stream that will be reproduced on the video.
-	let localStream;
-
-	// Handles success by adding the MediaStream to the video element.
-	function gotLocalMediaStream(mediaStream) {
-	  localStream = mediaStream;
-	  localVideo.srcObject = mediaStream;
-	}
-
-	// Handles error by logging a message to the console with the error message.
-	function handleLocalMediaStreamError(error) {
-	  console.log('navigator.getUserMedia error: ', error);
-	}
-
-	// Initializes media stream.
-	navigator.mediaDevices.getUserMedia(mediaStreamConstraints)
-	  .then(gotLocalMediaStream).catch(handleLocalMediaStreamError);
 	
-	document.querySelector("#blackVideo").remove();
-	 connection.open(document.getElementById('room-id').value, function() {
-//	        showRoomURL(connection.sessionid);
-	    });
-	 localVideo.removeAttribute("hidden"); */
 </script>
 
-
-</sec:authorize>
-<!-- ========================================================================== -->
-
-
-<!-- =================================== 도매업자 ==================================== -->
-<sec:authorize access="hasRole('ROLE_WHOLESALER')">
-
-
-
-
-
-
-
-</sec:authorize>
-<!-- ======================================================================= -->
-<div class="section-header" style="margin-top: 90px;">
-            <h2>로그인한 도매업자 회원만 참여가 가능합니다.</h2>
-  </div>
 
 </body>
 </html>

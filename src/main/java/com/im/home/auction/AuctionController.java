@@ -52,8 +52,14 @@ public class AuctionController {
 	
 	
 	@GetMapping("live")
-	public String getLive() {
-		return "auction/live";
+	public ModelAndView getLive(Principal principal) {
+		ModelAndView mv = new ModelAndView();
+		String name = principal.getName();
+		
+		mv.addObject("member", name);
+		mv.setViewName("auction/live");
+		
+		return mv;
 	}
 
 	

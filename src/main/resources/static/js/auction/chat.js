@@ -66,7 +66,7 @@ var pattern_num = /[0-9]/;	// 숫자 판별
 var userlist = [];
 var rank = [aaa,"id"]; //최고값, id
 
-ws = new WebSocket("ws://" + location.host + "/chat");
+ws = new WebSocket("wss://" + location.host + "/chat");
 
 
 //입장 시
