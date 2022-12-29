@@ -356,4 +356,9 @@ public class AdminMembersController {
 	public String saleList()throws Exception{
 		return "kdy/saleList";
 	}
+	//방송
+	@GetMapping("live")
+	public String live()throws Exception{
+		return "kdy/live";
+	}
 }
