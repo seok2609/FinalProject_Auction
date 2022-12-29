@@ -478,11 +478,21 @@ public class MembersController {
 			
 		}
 		
-		//소셜로그인을 누른 회원을 우리 회원으로 insert시키기 위해 추가정보 입력
+		//소셜로그인을 누른 회원을 우리 회원으로 insert시키기 위해 추가정보 입력페이지를 GET
 		@GetMapping(value = "socialAdd")
-		public String getSocailAdd (MembersVO membersVO) throws Exception{
+		public ModelAndView getSocailAdd (MembersVO membersVO, HttpSession session, Authentication authentication) throws Exception{
 			
-			return "members/socialAdd";
+			ModelAndView mv = new ModelAndView();
+			
+			log.info("=========소셜로그인 하러 들어옴========");
+			
+//			log.info("다다다다다다닫 ::{} " , authentication.getPrincipal());
+//			
+//			mv.addObject("social", authentication.getPrincipal());	//social 키에 현재 소셜로그인 정보를 담아줌;
+			
+			mv.setViewName("members/socialAdd");
+			
+			return mv;
 		}
 		
 		

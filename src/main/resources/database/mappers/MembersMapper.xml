@@ -5,9 +5,15 @@
           
 <mapper namespace="com.im.home.members.MembersMapper">
 
-	<insert id="setMembersSignUp" parameterType="MembersVO">
 
-		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null);
+	<!-- 일반회원 회원가입 INSERT -->
+	<insert id="setMembersSignUp" parameterType="MembersVO">
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null, 0);
+	</insert>
+	
+	<!-- 소셜로그인 회원가입 INSERT -->
+	<insert id="setSocialSignUp" parameterType="MembersVO">
+		INSERT INTO MEMBERS ()
 	</insert>
 	
 	<insert id="setMembersRole" parameterType="MembersVO">
