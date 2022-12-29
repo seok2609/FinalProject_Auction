@@ -231,4 +231,8 @@ public class AdminMembersService {
 	public int setProductHold(ProductVO productVO)throws Exception{
 		return adminMembersMapper.setProductHold(productVO);
 	}
+	//상품 등급 수정
+	public int setProductGrade(ProductVO productVO)throws Exception{
+		return adminMembersMapper.setProductGrade(productVO);
+	}
 }
