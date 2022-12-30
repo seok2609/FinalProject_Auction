@@ -1,189 +1,77 @@
-'use strict';
+$(document).ready(function(){
 
-var localConnection;
-var remoteConnection;
-var sendChannel;
-var receiveChannel;
-var pcConstraint;
-var dataConstraint;
-var dataChannelSend = document.querySelector('textarea#dataChannelSend');
-var dataChannelReceive = document.querySelector('textarea#dataChannelReceive');
-var startButton = document.querySelector('button#startButton');
-var sendButton = document.querySelector('button#sendButton');
-var closeButton = document.querySelector('button#closeButton');
+  const username = $("#id").val();
 
-startButton.onclick = createConnection;
-sendButton.onclick = sendData;
-closeButton.onclick = closeDataChannels;
+  $("#disconn").on("click", (e) => {
+      disconnect();
+  })
+  
+  $("#btn_send").on("click", (e) => {
+      send();
+  });
 
-function enableStartButton() {
-  startButton.disabled = false;
-}
+  const websocket = new WebSocket("wss://192.168.10.85:80/chat");
 
-function disableSendButton() {
-  sendButton.disabled = true;
-}
+  websocket.onmessage = onMessage;
+  websocket.onopen = onOpen;
+  websocket.onclose = onClose;
 
-function createConnection() {
-  dataChannelSend.placeholder = '';
-  var servers = null;
-  pcConstraint = null;
-  dataConstraint = null;
-  trace('Using SCTP based data channels');
-  // For SCTP, reliable and ordered delivery is true by default.
-  // Add localConnection to global scope to make it visible
-  // from the browser console.
-  window.localConnection = localConnection =
-      new RTCPeerConnection(servers, pcConstraint);
-  trace('Created local peer connection object localConnection');
+  function send(){
 
-  sendChannel = localConnection.createDataChannel('sendDataChannel',
-      dataConstraint);
-  trace('Created send data channel');
+      let msg = document.getElementById("write_area");
 
-  localConnection.onicecandidate = iceCallback1;
-  sendChannel.onopen = onSendChannelStateChange;
-  sendChannel.onclose = onSendChannelStateChange;
-
-  // Add remoteConnection to global scope to make it visible
-  // from the browser console.
-  window.remoteConnection = remoteConnection =
-      new RTCPeerConnection(servers, pcConstraint);
-  trace('Created remote peer connection object remoteConnection');
-
-  remoteConnection.onicecandidate = iceCallback2;
-  remoteConnection.ondatachannel = receiveChannelCallback;
-
-  localConnection.createOffer().then(
-    gotDescription1,
-    onCreateSessionDescriptionError
-  );
-  startButton.disabled = true;
-  closeButton.disabled = false;
-}
-
-function onCreateSessionDescriptionError(error) {
-  trace('Failed to create session description: ' + error.toString());
-}
-
-function sendData() {
-  var data = dataChannelSend.value;
-  sendChannel.send(data);
-  trace('Sent Data: ' + data);
-}
-
-function closeDataChannels() {
-  trace('Closing data channels');
-  sendChannel.close();
-  trace('Closed data channel with label: ' + sendChannel.label);
-  receiveChannel.close();
-  trace('Closed data channel with label: ' + receiveChannel.label);
-  localConnection.close();
-  remoteConnection.close();
-  localConnection = null;
-  remoteConnection = null;
-  trace('Closed peer connections');
-  startButton.disabled = false;
-  sendButton.disabled = true;
-  closeButton.disabled = true;
-  dataChannelSend.value = '';
-  dataChannelReceive.value = '';
-  dataChannelSend.disabled = true;
-  disableSendButton();
-  enableStartButton();
-}
-
-function gotDescription1(desc) {
-  localConnection.setLocalDescription(desc);
-  trace('Offer from localConnection \n' + desc.sdp);
-  remoteConnection.setRemoteDescription(desc);
-  remoteConnection.createAnswer().then(
-    gotDescription2,
-    onCreateSessionDescriptionError
-  );
-}
-
-function gotDescription2(desc) {
-  remoteConnection.setLocalDescription(desc);
-  trace('Answer from remoteConnection \n' + desc.sdp);
-  localConnection.setRemoteDescription(desc);
-}
-
-function iceCallback1(event) {
-  trace('local ice callback');
-  if (event.candidate) {
-    remoteConnection.addIceCandidate(
-      event.candidate
-    ).then(
-      onAddIceCandidateSuccess,
-      onAddIceCandidateError
-    );
-    trace('Local ICE candidate: \n' + event.candidate.candidate);
+      console.log(username + ":" + msg.innerHTML);
+      websocket.send(username + ":" + msg.innerHTML);
+      msg.innerHTML = '';
   }
-}
-
-function iceCallback2(event) {
-  trace('remote ice callback');
-  if (event.candidate) {
-    localConnection.addIceCandidate(
-      event.candidate
-    ).then(
-      onAddIceCandidateSuccess,
-      onAddIceCandidateError
-    );
-    trace('Remote ICE candidate: \n ' + event.candidate.candidate);
+  
+  //채팅창에서 나갔을 때
+  function onClose(evt) {
+      var str = username + ": 님이 방을 나가셨습니다.";
+      websocket.send(str);
   }
-}
-
-function onAddIceCandidateSuccess() {
-  trace('AddIceCandidate success.');
-}
-
-function onAddIceCandidateError(error) {
-  trace('Failed to add Ice Candidate: ' + error.toString());
-}
-
-function receiveChannelCallback(event) {
-  trace('Receive Channel Callback');
-  receiveChannel = event.channel;
-  receiveChannel.onmessage = onReceiveMessageCallback;
-  receiveChannel.onopen = onReceiveChannelStateChange;
-  receiveChannel.onclose = onReceiveChannelStateChange;
-}
-
-function onReceiveMessageCallback(event) {
-  trace('Received Message');
-  dataChannelReceive.value = event.data;
-}
-
-function onSendChannelStateChange() {
-  var readyState = sendChannel.readyState;
-  trace('Send channel state is: ' + readyState);
-  if (readyState === 'open') {
-    dataChannelSend.disabled = false;
-    dataChannelSend.focus();
-    sendButton.disabled = false;
-    closeButton.disabled = false;
-  } else {
-    dataChannelSend.disabled = true;
-    sendButton.disabled = true;
-    closeButton.disabled = true;
+  
+  //채팅창에 들어왔을 때
+  function onOpen(evt) {
+      var str = username + ": 님이 입장하셨습니다.";
+      websocket.send(str);
   }
-}
 
-function onReceiveChannelStateChange() {
-  var readyState = receiveChannel.readyState;
-  trace('Receive channel state is: ' + readyState);
-}
+  function onMessage(msg) {
+      var data = msg.data;
+      var sessionId = null;
+      //데이터를 보낸 사람
+      var message = null;
+      var arr = data.split(":");
 
-function trace(text) {
-  if (text[text.length - 1] === '\n') {
-    text = text.substring(0, text.length - 1);
+      for(var i=0; i<arr.length; i++){
+          console.log('arr[' + i + ']: ' + arr[i]);
+      }
+
+      var cur_session = username;
+
+      //현재 세션에 로그인 한 사람
+      console.log("cur_session : " + cur_session);
+      sessionId = arr[0];
+      message = arr[1];
+
+      console.log("sessionID : " + sessionId);
+      console.log("cur_session : " + cur_session);
+
+      //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
+      if(sessionId == cur_session){
+          var str = "<div class='col-6'>";
+          str += "<div class='alert alert-secondary'>";
+          str += "<b>" + sessionId + " : " + message + "</b>";
+          str += "</div></div>";
+          $("#chat_area").append(str);
+      }
+      else{
+          var str = "<div class='col-6'>";
+          str += "<div class='alert alert-warning'>";
+          str += "<b>" + sessionId + " : " + message + "</b>";
+          str += "</div></div>";
+          $("#chat_area").append(str);
+      }
   }
-  if (window.performance) {
-    var now = (window.performance.now() / 1000).toFixed(3);
-    console.log(now + ': ' + text);
-  } else {
-    console.log(text);
-  }
-}
+  })

@@ -52,16 +52,18 @@ public class AuctionController {
 	
 	
 	@GetMapping("live")
-	public ModelAndView getLive(Principal principal) {
-		ModelAndView mv = new ModelAndView();
-		String name = principal.getName();
+	public String getLive(Model model,Principal principal) {
 		
-		mv.addObject("member", name);
-		mv.setViewName("auction/live");
+		if(principal == null) {
+			return "redirect:/";
+		}
 		
-		return mv;
+		model.addAttribute("id", principal.getName());
+		
+		return "auction/live";
 	}
-
+	
+	
 	
 	
 	@GetMapping("chat")

@@ -123,8 +123,6 @@ var RTCMultiConnection = function(roomid, forceOptions) {
     })(typeof global !== 'undefined' ? global : null);
 
     function SocketConnection(connection, connectCallback) {
-
-        
         function isData(session) {
             return !session.audio && !session.video && !session.screen && session.data;
         }
@@ -358,14 +356,13 @@ var RTCMultiConnection = function(roomid, forceOptions) {
         connection.socket.resetProps = function() {
             alreadyConnected = false;
         };
-        
-        
+
         connection.socket.on('connect', function() {
             if (alreadyConnected) {
                 return;
             }
             alreadyConnected = true;
-            
+
             if (connection.enableLogs) {
                 console.info('socket.io connection is opened.');
             }
@@ -378,18 +375,6 @@ var RTCMultiConnection = function(roomid, forceOptions) {
                 connectCallback(connection.socket);
             }
         });
-
-        const cameraOff = document.querySelector("#cameraStatus");
-        if(cameraOff != null){
-	
-	        cameraOff.addEventListener("click", function(){
-	            if(connection.socket.connect()){
-	                connection.socket.disconnect();
-	            }
-	        })
-	
-	}
-        
 
         connection.socket.on('disconnect', function(event) {
             connection.onSocketDisconnect(event);
@@ -2035,7 +2020,7 @@ var RTCMultiConnection = function(roomid, forceOptions) {
         }
 
         var MediaStream = window.MediaStream;
-        
+
         if (typeof MediaStream === 'undefined' && typeof webkitMediaStream !== 'undefined') {
             MediaStream = webkitMediaStream;
         }
@@ -3612,7 +3597,7 @@ var RTCMultiConnection = function(roomid, forceOptions) {
             navigator.mediaDevices.getUserMedia(options.localMediaConstraints).then(function(stream) {
                 stream.streamid = stream.streamid || stream.id || getRandomString();
                 stream.idInstance = idInstance;
-                stream.srcObject = null;
+
                 streaming(stream);
             }).catch(function(error) {
                 options.onLocalMediaError(error, options.localMediaConstraints);
@@ -5208,7 +5193,8 @@ var RTCMultiConnection = function(roomid, forceOptions) {
                 mPeer.replaceTrack(track, remoteUserId, isVideoTrack);
                 return;
             }
-	            connection.peers.getAllParticipants().forEach(function(participant) {
+
+            connection.peers.getAllParticipants().forEach(function(participant) {
                 mPeer.replaceTrack(track, participant, isVideoTrack);
             });
         }

@@ -3,22 +3,22 @@
                 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Dashboard</title>
-    <!-- Custom fonts for this template-->
+    <title>SB Admin 2 - Tables</title>
+    <!-- Custom fonts for this template -->
     <link href="/kdy/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <!-- Custom styles for this template-->
-    <link href="/kdy/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-      <script  defer src="/kdy/js/admin.js"></script>
 </head>
 
 <body id="page-top">
@@ -29,7 +29,7 @@
     <div class="section-header" style="margin-top: 45px;">
         <h2>공지사항</h2>
         </div>
-    <div id="wrapper" style="height: 800px; width: 1000px; margin-left: 500px; margin-top: 50px;"  data-aos="fade-up">
+    <div id="wrapper" style="height: 800px; width: 1000px; margin-left: 280px; margin-top: 50px;"  data-aos="fade-up">
         <div style="width: 2000px;">
             <table border="1" class="table table-hover" id="th">
                 <thead class="table-success" style="text-align: center;">
@@ -62,7 +62,7 @@
             </table>
           </div>
     </div>
-    <div class="chefs section-bg" style="margin-left: 900px;">
+    <div class="chefs section-bg" style="margin-left: 500px;">
         <nav aria-label="Page navigation example">
           <ul class="pagination">
           <!-- 이전페이지가 없으면 	버튼 비활성화  -->
