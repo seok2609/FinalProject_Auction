@@ -1,7 +1,8 @@
-package com.im.home.auction;
+package com.im.home.auction.socket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -13,22 +14,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class ChatHandler extends TextWebSocketHandler {
-	
+public class SocketHandler extends TextWebSocketHandler{
 	
 	private static List<WebSocketSession> list = new ArrayList<>();
 	
 	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
 		String payload = message.getPayload();
-		log.info("payload : {} ",payload);
 		
-		for(WebSocketSession sess: list) {
-			sess.sendMessage(message);
-		}	
+		log.info("페이로드 : {}", payload);
+		
+		for(WebSocketSession webSocketSession : list) {
+			if(webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) {
+				webSocketSession.sendMessage(message);
+			}
+		}
 	}
-	
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -36,6 +38,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		list.add(session);
 		
 		log.info(session + "클라이언트 접속");
+		
 	}
 	
 	

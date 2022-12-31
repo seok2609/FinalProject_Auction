@@ -18,7 +18,9 @@ public class AdminPager {
 	private String search;
 	private String reportSearch;
 	private String inquirySearch;
+	private String productSearch;	
 	private String report_id;
+	private String product_num;
 
 	//이전 블럭의 유무-이전 블럭이 있으면 true, 없으면 false
 	private boolean pre;
@@ -111,6 +113,12 @@ public class AdminPager {
 			this.inquirySearch="";
 		}
 		return inquirySearch;
+	}
+	public String getProductSearch() {
+		if(this.productSearch==null) {
+			this.productSearch="";
+		}
+		return productSearch;
 	}
 
 

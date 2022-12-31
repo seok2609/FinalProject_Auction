@@ -14,7 +14,7 @@
   #signUpSt{
     margin-left: 250px;
   }
-  .bc{
+  .bc, #imgSpan{
     color: #008374;
   }
 	#proDiv{
@@ -104,6 +104,7 @@
                         <div id="profileImg">
                           <img alt="" src="/assets/img/profle.png" width="100px" height="100px" onclick="onClickUpload();">
                           <button type="button" class="btn btn-secondary" id="imgBtn" onclick="onClickUpload();">첨부파일</button>
+                			<p id="imgSpan"></p>
                 		</div>
                 <div class="form-group mt-3" id="proDiv">
                   <label for="formFileSm" class="form-label bc">프로필 사진 첨부 (선택)</label>
@@ -118,6 +119,7 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div> -->
               </div>
+              
               <div class="text-center">
               	<button type="submit" class="btn btn-primary" id="signUpBtn">회원가입</button>
               </div>

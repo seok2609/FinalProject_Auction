@@ -119,17 +119,36 @@ $("#inputRealName").blur(function(){
 
 });
 
+
+
 //닉네임 검증
 $("#inputNickName").blur(function(){
 
     let result = nullCheck($("#inputNickName").val());
 
+    const nickName = ($("#inputNickName").val());
+
+    console.log("result :: " , result);
+
     results[4] = result;
 
     if(result){
-        $("#nickNameHelp").html("정상입니다.");
+
+        $.get("./nickNameCheck?nickName="+nickName, function(data){
+
+            if(data == '0'){    //중복된 카운트 수가 0 이라면
+                $("#nickNameHelp").html("사용가능한 닉네임 입니다.");
+                result[4] = true;
+            }else{              //중복된 닉네임이 존재한다면.
+                $("#nickNameHelp").html("죄송합니다, 이미 사용중인 닉네임 입니다.");
+                $("#inputNickName").focus();
+                results[4] = result;        // => false
+            }
+        });
+
     }else{
         $("#nickNameHelp").html("닉네임 입력은 필수입니다.");
+        $("#inputNickName").focus();
     }
 
 });
@@ -163,7 +182,7 @@ $("#inputEmail").blur(function(){
     let result = nullCheck($("#inputEmail").val());
     results[5] = result;
 
-    if($("#inputEmail").val()== ''){
+    if($("#inputEmail").val() == ''){
         $("#inputEmail").focus();
         $("#emailHelp").html("이메일을 확인해주세요.");
     }else if(!isEmail($("#inputEmail").val())){
@@ -337,16 +356,35 @@ function phoneFormat(phoneNumber){
 
 phoneFormat('01012345678');
 
+//전화번호 중복검사
 $("#inputPhone").blur(function(){
-let result = nullCheck($("#inputPhone").val());
+    let result = nullCheck($("#inputPhone").val());
 
-results[7] = result;
+    const phone = ($("#inputPhone").val());
+
+    console.log("result ;; ", result);
+
+    results[7] = result;
+    
+    $.get("./phoneCheck?phone="+phone, function(data){
+
+        if(data == '0'){
+            $("#phoneHelp").html("사용 가능한 전화번호 입니다! ");
+            results[7] = true;
+        }else{
+
+            $("#phoneHelp").html("죄송합니다, 이미 사용중인 전화번호가 있습니다")
+            $("#phoneHelp").focus();
+            results[7] = result;        // => false
+        }
+
+    });
 
     if($("#inputPhone").val() == ''){
         $("#phoneHelp").focus();
         $("#phoneHelp").html("휴대전화 번호를 입력해주세요.");
     }else{
-        $("#phoneHelp").html("");
+        $("#phoneHelp").html("정상입니다");
     }
 
     // if($("#inputPhone").val() != '1', '0', '2', '3', '4', '5', '6', '7', '8', '9', '-' ){
@@ -383,15 +421,7 @@ $("#signUpBtn").click(function(){
 // });
 
 
-$("#dropBtn").click(function(){
 
-    console.log("버튼클릭");
-    console.log($("#inputPassWord").val());
-
-    $("#md").trigger('click');
-
-
-});
 
 
 //수정 폼에서 수정완료를 누를때 닉네임을 수정하지 않거나 

@@ -12,6 +12,8 @@ console.log("bar : ", bar.max);
 function barValue(){
     bar.value= disE;
     bar.max= disE+disS;
-
-    disCheck.append(""+disE);
+    
+    console.log("disE");
+    /*disCheck.append(""+disE);*/
+    
 }

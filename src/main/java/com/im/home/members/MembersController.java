@@ -1,3 +1,4 @@
+//se
 package com.im.home.members;
 
 import java.security.Principal;
@@ -32,7 +33,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.im.home.admin.AdminMembersService;
 import com.im.home.admin.AdminMembersVO;
 
-import io.openvidu.java.client.Session;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -196,11 +196,34 @@ public class MembersController {
 		return mv;
 	}
 	
+	
+	//아이디 중복검사
 	@GetMapping(value = "idCheck")
 	@ResponseBody	//응답을 거치지 않고 바로 View (JSP)로 보냄
 	public Integer getIdCheck(MembersVO membersVO) throws Exception{
 		
 		int result = membersService.getIdCheck(membersVO);
+		
+		return result;
+	}
+	
+	
+	//닉네임 중복검사
+	@GetMapping(value = "nickNameCheck")
+	@ResponseBody
+	public Integer getNickNameCheck(MembersVO membersVO) throws Exception{
+		
+		int result = membersService.getNickNameCheck(membersVO);
+		
+		return result;
+	}
+	
+	//전화번호 중복검사
+	@GetMapping(value = "phoneCheck")
+	@ResponseBody
+	public Integer getPhoneCheck(MembersVO membersVO) throws Exception{
+		
+		int result = membersService.getPhoneCheck(membersVO);
 		
 		return result;
 	}
@@ -453,6 +476,13 @@ public class MembersController {
 			log.info("아아아아아아ㅏ앙 ===> {}", result);
 			return result;
 			
+		}
+		
+		//소셜로그인을 누른 회원을 우리 회원으로 insert시키기 위해 추가정보 입력
+		@GetMapping(value = "socialAdd")
+		public String getSocailAdd (MembersVO membersVO) throws Exception{
+			
+			return "members/socialAdd";
 		}
 		
 		

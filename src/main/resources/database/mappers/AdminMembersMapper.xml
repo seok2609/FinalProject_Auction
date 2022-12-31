@@ -12,7 +12,6 @@
 			</choose>
 			LIKE concat ('%', #{search}, '%')
 		</sql>
-		
 		<sql id="reportSearch">
 			<choose>
 				<when test="kind == 'report_id'">RP.REPORT_ID</when>
@@ -20,13 +19,19 @@
 			</choose>
 				LIKE concat ('%', #{reportSearch}, '%')
 		</sql>
-		
 		<sql id="inquirySearch">
 			WHERE
 			<choose>
 				<otherwise>M.ID</otherwise>
 			</choose>
 			LIKE concat ('%', #{inquirySearch}, '%')
+		</sql>
+		<sql id="productSearch">
+			WHERE
+			<choose>
+				<otherwise>PRODUCT_NUM</otherwise>
+			</choose>
+			LIKE concat ('%', #{productSearch}, '%')
 		</sql>
 		
 <!-- memberList -->
@@ -60,7 +65,54 @@
 	         ON MR.ROLENUM = R.ROLENUM
 		</select>
 		
-<!-- 공지사항 -->
+<!-- 상품 관리-->
+		<!-- 상품 등록 -->
+		<insert id="setProductAdd" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="product_num">
+			INSERT INTO PRODUCT VALUES
+			(NULL, #{grade_num}, #{name}, #{product_address}, #{quantity}, #{weight}, 1)
+		</insert>
+		<insert id="setProductFileAdd" parameterType="ProductFileVO">
+			INSERT INTO PRODUCT_FILE VALUES
+			(NULL, #{product_num}, #{fileName}, #{oriName})
+		</insert>
+		<!-- 상품 리스트 -->
+		<select id="getProductList" parameterType="AdminPager" resultMap="productResult">
+			SELECT *
+			FROM 
+			PRODUCT P
+			INNER JOIN
+			PRODUCT_GRADE PG
+			ON P.GRADE_NUM = PG.GRADE_NUM
+			<include refid="productSearch"/>
+			ORDER BY PRODUCT_NUM DESC 
+			LIMIT #{startRow}, #{perPage}
+		</select>
+			<!-- 상품 수 -->
+			<select id="getProductCount" parameterType="AdminPager" resultType="Long">
+				SELECT COUNT(PRODUCT_NUM) FROM PRODUCT
+			</select>
+		<!-- 상품 detail  -->
+		<select id="getProductDetail" parameterType="ProductVO" resultMap="productResult">
+			  SELECT * FROM 
+			  PRODUCT P
+			  INNER JOIN
+			  PRODUCT_GRADE PG 
+			  ON P.GRADE_NUM = PG.GRADE_NUM
+			  LEFT JOIN
+			  PRODUCT_FILE PF 
+			  ON P.PRODUCT_NUM = PF.PRODUCT_NUM
+			  WHERE P.PRODUCT_NUM = #{product_num}
+		</select>
+		<!-- 상품 보류, 판매, 매진-->
+		<update id="setProductHold" parameterType="ProductVO">
+			UPDATE PRODUCT SET SALES = #{sales} WHERE PRODUCT_NUM = #{product_num}
+		</update>
+		<!-- 상품 등급 수정 -->
+		<update id="setProductGrade" parameterType="ProductVO">
+			UPDATE PRODUCT SET GRADE_NUM = #{grade_num} WHERE PRODUCT_NUM = #{product_num}
+		</update>
+		
+<!-- 공지사항 관리 -->
 		<!-- 등록 -->
 		<insert id="setCompanyNotice" parameterType="CompanyNoticeVO">
 		 	INSERT INTO COMPANY_NOTICE VALUES
@@ -372,7 +424,6 @@
 		</select>
 
 <!--resultMap-->
-	<!-- memberList -->
  	<resultMap type="MembersVO" id="getAdminMembersListResult">
  			<id column="id" property="id"/>
  			<result column="passWord" property="passWord"/>
@@ -390,9 +441,7 @@
 				<result column="roleName" property="roleName"/>
 			</association>
  	</resultMap>
- 	<!-- 1대1문의 detail페이지,
- 		 응답하지 않은 1대1문의 List,
- 		 관라자 메인 페이지에 보이는 최신 1대1문의 5개리스트  -->
+
  	<resultMap type="AdminMembersVO" id="getInquiryDetailResult">
  			<id column="inquiry_num" property="inquiry_num"/>
  			<result column="id" property="id"/>
@@ -400,7 +449,6 @@
  			<result column="inquiry_text" property="inquiry_text"/>
  			<result column="inquiry_date" property="inquiry_date"/>
  			<result column="inquiry_response" property="inquiry_response"/>
- 			
  			<association property="membersVO" javaType="MembersVO">
  				<id column="id" property="id"/>
 	 			<result column="passWord" property="passWord"/>
@@ -412,20 +460,17 @@
 	 			<result column="phone" property="phone"/>
 	 			<result column="joinDate" property="joinDate"/>
 	 			<result column="black" property="black"/>
-	 			
 	 			<association property="roleVO" javaType="RoleVO">
 					<id column="roleNum" property="roleNum"/>
 					<result column="roleName" property="roleName"/>
 				</association>
  			</association>
- 			
  			<association property="inquiryResponseVO" javaType="inquiryResponseVO">
  				<id column="inquiry_response_num" property="inquiry_response_num"/>
  				<result column="inquiry_num" property="inquiry_num"/>
  				<result column="inquiry_response_contents" property="inquiry_response_contents"/>
  				<result column="inquiry_response_date" property="inquiry_response_date"/>
  			</association>
- 			
  			<collection property="membersReportVOs" javaType="List" ofType="MembersReportVO">
  				<id column="report_num" property="report_num"/>
  				<result column="id" property="id"/>
@@ -436,7 +481,6 @@
  	</resultMap>
  	
  	<resultMap type="MembersReportVO" id="getReportResult">
- 	
  		<id column="report_num" property="report_num"/>
  		<result column="id" property="id"/>
  		<result column="report_id" property="report_id"/>
@@ -489,6 +533,7 @@
 			</association>
 	 	</collection>
  	</resultMap>
+ 	
  	<resultMap type="CompanyNoticeVO" id="noticeMemberReuslt">
  		<id column="notice_num" property="notice_num"></id>
  		<result column="notice_title" property="notice_title"/>
@@ -513,7 +558,27 @@
 					<result column="roleName" property="roleName"/>
 				</association>
  			</association>
+ 	</resultMap>
  	
+ 	<resultMap type="ProductVO" id="productResult">
+ 		<id column="product_num" property="product_num"/>
+ 		<result column="auction_num" property="auction_num"/>
+ 		<result column="grade_num" property="grade_num"/>
+ 		<result column="name" property="name"/>
+ 		<result column="product_address" property="product_address"/>
+ 		<result column="quantity" property="quantity"/>
+ 		<result column="weight" property="weight"/>
+ 		<result column="sales" property="sales"/>
+ 		<association property="productGradeVO" javaType="ProductGradeVO">
+ 			<id column="grade_num" property="grade_num"/>
+	 		<result column="grade_name" property="grade_name"/>
+ 		</association>
+ 		<collection property="productFileVOs" javaType="List" ofType="ProductFileVO">
+ 			<id column="fileNum" property="fileNum"/>
+ 			<result column="product_num" property="product_num"/>
+ 			<result column="fileName" property="fileName"/>
+ 			<result column="oriName" property="oriName"/>
+ 		</collection>
  	</resultMap>
  	
  </mapper>

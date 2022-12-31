@@ -20,6 +20,7 @@
 </style>
 <script defer src="/js/agree.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <!-- ===========header=============== -->

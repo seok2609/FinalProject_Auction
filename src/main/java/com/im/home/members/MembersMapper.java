@@ -26,6 +26,12 @@ public interface MembersMapper {
 	//아이디 중복체크
 	public Integer getIdCheck(MembersVO membersVO) throws Exception;
 	
+	//닉네임 중복체크
+	public Integer getNickNameCheck(MembersVO membersVO) throws Exception;
+	
+	//전화번호 중복체크
+	public Integer getPhoneCheck(MembersVO membersVO) throws Exception;
+	
 	//등급부여
 	public int setMembersRole(MembersVO membersVO) throws Exception;
 
@@ -46,4 +52,5 @@ public interface MembersMapper {
 	
 	//카카오 회원가입
 	public int setKakao(MembersVO membersVO) throws Exception;
+	
 }
