@@ -1,3 +1,4 @@
+//js에서 json요청하여 ajax로 받아오기 test
 //api authURL : URL을 상수로 선언. 보통은 properies에 선언하여 사용함
 let apiURL = 'https://at.agromarket.kr/openApi/price/sale.do';
 

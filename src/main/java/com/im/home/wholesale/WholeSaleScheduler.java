@@ -23,15 +23,15 @@ import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
-public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽입 스케쥴러
+public class WholeSaleScheduler { 
 	
 	@Autowired
 	private  WholeSaleMapper wholeSaleMapper;
 	
 	
+	//================= 어제 일자 정산 데이터 table 저장 =====================
 	
-	//@Scheduled(cron = "0 30 6 * * 1-7") // 매일 오전 6시 30분 실행
-	//@Scheduled(cron = "50 8 * * *  *") //test용 3분 마다 실행
+	@Scheduled(cron = "0 30 6 * * 1-7") // 매일 오전 6시 30분 실행
 	public void setTodayData() throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	      Calendar c1 = Calendar.getInstance(); 
@@ -66,13 +66,14 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	    	Map<String, Object> data = objectMapper.readValue(r, new TypeReference<Map<String, Object>>() {});
 	    	
 	    		JSONObject jobj = new JSONObject(data);
-	    		String count = jobj.get("totCnt").toString(); //데이터총개수 - 이걸로 페이징을 해볼까
+	    		String count = jobj.get("totCnt").toString(); //데이터총개수
+	    		
 	    		//총 개수로 파라미터 페이지 총 개수를 설정해놓고,
 	    		//rn으로 페이지 블락처리하고, rn이 1000을 넘으면 파라미터 page 넘어가게 처리
 	    		Object jobj2 = jobj.get("data");
 	    		String data2 = objectMapper.writeValueAsString(jobj2);
 	    		JSONArray temp = (JSONArray)parser.parse(data2);
-
+	    		//jsonArray를 java List에 담기
 	    		List<WholeSaleVO>  wholeSaleVOs = new ArrayList<>();
 
 	    		if(temp.size()!=0) {
@@ -104,7 +105,8 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 	    					wholeSaleVO.setMinAmt(jsonObj.get("minAmt").toString());
 	    					wholeSaleVO.setMaxAmt(jsonObj.get("maxAmt").toString());
 	    					wholeSaleVO.setAvgAmt(jsonObj.get("avgAmt").toString());
-	    					
+	    					//wholeSaleVO list에 초기화되어 새로운 set값이 설정된 wholeSaleVO 추가
+	    					//add(int index, WholeSaleVO element)
 	    					wholeSaleMapper.setAdd(wholeSaleVO);
 	    				}
 	    			
@@ -115,9 +117,9 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 			
 			
 		}
+	//================= 실시간데이터 비우기 =====================
 	
-	//@Scheduled(cron = "0 0 0 * * *") // 매일 3시간 간격으로 실행 
-	//실시간데이터 비우기
+	@Scheduled(cron = "0 0 0 * * *") // 매일 3시간 간격으로 실행 
 	public void setRealDataDel() throws Exception {
 		 int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
          
@@ -127,10 +129,14 @@ public class WholeSaleScheduler { //일자별 상세 리스트 출력 용 DB삽�
 			}
 	
 		}
+	
+	
+	
+	
+	//================= 실시간데이터 3시간 간격으로 업데이트 =====================
+	
 	@Scheduled(cron = "20 30 */3 * *  *") // 매일 3시간 간격으로 실행 
-	//@Scheduled(cron = "50 7 * * *  *") //test용 3분 마다 실행
 	public void setRealData() throws Exception {
-	//====================================== 실시간 리스트 ===============================
 		   
 	      int[] mart = {110001,311201,240004,250001,220001,210001,210009}; //도매시장 번호 
          
