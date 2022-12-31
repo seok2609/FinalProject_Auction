@@ -9,6 +9,19 @@
 <head>
 <meta charset="UTF-8">
 <title>도매시장통합홈페이지</title>
+<!-- <style>
+
+  #m{
+
+  font-size: 20px;
+  display: block;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 40px;
+
+  }
+</style>
+ -->
 <style>
 
   #m{
@@ -20,6 +33,7 @@
   line-height: 40px;
 
   }
+  
 </style>
 
 </head>
@@ -32,7 +46,6 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- chart js -->
 <script defer src="/static/js/wholesale/chart.js"></script>
-
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero">
