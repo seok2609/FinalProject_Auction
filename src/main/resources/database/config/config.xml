@@ -20,10 +20,10 @@
 			<typeAlias type="com.im.home.admin.ProductVO" alias="ProductVO"/>
 			<typeAlias type="com.im.home.admin.ProductFileVO" alias="ProductFileVO"/>
 			<typeAlias type="com.im.home.admin.ProductGradeVO" alias="ProductGradeVO"/>
+  			<typeAlias type="com.im.home.admin.AuctionVO" alias="AuctionVO"/>
   			<typeAlias type="com.im.home.util.AdminPager" alias="AdminPager"/>
 
   			<!-- 경매 -->
-  			<typeAlias type="com.im.home.auction.AuctionVO" alias="AuctionVO"/>
   			
   			<typeAlias type="java.lang.Long" alias="Long" />
   			<typeAlias type="java.util.List" alias="List"/>

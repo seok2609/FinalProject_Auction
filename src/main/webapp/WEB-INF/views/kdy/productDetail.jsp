@@ -119,7 +119,7 @@
   
                     <div class="info-item d-flex">
                     <i class="bi bi-envelope flex-shrink-0"></i>
-                    <div>
+                    <div style="margin-top: 5px; cursor: pointer;" onclick="location.href='/kdy/auctionAdd?product_num=${productVO.product_num}';">
                       <h4>경매 하기</h4>
                     </div>
                   </div><!-- End Info Item -->
