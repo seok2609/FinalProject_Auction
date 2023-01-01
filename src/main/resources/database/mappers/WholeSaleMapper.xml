@@ -5,6 +5,8 @@
           
 	<mapper namespace="com.im.home.wholesale.WholeSaleMapper">
 
+
+		<!-- 정산 데이터 저장하기 (3일치 보관) -->
 		<insert id="setAdd" parameterType="WholeSaleVO">
 		INSERT INTO SALE(saleNum, rn, saleDate, whsalCd, whsalName, cmpCd, cmpName, large, largeName, mid, midName,
 		small, smallName, totQty, totAmt, minAmt, maxAmt, avgAmt)
@@ -12,6 +14,7 @@
 		#{small}, #{smallName}, #{totQty}, #{totAmt}, #{minAmt}, #{maxAmt}, #{avgAmt})
 		</insert> 
 	
+		<!-- 리스트 가져오기 -->
  		<select id="getList" resultType="WholeSaleVO" parameterType="Pager">
 		 SELECT * FROM SALE
 		 WHERE whsalCd=#{whsalCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
@@ -22,44 +25,55 @@
 		  DELETE FROM SALE WHERE saleDate=#{saleDate}
 		 </delete>
 		 
+		 <!-- 정산데이터 시장 검색 && 품목 검색 -->
 		 <select id="getListCount" resultType="Long" parameterType="Pager">
 		 SELECT COUNT(*) FROM SALE
 		 WHERE whsalCd=#{whsalCd} AND saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} AND `large` LIKE concat ('%',#{largeCd},'%')
 		 </select>
 		 
+		 
+		 <!-- 메인에서 보여줄 인기 품목 6개 -->
 		 <select id="getMidMain" resultType="WholeSaleVO" parameterType="String">
 		 SELECT midName, COUNT(midName) dataCnt FROM SALE WHERE saleDate=#{saleDate}
 		 GROUP by midName ORDER by dataCnt desc LIMIT 6
 		</select>
 		
+		<!-- 메인에서 보여줄 인기 시장 6개 -->
 		<select id="getWhsalMain" resultType="WholeSaleVO" parameterType="String">
 		 SELECT whsalName, COUNT(whsalName) totCnt FROM SALE WHERE saleDate=#{saleDate}
 		 GROUP by whsalName ORDER by totCnt desc LIMIT 6
 		</select>
 		 
-			<select id="getTotQty" resultType="WholeSaleVO" parameterType="String">
+		 <!-- 메인에서 보여줄 평균 거래량 -->
+		<select id="getTotQty" resultType="WholeSaleVO" parameterType="String">
 		 SELECT ROUND(SUM(totQty)) totQty FROM SALE WHERE saleDate=#{saleDate}
-			</select>
+		</select>
 
- 			<select id="getTotAmt" resultType="WholeSaleVO" parameterType="String">
+		<!-- 메인에서 보여줄 평균 금액 -->
+ 		<select id="getTotAmt" resultType="WholeSaleVO" parameterType="String">
 		 SELECT ROUND(SUM(totAmt)) totAmt FROM SALE WHERE saleDate=#{saleDate}
-			</select>
-			
-			 <select id="getMidSale" resultType="WholeSaleVO" parameterType="Pager">
+		</select>
+		
+		<!-- 메인에서 보여줄 인기 품목 6개 -->
+		<select id="getMidSale" resultType="WholeSaleVO" parameterType="Pager">
 		 SELECT midName, COUNT(midName) dataCnt FROM SALE WHERE saleDate BETWEEN #{saleDateStart} AND #{saleDateEnd} 
 		 GROUP by midName ORDER by dataCnt desc LIMIT 6
 		</select>
 		
+		
+		<!-- 메인 홈페이지 로딩 속도 && 일일 트래픽 제한으로 인해 실시간 데이터 table 저장 -->
 		<insert id="setAddReal" parameterType="WholeSaleVO">
 		INSERT INTO RTIME(sNum ,rn, saleDate, whsalCd, whsalName, sbidtime, cmpName, midName, cost, qty)
 		VALUES (null,#{rn}, #{saleDate}, #{whsalCd}, #{whsalName}, #{sbidtime}, #{cmpName}, #{midName}, #{cost}, #{qty})
 		</insert> 
 		
+		<!-- 메인에서 시장 별 실시간 데이터 보여주기 -->
 		 <select id="getRtime" resultType="WholeSaleVO" parameterType="String">
 		SELECT * From RTIME WHERE whsalCd=#{whsalCd}
 		ORDER by sNum desc LIMIT 10
 		</select>
 		
+		<!-- 실시간 데이터 table 매일 비우기 -->
 		<delete id="deleteReal" parameterType="String">
 		  DELETE FROM RTIME WHERE whsalCd=#{whsalCd}
 		 </delete>
