@@ -30,8 +30,7 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		String social = userRequest.getClientRegistration().getRegistrationId();
 		log.info("Social : {} ", social);
 
-		OAuth2User oAuth2User = this.socailJoinCheck(userRequest);
-		
+		OAuth2User oAuth2User = this.socailJoinCheck(userRequest);		
 		
 		return oAuth2User;
 	}
