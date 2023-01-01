@@ -12,6 +12,8 @@
 <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
+<script defer src="/js/social.js"></script>
+<script defer src="/js/membersFile.js"></script>
 <c:import url="../common/header.jsp"></c:import>
 
 		<div class="section-header">
@@ -19,7 +21,10 @@
 	    </div>
 	    
 	    <div class="col-lg-8" id="signUpSt">
-			<form action="signUp" method="post" enctype="multipart/form-data" id="signUpForm">
+			<form action="socialAdd" method="post" enctype="multipart/form-data" id="socialForm">
+			
+			<input type="hidden" name="id" value="${social.id}">
+			
 			<sec:authentication property="Principal" var="member"/>
             
             <div class="d-flex flex-row" style="margin-left: 200px;">
@@ -32,12 +37,12 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="text" name="nickName" class="form-control" id="inputNickName" placeholder="닉네임을 입력하세요">
+                  <input type="text" name="nickName" class="form-control" id="inputNickName" readonly="readonly" value="${social.nickName}">
                   <span id="nickNameHelp" class="bc"></span>
                 </div>
                 
                 <div class="form-group mt-3">
-                  <input type="email" name="email" class="form-control" id="inputEmail" value="${social.email}">
+                  <input type="email" name="email" class="form-control" id="inputEmail" readonly="readonly" value="${social.email}">
                   <span id="emailHelp" class="bc"></span>
                 </div>
                 
@@ -78,7 +83,7 @@
 	    
 		<!-- 소셜로그인을 누른 회원은 추가정보를 입력하고 우리사이트 회원으로 insert -->	    
 	    <div class="text-center">
-              	<button type="button" class="btn btn-primary" onclick="location='/oauth2/authorization/kakao'">완료</button>
+              	<button type="button" class="btn btn-primary" id="successBtn">완료</button>
         </div>
 
 <c:import url="../common/footer.jsp"></c:import>

@@ -486,11 +486,39 @@ public class MembersController {
 			
 			log.info("=========소셜로그인 하러 들어옴========");
 			
-//			log.info("다다다다다다닫 ::{} " , authentication.getPrincipal());
-//			
-//			mv.addObject("social", authentication.getPrincipal());	//social 키에 현재 소셜로그인 정보를 담아줌;
+			log.info("다다다다다다닫 ::{} " , authentication.getPrincipal());
+			
+			mv.addObject("social", authentication.getPrincipal());	//social 키에 현재 소셜로그인 정보를 담아줌;
 			
 			mv.setViewName("members/socialAdd");
+			
+			return mv;
+		}
+		
+		
+		//소셜로그인을 누르고 추가입력을 하는 post매핑
+		@PostMapping(value = "socialAdd")
+		public ModelAndView setSocialSignUp (MembersVO membersVO, HttpSession session, Authentication authentication, MultipartFile files) throws Exception{
+			
+			ModelAndView mv = new ModelAndView();
+			
+			log.info("================ 추가정보입력 POST =============");
+			
+//			membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
+			
+//			membersVO.setId(authentication.getPrincipal().toString());
+//			membersVO.setNickName(authentication.getPrincipal().toString());
+//			membersVO.setEmail(authentication.getPrincipal().toString());
+			
+			int result = membersService.setSocialSignUp(membersVO, files);
+			
+			
+			if(result == 1) {
+				mv.setViewName("redirect:../");
+			}else {
+				mv.setViewName("/members/socialAdd");
+			}
+			
 			
 			return mv;
 		}

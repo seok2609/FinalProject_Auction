@@ -248,6 +248,40 @@ public class MembersService {
 	}
 	
 	
+	//카카오 추가정보입력 
+	public int setSocialSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
+		
+		int result = membersMapper.setSocialSignUp(membersVO);
+		
+		
+		
+		log.info("Path => {}" ,path);
+		
+		File file = new File(path);
+		
+		if(!file.exists()) {	//파일이 존재하지 않다면~~
+			boolean check = file.mkdirs();
+			log.info("Check => {} " , check);
+			
+		}
+		
+		
+		if(!mpf.isEmpty()) {
+			log.info("FileName => {} " , mpf.getOriginalFilename());
+			
+			String fileName = membersFileManager.saveFile(mpf, path);
+			
+			MembersFileVO membersFileVO = new MembersFileVO();
+			membersFileVO.setFileName(fileName);
+			membersFileVO.setOriName(mpf.getOriginalFilename());
+			membersFileVO.setId(membersVO.getId());
+			
+			membersMapper.setMembersFileAdd(membersFileVO);
+			
+		}
+				
+		return result;
+	}
 	
 	
 }

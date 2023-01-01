@@ -13,7 +13,7 @@
 	
 	<!-- 소셜로그인 회원가입 INSERT -->
 	<insert id="setSocialSignUp" parameterType="MembersVO">
-		INSERT INTO MEMBERS ()
+		INSERT INTO MEMBERS (ID, REALNAME, NICKNAME, EMAIL, BIRTH, PHONE) VALUES (#{id}, #{realName}, #{nickName}, #{email},  #{birth}, #{phone})
 	</insert>
 	
 	<insert id="setMembersRole" parameterType="MembersVO">
