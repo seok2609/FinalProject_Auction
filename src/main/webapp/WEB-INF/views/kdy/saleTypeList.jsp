@@ -113,8 +113,8 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="./saleList">판 매 내 역</a>
                 <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
-                <a class="collapse-item" href="./paymentList">결 제 내 역</a>
                 <a class="collapse-item" href="./cNotice">공지사항 등록</a>
             </div>
         </div>
@@ -185,7 +185,7 @@
                                                                         보류
                                                                     </c:when>
                                                                     <c:when test="${pro.sales == 2}">
-                                                                        SOLD OUT
+                                                                        <span style="color: red;">SOLD OUT</span>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         판매중
