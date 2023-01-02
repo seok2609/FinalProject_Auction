@@ -15,6 +15,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+        
     <!-- Custom styles for this template-->
     <link href="/kdy/css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -117,7 +118,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="./saleList">판 매 내 역</a>
                         <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
-                        <a class="collapse-item" href="./paymentList">결 제 내 역</a>
                         <a class="collapse-item" href="./cNotice">공지사항 등록</a>
                     </div>
                 </div>
@@ -200,6 +200,10 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+            $("#notice_contents").summernote();
+    </script>
     
     <c:import url="../common/footer.jsp"></c:import>
 </body>
