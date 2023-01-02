@@ -68,7 +68,7 @@
     <div class="chefs section-bg" style="margin-left: 900px;">
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-          <!-- 이전페이지가 없으면 	버튼 비활성화  -->
+          <!-- 이전페이지가 없으면    버튼 비활성화  -->
             <li class="page-item ${pager.pre?'':'disabled'}">
             <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
             <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->
