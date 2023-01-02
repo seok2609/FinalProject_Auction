@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,6 +50,8 @@ public class MembersController {
 //	private MailSenderRunner mailSenderRunner;
 	@Autowired
 	private AdminMembersService adminMembersService;
+	@Autowired
+	private MembersSocialService membersSocialService;
 	
 	
 	@GetMapping(value = "login")
@@ -148,6 +151,13 @@ public class MembersController {
 		log.info("로그아웃 실행 준비");
 		
 		session.invalidate();					//세션삭제			
+		
+		return "redirect:../";
+	}
+	
+	//소셜 로그아웃
+	@GetMapping(value = "logoutResult")
+	public String socialLogout() throws Exception{
 		
 		return "redirect:../";
 	}
@@ -498,7 +508,7 @@ public class MembersController {
 		
 		//소셜로그인을 누르고 추가입력을 하는 post매핑
 		@PostMapping(value = "socialAdd")
-		public ModelAndView setSocialSignUp (MembersVO membersVO, HttpSession session, Authentication authentication, MultipartFile files) throws Exception{
+		public ModelAndView setSocialSignUp (MembersVO membersVO, HttpSession session, Authentication authentication, MultipartFile files, OAuth2UserRequest oAuth2UserRequest) throws Exception{
 			
 			ModelAndView mv = new ModelAndView();
 			
@@ -510,7 +520,9 @@ public class MembersController {
 //			membersVO.setNickName(authentication.getPrincipal().toString());
 //			membersVO.setEmail(authentication.getPrincipal().toString());
 			
-			int result = membersService.setSocialSignUp(membersVO, files);
+			int result = membersService.setSocialSignUp(membersVO, files, oAuth2UserRequest);
+			
+			
 			
 			
 			if(result == 1) {

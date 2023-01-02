@@ -49,15 +49,15 @@
       	<sec:authorize access="isAuthenticated()">
       		<sec:authentication property="Principal" var="member"/>
       	<%-- 	<h3> <spring:message code="welcome" arguments="${member.nickName}"></spring:message> </h3> --%>
-      	<c:choose>	
+   <%--    	<c:choose>	
 				<c:when test="${not empty membersVO.id}">				
 					<h5>${membersVO.realName}님 환영합니다!</h5>
 				</c:when>
 						
 				<c:otherwise>
-					<h5>${member.realName}님 환영합니다!</h5>
 				</c:otherwise>
-		</c:choose>
+		</c:choose> --%>
+					<h5>${member.realName}님 환영합니다!</h5>
       	</sec:authorize>
         
       </div>
@@ -94,7 +94,23 @@
       		<sec:authentication property="Principal" var="member"/>      		
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
 
-      		<li><a href="/members/logout">로그아웃</a></li>
+		${membersVO.id}
+		${membersVO.distinguish}
+		<c:choose>
+				
+				<c:when test="${membersVO.distinguish == 2}">
+		      		<!-- <button type="button" id="kakao">kakao logout</button> -->
+		      		<li><a id="kakao">카카오 로그아웃</a></li>
+				</c:when>
+				
+				<c:otherwise>
+					<li><a href="/members/logout">로그아웃</a></li>	
+				</c:otherwise>
+			</c:choose>
+	
+		      		<!-- <li><a href="/members/logout">로그아웃</a></li>	 -->			
+      		
+      		
       		<!-- 관리자로 로그인했을땐 마이페이지가 보이면 안됌 -->
       		<sec:authorize access="hasAnyRole('MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
       			<li><a href="/members/myPage">마이페이지</a></li>

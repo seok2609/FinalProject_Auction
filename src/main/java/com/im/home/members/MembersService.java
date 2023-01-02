@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,6 +38,8 @@ public class MembersService {
 	private String path;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private MembersSocialService membersSocialService;
 	
 	
 	
@@ -249,9 +252,11 @@ public class MembersService {
 	
 	
 	//카카오 추가정보입력 
-	public int setSocialSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
+	public int setSocialSignUp(MembersVO membersVO, MultipartFile mpf, OAuth2UserRequest oAuth2UserRequest) throws Exception{
 		
 		int result = membersMapper.setSocialSignUp(membersVO);
+		
+		membersSocialService.loadUser(oAuth2UserRequest);
 		
 		
 		

@@ -26,6 +26,7 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		log.info("UserRequest : {} ", userRequest);
 		log.info("AccessTocken : {} ", userRequest.getAccessToken());
 		log.info("ClientRegistration : {} ", userRequest.getClientRegistration());
+		log.info("client어쩌구 :: {} " , userRequest.getClientRegistration().getRegistrationId());
 		
 		String social = userRequest.getClientRegistration().getRegistrationId();
 		log.info("Social : {} ", social);
@@ -72,8 +73,13 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		//pw가 없으므로 비워두거나, 랜덤한 값으로 일단 채워넣는다
 		//membersVO.setPw(null);
 		
+//		membersVO.setRealName(lm.get(membersVO.getRealName()).toString());
 		membersVO.setNickName(lm.get("nickname"));
 		membersVO.setEmail(ks.get("email").toString());
+		
+//		membersVO.setBirth(lm.get(membersVO.getBirth()));
+//		membersVO.setPhone(lm.get(membersVO.getPhone()));
+		
 		
 		membersVO.setSocial(userRequest.getClientRegistration().getRegistrationId());
 		
@@ -95,6 +101,7 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		
 		
 	}
+
 	
 	
 

@@ -9,3 +9,12 @@ $("#kakao").click(function(){
 $("#logout").click(function(){
     $("outForm").submit();
 });
+
+
+
+
+$("#kakao").click(function(){
+    $.get("https://developers.kakao.com/logout", function(){
+        location.reload();
+    }
+)});
