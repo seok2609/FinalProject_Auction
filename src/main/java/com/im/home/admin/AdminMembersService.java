@@ -231,4 +231,12 @@ public class AdminMembersService {
 	public int setProductHold(ProductVO productVO)throws Exception{
 		return adminMembersMapper.setProductHold(productVO);
 	}
+	//상품 등급 수정
+	public int setProductGrade(ProductVO productVO)throws Exception{
+		return adminMembersMapper.setProductGrade(productVO);
+	}
+	//경매 시작
+	public int setAuctionAdd(AuctionVO auctionVO)throws Exception{
+		return adminMembersMapper.setAuctionAdd(auctionVO);
+	}
 }

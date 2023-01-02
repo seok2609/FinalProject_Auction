@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
 
@@ -338,6 +339,30 @@ public class AdminMembersController {
 		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
 		return mv;
 	}
+	//상품 등급 수정
+	@GetMapping("productGrade")
+	public ModelAndView setProductGrade(ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setProductGrade(productVO);
+		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
+		return mv;
+	}
+	//경매 시작
+	@GetMapping("auctionAdd")
+	public String setAuctionAdd(AuctionVO auctionVO, Principal principal)throws Exception{
+		auctionVO.setId(principal.getName());
+		log.info("이지원 멍청이 ==>> {}", auctionVO.getId());
+		return "kdy/auctionAdd";
+	}
+	//경매 시작
+	@PostMapping("auctionAdd")
+	public ModelAndView setAuctionAdd(AuctionVO auctionVO, ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setAuctionAdd(auctionVO);
+		mv.addObject("auctionAdd", result);
+		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
+		return mv;
+	}
 	//결제내역
 	@GetMapping("paymentList")
 	public String paymentList()throws Exception{
@@ -347,5 +372,10 @@ public class AdminMembersController {
 	@GetMapping("saleList")
 	public String saleList()throws Exception{
 		return "kdy/saleList";
+	}
+	//방송
+	@GetMapping("live")
+	public String live()throws Exception{
+		return "kdy/live";
 	}
 }

@@ -107,6 +107,17 @@
 		<update id="setProductHold" parameterType="ProductVO">
 			UPDATE PRODUCT SET SALES = #{sales} WHERE PRODUCT_NUM = #{product_num}
 		</update>
+		<!-- 상품 등급 수정 -->
+		<update id="setProductGrade" parameterType="ProductVO">
+			UPDATE PRODUCT SET GRADE_NUM = #{grade_num} WHERE PRODUCT_NUM = #{product_num}
+		</update>
+		
+<!-- 경매시작 -->
+		<!-- 경매 등록 -->
+		<insert id="setAuctionAdd" parameterType="AuctionVO">
+			INSERT INTO AUCTION VALUES
+			(NULL, #{title}, #{init_price}, #{head_count}, SYSDATE(), 1, 0, #{name}, #{id}, #{product_num})
+		</insert>
 		
 <!-- 공지사항 관리 -->
 		<!-- 등록 -->
