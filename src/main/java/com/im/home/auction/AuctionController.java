@@ -67,8 +67,15 @@ public class AuctionController {
 	
 	
 	@GetMapping("chat")
-	public void chatTest() {
+	public String chatTest(Principal principal, Model model) {
 		log.info("@chatController, chat Get()");
+		
+		if(principal == null) {
+			return "redirect:/";
+		}
+		model.addAttribute("member", principal.getName());
+		
+		return "auction/chat";
 		
 	}
 	
