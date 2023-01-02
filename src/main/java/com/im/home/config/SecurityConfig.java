@@ -20,6 +20,7 @@ import com.im.home.members.MembersSocialService;
 import com.im.home.members.security.LoginFailed;
 import com.im.home.members.security.LoginSuccess;
 import com.im.home.members.security.LogoutSuccess;
+import com.im.home.members.security.socialLoginSuccess;
 
 
 @Configuration
@@ -36,6 +37,8 @@ public class SecurityConfig {
 	private LogoutSuccess logoutSuccess;
 	@Autowired
 	private MembersSocialService membersSocialService;
+	@Autowired
+	private socialLoginSuccess socialLoginSuccess;
 	
 	@Bean
 	//회원가입시 필터 적용 제외
@@ -96,9 +99,11 @@ public class SecurityConfig {
 			.oauth2Login() //Social Login 설정
 				.userInfoEndpoint()
 				.userService(membersSocialService)
-			
+				.and()
+//				.defaultSuccessUrl("/members/socialAdd")
+				.successHandler(loginSuccess)
+				
 				;
-		
 		
 		
 		return httpSecurity.build();
