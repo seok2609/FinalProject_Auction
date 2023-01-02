@@ -11,10 +11,9 @@ import com.im.home.util.AdminPager;
 
 @Mapper
 public interface AdminMembersMapper {
+	
 	//메인페이지 총 회원 수
 	public Integer getTotalMembers(MembersVO membersVO)throws Exception;
-	
-	
 	//메인 관리자페이지 1대1 5개 리스트
 	public List<AdminMembersVO> getAdminPageInquiryList(AdminMembersVO adminMembersVO)throws Exception;
 	//총 1대1문의 글 
@@ -105,4 +104,6 @@ public interface AdminMembersMapper {
 	public int setProductHold(ProductVO productVO)throws Exception;
 	//상품 등급 수정
 	public int setProductGrade(ProductVO productVO)throws Exception;
+	//경매 시작
+	public int setAuctionAdd(AuctionVO auctionVO)throws Exception;
 }

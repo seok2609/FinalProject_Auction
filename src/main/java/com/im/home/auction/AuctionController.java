@@ -37,117 +37,117 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/auction/*")
 @Slf4j
 public class AuctionController {
-	
-	@Autowired
-	private MembersMapper membersMapper;
-	
-	@Autowired
-	private ProductMapper productMapper;
-	
-	@Autowired
-	private MembersService membersService;
-	
-	@Autowired
-	private AuctionService auctionService;
-	
-	
-	@GetMapping("live")
-	public String getLive() {
-		return "auction/live";
-	}
-
-	
-	
-	@GetMapping("chat")
-	public void chatTest() {
-		log.info("@chatController, chat Get()");
-		
-	}
-	
-	
-	
-	@GetMapping("detail")
-	public String getDetail() throws Exception{
-		return "auction/detail";
-	}
-	
-	@GetMapping("add")
-	public ModelAndView setAdd() throws Exception{
-		ModelAndView mv = new ModelAndView();
-		List<ProductVO> productVOs = productMapper.getList();
-		
-		mv.addObject("list", productVOs);
-		mv.setViewName("auction/add");
-		
-		return mv;
-		
-		
-	
-	}
-	
-	@PostMapping("add")
-	public void setAdd(AuctionVO auctionVO) throws Exception{
-		
-	}
-	
-	
-	@PostMapping("asking")
-	@ResponseBody
-	public void setAddAskingPrice(AskingPriceVO askingPriceVO) throws Exception{
-		
-	}
-	
-	@GetMapping("list")
-	public void getList() throws Exception{
-		
-	}
-	
-	
-	@GetMapping("nick")
-	@ResponseBody
-	public String getNick(MembersVO membersVO,
-			@RequestParam String nickName ,
-			Principal principal, 
-			Authentication authentication, Cookie cookie) throws Exception{
-		
-		log.info("Principal : {}", principal);
-		
-		
-		return principal.getName();
-	}
-	
-	
-	
-	// ======================================= 판매 상품 ===========================================
-	
-	
-	@GetMapping("product/add")
-	public String setProductAdd() throws Exception{
-		return "item/add";
-	}
-	
-	
-	@PostMapping("product/add")
-	public String setProductAdd(ProductVO productVO) throws Exception{
-		int result = productMapper.setAdd(productVO);
-		
-		return "redirect:/auction/list";
-		
-	}
-	
-	@GetMapping("product/list")
-	public ModelAndView getProductList() throws Exception{
-		ModelAndView mv = new ModelAndView();
-		List<ProductVO> productVOs = productMapper.getList();
-		
-		mv.addObject("list", productVOs);
-		mv.setViewName("item/list");
-		
-		return mv;
-		
-	}
-	
-	
+//	
+//	@Autowired
+//	private MembersMapper membersMapper;
+//	
+//	@Autowired
+//	private ProductMapper productMapper;
+//	
+//	@Autowired
+//	private MembersService membersService;
+//	
+//	@Autowired
+//	private AuctionService auctionService;
+//	
+//	
+//	@GetMapping("live")
+//	public String getLive() {
+//		return "auction/live";
+//	}
+//
+//	
+//	
+//	@GetMapping("chat")
+//	public void chatTest() {
+//		log.info("@chatController, chat Get()");
+//		
+//	}
+//	
+//	
+//	
+//	@GetMapping("detail")
+//	public String getDetail() throws Exception{
+//		return "auction/detail";
+//	}
+//	
+//	@GetMapping("add")
+//	public ModelAndView setAdd() throws Exception{
+//		ModelAndView mv = new ModelAndView();
+//		List<ProductVO> productVOs = productMapper.getList();
+//		
+//		mv.addObject("list", productVOs);
+//		mv.setViewName("auction/add");
+//		
+//		return mv;
+//		
+//		
+//	
+//	}
+//	
+//	@PostMapping("add")
+//	public void setAdd(AuctionVO auctionVO) throws Exception{
+//		
+//	}
+//	
+//	
+//	@PostMapping("asking")
+//	@ResponseBody
+//	public void setAddAskingPrice(AskingPriceVO askingPriceVO) throws Exception{
+//		
+//	}
+//	
+//	@GetMapping("list")
+//	public void getList() throws Exception{
+//		
+//	}
+//	
+//	
+//	@GetMapping("nick")
+//	@ResponseBody
+//	public String getNick(MembersVO membersVO,
+//			@RequestParam String nickName ,
+//			Principal principal, 
+//			Authentication authentication, Cookie cookie) throws Exception{
+//		
+//		log.info("Principal : {}", principal);
+//		
+//		
+//		return principal.getName();
+//	}
+//	
+//	
+//	
+//	// ======================================= 판매 상품 ===========================================
+//	
+//	
+//	@GetMapping("product/add")
+//	public String setProductAdd() throws Exception{
+//		return "item/add";
+//	}
+//	
+//	
+//	@PostMapping("product/add")
+//	public String setProductAdd(ProductVO productVO) throws Exception{
+//		int result = productMapper.setAdd(productVO);
+//		
+//		return "redirect:/auction/list";
+//		
+//	}
+//	
+//	@GetMapping("product/list")
+//	public ModelAndView getProductList() throws Exception{
+//		ModelAndView mv = new ModelAndView();
+//		List<ProductVO> productVOs = productMapper.getList();
+//		
+//		mv.addObject("list", productVOs);
+//		mv.setViewName("item/list");
+//		
+//		return mv;
+//		
+//	}
+//	
+//	
 	
 	
 }
