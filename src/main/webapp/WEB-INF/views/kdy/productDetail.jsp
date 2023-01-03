@@ -41,7 +41,7 @@
                     <i class="bi bi-envelope flex-shrink-0"></i>
                     <div>
                       <h4>상품 판매 여부</h4>
-                        <div class="d-flex" style="color: black;">
+                        <div class="d-flex" style="color: black; cursor: pointer;">
                           <c:choose>
                              <c:when test="${productVO.sales == 3}">
                               <div onclick="location.href='/kdy/productHold?sales=1&product_num=${productVO.product_num}';">판매</div>&emsp;
@@ -75,7 +75,7 @@
                     <i class="bi bi-envelope flex-shrink-0"></i>
                     <div>
                       <h4>상품 등급</h4>
-                        <div class="d-flex" style="color: black;">
+                        <div class="d-flex" style="color: black; cursor: pointer;">
                           <c:choose>
                              <c:when test="${productVO.grade_num == 5}">
                               <div onclick="location.href='/kdy/productGrade?grade_num=1&product_num=${productVO.product_num}';">특</div>&emsp;
@@ -119,7 +119,7 @@
   
                     <div class="info-item d-flex">
                     <i class="bi bi-envelope flex-shrink-0"></i>
-                    <div>
+                    <div style="margin-top: 5px; cursor: pointer;" onclick="location.href='/kdy/auctionAdd?product_num=${productVO.product_num}';">
                       <h4>경매 하기</h4>
                     </div>
                   </div><!-- End Info Item -->

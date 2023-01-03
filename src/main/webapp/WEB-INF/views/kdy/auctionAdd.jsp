@@ -117,6 +117,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="./saleList">판 매 내 역</a>
                         <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
+
                         <a class="collapse-item" href="./cNotice">공지사항 등록</a>
                     </div>
                 </div>
@@ -128,7 +129,7 @@
         <div id="contact" class="contact" style="margin-left: 350px;">
             <div class="container" data-aos="fade-up">
               <div class="section-header" style="margin-top: 90px;">
-                <h2>상품 등록</h2>
+                <h2>경매 오픈</h2>
               </div>
 
               <div class="row " style="width: 1000px;">
@@ -153,43 +154,30 @@
                      </div><!-- End Info Item -->
                    </div>
                </div>
-             
                 <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
-                    <form method="post" action="./productAdd" id="frm" enctype="multipart/form-data">
+                    <form method="post" action="./auctionAdd" id="frm">
+                        <input type="text" hidden name="id" id="id" value="${auctionVO.id}">
+                        <input type="text" hidden name="product_num" id="product_num" value="${param.product_num}">
                     <div class="form-group mt-3">
-                        상품명 : 
+                        방 제목 : 
+                      <input type="text" class="form-control"name="title" id="title">
+                    </div>
+                    <div class="form-group mt-3">
+                        허용 인원 수 : 
+                      <input type="text" class="form-control" name="head_count" id="head_count">
+                    </div>
+                      <div class="form-group mt-3">
+                        상품 명 : 
                       <input type="text" class="form-control"name="name" id="name">
                     </div>
                     <div class="form-group mt-3">
-                        상품위치 : 
-                      <input type="text" class="form-control" name="product_address" id="product_address" value="구디 아카데미 본관 5층">
-                    </div>
-                    <div class="mb-3" id="caNum">
-                        <label for="message-text" class="col-form-label">상품 등급</label>
-                        <select  name="grade_num" class="form-select" id="grade_num">
-                          <option class="grade_nums" value="5">미처리</option>
-                          <option class="grade_nums" value="1">특</option>
-                          <option class="grade_nums" value="2">상</option>
-                          <option class="grade_nums" value="3">중</option>
-                          <option class="grade_nums" value="4">하</option>
-                        </select>
-                      </div>
-                      <div class="form-group mt-3">
-                        <label for="formFileSm" class="form-label bc">상품 이미지</label>
-                        <input class="form-control form-control-sm" id="reportFileAdd" name="files" type="file">
-                      </div>
-                      <div class="form-group mt-3">
-                        수량 : 
-                      <input type="text" class="form-control"name="quantity" id="quantity" >
-                    </div>
-                    <div class="form-group mt-3">
-                        중량 : 
-                      <input type="text" class="form-control"name="weight" id="weight">
+                        시작 지정가 : 
+                      <input type="text" class="form-control"name="init_price" id="init_price">
                     </div>
                     
                     <div class="d-flex">
                         <div class="text-center">
-                            <button type="button" class="btn btn-success" id="productAddBtn" onclick="productAddNullCheck()">등록</button>
+                            <button type="submit" class="btn btn-success">등록</button>
                           </div>
                           <div class="text-center" style="margin-left: 10px;"  onclick="location.href='/kdy/saleTypeList';">
                             <button class="btn btn-success"  type="button" id="proB">뒤로가기</button>
@@ -220,7 +208,6 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-    <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=abf31ecaa88152d20b1faa70bc69a3d1"></script> -->
     
     <c:import url="../common/footer.jsp"></c:import>
 </body>

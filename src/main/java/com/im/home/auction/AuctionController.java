@@ -52,15 +52,30 @@ public class AuctionController {
 	
 	
 	@GetMapping("live")
-	public String getLive() {
+	public String getLive(Model model,Principal principal) {
+		
+		if(principal == null) {
+			return "redirect:/";
+		}
+		
+		model.addAttribute("id", principal.getName());
+		
 		return "auction/live";
 	}
-
+	
+	
 	
 	
 	@GetMapping("chat")
-	public void chatTest() {
+	public String chatTest(Principal principal, Model model) {
 		log.info("@chatController, chat Get()");
+		
+		if(principal == null) {
+			return "redirect:/";
+		}
+		model.addAttribute("member", principal.getName());
+		
+		return "auction/chat";
 		
 	}
 	

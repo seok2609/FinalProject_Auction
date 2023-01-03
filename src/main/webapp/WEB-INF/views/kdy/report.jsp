@@ -115,7 +115,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="./saleList">판 매 내 역</a>
                 <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
-                <a class="collapse-item" href="./paymentList">결 제 내 역</a>
                 <a class="collapse-item" href="./cNotice">공지사항 등록</a>
             </div>
         </div>
@@ -165,14 +164,8 @@
                                             <div class="row" id="reportSearchCss">
                                                 <form action="./report" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
                                                   <div class="col-12">
-                                                    <select  name="kind" class="form-select" id="kind">
-                                                      <option class="kinds" value="report_id">대상자</option>
-                                                      <option class="kinds" value="id">신고자</option>
-                                                    </select>
-                                                  </div>
-                                                  <div class="col-12">
                                                     <div class="input-group">
-                                                      <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="검색어를 입력해 주세요">
+                                                      <input type="text" name="reportSearch" value="${param.reportSearch}" var="" class="form-control" id="reportSearch" placeholder="대상자 아이디를 입력해 주세요">
                                                       <button type="submit" class="btn btn-secondary" id="searchNull">검색</button>
                                                     </div>
                                                    </div>

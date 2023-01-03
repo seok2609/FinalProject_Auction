@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import com.im.home.members.MembersVO;
 import com.im.home.util.AdminPager;
 
@@ -46,9 +48,12 @@ public class AdminMembersController {
 	}
 	//회원 조회
 	@GetMapping("memberList")
-	public ModelAndView getAdminMembersList(AdminPager adminPager, MembersVO membersVO)throws Exception{
+	public ModelAndView getAdminMembersList(AdminPager adminPager, MembersVO membersVO, Authentication authentication)throws Exception{
 		ModelAndView mv = new ModelAndView();
-//		membersVO.setId(principal.getName());
+		log.info("===========dsafdsafdasfdsa===========");
+		log.info("ddddddd :: {} ", authentication.getPrincipal());
+		log.info("eeeeeeeeeee :: {} ", membersVO.getId());
+		membersVO.setId(authentication.getPrincipal().toString());
 		int result = adminMembersService.getTotalMembers(membersVO);
 		List<MembersVO> membersVOs =  adminMembersService.getAdminMembersList(adminPager);
 		mv.addObject("membersVO", membersVOs);
@@ -141,7 +146,6 @@ public class AdminMembersController {
 	@GetMapping("inquiryResponse")
 	public String setInquiryResponse(AdminMembersVO adminMembersVO, InquiryResponseVO inquiryResponseVO)throws Exception{
 		 inquiryResponseVO.setInquiry_num(adminMembersVO.getInquiry_num());
-		 
 		return "kdy/inquiryList";
 	}
 	//1대1문의 응답
@@ -287,7 +291,7 @@ public class AdminMembersController {
 	public ModelAndView setNoticeUpdate(CompanyNoticeVO companyNoticeVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		int result =  adminMembersService.setNoticeUpdate(companyNoticeVO);
-		mv.setViewName("redirect:./cNoticeList");
+		mv.setViewName("redirect:./noticeDetail?notice_num="+companyNoticeVO.getNotice_num());
 		return mv;
 	}
 	//공지사항 삭제
@@ -343,6 +347,22 @@ public class AdminMembersController {
 	public ModelAndView setProductGrade(ProductVO productVO)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		int result = adminMembersService.setProductGrade(productVO);
+		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
+		return mv;
+	}
+	//경매 시작
+	@GetMapping("auctionAdd")
+	public String setAuctionAdd(AuctionVO auctionVO, Principal principal)throws Exception{
+		auctionVO.setId(principal.getName());
+		log.info("이지원 멍청이 ==>> {}", auctionVO.getId());
+		return "kdy/auctionAdd";
+	}
+	//경매 시작
+	@PostMapping("auctionAdd")
+	public ModelAndView setAuctionAdd(AuctionVO auctionVO, ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setAuctionAdd(auctionVO);
+		mv.addObject("auctionAdd", result);
 		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
 		return mv;
 	}
