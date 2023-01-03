@@ -508,7 +508,7 @@ public class MembersController {
 		
 		//소셜로그인을 누르고 추가입력을 하는 post매핑
 		@PostMapping(value = "socialAdd")
-		public ModelAndView setSocialSignUp (MembersVO membersVO, HttpSession session, Authentication authentication, MultipartFile files, OAuth2UserRequest oAuth2UserRequest) throws Exception{
+		public ModelAndView setSocialSignUp (MembersVO membersVO, HttpSession session, Authentication authentication, MultipartFile files) throws Exception{
 			
 			ModelAndView mv = new ModelAndView();
 			
@@ -520,8 +520,8 @@ public class MembersController {
 //			membersVO.setNickName(authentication.getPrincipal().toString());
 //			membersVO.setEmail(authentication.getPrincipal().toString());
 			
-			int result = membersService.setSocialSignUp(membersVO, files, oAuth2UserRequest);
 			
+			int result = membersService.setSocialSignUp(membersVO, files);
 			
 			
 			

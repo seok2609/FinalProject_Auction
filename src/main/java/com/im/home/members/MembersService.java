@@ -252,13 +252,14 @@ public class MembersService {
 	
 	
 	//카카오 추가정보입력 
-	public int setSocialSignUp(MembersVO membersVO, MultipartFile mpf, OAuth2UserRequest oAuth2UserRequest) throws Exception{
+	public int setSocialSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
+		
+		
 		
 		int result = membersMapper.setSocialSignUp(membersVO);
 		
-		membersSocialService.loadUser(oAuth2UserRequest);
-		
-		
+		membersVO.setRoleNum(7);
+		result = membersMapper.setMembersRole(membersVO);
 		
 		log.info("Path => {}" ,path);
 		

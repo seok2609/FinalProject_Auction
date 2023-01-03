@@ -18,15 +18,15 @@
 
 		<div class="section-header">
 	          <h2>소셜회원 회원가입 페이지</h2>
+			<sec:authentication property="Principal" var="member"/>
+            
 	    </div>
 	    
 	    <div class="col-lg-8" id="signUpSt">
 			<form action="socialAdd" method="post" enctype="multipart/form-data" id="socialForm">
 			
-			<input type="hidden" name="id" value="${social.id}">
+			<input type="hidden" name="id" value="${member.id}">
 			
-			<sec:authentication property="Principal" var="member"/>
-            
             <div class="d-flex flex-row" style="margin-left: 200px;">
               <div class="row" >
               
@@ -56,6 +56,7 @@
                   <span id="phoneHelp" class="bc"></span>
                 </div>
                 
+                <input type="hidden" name="social" value="${member.social}">
                 
                    
               </div>

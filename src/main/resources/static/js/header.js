@@ -12,9 +12,3 @@ $("#logout").click(function(){
 
 
 
-
-$("#kakao").click(function(){
-    $.get("https://developers.kakao.com/logout", function(){
-        location.reload();
-    }
-)});

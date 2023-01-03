@@ -94,20 +94,18 @@
       		<sec:authentication property="Principal" var="member"/>      		
       		<sec:authorize access="hasAnyRole('ADMIN', 'MAKER', 'AUCTION', 'WHOLESALER', 'RETAILER', 'MEMBER')">
 
-		${membersVO.id}
-		${membersVO.distinguish}
-		<c:choose>
+<%-- 		<c:choose>
 				
-				<c:when test="${membersVO.distinguish == 2}">
+				<c:when test="${member.social == kakao}">
 		      		<!-- <button type="button" id="kakao">kakao logout</button> -->
-		      		<li><a id="kakao">카카오 로그아웃</a></li>
+		      		<li><a href="#" id="kakao">카카오 로그아웃</a></li>
 				</c:when>
 				
 				<c:otherwise>
-					<li><a href="/members/logout">로그아웃</a></li>	
 				</c:otherwise>
-			</c:choose>
+			</c:choose> --%>
 	
+					<li><a href="/members/logout">로그아웃</a></li>	
 		      		<!-- <li><a href="/members/logout">로그아웃</a></li>	 -->			
       		
       		
