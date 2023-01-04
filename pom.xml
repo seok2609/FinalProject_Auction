@@ -47,12 +47,6 @@
 			<version>1.16</version>
 		</dependency> 
 		
-		<!-- OpenVidu -->
-		<dependency>
-			<groupId>io.openvidu</groupId>
-			<artifactId>openvidu-java-client</artifactId>
-			<version>2.24.0</version>
-		</dependency>
 		
 		
 		<!-- WebSocket -->

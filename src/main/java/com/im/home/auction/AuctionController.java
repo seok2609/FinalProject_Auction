@@ -8,7 +8,6 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.map.MultiValueMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -26,15 +25,14 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.im.home.admin.ProductVO;
 import com.im.home.auction.product.ProductMapper;
-import com.im.home.auction.product.ProductVO;
 import com.im.home.members.MembersMapper;
 import com.im.home.members.MembersService;
 import com.im.home.members.MembersVO;
 
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "*")
 @Controller
 @RequestMapping("/auction/*")
 @Slf4j
@@ -53,16 +51,31 @@ public class AuctionController {
 	private AuctionService auctionService;
 	
 	
-	@GetMapping("test")
-	public String firstTest() {
-		return "auction/test";
+	@GetMapping("live")
+	public String getLive(Model model,Principal principal) {
+		
+		if(principal == null) {
+			return "redirect:/";
+		}
+		
+		model.addAttribute("id", principal.getName());
+		
+		return "auction/live";
 	}
-
+	
+	
 	
 	
 	@GetMapping("chat")
-	public void chatTest() {
+	public String chatTest(Principal principal, Model model) {
 		log.info("@chatController, chat Get()");
+		
+		if(principal == null) {
+			return "redirect:/";
+		}
+		model.addAttribute("member", principal.getName());
+		
+		return "auction/chat";
 		
 	}
 	

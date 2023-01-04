@@ -62,7 +62,7 @@
                <!--  <a href="/oauth2/authorization/kakao">카카오 간편가입</a> -->
                 	<div style="float: right; margin-top: 10px; cursor: pointer;">
 					<!-- <input type="button" id="loginBtn" onclick="location='/oauth2/authorization/kakao'" value="카카오 간편가입"> -->
-					<img alt="" src="/assets/img/kakao_login_medium_narrow.png" onclick="location='./socialAdd'">
+					<img alt="" src="/assets/img/kakao_login_medium_narrow.png" onclick="location='/oauth2/authorization/kakao'">
 				</div>
 				
 				

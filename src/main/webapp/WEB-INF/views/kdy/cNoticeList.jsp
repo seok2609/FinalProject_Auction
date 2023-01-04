@@ -3,22 +3,24 @@
                 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>SB Admin 2 - Dashboard</title>
-    <!-- Custom fonts for this template-->
-    <link href="/kdy/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <!-- Custom styles for this template-->
-    <link href="/kdy/css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-      <script  defer src="/kdy/js/admin.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>SB Admin 2 - Tables</title>
+  <!-- Custom fonts for this template -->
+  <link href="/kdy/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    
 </head>
 
 <body id="page-top">
@@ -26,10 +28,10 @@
         <c:import url="../common/header.jsp"></c:import>
     </div>
     <!-- Page Wrapper -->
-    <div class="section-header" style="margin-top: 45px;">
+    <div class="section-header" style="margin-top: 45px;"  data-aos="fade-up">
         <h2>공지사항</h2>
-        </div>
-    <div id="wrapper" style="height: 800px; width: 1000px; margin-left: 500px; margin-top: 50px;"  data-aos="fade-up">
+        
+    <div id="wrapper" style="height: 800px; width: 1000px; margin-top: 50px; margin-left: 400px;" >
         <div style="width: 2000px;">
             <table border="1" class="table table-hover" id="th">
                 <thead class="table-success" style="text-align: center;">
@@ -62,10 +64,11 @@
             </table>
           </div>
     </div>
+  </div>
     <div class="chefs section-bg" style="margin-left: 900px;">
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-          <!-- 이전페이지가 없으면 	버튼 비활성화  -->
+          <!-- 이전페이지가 없으면    버튼 비활성화  -->
             <li class="page-item ${pager.pre?'':'disabled'}">
             <!-- page 파라미터가 조정되면 -- startNum/lastNum이 변경되어 출력 리스트가 변경됨 -->
             <!-- 1. page 파라미터 변경함으로써 다음 페이지 조정  -->

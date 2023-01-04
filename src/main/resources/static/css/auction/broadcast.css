@@ -1,0 +1,37 @@
+#media-box{
+    border: 4px green;
+    height: 700px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#video-box{
+    border: 4px green;
+    height: 700px;
+}
+
+
+#chat-mainbox{
+    height: 540px;
+}
+
+#chat-header{
+    height: 50px;
+    border: 3px green;
+}
+
+#chat-frame{
+    height : 490px;
+    border: 3px thick green;
+}
+
+#chat-box{
+    height: 440px;
+}
+#chat-write{
+    height: 50px;
+}
+
+#send-msg{
+    cursor: pointer;
+}

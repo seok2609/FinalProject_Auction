@@ -1,7 +1,8 @@
-package com.im.home.auction;
+package com.im.home.auction.socket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -13,38 +14,38 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class ChatHandler extends TextWebSocketHandler {
+public class SocketHandler extends TextWebSocketHandler{
 	
-	
-	private static List<WebSocketSession> list = new ArrayList<>();
-	
-	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		// TODO Auto-generated method stub
-		String payload = message.getPayload();
-		log.info("payload : {} ",payload);
-		
-		for(WebSocketSession sess: list) {
-			sess.sendMessage(message);
-		}	
-	}
-	
+	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-		list.add(session);
 		
-		log.info(session + "클라이언트 접속");
+		sessionList.add(session);
+		
+		
 	}
 	
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		// TODO Auto-generated method stub
+		
+		String payload = message.getPayload();
+		
+		for(WebSocketSession s : sessionList) {
+			s.sendMessage(message);
+		}
+	}
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
-		log.info(session + "클라이언트 접속 해제");
-		list.remove(session);
+		sessionList.remove(session);
+		
 	}
+	
+	
 	
 	
 }

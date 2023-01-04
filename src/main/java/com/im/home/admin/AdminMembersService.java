@@ -190,4 +190,53 @@ public class AdminMembersService {
 	public int setHit(CompanyNoticeVO companyNoticeVO)throws Exception{
 		return adminMembersMapper.setHit(companyNoticeVO);
 	}
+	//상품 등록
+	public int setProductAdd(ProductVO productVO, MultipartFile files)throws Exception{
+		int result = adminMembersMapper.setProductAdd(productVO);
+		File file = new File(path);
+		if(!file.exists()) {
+			boolean check = file.mkdirs();
+		}
+		if(!files.isEmpty()) {
+			String fileName = membersFileManager.saveFile(files, path);
+			
+			ProductFileVO productFileVO = new ProductFileVO();
+			productFileVO.setProduct_num(productVO.getProduct_num());
+			productFileVO.setFileName(fileName);
+			productFileVO.setOriName(files.getOriginalFilename());
+			adminMembersMapper.setProductFileAdd(productFileVO);
+		}
+		return result;
+	}
+	//상품 이미지
+	public int setProductFileAdd(ProductFileVO productFileVO)throws Exception{
+		return adminMembersMapper.setProductFileAdd(productFileVO);
+	}
+	//상품 리스트
+	public List<ProductVO> getProductList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getProductCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
+		return adminMembersMapper.getProductList(adminPager);
+	}
+	//상품 수
+	public Long getProductCount(AdminPager adminPager)throws Exception{
+		return adminMembersMapper.getProductCount(adminPager);
+	}
+	//상품 디테일
+	public ProductVO getProductDetail(ProductVO productVO)throws Exception{
+		return adminMembersMapper.getProductDetail(productVO);
+	}
+	//상품 보류, 판매, 매진
+	public int setProductHold(ProductVO productVO)throws Exception{
+		return adminMembersMapper.setProductHold(productVO);
+	}
+	//상품 등급 수정
+	public int setProductGrade(ProductVO productVO)throws Exception{
+		return adminMembersMapper.setProductGrade(productVO);
+	}
+	//경매 시작
+	public int setAuctionAdd(AuctionVO auctionVO)throws Exception{
+		return adminMembersMapper.setAuctionAdd(auctionVO);
+	}
 }
