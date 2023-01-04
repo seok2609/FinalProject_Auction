@@ -8,11 +8,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.im.home.admin.AdminMembersVO;
+import com.im.home.mail.config.MailConfig;
 import com.im.home.util.MembersFileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +40,10 @@ public class MembersService {
 	private String path;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private MembersSocialService membersSocialService;
+	@Autowired
+	private MailConfig mailConfig;
 	
 	
 	
@@ -260,9 +267,12 @@ public class MembersService {
 	//카카오 추가정보입력 
 	public int setSocialSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
 		
+		
+		
 		int result = membersMapper.setSocialSignUp(membersVO);
 		
-		
+		membersVO.setRoleNum(7);
+		result = membersMapper.setMembersRole(membersVO);
 		
 		log.info("Path => {}" ,path);
 		
@@ -293,4 +303,9 @@ public class MembersService {
 	}
 	
 	
+	//임시 비밀번호찾기
+	public MembersVO getFindPassWord(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.getFindPassWord(membersVO);
+	}
 }

@@ -1,4 +1,4 @@
-package com.im.home.config;
+package com.im.home.mail.config;
 
 import java.util.Properties;
 

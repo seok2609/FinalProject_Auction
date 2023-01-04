@@ -2,6 +2,8 @@
 package com.im.home.members;
 
 import java.security.Principal;
+import java.security.SecureRandom;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.Servlet;
@@ -17,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,6 +52,10 @@ public class MembersController {
 //	private MailSenderRunner mailSenderRunner;
 	@Autowired
 	private AdminMembersService adminMembersService;
+	@Autowired
+	private MembersSocialService membersSocialService;
+	@Autowired
+	private MailService mailService;
 	
 	
 	@GetMapping(value = "login")
@@ -148,6 +155,13 @@ public class MembersController {
 		log.info("로그아웃 실행 준비");
 		
 		session.invalidate();					//세션삭제			
+		
+		return "redirect:../";
+	}
+	
+	//소셜 로그아웃
+	@GetMapping(value = "logoutResult")
+	public String socialLogout() throws Exception{
 		
 		return "redirect:../";
 	}
@@ -510,7 +524,9 @@ public class MembersController {
 //			membersVO.setNickName(authentication.getPrincipal().toString());
 //			membersVO.setEmail(authentication.getPrincipal().toString());
 			
+			
 			int result = membersService.setSocialSignUp(membersVO, files);
+			
 			
 			
 			if(result == 1) {
@@ -552,5 +568,48 @@ public class MembersController {
 				return paymentResult;
 			}
 		}
+		
+		//임시비밀번호 전송
+//		@PostMapping(value = "sendEmail")
+//		public String findPassWord (MembersVO membersVO) throws Exception{
+//			
+//			log.info("======== findPw => {}", membersVO);
+//			char[] charSet = new char[] {
+//		                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+//		                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+//		                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+//		                '!', '@', '#', '$', '%', '^', '&' };
+//
+//	        StringBuffer sb = new StringBuffer();
+//	        SecureRandom sr = new SecureRandom();
+//	        sr.setSeed(new Date().getTime());
+//	        
+//	        int idx = 0;
+//	        
+//	        int len = charSet.length;
+//	        for (int i=0; i<10; i++) {
+//	            // idx = (int) (len * Math.random());
+//	            idx = sr.nextInt(len);    // 강력한 난수를 발생시키기 위해 SecureRandom을 사용.
+//	            sb.append(charSet[idx]);
+//	        }
+//
+//	        membersVO.setPassWord(sb.toString());
+//	        mailService.sendPw(membersVO);
+//	        
+//	        membersVO.setPassWord(passwordEncoder.encode(sb.toString()));
+//	        membersService.setChangePw(membersVO);
+//	        return "redirect:/members/login";
+//		}
+//		
+//		
+//		@RequestMapping("mail")
+//		public String sendMail(MailVO mailVO) {
+//			mailService.sendSimpleMessage(mailVO);
+//			return "redirect:../";
+//		}
+//
+//			
+//		}
+		
 		
 }

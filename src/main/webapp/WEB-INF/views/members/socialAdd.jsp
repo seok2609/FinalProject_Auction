@@ -18,15 +18,15 @@
 
 		<div class="section-header">
 	          <h2>소셜회원 회원가입 페이지</h2>
+			<sec:authentication property="Principal" var="member"/>
+            
 	    </div>
 	    
 	    <div class="col-lg-8" id="signUpSt">
 			<form action="socialAdd" method="post" enctype="multipart/form-data" id="socialForm">
 			
-			<input type="hidden" name="id" value="${social.id}">
+			<input type="hidden" name="id" value="${member.id}">
 			
-			<sec:authentication property="Principal" var="member"/>
-            
             <div class="d-flex flex-row" style="margin-left: 200px;">
               <div class="row" >
               
@@ -55,6 +55,9 @@
                   <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="전화번호 입력(숫자만 입력해주세요)" oninput="autoHyphen(this)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="13">
                   <span id="phoneHelp" class="bc"></span>
                 </div>
+                
+                <input type="hidden" name="social" value="${member.social}">
+                
                    
               </div>
 

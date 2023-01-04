@@ -8,12 +8,12 @@
 
 	<!-- 일반회원 회원가입 INSERT -->
 	<insert id="setMembersSignUp" parameterType="MembersVO">
-		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null, 0);
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null, 0)
 	</insert>
 	
 	<!-- 소셜로그인 회원가입 INSERT -->
 	<insert id="setSocialSignUp" parameterType="MembersVO">
-		INSERT INTO MEMBERS (ID, REALNAME, NICKNAME, EMAIL, BIRTH, PHONE) VALUES (#{id}, #{realName}, #{nickName}, #{email},  #{birth}, #{phone})
+		INSERT INTO MEMBERS (ID, SOCIAL, REALNAME, NICKNAME, EMAIL, BIRTH, PHONE, JOINDATE) VALUES (#{id}, #{social}, #{realName}, #{nickName}, #{email},  #{birth}, #{phone}, SYSDATE())
 	</insert>
 	
 	<insert id="setMembersRole" parameterType="MembersVO">
@@ -45,6 +45,7 @@
 		<result column="phone" property="phone"/>		
 		<result column="joinDate" property="joinDate"/>
 		<result column="black" property="black"/>
+		<result column="distinguish" property="distinguish"/>
 		
 		<collection property="roleVOs" javaType="List" ofType="RoleVO">
 			<id column="roleNum" property="roleNum"/>
@@ -183,6 +184,12 @@
 		SELECT NICKNAME, ID, ROLENUM FROM MEMBERS WHERE ID = #{id}
 	</select>
 	
+
+	<!-- 임시비밀번호 발송을 위한 쿼리 -->
+	<select id="getFindPassWord" parameterType="membersVO" resultType="membersVO">
+		SELECT ID, PASSWORD, NICKNAME, EMAIL FROM MEMBERS WHERE ID = #{id} AND NICKNAME = {#nickName}
+	</select>
+
 	<!-- 최근호 결제 -->
 	<update id="setPoint" parameterType="MembersVO">
 		UPDATE MEMBERS SET POINT=POINT+#{point} WHERE ID = #{id}
@@ -192,6 +199,7 @@
 		SELECT * FROM MEMBERS WHERE ID = #{id}
 	</select>
 	<!--  -->
+
 	
 	
 	
