@@ -22,21 +22,17 @@
 			<typeAlias type="com.im.home.admin.ProductGradeVO" alias="ProductGradeVO"/>
   			<typeAlias type="com.im.home.admin.AuctionVO" alias="AuctionVO"/>
   			<typeAlias type="com.im.home.util.AdminPager" alias="AdminPager"/>
-
+            
   			<!-- 경매 -->
-  			
   			<typeAlias type="java.lang.Long" alias="Long" />
   			<typeAlias type="java.util.List" alias="List"/>
   			<typeAlias type="java.lang.String" alias="String"/>
   			<typeAlias type="java.lang.Integer" alias="Integer"/>
   			
-  			
   			<!-- 지도 -->
   			<typeAlias type="com.im.home.map.MapVO" alias="MapVO"/>
   			<typeAlias type="com.im.home.map.StartPointVO" alias="StartPointVO"/>
   			<typeAlias type="com.im.home.map.EndPointVO" alias="EndPointVO"/>
-  			<typeAlias type="com.im.home.map.DeliveryInfoVO" alias="DeliveryInfoVO"/>
-  			
-  			
+  			<typeAlias type="com.im.home.map.DeliveryInfoVO" alias="DeliveryInfoVO"/>	
   	</typeAliases>
   </configuration>
