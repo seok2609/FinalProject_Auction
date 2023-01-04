@@ -262,7 +262,7 @@
                     <!-- DataTales Example -->
                     <div class="container-fluid" style="width: 1650px;" >
                     <div class="card shadow mb-4" >
-                        <div class="card-header py-3 row" style="background-color: #008374; margin-left: 1px;">
+                        <div class="card-header py-3 row" style="background-color: #008374; margin-left: 1px; width: 1600px;">
                             <div class="m-0 font-weight-bold" style="color: white;">회원</div>
                             <sec:authorize access="isAuthenticated()">
       		                    <sec:authentication property="Principal" var="member"/>
@@ -283,7 +283,7 @@
                                 <c:forEach items="${membersVO}" var="mVO">
                                     <c:choose>
                                         <c:when test="${mVO.black < 2}">
-                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='/kdy/membersDetail?id=${mVO.id}';">
+                                            <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px;" onclick="location.href='/kdy/membersDetail?id=${mVO.id}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 100px;" id="nonoresponse">
                                                     <div class="d-flex">
                                                         <div class="p-2 w-100">

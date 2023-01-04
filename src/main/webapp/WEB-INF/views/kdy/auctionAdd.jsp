@@ -132,7 +132,7 @@
                 <h2>경매 오픈</h2>
               </div>
 
-              <div class="row " style="width: 1000px;">
+              <div class="row gx-lg-0 gy-4">
                <div style="height: 50px;">
                    <div class="d-flex">
                      <div class="info-item d-flex">
