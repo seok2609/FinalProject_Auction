@@ -254,6 +254,15 @@ public class MembersService {
 		return membersMapper.setKakao(membersVO);
 	}
 	
+	//결제
+	public int setPoint(MembersVO membersVO) throws Exception{
+		return membersMapper.setPoint(membersVO);
+	}
+	public MembersVO getMemberInfo(MembersVO membersVO) throws Exception{
+		return membersMapper.getMemberInfo(membersVO);
+	}
+	//
+	
 	
 	//카카오 추가정보입력 
 	public int setSocialSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{

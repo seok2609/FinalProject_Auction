@@ -142,8 +142,9 @@
               <div class="icon">
                 <i class="bi bi-chat-square-text"></i>
               </div>
-              <h3 style="color: #008374;">배달 현황</h3>
-              <a href="/delivery/map" class="readmore stretched-link"></a>
+              <h3 style="color: #008374;">보유 포인트</h3>
+              <h5>${membersVO.point }P</h5>
+              <a href="./pay" class="readmore stretched-link"></a>
             </div>
           </div><!-- End Service Item -->
 
