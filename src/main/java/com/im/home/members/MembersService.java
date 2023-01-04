@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.im.home.admin.AdminMembersVO;
+import com.im.home.mail.config.MailConfig;
 import com.im.home.util.MembersFileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +42,8 @@ public class MembersService {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private MembersSocialService membersSocialService;
+	@Autowired
+	private MailConfig mailConfig;
 	
 	
 	
@@ -290,4 +294,9 @@ public class MembersService {
 	}
 	
 	
+	//임시 비밀번호찾기
+	public MembersVO getFindPassWord(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.getFindPassWord(membersVO);
+	}
 }

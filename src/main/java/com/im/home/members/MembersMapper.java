@@ -55,4 +55,7 @@ public interface MembersMapper {
 	
 	//소셜로그인 추가정보입력
 	public int setSocialSignUp(MembersVO membersVO) throws Exception;
+
+	//임시비밀번호 전송으로 비밀번호 찾기
+	public MembersVO getFindPassWord(MembersVO membersVO) throws Exception;
 }

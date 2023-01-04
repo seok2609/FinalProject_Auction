@@ -183,6 +183,11 @@
 		SELECT NICKNAME, ID, ROLENUM FROM MEMBERS WHERE ID = #{id}
 	</select>
 	
+	<!-- 임시비밀번호 발송을 위한 쿼리 -->
+	<select id="getFindPassWord" parameterType="membersVO" resultType="membersVO">
+		SELECT ID, PASSWORD, NICKNAME, EMAIL FROM MEMBERS WHERE ID = #{id} AND NICKNAME = {#nickName}
+	</select>
+	
 	
 	
 </mapper>
