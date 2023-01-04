@@ -486,5 +486,34 @@ public class MembersController {
 			return "members/socialAdd";
 		}
 		
+		///////////////////////////////////////////////////////////////////결제
+		@GetMapping(value = "pay")
+		public ModelAndView getPay(Principal principal) throws Exception{
+			MembersVO membersVO = new MembersVO();
+			membersVO.setId(principal.getName());
+			membersVO = membersService.getMemberInfo(membersVO);
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("membersVO", membersVO);
+			mv.setViewName("members/pay");
+			return mv;
+		}
+		
+		@ResponseBody
+		@PostMapping(value = "payments")
+		public String setPoint(Principal principal,@RequestParam String amount) throws Exception {
+			int money = Integer.parseInt(amount);
+			MembersVO membersVO = new MembersVO();
+			membersVO.setId(principal.getName());
+			membersVO.setPoint(money);
+			int result = membersService.setPoint(membersVO);
+			if(result>0) {
+				String paymentResult = "paid";
+				return paymentResult;
+			}
+			else {
+				String paymentResult = "";
+				return paymentResult;
+			}
+		}
 		
 }

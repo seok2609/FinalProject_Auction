@@ -53,4 +53,9 @@ public interface MembersMapper {
 	//카카오 회원가입
 	public int setKakao(MembersVO membersVO) throws Exception;
 	
+	//결제
+	public int setPoint(MembersVO membersVO) throws Exception;
+	public MembersVO getMemberInfo(MembersVO membersVO) throws Exception;
+	//
+	
 }

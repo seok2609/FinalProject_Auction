@@ -81,6 +81,7 @@
 		<result column="gender" property="gender"/>
 		<result column="phone" property="phone"/>
 		<result column="joinDate" property="joinDate"/>
+		<result column="POINT" property="point"/>
 		
 		<association property="membersFileVO" javaType="MembersFileVO">
 			<id column="fileNum" property="fileNum"/>
@@ -175,6 +176,16 @@
 	<select id="getKakaoLogin" parameterType="MembersVO" resultMap="getMembersLoginResult">
 		SELECT NICKNAME, ID, ROLENUM FROM MEMBERS WHERE ID = #{id}
 	</select>
+	
+	<!-- 최근호 결제 -->
+	<update id="setPoint" parameterType="MembersVO">
+		UPDATE MEMBERS SET POINT=POINT+#{point} WHERE ID = #{id}
+	</update>
+	
+	<select id="getMemberInfo" parameterType="MembersVO" resultType="MembersVO">
+		SELECT * FROM MEMBERS WHERE ID = #{id}
+	</select>
+	<!--  -->
 	
 	
 	

@@ -41,6 +41,7 @@ public class MembersVO implements UserDetails, OAuth2User{
 	private String phone;
 	private Date joinDate;
 	private int black;
+	private int point;
 	
 	private int roleNum;
 	
