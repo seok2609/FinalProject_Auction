@@ -35,6 +35,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.im.home.admin.AdminMembersService;
 import com.im.home.admin.AdminMembersVO;
+import com.im.home.mail.MailService;
+import com.im.home.mail.OtherService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,8 +56,14 @@ public class MembersController {
 	private AdminMembersService adminMembersService;
 	@Autowired
 	private MembersSocialService membersSocialService;
+//	@Autowired
+//	private MailService mailService;
+	@Autowired
+	private OtherService otherService;
 	@Autowired
 	private MailService mailService;
+	
+	
 	
 	
 	@GetMapping(value = "login")
@@ -611,5 +619,81 @@ public class MembersController {
 //			
 //		}
 		
+		
+//		@ResponseBody
+//		@PostMapping(value="mail")
+//		public void emailConfirm(String userId) throws Exception{
+//			
+//			log.info("이메이이이이이일");
+//			log.info("전달 받은 이메일 :: {} " , userId);
+//			
+//			otherService.sendSimpleMessage(userId);
+//		}
+//		
+//		@PostMapping(value = "verifyCode")
+//		@ResponseBody
+//		public int verifyCode(String code) {
+//			
+//			log.info("========랜덤코드 POST 실행============");
+//			
+//			int result = 0;
+//			
+//			log.info("code :: {} " ,code);
+//			log.info("code Match :: {} ", mailService.cPw.equals(code));
+//			
+//			if(mailService.cPw.equals(code)) {
+//				result = 1;
+//			}
+//			
+//			return result;
+//		}
+		
+		@GetMapping(value = "mailConfirm")
+		@ResponseBody
+		public String mailConfirm1(String email, MembersVO membersVO) throws Exception {
+			log.info("컨트롤러로 옴?");
+			email = membersVO.getEmail();
+//			email = "jong120926@naver.com";
+
+		   String code = mailService.sendSimpleMessage(email);
+		   log.info("인증코드 ::  {} " , code);
+		   return code;
+		}
+		
+		
+		// 이메일 인증
+		@PostMapping(value = "mailConfirm")
+		@ResponseBody
+		public String mailConfirm(String email) throws Exception {
+			log.info("컨트롤러로 옴?");
+//			email = "jong120926@naver.com";
+
+		   String code = mailService.sendSimpleMessage(email);
+		   log.info("인증코드 ::  {} " , code);
+		   return code;
+		}
+		
+		
+//		@PostMapping(value = "mailConfirm")
+//		@ResponseBody
+//		public String mailConfirm(String email) throws Exception {
+////			email = "jong120926@naver.com";
+//		   String code = mailService.sendSimpleMessage(email);
+//		   log.info("인증코드 ::  {} " , code);
+//		   return code;
+//		}
+		
+		
+		@PostMapping(value = "updatePassWord")
+		@ResponseBody
+		public int setUpdatePassWord(MembersVO membersVO) throws Exception{
+			
+			//발급받은 임시비밀번호를 가져와서 로그인 할 수있는 비밀번호로 인코딩해서 만들어준다.
+			membersVO.setPassWord(passwordEncoder.encode(membersVO.getCodePw()));
+			
+			int result = membersService.setUpdatePassWord(membersVO);
+		
+			return result;
+		}
 		
 }

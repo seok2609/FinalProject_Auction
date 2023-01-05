@@ -67,4 +67,6 @@ public interface MembersMapper {
 	//임시비밀번호 전송으로 비밀번호 찾기
 	public MembersVO getFindPassWord(MembersVO membersVO) throws Exception;
 
+	//발급받은 임시비밀번호로 로그인 할 수 있는 UPDATE문
+	public int setUpdatePassWord(MembersVO membersVO) throws Exception;
 }

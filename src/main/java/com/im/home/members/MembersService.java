@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.im.home.admin.AdminMembersVO;
-import com.im.home.mail.config.MailConfig;
+import com.im.home.mail.MailConfig;
 import com.im.home.util.MembersFileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -307,5 +307,11 @@ public class MembersService {
 	public MembersVO getFindPassWord(MembersVO membersVO) throws Exception{
 		
 		return membersMapper.getFindPassWord(membersVO);
+	}
+	
+	//발급받은 임시 비밀번호로 로그인하기
+	public int setUpdatePassWord(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.setUpdatePassWord(membersVO);
 	}
 }

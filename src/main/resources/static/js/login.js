@@ -15,39 +15,54 @@ $('.modal').on('hidden.bs.modal', function (e) {
 
 $("#checkEmail").click(function () {
     let userEmail = $("#userEmail").val();
-    let userName = $("#userName").val();
+    // let userName = $("#userName").val();
 
-    $.ajax({
-        type: "GET",
-        url: "/check/findPw",
-        data: {
-            "userEmail": userEmail,
-            "userName": userName
-        },
-        success: function (res) {
-            if (res['check']) {
-                swal("발송 완료!", "입력하신 이메일로 임시비밀번호가 발송되었습니다.", "success").then((OK) => {
-                    if(OK) {
-                        $.ajax({
-                            type: "POST",
-                            url: "/check/findPw/sendEmail",
-                            data: {
-                                "userEmail": userEmail,
-                                "userName": userName
-                            }
-                        })
-                        window.location = "/login";
-                    }
+    console.log("확인버튼 누름");
+
+    // $.ajax({
+    //     type: "GET",
+    //     url: "mailConfirm",
+    //     data: {
+    //         "userEmail": userEmail,
+    //     },
+    //     success: function (res) {
+            // if (res['check']) {
+            //     swal("발송 완료!", "입력하신 이메일로 임시비밀번호가 발송되었습니다.", "success").then((OK) => {
+            //         if(OK) {
+            //             $.ajax({
+            //                 type: "POST",
+            //                 url: "setUpdatePassWord",
+            //                 data: {
+            //                     "userEmail": userEmail,
+            //                     // "userName": userName
+            //                 }
+            //             })
+            //             window.location = "/login";
+            //         }
 
 
-                }
-            )
-                $('#checkMsg').html('<p style="color:darkblue"></p>');
-            } else {
-                $('#checkMsg').html('<p style="color:red">일치하는 정보가 없습니다.</p>');
-            }
-        }
-    })
+            //     }
+            // )
+            //     $('#checkMsg').html('<p style="color:darkblue"></p>');
+            // } else {
+            //     $('#checkMsg').html('<p style="color:red">일치하는 정보가 없습니다.</p>');
+            // }
+    //     }
+    // })
+
+        $.ajax({
+           type : "POST",
+           url : "mailConfirm",
+           data : {
+              "userEmail": userEmail,
+           },
+           success : function(data){
+              alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+              console.log("data : "+data);
+            //   chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
+           }
+        })
+     
 })
 
 function blackMem(){
