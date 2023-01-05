@@ -12,6 +12,8 @@ import com.im.home.members.MembersVO;
 @Configuration
 public class MailConfig {
 	
+	//메일컨피그
+	
 	@Bean
 	public JavaMailSender javaMailSender() {
 		MembersVO membersVO = new MembersVO();
