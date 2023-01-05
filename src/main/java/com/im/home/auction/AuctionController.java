@@ -45,14 +45,20 @@ public class AuctionController {
 	@GetMapping("chat")
 	public ModelAndView chatTest(Principal principal, AuctionVO auctionVO) {						
 		ModelAndView mv = new ModelAndView();
-		log.info(" 진행중인 경매 번호 : {}", auctionVO);
-		
-		ProductVO productVO = auctionService.getAuctionDetail(auctionVO);
-		
+		//로그인 안했으면 로그인페이지로 이동
 		if(principal == null) {
 			mv.setViewName("redirect:/");
 			return mv;
 		}
+		
+		log.info(" 프린시플 : {}", principal);
+		
+		log.info(" 진행중인 경매 번호 : {}", auctionVO);
+		
+		ProductVO productVO = auctionService.getAuctionDetail(auctionVO);
+		
+		
+		
 		mv.addObject("member", principal.getName());
 		mv.addObject("vo", productVO);
 		mv.setViewName("auction/chat");

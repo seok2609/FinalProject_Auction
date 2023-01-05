@@ -2,6 +2,7 @@
 // .......................UI Code........................
 // ......................................................
 document.getElementById('open-room').onclick = function() {
+    $("#videos-container").html("");
     disableInputButtons();
     connection.open(document.getElementById('room-id').value, function() {
         showRoomURL(connection.sessionid);
@@ -42,7 +43,7 @@ document.getElementById('open-or-join-room').onclick = function() {
 var connection = new RTCMultiConnection();
 
 // by default, socket.io server is assumed to be deployed on your own URL
-connection.socketURL = 'https://localhost:9001/';
+connection.socketURL = 'https://192.168.200.2:9001/';
 
 // comment-out below line if you do not have your own socket.io server
 // connection.socketURL = 'https://muazkhan.com:9001/';
