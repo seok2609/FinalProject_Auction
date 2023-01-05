@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -12,7 +13,7 @@
     <!--css-->
 
     <link rel="stylesheet" href="/static/css/auction/broadcast.css" type="text/css">
-    <link rel="stylesheet" href="/static/css/auction/stylesheet.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/static/css/auction/stylesheet.css" type="text/css"> -->
     <link rel="stylesheet" href="/static/css/auction/getHTMLMediaElement.css" type="text/css">
 
 
@@ -30,6 +31,9 @@
 
     <!-- 접속 아이디 -->
     <input type="text" style="display: none;" id="username" value="${member}">
+
+    <!-- 단위 가격 -->
+    <input type="hidden" style="display: none;" value="5000">
 
     <!-- 전체 컨텐츠 -->
         <div id="broadcast-box" class="container container-fluid">
@@ -49,15 +53,16 @@
             
                 <div id="chat-mainbox" class="col-4">
                     <div id="chat-header" class="row">
-                        <div id="chat-info1" class="col-4">
+                        <div id="chat-info1" class="col">
                             <button onclick="getChattingList()">채팅창</button>
                         </div>
-                        <div id="chat-info2" class="col-4">
+                        <div id="chat-info2" class="col">
                             <button onclick="getParticipants()">참여자</button>
                         </div>
-                        <div id="bid-btn" class="col-4">
+                        <div id="bid-btn" class="col">
                             <button onclick="getBidPage()">경매 참여(입찰)</button>
                         </div>
+                        <div id=""></div>
                     </div>
                         
                         <div id="chat-frame">
@@ -67,15 +72,16 @@
                             </div>
                             
                             <!-- 채팅 목록 -->
-                            <div id="chat-box" class="border border-3">
+                            <div id="chat-box" class="border border-3" onscroll="scrollFN()">
 
                             </div>
                             <div id="chat-write" class="row">
                                 <div class="col-10">
-                                    <input type="text" class="input" id="chat-input" onkeyup="enterkey()">
+                                    <textarea class="form-control" id="chat-input" onkeyup="enterkey()" style="resize: none;"></textarea>
+                                    <!-- <input type="text" class="input" id="chat-input" onkeyup="enterkey()"> -->
                                 </div>
                                 <div id="send-msg" class="col-2">
-                                    <span><h3>➡️</h3></span>
+                                    <button type="button" class="btn btn-success">➤</button>
                                 </div>
                             </div>
 
@@ -86,16 +92,16 @@
                                 </div>
                                 <div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">An item</li>
-                                        <li class="list-group-item">A second item</li>
-                                        <li class="list-group-item">A third item</li>
-                                        <li class="list-group-item">A fourth item</li>
-                                        <li class="list-group-item">And a fifth one</li>
+                                        <li class="list-group-item"><div class="opacity-50">상품명</div>${vo.name}</li>
+                                        <li class="list-group-item"><div class="opacity-50">현재가</div><span id="currentprice">${vo.auctionVO.init_price}</span></li>
+                                        <li class="list-group-item"><div class="opacity-50">중량</div>${vo.quantity} kg </li>
+                                        <li class="list-group-item"><div class="opacity-50">원산지</div>${vo.product_address}</li>
+                                        <li class="list-group-item"><div class="opacity-50">입찰 단위 가격</div><span id="unitprice"><fmt:formatNumber value="5000" pattern="#,###"/></span></li>
                                     </ul>
-                                <div>
+                                <div class="row">
                                     입찰 : <input type="text"><button>입찰</button>
-                                    <br><button>단위 가격 자동 입찰</button>
-                                    <span>보유포인트 : <h3><fmt:formatNumber value="30000000" pattern="#,###" /></h3></span>
+                                    <br><button id="unit-bidding" onclick="setUnitBidding()">단위 가격 자동 입찰</button><br>
+                                    <span>보유포인트 : <span id="mypoint"><fmt:formatNumber value="30000000" pattern="#,###"/></span></span>
                                 </div>
                                  
                                 </div>
@@ -114,7 +120,7 @@
   <script src="/static/js/auction/chat.js"></script>
   <script src="/static/js/auction/getHTMLMediaElement.js"></script>
   <script src="/static/js/auction/RTCMultiConnection.js"></script>
-  <script src="https://localhost:9001/socket.io/socket.io.js"></script>
+  <script src="https://192.168.200.2:9001/socket.io/socket.io.js"></script>
  <!--  <script src="/static/js/auction/multi.js"></script> -->
   <script src="https://www.webrtc-experiment.com/common.js"></script>
 

@@ -4,10 +4,50 @@
 		    "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 		    
 <mapper namespace="com.im.home.auction.AuctionMapper">
-	<insert id="setAdd" parameterType="AuctionVO">
-		INSERT INTO AUCTION(AUCTION_NUM, TITLE, CONTENTS, CATEGORY, INIT_PRICE, HEAD_COUNT, SIGN_DATE, BIDDING, START_DATE, APPROVAL)
-		VALUES(null, #{title}, #{contents}, #{category}, #{init_price}, #{head_count}, SYSDATE(), 0, #{start_date}, 0)
-	</insert>
+	<!-- 경매 상품 불러오기 -->
+		<select id="getAuctionDetail" parameterType="AuctionVO" resultMap="auctionDetail">
+			SELECT A.*, P.NAME,P.PRODUCT_ADDRESS,P.QUANTITY,P.WEIGHT,P.SALES, PF.FILENAME , PG.GRADE_NAME
+			FROM AUCTION A 
+			INNER JOIN PRODUCT P 
+			ON A.PRODUCT_NUM = P.PRODUCT_NUM 
+			INNER JOIN PRODUCT_FILE PF 
+			ON P.PRODUCT_NUM = PF.PRODUCT_NUM 
+			INNER JOIN PRODUCT_GRADE PG 
+			ON PG.GRADE_NUM = P.GRADE_NUM 
+			WHERE A.AUCTION_NUM = #{auction_num};
+		</select>
+		<resultMap type="ProductVO" id="auctionDetail">
+			<id column="PRODUCT_NUM" property="product_num"/>
+			<result column="NAME" property="name"/>
+			<result column="PRODUCT_ADDRESS" property="product_address"/>
+			<result column="QUANTITY" property="quantity"/>
+			<result column="WEIGHT" property="weight"/>
+			<result column="SALES" property="sales"/>
+			
+			<association property="auctionVO" javaType="AuctionVO">
+				<id column="AUCTION_NUM" property="auction_num"/>
+				<result column="TITLE" property="title"/>
+				<result column="INIT_PRICE" property="init_price"/>
+				<result column="HEAD_COUNT" property="head_count"/>
+				<result column="SIGN_DATE" property="sign_date"/>
+				<result column="BIDDING" property="bidding"/>
+				<result column="AWARD" property="award"/>
+				<result column="ID" property="id"/>
+			</association>
+			
+			<association property="productGradeVO" javaType="ProductGradeVO">
+				<id column="GRADE_NUM" property="grade_num"/>
+				<result column="GRADE_NAME" property="grade_name"/>
+			</association>
+			
+			<collection property="productFileVOs" javaType="List" ofType="ProductFileVO">
+				<id column="FILENUM" property="fileNum"/>
+				<result column="FILENAME" property="fileName"/>
+			</collection>
+		</resultMap>
 	
-	
+	<!-- 진행중인 방송이 있는지 확인 -->
+		<select id="getIngBroadcasting" resultType="AuctionVO">
+			SELECT AUCTION_NUM FROM AUCTION WHERE ING = 1 
+		</select>
 </mapper>

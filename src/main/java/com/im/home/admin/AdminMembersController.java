@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -319,8 +320,10 @@ public class AdminMembersController {
 	@PostMapping("productAdd")
 	public ModelAndView setProductAdd(ProductVO productVO, ModelAndView mv, MultipartFile files)throws Exception{
 		int result = adminMembersService.setProductAdd(productVO, files);
+			
 		mv.addObject("result", result);
 		mv.setViewName("redirect:../kdy/saleTypeList");
+
 		return mv;
 	}
 	//상품 detail
@@ -350,7 +353,7 @@ public class AdminMembersController {
 	//경매 시작
 	@GetMapping("auctionAdd")
 	public String setAuctionAdd(AuctionVO auctionVO, Principal principal)throws Exception{
-		auctionVO.setId(principal.getName());
+		auctionVO.setId(principal.getName());		
 		log.info("이지원 멍청이 ==>> {}", auctionVO.getId());
 		return "kdy/auctionAdd";
 	}

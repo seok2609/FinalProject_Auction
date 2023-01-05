@@ -114,10 +114,11 @@
 		
 <!-- 경매시작 -->
 		<!-- 경매 등록 -->
-		<insert id="setAuctionAdd" parameterType="AuctionVO">
+		<insert id="setAuctionAdd" parameterType="AuctionVO" useGeneratedKeys="true" keyProperty="auction_num">
 			INSERT INTO AUCTION VALUES
-			(NULL, #{title}, #{init_price}, #{head_count}, SYSDATE(), 1, 0, #{name}, #{id}, #{product_num})
+			(NULL, #{title}, #{init_price}, #{head_count}, SYSDATE(), 0, 0, #{id}, #{product_num}, 1)
 		</insert>
+		
 		
 <!-- 공지사항 관리 -->
 		<!-- 등록 -->

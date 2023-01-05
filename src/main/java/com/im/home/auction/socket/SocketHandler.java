@@ -33,9 +33,12 @@ public class SocketHandler extends TextWebSocketHandler{
 		
 		String payload = message.getPayload();
 		
+		log.info("페이로드 : {}", payload);
+		
 		for(WebSocketSession s : sessionList) {
 			s.sendMessage(message);
 		}
+		
 	}
 	
 	@Override

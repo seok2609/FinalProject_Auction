@@ -16,6 +16,7 @@ public class ProductVO {
 	private Long weight; // 중량
 	private int sales; // 판매 가능 여부
 	
+	private AuctionVO auctionVO;
 	private ProductGradeVO productGradeVO;
 	private List<ProductFileVO> productFileVOs; // 상품 이미지
 }

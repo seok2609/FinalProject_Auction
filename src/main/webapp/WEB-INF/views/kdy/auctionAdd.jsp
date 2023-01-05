@@ -166,10 +166,10 @@
                         허용 인원 수 : 
                       <input type="text" class="form-control" name="head_count" id="head_count">
                     </div>
-                      <div class="form-group mt-3">
+                      <!-- <div class="form-group mt-3">
                         상품 명 : 
-                      <input type="text" class="form-control"name="name" id="name">
-                    </div>
+                      <input type="text" class="form-control" readonly value="" id="name">
+                    </div> -->
                     <div class="form-group mt-3">
                         시작 지정가 : 
                       <input type="text" class="form-control"name="init_price" id="init_price">
