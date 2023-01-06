@@ -203,7 +203,13 @@
                 console.log(resultPw);
                 if(resultPw == 1){
                     console.log("비밀번호 일치");
-                    alert("회원탈퇴가 성공적으로 완료되었습니다. 이용해주셔서 감사합니다.");
+                    /* alert("회원탈퇴가 성공적으로 완료되었습니다. 이용해주셔서 감사합니다."); */
+						Swal({
+						  title: "Good job!",
+						  text: "You clicked the button!",
+						  icon: "success",
+						  button: "Aww yiss!",
+						});
                     window.location.href="../";
                 } else{
                     console.log("비밀번호 틀림");

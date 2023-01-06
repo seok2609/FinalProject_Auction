@@ -18,6 +18,7 @@ $("#checkEmail").click(function () {
     // let userName = $("#userName").val();
 
     console.log("확인버튼 누름");
+    console.log("userEmail ::: ", userEmail);
 
     // $.ajax({
     //     type: "GET",
@@ -57,7 +58,13 @@ $("#checkEmail").click(function () {
               "userEmail": userEmail,
            },
            success : function(data){
-              alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+            //   alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+              Swal.fire({
+	                     title: "인증 성공!",
+	                     text: "해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.",
+	                     icon: "success",
+	                     button: "확인",
+	                   });         
               console.log("data : "+data);
             //   chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
            }

@@ -199,10 +199,15 @@
 		SELECT * FROM MEMBERS WHERE ID = #{id}
 	</select>
 	
+	<!-- 임시 비밀번호를 CODEPW라는 임시 컬럼에 UPDATE한다 -->
+	<!-- UPDATE쓰는 이유 : INSERT를 하게 되면 임시비밀번호를 여러번 받거나, 처음에 NULL인 상태를 고려하면 UPDATE가 용이함 -->
+	<update id="setCodePw" parameterType="MembersVO">
+		UPDATE MEMBERS SET PASSWORD = #{passWord} WHERE EMAIL = #{email}
+	</update>
 	
 	<!-- 임시비밀번호 발급 후, 그 임시 비밀번호를 사용해 로그인 할 수 있도록 하는 UPDATE문 -->
 	<update id="setUpdatePassWord" parameterType="membersVO">
-		UPDATE MEMBERS SET PASSWORD = #{codePw}
+		UPDATE MEMBERS SET PASSWORD = #{passWord}
 	</update>
 
 	
