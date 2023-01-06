@@ -14,10 +14,10 @@ import com.im.home.members.MembersVO;
 public class MailConfig {
 	
 	//시크릿 폴더에서 정해놓은 이메일 아이디, 비밀번호
-	@Value("${spring.mail.username}")
+//	@Value("${spring.mail.username}")
 	private String id;
 	
-	@Value("${spring.mail.password}")
+//	@Value("${spring.mail.password}")
 	private String pw;
 	
 	
@@ -30,8 +30,8 @@ public class MailConfig {
 		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 		
 		javaMailSenderImpl.setHost("smtp.naver.com");
-		javaMailSenderImpl.setUsername(id);
-		javaMailSenderImpl.setPassword(pw);
+//		javaMailSenderImpl.setUsername(id);
+//		javaMailSenderImpl.setPassword(pw);
 		
 		javaMailSenderImpl.setPort(465);
 		

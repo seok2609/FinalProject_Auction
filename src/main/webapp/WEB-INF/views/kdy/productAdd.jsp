@@ -175,17 +175,17 @@
                         </select>
                       </div>
                       <div class="form-group mt-3">
-                        <label for="formFileSm" class="form-label bc">상품 이미지</label>
-                        <input class="form-control form-control-sm" id="reportFileAdd" name="files" type="file">
-                      </div>
-                      <div class="form-group mt-3">
-                        수량 : 
-                      <input type="text" class="form-control"name="quantity" id="quantity" >
-                    </div>
-                    <div class="form-group mt-3">
-                        중량 : 
-                      <input type="text" class="form-control"name="weight" id="weight">
-                    </div>
+                          수량 : 
+                          <input type="text" class="form-control"name="quantity" id="quantity" >
+                        </div>
+                        <div class="form-group mt-3">
+                            중량 : 
+                            <input type="text" class="form-control"name="weight" id="weight">
+                        </div>
+                        <div class="form-group mt-3">
+                          <label for="formFileSm" class="form-label bc">상품 이미지</label>
+                          <input class="form-control form-control-sm" id="reportFileAdd" name="files" type="file">
+                        </div>
                     
                     <div class="d-flex">
                         <div class="text-center">
