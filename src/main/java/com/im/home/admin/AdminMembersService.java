@@ -239,4 +239,8 @@ public class AdminMembersService {
 	public int setAuctionAdd(AuctionVO auctionVO)throws Exception{
 		return adminMembersMapper.setAuctionAdd(auctionVO);
 	}
+	//배송 상태
+	public int setDeliveryStateUpdate(ProductVO productVO)throws Exception{
+		return adminMembersMapper.setDeliveryStateUpdate(productVO);
+	}
 }

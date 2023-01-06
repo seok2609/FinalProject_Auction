@@ -59,8 +59,8 @@
                 <div class="form-group mt-3">
                   <input type="text" class="form-control" name="subject" id="information" style="border: 0; color: red;" readonly value="[공 지] ${noticeDetail.notice_title}">
                 </div>
-                <div class="form-group mt-3">
-                  <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${noticeDetail.notice_contents}</textarea>
+                <div class="form-group mt-3" style="border: solid 1px gainsboro; background-color: gainsboro; margin-bottom: 15px;">
+                  ${noticeDetail.notice_contents}
                 </div>
                 <div class="d-flex">
                           <div class="text-center" onclick="location.href='/kdy/cNoticeList';">

@@ -106,4 +106,6 @@ public interface AdminMembersMapper {
 	public int setProductGrade(ProductVO productVO)throws Exception;
 	//경매 시작
 	public int setAuctionAdd(AuctionVO auctionVO)throws Exception;
+	//배송 상태
+	public int setDeliveryStateUpdate(ProductVO productVO)throws Exception;
 }

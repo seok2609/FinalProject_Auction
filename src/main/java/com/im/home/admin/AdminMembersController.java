@@ -307,6 +307,7 @@ public class AdminMembersController {
 	public ModelAndView getProductList(AdminPager adminPager)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> ar = adminMembersService.getProductList(adminPager);
+		log.info("리스트 111111111111 :: {} ", ar);
 		Long result = adminMembersService.getProductCount(adminPager);
 		mv.addObject("result", result);
 		mv.addObject("proList", ar);
@@ -342,6 +343,14 @@ public class AdminMembersController {
 		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
 		return mv;
 	}
+	//배송 상태
+	@GetMapping("deliveryUpdate")
+	public ModelAndView setDeliveryStateUpdate(ProductVO productVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = adminMembersService.setDeliveryStateUpdate(productVO);
+		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
+		return mv;
+	}
 	//상품 등급 수정
 	@GetMapping("productGrade")
 	public ModelAndView setProductGrade(ProductVO productVO)throws Exception{
@@ -354,7 +363,6 @@ public class AdminMembersController {
 	@GetMapping("auctionAdd")
 	public String setAuctionAdd(AuctionVO auctionVO, Principal principal)throws Exception{
 		auctionVO.setId(principal.getName());
-		log.info("이지원 멍청이 ==>> {}", auctionVO.getId());
 		return "kdy/auctionAdd";
 	}
 	//경매 시작
@@ -366,6 +374,7 @@ public class AdminMembersController {
 		mv.setViewName("redirect:./productDetail?product_num="+productVO.getProduct_num());
 		return mv;
 	}
+	
 	//결제내역
 	@GetMapping("paymentList")
 	public String paymentList()throws Exception{

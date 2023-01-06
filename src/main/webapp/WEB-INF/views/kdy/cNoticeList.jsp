@@ -28,10 +28,10 @@
         <c:import url="../common/header.jsp"></c:import>
     </div>
     <!-- Page Wrapper -->
-    <div class="section-header" style="margin-top: 45px;"  data-aos="fade-up">
+    <div class="section-header container" style="margin-top: 45px;"  data-aos="fade-up">
         <h2>공지사항</h2>
         
-    <div id="wrapper" style="height: 800px; width: 1000px; margin-top: 50px; margin-left: 400px;" >
+    <div id="wrapper" style="height: 800px; width: 1000px; margin-top: 50px; margin-left: 200px;" >
         <div style="width: 2000px;">
             <table border="1" class="table table-hover" id="th">
                 <thead class="table-success" style="text-align: center;">
