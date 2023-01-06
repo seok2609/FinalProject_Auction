@@ -32,7 +32,13 @@
     <!-- Principal 접속 아이디 -->
     <sec:authentication property="Principal" var="user"/>
     <input type="text" style="display: none;" id="username" value="${member}">
-	
+
+    <!-- 옥션 번호 -->
+    <input type="hidden" id="auction_num" value="${vo.auctionVO.auction_num}">
+
+    <!-- 상품 번호 -->
+    <input type="hidden" id="product_num" value="${vo.product_num}">
+
     <!-- 단위 가격 -->
     <input type="hidden" style="display: none;" value="5000">
 
@@ -103,8 +109,9 @@
                         <!-- 관리자 모드 -->
                             <button class="col-4" id="open-room">방송시작</button>
                             <button class="col-4" id="startauction">경매 시작</button>
+                            <button class="col-4" id="pauseauction">경매 중지</button>
+                            <button id="terminateauction" class="col-4">경매 종료</button>
 
-                        
                     </div>
                 </div>
             
@@ -225,7 +232,7 @@
   <script src="/static/js/auction/chat.js"></script>
   <script src="/static/js/auction/getHTMLMediaElement.js"></script>
   <script src="/static/js/auction/RTCMultiConnection.js"></script>
-  <script src="https://192.168.200.2:9001/socket.io/socket.io.js"></script>
+  <script src="https://172.30.1.34:9001/socket.io/socket.io.js"></script>
   <script src="/static/js/auction/multi.js"></script>
   <script src="https://www.webrtc-experiment.com/common.js"></script>
 

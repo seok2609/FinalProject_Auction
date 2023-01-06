@@ -15,6 +15,7 @@ public class ProductVO {
 	private Long quantity; // 수량
 	private Long weight; // 중량
 	private int sales; // 판매 가능 여부
+	private String id;
 	
 	private AuctionVO auctionVO;
 	private ProductGradeVO productGradeVO;

@@ -19,5 +19,21 @@ public class AuctionService {
 		return auctionMapper.getIngBroadcasting();
 	}
 	
+	public int setUpdateIng(AuctionVO auctionVO) {
+		return auctionMapper.setUpdateIng(auctionVO);
+	}
+	
+	public int setUpdateWinner(ProductVO productVO) {
+		return auctionMapper.setUpdateWinner(productVO);
+	}
+	
+	public int setUpdateAward(AuctionVO auctionVO) {
+		return auctionMapper.setUpdateAward(auctionVO);
+	}
+	
+	public int setUpdatePointMinus(AuctionVO auctionVO) {
+		return auctionMapper.setUpdatePointMinus(auctionVO);
+	}
+	
 	
 }

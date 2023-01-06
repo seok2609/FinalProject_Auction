@@ -50,4 +50,30 @@
 		<select id="getIngBroadcasting" resultType="AuctionVO">
 			SELECT AUCTION_NUM FROM AUCTION WHERE ING = 1 
 		</select>
+		
+	<!-- 경매 상태 업데이트 -->
+		<update id="setUpdateIng" parameterType="AuctionVO">
+			UPDATE AUCTION SET ING = 0 WHERE AUCTION_NUM = #{auction_num}
+		</update>
+		
+	<!-- // Product 테이블 id update
+		
+		
+		// Auction 테이블 award 업데이트
+		
+		
+		// Members 테이블 포인트 - 업데이트 -->
+		
+		<update id="setUpdateWinner" parameterType="ProductVO">
+			UPDATE PRODUCT SET ID = #{id} WHERE PRODUCT_NUM = #{product_num}
+		</update>
+		
+		<update id="setUpdateAward" parameterType="AuctionVO">
+			UPDATE AUCTION SET AWARD = #{award} WHERE AUCTION_NUM = #{auction_num}
+		</update>
+		
+		<update id="setUpdatePointMinus" parameterType="AuctionVO">
+			UPDATE MEMBERS SET POINT = POINT - #{award} WHERE ID = #{id}
+		</update>
+		
 </mapper>

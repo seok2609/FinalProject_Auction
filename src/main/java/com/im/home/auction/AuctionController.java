@@ -66,7 +66,9 @@ public class AuctionController {
 		
 	}
 	
-	@GetMapping
+	
+	// 현재 진행중인 방송 있는 지 확인
+	@GetMapping("ing")
 	@ResponseBody
 	public Long getIngBroadcasting() {
 		
@@ -77,6 +79,40 @@ public class AuctionController {
 			return auctionVO.getAuction_num();
 		}
 		
+		
+	}
+	
+	// 경매 시작 버튼 update
+	@PostMapping("change")
+	@ResponseBody
+	public int setUpdateIng(AuctionVO auctionVO) {
+		
+		//int result = auctionService.setUpdateIng(auctionVO);
+		
+		return 1;
+		
+	}
+	
+	
+	//경매 종료 버튼
+	@PostMapping("terminate")
+	@ResponseBody
+	public String setTerminateAuction(ProductVO productVO, AuctionVO auctionVO) {
+		
+		log.info("프로덕트 vo : {}", productVO.getId());
+		log.info("옥션 vo 최종 낙찰가 : {}", auctionVO.getAward());
+		log.info("옥션 vo 아이디 : {}", auctionVO.getId());
+		
+//		// Product 테이블 id update
+//		auctionService.setUpdateWinner(productVO);
+//		
+//		// Auction 테이블 award 업데이트
+//		auctionService.setUpdateAward(auctionVO);
+//		
+//		// Members 테이블 포인트 - 업데이트
+//		auctionService.setUpdatePointMinus(auctionVO);
+		
+		return productVO.getId();
 		
 	}
 	

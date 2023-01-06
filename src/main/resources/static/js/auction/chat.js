@@ -1,12 +1,100 @@
 //경매 시작 버튼 클릭 시 실행
 $("#startauction").click(function(){
         
-    //입찰 disabled 풀기
-    $("#inputfree").removeAttr('disabled');
-    $("#free-bidding").removeAttr('disabled');
-    $("#unit-bidding").removeAttr('disabled');
+    // //입찰 disabled 풀기
+    // $("#inputfree").removeAttr('disabled');
+    // $("#free-bidding").removeAttr('disabled');
+    // $("#unit-bidding").removeAttr('disabled');
+
+
+
+    //ajax AUCTION 테이블 ING 컬럼 update 0으로 (경매 시작 후 입장 불가능)
+    $.ajax({
+        type:"POST",
+        url:"/auction/change",
+        data: {
+            "auction_num": auction_num
+        },
+        success: function(result){
+            // 성공 시 약관 팝업창
+
+        }
+    })
+
+    $("#startauction").attr("disabled","");
+    $("#pauseauction").removeAttr('disabled');
+
+    websocket.send("[start]:[경매시작]");
 
 })
+
+
+// 추가 인원 허용 버튼 
+
+// 경매 중지
+$("#pauseauction").click(function(){
+
+    // //입찰 disabled 적용
+    // $("#inputfree").attr('disabled',"");
+    // $("#free-bidding").attr('disabled',"");
+    // $("#unit-bidding").attr('disabled',"");
+
+    $("#startauction").removeAttr('disabled');
+
+    $("#pauseauction").attr('disabled','');
+
+    websocket.send("[중지]:[일시]");
+
+})
+
+
+
+// 경매 종료
+
+$("#terminateauction").click(function(){
+
+    let award = $("#currentprice").html();
+
+    let awardarr = award.split(" ");
+
+    let lastprice = awardarr[0].replace(/,/g, "");
+    lastprice *= 1;
+
+
+
+
+    // 1. Product 테이블 id 값에 최종 입찰가 (현재가)로 입찰한 사람 식별해서 update , auction 테이블 bidding,award 도 업데이트 
+    //최종 입찰가 현재가로 받아오고, id 를 받아와야함, members 테이블에서 포인트 - 로 업데이트
+    $.ajax({
+        type:"POST",
+        url:"/auction/terminate",
+        data: {
+            "product_num":product_num,
+            "auction_num":auction_num,
+            "id":awardarr[3],
+            "award":lastprice,
+
+        },
+        success:function(result){
+            
+            console.log("경매종료 ajax 결과 값 : ", result);
+            
+            websocket.send("[낙찰자판별]:[종료]"+":"+result);
+        }
+    })
+
+    // 2. location.replace 현재 사용자 (관리자 제외) 방출
+
+})
+
+
+
+  
+  //경매 번호 
+  let auction_num = $("#auction_num").val();
+  //상품 번호 
+  let product_num = $("#product_num").val();    
+
   let init = $("#currentprice").html();
   init += "";
   init = init.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -36,7 +124,7 @@ $("#startauction").click(function(){
       send();
   });
 
-  const websocket = new WebSocket("wss://192.168.200.2:80/chat");
+  const websocket = new WebSocket("wss://172.30.1.34:80/chat");
 
   websocket.onmessage = onMessage;
   websocket.onopen = onOpen;
@@ -98,7 +186,7 @@ $("#startauction").click(function(){
       }else if(sessionId == '현재가'){
         // 입찰 상태 
         // 1. 현재가에 입찰가 입력
-        $("#currentprice").html(arr[1]);
+        $("#currentprice").html(arr[1]+" (입찰자 : "+arr[2]+" 님 )");
         // 2. 입찰자 판별 
             if(arr[2] != username){
                 $("#mypoint").html(myinitpoint);
@@ -121,6 +209,33 @@ $("#startauction").click(function(){
       }else if(sessionId == '강퇴'){
         if(message == username){
             alert("관리자에 의해 강제 퇴장 당하셨습니다.");
+            location.replace("/");
+        }
+      }else if(sessionId == '[중지]'){
+        var str = "<div class='d-flex justify-content-center'>";
+        str +="<span>"+'경매가 일시중지 되었습니다.'+"</span>"
+        str += "</div>";
+        $("#chat-box").append(str);
+        //입찰 disabled 적용
+        $("#inputfree").attr('disabled',"");
+        $("#free-bidding").attr('disabled',"");
+        $("#unit-bidding").attr('disabled',"");
+      }else if(sessionId == '[start]'){
+        var str = "<div class='d-flex justify-content-center'>";
+        str +="<span>"+'경매가 시작 되었습니다.'+"</span>"
+        str += "</div>";
+        $("#chat-box").append(str);
+        //입찰 disabled 풀기
+        $("#inputfree").removeAttr('disabled');
+        $("#free-bidding").removeAttr('disabled');
+        $("#unit-bidding").removeAttr('disabled');
+      }else if(sessionId == "[낙찰자판별]"){
+        //낙찰자일때
+        if(arr[2] == username){
+            alert("경매가 종료되었습니다. 최종 낙찰자로 선정되었습니다. 내 낙찰 목록을 확인해주세요.");
+            location.replace("/");
+        }else{
+            alert("경매가 종료되었습니다. 최종 낙찰자로 선정되지 못했습니다.");
             location.replace("/");
         }
       }
@@ -282,7 +397,7 @@ $("#startauction").click(function(){
 
 
 
-    // 자유입찰 input 태그 천단위 콤마 찍기, 천단위 절사 (keyup) 
+    // 자유입찰 input 태그 천단위 콤마 찍기 (keyup) 
     function getCalculate(obj) {
         obj.value = comma(uncomma(obj.value));
     }
@@ -297,6 +412,8 @@ $("#startauction").click(function(){
         return str.replace(/[^\d]+/g, '');
     }
 
+
+    //천단위 절사 (change 이벤트)
     function getCalculate2(obj){
         let cal = uncomma(obj.value);
         if(cal*1 > 1000){
