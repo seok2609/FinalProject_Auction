@@ -363,7 +363,6 @@ public class AdminMembersController {
 	@GetMapping("auctionAdd")
 	public String setAuctionAdd(AuctionVO auctionVO, Principal principal)throws Exception{
 		auctionVO.setId(principal.getName());
-		log.info("이지원 멍청이 ==>> {}", auctionVO.getId());
 		return "kdy/auctionAdd";
 	}
 	//경매 시작
