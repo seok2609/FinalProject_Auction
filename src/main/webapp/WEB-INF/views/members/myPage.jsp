@@ -25,6 +25,9 @@
 	#amd, #updatePw{
 		cursor: pointer;
 	}
+	.bc{
+    color: #008374;
+  	}
 </style>
 <!-- <script defer src="/js/membersFile.js"></script> -->
 </head>

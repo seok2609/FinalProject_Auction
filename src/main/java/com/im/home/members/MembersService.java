@@ -46,7 +46,7 @@ public class MembersService {
 	private MailConfig mailConfig;
 	
 	
-	
+	//일반회원 회원가입
 	public int setMembersSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
 		
 		int result = membersMapper.setMembersSignUp(membersVO);
@@ -81,6 +81,39 @@ public class MembersService {
 //		if(url == "members/signUpC") {
 //			int result2 = membersMapper.setMembersRole(roleVO.setRoleNum(2));
 //		}
+		
+		return result;
+	}
+	
+	//도매업자 회원가입 (주소포함)
+	public int setDomaeSignUp (MembersVO membersVO, MultipartFile mpf) throws Exception{
+		
+		int result = membersMapper.setDomaeSignUp(membersVO);
+		
+		log.info("Path => {}" ,path);
+		
+		File file = new File(path);
+		
+		if(!file.exists()) {	//파일이 존재하지 않다면~~
+			boolean check = file.mkdirs();
+			log.info("Check => {} " , check);
+			
+		}
+		
+		
+		if(!mpf.isEmpty()) {
+			log.info("FileName => {} " , mpf.getOriginalFilename());
+			
+			String fileName = membersFileManager.saveFile(mpf, path);
+			
+			MembersFileVO membersFileVO = new MembersFileVO();
+			membersFileVO.setFileName(fileName);
+			membersFileVO.setOriName(mpf.getOriginalFilename());
+			membersFileVO.setId(membersVO.getId());
+			
+			membersMapper.setMembersFileAdd(membersFileVO);
+			
+		}
 		
 		return result;
 	}

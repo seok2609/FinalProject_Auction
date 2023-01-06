@@ -123,6 +123,24 @@ public class MembersController {
 		return "members/signUpD";
 	}
 	
+	//도매업자 회원가입 (주소포함)
+	@PostMapping(value = "signUpD")
+	public ModelAndView setDomaeSignUp(MembersVO membersVO, MultipartFile files) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		log.info("==============도매업자 회원가입============");
+		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
+		int result = membersService.setDomaeSignUp(membersVO, files);
+		membersService.setMembersRole(membersVO);
+		
+		mv.addObject("membersVO", membersVO);
+		mv.setViewName("members/login");
+		
+		
+		return mv;
+	}
+	
 	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
 	@GetMapping(value = "signUpG")
 	public String setMembersSignUpG(String roleNum) throws Exception{

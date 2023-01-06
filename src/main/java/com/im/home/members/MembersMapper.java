@@ -14,8 +14,11 @@ public interface MembersMapper {
 	//로그인
 	public MembersVO getMembersLogin(String username) throws UsernameNotFoundException;
 	
-	//회원가입
+	//일반회원 회원가입
 	public int setMembersSignUp(MembersVO membersVO) throws Exception;
+	
+	//도매업자 회원가입
+	public int setDomaeSignUp(MembersVO membersVO) throws Exception;
 	
 	//파일추가
 	public int setMembersFileAdd(MembersFileVO membersFileVO) throws Exception;

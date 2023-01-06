@@ -8,7 +8,12 @@
 
 	<!-- 일반회원 회원가입 INSERT -->
 	<insert id="setMembersSignUp" parameterType="MembersVO">
-		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null, 0, null, null, null, null)
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, null, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null, 0, null, null, null, null)
+	</insert>
+	
+	<!-- 도매업자 회원가입 INSERT -->
+	<insert id="setDomaeSignUp" parameterType="MembersVO">
+		INSERT INTO MEMBERS VALUES (#{id}, #{passWord}, #{realName}, #{nickName}, #{address}, #{email}, #{birth}, 1, #{phone}, SYSDATE(), #{roleNum}, null, 0, null, null, null, null)
 	</insert>
 	
 	<!-- 소셜로그인 회원가입 INSERT -->

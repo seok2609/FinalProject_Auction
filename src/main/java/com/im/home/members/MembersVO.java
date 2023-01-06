@@ -32,6 +32,7 @@ public class MembersVO implements UserDetails, OAuth2User{
 
 	private String realName;
 	private String nickName;
+	private String address;
 	
 	//@Email
 	//@NotBlank
