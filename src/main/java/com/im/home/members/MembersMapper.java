@@ -53,6 +53,23 @@ public interface MembersMapper {
 	//카카오 회원가입
 	public int setKakao(MembersVO membersVO) throws Exception;
 	
+
+	//결제
+	public int setPoint(MembersVO membersVO) throws Exception;
+	public MembersVO getMemberInfo(MembersVO membersVO) throws Exception;
+	//
+	
+
 	//소셜로그인 추가정보입력
 	public int setSocialSignUp(MembersVO membersVO) throws Exception;
+
+
+	//임시비밀번호 전송으로 비밀번호 찾기
+	public MembersVO getFindPassWord(MembersVO membersVO) throws Exception;
+	
+	//임시비밀번호를 임시컬럼에 UPDATE한다
+	public int setCodePw(MembersVO membersVO) throws Exception;
+
+	//발급받은 임시비밀번호로 로그인 할 수 있는 UPDATE문
+	public int setUpdatePassWord(MembersVO membersVO) throws Exception;
 }

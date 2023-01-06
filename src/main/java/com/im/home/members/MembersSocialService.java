@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -17,6 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MembersSocialService extends DefaultOAuth2UserService{
 	
+	@Autowired
+	private MembersMapper membersMapper;
+	
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -26,6 +30,7 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		log.info("UserRequest : {} ", userRequest);
 		log.info("AccessTocken : {} ", userRequest.getAccessToken());
 		log.info("ClientRegistration : {} ", userRequest.getClientRegistration());
+		log.info("client어쩌구 :: {} " , userRequest.getClientRegistration().getRegistrationId());
 		
 		String social = userRequest.getClientRegistration().getRegistrationId();
 		log.info("Social : {} ", social);
@@ -37,9 +42,6 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 	
 	
 	private OAuth2User socailJoinCheck(OAuth2UserRequest userRequest) {
-		
-		//회원가입 유무
-		
 		OAuth2User oAuth2User = super.loadUser(userRequest);
 		
 		log.info("************** 사용자 정보 *************");
@@ -65,36 +67,59 @@ public class MembersSocialService extends DefaultOAuth2UserService{
 		Map<String, String> lm = oAuth2User.getAttribute("properties");
 		Map<String, Object> ks = oAuth2User.getAttribute("kakao_account");
 		
+		
+		
+		
 		MembersVO membersVO = new MembersVO();
 		
 		membersVO.setId(oAuth2User.getName());
 		
-		//pw가 없으므로 비워두거나, 랜덤한 값으로 일단 채워넣는다
-		//membersVO.setPw(null);
+		//회원가입 유무
+		int count = 0;
 		
-		membersVO.setNickName(lm.get("nickname"));
-		membersVO.setEmail(ks.get("email").toString());
+		try {
+			count = membersMapper.getIdCheck(membersVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		membersVO.setSocial(userRequest.getClientRegistration().getRegistrationId());
+		//count 가 0이면 회원가입 안된거 가짜로그인 진행
+		if(count == 0) {
+			
+
+			
+			//pw가 없으므로 비워두거나, 랜덤한 값으로 일단 채워넣는다
+			//membersVO.setPw(null);
+			
+			//가짜 로그인
+			membersVO.setNickName(lm.get("nickname"));
+			membersVO.setEmail(ks.get("email").toString());
+			membersVO.setSocial(userRequest.getClientRegistration().getRegistrationId());
+			
+			membersVO.setAttributes(oAuth2User.getAttributes());
+			
+			//Role을 임의로 작성
+			List<RoleVO> lr = new ArrayList<>();
+			RoleVO roleVO = new RoleVO();
+			
+			roleVO.setRoleName("ROLE_MEMBER");
+			
+			lr.add(roleVO);
+			
+			membersVO.setRoleVOs(lr);
+				
 		
-		membersVO.setAttributes(oAuth2User.getAttributes());
-		
-		//Role을 임의로 작성
-		List<RoleVO> lr = new ArrayList<>();
-		RoleVO roleVO = new RoleVO();
-		
-		roleVO.setRoleName("ROLE_MEMBER");
-		
-		lr.add(roleVO);
-		
-		membersVO.setRoleVOs(lr);
-		
-		
+		}else {
+			membersVO = membersMapper.getMembersLogin(oAuth2User.getName());
+			
+		}
 		
 		return membersVO;
 		
 		
 	}
+
 	
 	
 

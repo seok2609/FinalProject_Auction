@@ -110,52 +110,53 @@ $("#amd").click(function(){
 
 
 // 패스워드, 패스워드 체크, 닉네임, 이메일, 전화번호 
-let results = [false, false, false, false, false];
+// let results = [false, false, false, false, false];
+let results = [false, false, false];
 
 //passWord체크
 
-$("#inputPassWord").on({
-    blur:function(){
-        let result = nullCheck($("#inputPassWord").val());
-        results[0] = result;
-        if(result){
-            $("#pwHelp").html("정상");
-        }else{
-            $("#pwHelp").html("패스워드는 필수입니다.");
-            $("#inputPassWord").focus();
-        }
-    },
+// $("#inputPassWord").on({
+//     blur:function(){
+//         let result = nullCheck($("#inputPassWord").val());
+//         results[0] = result;
+//         if(result){
+//             $("#pwHelp").html("정상");
+//         }else{
+//             $("#pwHelp").html("패스워드는 필수입니다.");
+//             $("#inputPassWord").focus();
+//         }
+//     },
 
-    change:function(){
-        let result = equals($("#inputPassWord").val(), $("#inputPassWordCheck").val());
+//     change:function(){
+//         let result = equals($("#inputPassWord").val(), $("#inputPassWordCheck").val());
 
-        if(result){ //패스워드와 확인이 같다면,
-            $("#pwCheckHelp").html("");
-        }else{
-            $("#pwCheckHelp").html("비밀번호가 일치하지 않습니다.")
-            $("#pwHelp").val("");   //비밀번호가 일치하지 않다면 비밀번호를 공백으로 바꾼다.
-            $("inputPassWordCheck").focus();
+//         if(result){ //패스워드와 확인이 같다면,
+//             $("#pwCheckHelp").html("");
+//         }else{
+//             $("#pwCheckHelp").html("비밀번호가 일치하지 않습니다.")
+//             $("#pwHelp").val("");   //비밀번호가 일치하지 않다면 비밀번호를 공백으로 바꾼다.
+//             $("inputPassWordCheck").focus();
 
-            results[0] = result;
-        }
-    }
-});
+//             results[0] = result;
+//         }
+//     }
+// });
 
-//패스워드 확인 검증
-$("#inputPassWordCheck").blur(function(){
+// //패스워드 확인 검증
+// $("#inputPassWordCheck").blur(function(){
 
-    let result = equals($("#inputPassWord").val(), $("#inputPassWordCheck").val());
+//     let result = equals($("#inputPassWord").val(), $("#inputPassWordCheck").val());
 
-    results[1] = result;
+//     results[1] = result;
 
-    if(result){
-        $("#pwCheckHelp").html("패스워드가 일치합니다.");
+//     if(result){
+//         $("#pwCheckHelp").html("패스워드가 일치합니다.");
         
-    }else{
-        $("#pwCheckHelp").html("패스워드가 불일치 합니다.");
-    }
+//     }else{
+//         $("#pwCheckHelp").html("패스워드가 불일치 합니다.");
+//     }
 
-});
+// });
 
 //닉네임 검증
 // $("#inputNickName").click(function(){
@@ -169,7 +170,7 @@ $("#inputNickName").blur(function(){
 
     let result = nullCheck($("#inputNickName").val());
 
-    results[2] = result;
+    results[0] = result;
 
     if(result){
         $("#nickNameHelp").html("정상입니다.");
@@ -192,7 +193,7 @@ function isEmail(asValue) {
 $("#inputEmail").blur(function(){
 
     let result = nullCheck($("#inputEmail").val());
-    results[3] = result;
+    results[1] = result;
 
     if($("#inputEmail").val() == ''){
         $("#inputEmail").focus();
@@ -248,7 +249,7 @@ phoneFormat('01012345678');
 $("#inputPhone").blur(function(){
     let result = nullCheck($("#inputPhone").val());
     
-    results[4] = result;
+    results[2] = result;
     
         if($("#inputPhone").val() == ''){
             $("#phoneHelp").focus();

@@ -171,5 +171,8 @@ $RECYCLE.BIN/
 # my file
 application-secret.properties
 application-prod.properties
+com.im.home.mail.config
+MailConfig.java
+MailConfig 
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,web

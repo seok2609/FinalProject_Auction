@@ -142,8 +142,9 @@
               <div class="icon">
                 <i class="bi bi-chat-square-text"></i>
               </div>
-              <h3 style="color: #008374;">배달 현황</h3>
-              <a href="/delivery/map" class="readmore stretched-link"></a>
+              <h3 style="color: #008374;">보유 포인트</h3>
+              <h5>${membersVO.point }P</h5>
+              <a href="./pay" class="readmore stretched-link"></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -251,14 +252,16 @@
 	            console.log(check);
 	            if(check){  //비밀번호 비교가 true라면
 	                console.log("비밀번호 일치");
-	                alert("비밀번호가 일치하여 회원수정 페이지로 이동합니다..");
-	                // swal({
-	                //     title: "비밀번호 일치!",
-	                //     text: "수정 페이지로 넘어갑니다.",
-	                //     icon: "success",
-	                //     button: "확인",
-	                //   });
+	            alert("비밀번호가 일치하여 회원수정 페이지로 이동합니다..");
+	                /*  Swal.fire({
+	                     title: "비밀번호 일치!",
+	                     text: "수정 페이지로 넘어갑니다.",
+	                     icon: "success",
+	                     button: "확인",
+	                   }); */	            	
 	                window.location.href="./modify";
+	                
+	                
 	            } else{
 	                console.log("비밀번호 틀림");
 	                // 비밀번호가 일치하지 않으면

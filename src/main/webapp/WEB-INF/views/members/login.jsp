@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script defer src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <c:import url="../temp/boot.jsp"></c:import>
 
 <style>
@@ -77,16 +78,16 @@
 				    	<b style="color: #008374;">자동로그인</b>
 			  
 			  <!-- 아래 있는 비밀번호 찾기 모달 띄우기 -->
-<!-- 				  <div style="float: right;" id="pwConfirm" data-bs-toggle="modal" data-bs-target="#myModal">
+<!--  				  <div style="float: right;" id="pwConfirm" data-bs-toggle="modal" data-bs-target="#myModal">
 					  	pw찾기
 				  </div> -->
 				  
 				</div>
 				
-				 <!--  <div id="pb">
+				 <div id="pb">
 				 	 <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
 					</button>	
-				 </div> -->
+				 </div>
 				 
 
 
@@ -102,54 +103,72 @@
               	<button type="button" id="loginBtn" onclick="blackMem()">로그인</button>
               </div>
             </form>
+            
+            <!-- 비밀번호 찾기 -->
+            <div style="float:right;">
+				<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#findPw">비밀번호를 잊으셨나요?</button>
+			</div>
+			
+			
           </div><!-- End Contact Form -->
+          
+          
           <!--임시 비번 모달-->
-<div id="findPw" class="modal fade">
-    <div class="modal-dialog modal-dialog-centered modal-login">
-        <div class="modal-content">
-            <div class="modal-body">
-
-                    <div class="container my-auto">
-                        <div class="row">
-                            <div class="card z-index-0 fadeIn3 fadeInBottom">
-                                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                    <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                                        <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">비밀번호 찾기</h4>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <form role="form" class="text-start" action="/member/sendEmail" method="post" name="sendEmail">
-                                        <p>입력한 이메일로 임시 비밀번호가 전송됩니다.</p>
-                                        <div class="input-group input-group-outline my-3">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" id="userEmail" name="memberEmail" class="form-control" required>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2"
-                                                    id="checkEmail">비밀번호 발송</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!--     <button type="button" class="btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#findPw">비밀번호를 잊으셨나요?</button> -->
-                                            </section>
-                                            <script>
+		<div class="container">
+		    <!-- Modal -->
+		    <div class="modal fade" id="findPw" role="dialog">
+		        <div class="modal-dialog">
+		
+		            <!-- Modal content-->
+		            <div class="modal-content">
+		                <div class="modal-header" style="padding:35px 50px;">
+		                    <h4><span class="glyphicon glyphicon-lock"></span> 비밀번호 찾기</h4>
+		                </div>
+		                <div class="modal-body" style="padding:40px 50px;">
+		                    <div style="color: #ac2925">
+		                        <center>입력된 정보로 임시 비밀번호가 전송됩니다.</center>
+		                    </div>
+		                    <hr>
+		                    <form role="form" action=	"mailConfirm" method="post">
+		                        <div class="form-group">
+		                            <label for="userEmail"><span class="glyphicon glyphicon-user"></span>email</label>
+		                            <input type="text" class="form-control" name="email" id="userEmail" placeholder="가입시 등록한 이메일을 입력하세요.">
+		                        </div>
+		          <!--               <div class="form-group">
+		                            <label for="userName"><span class="glyphicon glyphicon-eye-open"></span> name</label>
+		                            <input type="text" class="form-control" name="nickName" id="userName" placeholder="가입시 등록한 닉네임을 입력하세요.">
+		                        </div> -->
+		                        <button type="button" class="btn btn-success btn-block" id="checkEmail">OK</button>
+		                    </form>
+		                    <hr>
+		                    <div class="text-center small mt-2" id="checkMsg" style="color: red"></div>
+		                </div>
+		                <div class="modal-footer">
+		                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
+		                            class="glyphicon glyphicon-remove"></span> Cancel
+		                    </button>
+		                </div>
+		            </div>
+		
+		        </div>
+		    </div>
+		</div>
+		
+			
+			
+				
+          </section>
+          
+          
+<!--           <script>
     $("#checkEmail").click(function () {
         const userEmail = $("#userEmail").val();
-        const sendEmail = document.forms["sendEmail"];
+    /*     const sendEmail = document.forms["sendEmail"]; */
         $.ajax({
             type: 'post',
-            url: 'emailDuplication',
+            url: 'mailConfirm',
             data: {
-                'memberEmail': userEmail
+                'userEmail': userEmail
             },
             dataType: "text",
             success: function (result) {
@@ -166,7 +185,7 @@
             }
         })
     });
-</script>
+</script> -->
 
 	
 	
