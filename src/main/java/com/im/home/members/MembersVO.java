@@ -45,7 +45,8 @@ public class MembersVO implements UserDetails, OAuth2User{
 	private int distinguish;
 
 	private int point;
-
+	private int forget;
+	private String exPassWord;
 	
 	private int roleNum;
 	

@@ -69,6 +69,10 @@ public class MembersController {
 	@GetMapping(value = "login")
 	public String getMembersLogin() throws Exception{
 		
+		ModelAndView mv = new ModelAndView();
+		
+		log.info("로그인창 입장~");
+		
 		return "members/login";
 	}
 	
@@ -252,7 +256,6 @@ public class MembersController {
 	
 	
 	//마이페이지에서 보이는 나의 1:1문의 내역
-//	@RequestMapping(value = "/kdy/*")
 	@GetMapping(value = "inquiryList")
 	public ModelAndView getInquiryList(String id, AdminMembersVO adminMembersVO, Principal principal, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -671,8 +674,10 @@ public class MembersController {
 			
 		   String code = mailService.sendSimpleMessage(userEmail);
 		   
-		   membersVO.setPassWord(code);	//임시비밀번호를 DB의 비밀번호 컬럼으로 업데이트 시켜줌
-		   membersVO.setPassWord(passwordEncoder.encode(code));	//업데이트 시킨 임시 비밀번호를 인코딩해서 디비에 업데이트
+		   membersVO.setPassWord(code);
+		   membersVO.setExPassWord(code);	//임시비밀번호를 DB의 비밀번호 컬럼으로 업데이트 시켜줌
+		   membersVO.setPassWord(passwordEncoder.encode(code));
+		   membersVO.setExPassWord(passwordEncoder.encode(code));	//업데이트 시킨 임시 비밀번호를 인코딩해서 디비에 업데이트
 		   membersVO.setEmail(userEmail);	//파라미터로 인증받을때 사용한 이메일주소를 사용함
 		   int result = membersService.setCodePw(membersVO);
 		   log.info("인증코드 ::  {} " , code);
@@ -690,16 +695,45 @@ public class MembersController {
 //		}
 		
 		
-		@PostMapping(value = "updatePassWord")
+		//발급받은 임시 비밀번호로 비밀번호 재설정을 할때 임시 비밀번호가 DB에 있는지 확인.
+		@GetMapping(value = "setUpdatePassWord1")
 		@ResponseBody
-		public int setUpdatePassWord(MembersVO membersVO, String userEmail) throws Exception{
+		public boolean setUpdatePassWord(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, @RequestParam String id, Model model, Principal principal) throws Exception{
+			
+			model.addAttribute("membersVO", membersVO);
+			
+			
+			String membersId = membersVO.getId();
+			log.info("memberID : {} " ,membersId);
+			
+			boolean check = false;
+			
+			check = membersService.checkPassWord(membersId, checkPassWord);
+			log.info("비밀번호 재설정 수정 check :: {} " , check);
+			
+		
+			return check;
+		
+		}
+		
+		
+		@PostMapping(value = "updatePassWord")
+		public ModelAndView setUpdatePassWord(MembersVO membersVO) throws Exception{
+			
+			ModelAndView mv = new ModelAndView();
 			
 			//발급받은 임시비밀번호를 가져와서 로그인 할 수있는 비밀번호로 인코딩해서 만들어준다.
-			log.info("발급받은 비밀번호 :: {} " , mailService.sendSimpleMessage(userEmail));
-			membersVO.setPassWord(passwordEncoder.encode(mailService.sendSimpleMessage(userEmail)));
+			membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
 			int result = membersService.setUpdatePassWord(membersVO);
-		
-			return result;
+			
+			if(result == 1) {
+				mv.setViewName("redirect:/members/login");				
+			}else {
+				log.info("!!비밀번호 재설정 실패!!");
+				mv.setViewName("/members/myPage");
+			}
+			
+			return mv;
 		}
 		
 }

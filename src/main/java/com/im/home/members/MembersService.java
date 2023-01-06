@@ -222,6 +222,7 @@ public class MembersService {
 //		return check;
 //	}
 	
+	//DB에 인코딩된 비밀번호와 일치하는지 검증
 	public boolean checkPassWord(String membersId, String checkPassWord) throws Exception{
 	
 //		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
