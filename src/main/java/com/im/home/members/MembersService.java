@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.im.home.admin.AdminMembersVO;
-import com.im.home.mail.config.MailConfig;
+import com.im.home.mail.MailConfig;
 import com.im.home.util.MembersFileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -308,4 +308,18 @@ public class MembersService {
 		
 		return membersMapper.getFindPassWord(membersVO);
 	}
+	
+	//발급받은 비밀번호를 임시컬럼에 임의로 UPDATE 해준다
+	public int setCodePw(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.setCodePw(membersVO);
+	}
+	
+	//발급받은 임시 비밀번호로 로그인하기
+	public int setUpdatePassWord(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.setUpdatePassWord(membersVO);
+	}
+	
+	
 }
