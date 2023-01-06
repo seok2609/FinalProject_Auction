@@ -21,6 +21,7 @@
 			<typeAlias type="com.im.home.admin.ProductFileVO" alias="ProductFileVO"/>
 			<typeAlias type="com.im.home.admin.ProductGradeVO" alias="ProductGradeVO"/>
   			<typeAlias type="com.im.home.admin.AuctionVO" alias="AuctionVO"/>
+  			<typeAlias type="com.im.home.admin.DeliveryStateVO" alias="DeliveryStateVO"/>
   			<typeAlias type="com.im.home.util.AdminPager" alias="AdminPager"/>
             
   			<!-- 경매 -->

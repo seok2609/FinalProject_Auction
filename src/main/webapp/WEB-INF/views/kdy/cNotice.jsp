@@ -131,7 +131,7 @@
             <hr class="sidebar-divider d-none d-md-block">
         </ul>
 
-        <div id="contact" class="contact" style="margin-left: 350px;">
+        <div id="contact" class="contact " style="margin-left: 350px;">
             <div class="container" data-aos="fade-up">
               <div class="section-header" style="margin-top: 90px;">
                 <h2>공지사항 등록</h2>
@@ -161,7 +161,7 @@
                    </div>
                </div>
              
-                <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
+                <div class="col-lg-8 php-email-form " style="margin-bottom: 90px;">
                     <form method="post" action="./cNotice" id="frm">
                     <div class="form-group mt-3">
                         공지사항 제목 : 
