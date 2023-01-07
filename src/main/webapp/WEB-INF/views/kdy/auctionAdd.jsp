@@ -132,7 +132,7 @@
                 <h2>경매 오픈</h2>
               </div>
 
-              <div class="row " style="width: 1000px;">
+              <div class="row gx-lg-0 gy-4">
                <div style="height: 50px;">
                    <div class="d-flex">
                      <div class="info-item d-flex">
@@ -166,10 +166,10 @@
                         허용 인원 수 : 
                       <input type="text" class="form-control" name="head_count" id="head_count">
                     </div>
-                      <div class="form-group mt-3">
+                      <!-- <div class="form-group mt-3">
                         상품 명 : 
-                      <input type="text" class="form-control"name="name" id="name">
-                    </div>
+                      <input type="text" class="form-control" readonly value="" id="name">
+                    </div> -->
                     <div class="form-group mt-3">
                         시작 지정가 : 
                       <input type="text" class="form-control"name="init_price" id="init_price">

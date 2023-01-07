@@ -39,7 +39,7 @@
                 </div>
               </div>
               <div class="form-group mt-3">
-                <input type="text" class="form-control" name="report_id" id="report_id">
+                <input type="text" class="form-control" name="report_id" id="report_id" readonly value=${membersReportVO.report_id}>
               </div>
               <div class="form-group mt-3">
                 <textarea class="form-control" name="report_contents" id="report_contents" rows="7" placeholder="신고내용을 입력해주세요" required></textarea>

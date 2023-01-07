@@ -1,21 +1,24 @@
 package com.im.home.auction;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
+
+import com.im.home.admin.AuctionVO;
+import com.im.home.admin.ProductVO;
 @Mapper
 public interface AuctionMapper {
-//	
-//	// 경매 상품 목록
-//	public List<AuctionVO> getList() throws Exception;
-//	
-//	// 경매 상품 추가
-//	public int setAdd() throws Exception;
-//	
-//	// 경매 상품 디테일
-//	public AuctionVO getDetail() throws Exception;
-//	
-//	
-//	
+	
+	public ProductVO getAuctionDetail(AuctionVO auctionVO);
+	
+	//진행중인 경매 확인
+	public AuctionVO getIngBroadcasting();
+	
+	//경매 상태(ING) 업데이트
+	public int setUpdateIng(AuctionVO auctionVO);
+	
+	public int setUpdateWinner(ProductVO productVO);
+	
+	public int setUpdateAward(AuctionVO auctionVO);
+	
+	public int setUpdatePointMinus(AuctionVO auctionVO);
 	
 }

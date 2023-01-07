@@ -2,6 +2,8 @@
 package com.im.home.members;
 
 import java.security.Principal;
+import java.security.SecureRandom;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.Servlet;
@@ -17,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +35,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.im.home.admin.AdminMembersService;
 import com.im.home.admin.AdminMembersVO;
+import com.im.home.mail.MailService;
+import com.im.home.mail.OtherService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,10 +54,24 @@ public class MembersController {
 //	private MailSenderRunner mailSenderRunner;
 	@Autowired
 	private AdminMembersService adminMembersService;
+	@Autowired
+	private MembersSocialService membersSocialService;
+//	@Autowired
+//	private MailService mailService;
+	@Autowired
+	private OtherService otherService;
+	@Autowired
+	private MailService mailService;
+	
+	
 	
 	
 	@GetMapping(value = "login")
 	public String getMembersLogin() throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		log.info("로그인창 입장~");
 		
 		return "members/login";
 	}
@@ -104,6 +123,24 @@ public class MembersController {
 		return "members/signUpD";
 	}
 	
+	//도매업자 회원가입 (주소포함)
+	@PostMapping(value = "signUpD")
+	public ModelAndView setDomaeSignUp(MembersVO membersVO, MultipartFile files) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		log.info("==============도매업자 회원가입============");
+		membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
+		int result = membersService.setDomaeSignUp(membersVO, files);
+		membersService.setMembersRole(membersVO);
+		
+		mv.addObject("membersVO", membersVO);
+		mv.setViewName("members/login");
+		
+		
+		return mv;
+	}
+	
 	//약관동의가 끝나고 다음버튼을 누르면 회원가입 주소로감
 	@GetMapping(value = "signUpG")
 	public String setMembersSignUpG(String roleNum) throws Exception{
@@ -148,6 +185,13 @@ public class MembersController {
 		log.info("로그아웃 실행 준비");
 		
 		session.invalidate();					//세션삭제			
+		
+		return "redirect:../";
+	}
+	
+	//소셜 로그아웃
+	@GetMapping(value = "logoutResult")
+	public String socialLogout() throws Exception{
 		
 		return "redirect:../";
 	}
@@ -230,7 +274,6 @@ public class MembersController {
 	
 	
 	//마이페이지에서 보이는 나의 1:1문의 내역
-//	@RequestMapping(value = "/kdy/*")
 	@GetMapping(value = "inquiryList")
 	public ModelAndView getInquiryList(String id, AdminMembersVO adminMembersVO, Principal principal, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -510,7 +553,9 @@ public class MembersController {
 //			membersVO.setNickName(authentication.getPrincipal().toString());
 //			membersVO.setEmail(authentication.getPrincipal().toString());
 			
+			
 			int result = membersService.setSocialSignUp(membersVO, files);
+			
 			
 			
 			if(result == 1) {
@@ -551,6 +596,162 @@ public class MembersController {
 				String paymentResult = "";
 				return paymentResult;
 			}
+		}
+		
+		//임시비밀번호 전송
+//		@PostMapping(value = "sendEmail")
+//		public String findPassWord (MembersVO membersVO) throws Exception{
+//			
+//			log.info("======== findPw => {}", membersVO);
+//			char[] charSet = new char[] {
+//		                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+//		                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+//		                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+//		                '!', '@', '#', '$', '%', '^', '&' };
+//
+//	        StringBuffer sb = new StringBuffer();
+//	        SecureRandom sr = new SecureRandom();
+//	        sr.setSeed(new Date().getTime());
+//	        
+//	        int idx = 0;
+//	        
+//	        int len = charSet.length;
+//	        for (int i=0; i<10; i++) {
+//	            // idx = (int) (len * Math.random());
+//	            idx = sr.nextInt(len);    // 강력한 난수를 발생시키기 위해 SecureRandom을 사용.
+//	            sb.append(charSet[idx]);
+//	        }
+//
+//	        membersVO.setPassWord(sb.toString());
+//	        mailService.sendPw(membersVO);
+//	        
+//	        membersVO.setPassWord(passwordEncoder.encode(sb.toString()));
+//	        membersService.setChangePw(membersVO);
+//	        return "redirect:/members/login";
+//		}
+//		
+//		
+//		@RequestMapping("mail")
+//		public String sendMail(MailVO mailVO) {
+//			mailService.sendSimpleMessage(mailVO);
+//			return "redirect:../";
+//		}
+//
+//			
+//		}
+		
+		
+//		@ResponseBody
+//		@PostMapping(value="mail")
+//		public void emailConfirm(String userId) throws Exception{
+//			
+//			log.info("이메이이이이이일");
+//			log.info("전달 받은 이메일 :: {} " , userId);
+//			
+//			otherService.sendSimpleMessage(userId);
+//		}
+//		
+//		@PostMapping(value = "verifyCode")
+//		@ResponseBody
+//		public int verifyCode(String code) {
+//			
+//			log.info("========랜덤코드 POST 실행============");
+//			
+//			int result = 0;
+//			
+//			log.info("code :: {} " ,code);
+//			log.info("code Match :: {} ", mailService.cPw.equals(code));
+//			
+//			if(mailService.cPw.equals(code)) {
+//				result = 1;
+//			}
+//			
+//			return result;
+//		}
+		
+//		@GetMapping(value = "mailConfirm")
+//		@ResponseBody
+//		public String mailConfirm1(String email, MembersVO membersVO) throws Exception {
+//			log.info("컨트롤러로 옴?");
+////			email = "jong120926@naver.com";
+//
+////			email = membersVO.getEmail();
+////		   String code = mailService.sendSimpleMessage(email);
+////		   log.info("인증코드 ::  {} " , code);
+//		   return code;
+//		}
+		
+		
+		// 이메일 인증
+		@PostMapping(value = "mailConfirm")
+		@ResponseBody
+		public String mailConfirm(String userEmail, MembersVO membersVO) throws Exception {
+			log.info("컨트롤러로 옴?");
+			log.info("email :::: {} " , userEmail);
+//			email = "jong120926@naver.com";
+			
+		   String code = mailService.sendSimpleMessage(userEmail);
+		   
+		   membersVO.setPassWord(code);
+		   membersVO.setExPassWord(code);	//임시비밀번호를 DB의 비밀번호 컬럼으로 업데이트 시켜줌
+		   membersVO.setPassWord(passwordEncoder.encode(code));
+		   membersVO.setExPassWord(passwordEncoder.encode(code));	//업데이트 시킨 임시 비밀번호를 인코딩해서 디비에 업데이트
+		   membersVO.setEmail(userEmail);	//파라미터로 인증받을때 사용한 이메일주소를 사용함
+		   int result = membersService.setCodePw(membersVO);
+		   log.info("인증코드 ::  {} " , code);
+		   return code;
+		}
+		
+		
+//		@PostMapping(value = "mailConfirm")
+//		@ResponseBody
+//		public String mailConfirm(String email) throws Exception {
+////			email = "jong120926@naver.com";
+//		   String code = mailService.sendSimpleMessage(email);
+//		   log.info("인증코드 ::  {} " , code);
+//		   return code;
+//		}
+		
+		
+		//발급받은 임시 비밀번호로 비밀번호 재설정을 할때 임시 비밀번호가 DB에 있는지 확인.
+		@GetMapping(value = "setUpdatePassWord1")
+		@ResponseBody
+		public boolean setUpdatePassWord(@AuthenticationPrincipal MembersVO membersVO, @RequestParam String checkPassWord, @RequestParam String id, Model model, Principal principal) throws Exception{
+			
+			model.addAttribute("membersVO", membersVO);
+			
+			
+			String membersId = membersVO.getId();
+			log.info("memberID : {} " ,membersId);
+			
+			boolean check = false;
+			
+			check = membersService.checkPassWord(membersId, checkPassWord);
+			log.info("비밀번호 재설정 수정 check :: {} " , check);
+			
+		
+			return check;
+		
+		}
+		
+		
+		@PostMapping(value = "updatePassWord")
+		public ModelAndView setUpdatePassWord(MembersVO membersVO) throws Exception{
+			
+			ModelAndView mv = new ModelAndView();
+			
+			//발급받은 임시비밀번호를 가져와서 로그인 할 수있는 비밀번호로 인코딩해서 만들어준다.
+			membersVO.setPassWord((passwordEncoder.encode(membersVO.getPassword())));;
+			int result = membersService.setUpdatePassWord(membersVO);
+			
+			if(result == 1) {
+				mv.setViewName("redirect:/members/login");				
+			}else {
+				log.info("!!비밀번호 재설정 실패!!");
+				mv.setViewName("/members/myPage");
+			}
+			
+			return mv;
 		}
 		
 }

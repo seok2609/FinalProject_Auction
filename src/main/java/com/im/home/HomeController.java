@@ -1,5 +1,6 @@
 package com.im.home;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,6 +13,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +27,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.im.home.members.MembersMapper;
+import com.im.home.members.MembersSocialService;
 import com.im.home.members.MembersVO;
 import com.im.home.util.Pager;
 import com.im.home.wholesale.WholeSaleService;
 import com.im.home.wholesale.WholeSaleVO;
 
+import io.netty.handler.codec.http.cookie.Cookie;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
@@ -38,10 +46,28 @@ public class HomeController {
 	
 	@Autowired
 	private WholeSaleService wholeSaleService;
+	@Autowired
+	private MembersSocialService membersSocialService;
+	@Autowired
+	private MembersMapper membersMapper;
 	
 	@GetMapping("/")
-	public ModelAndView home(MembersVO membersVO) throws Exception{
+	public ModelAndView home(MembersVO membersVO, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
+		
+		log.info("세션세션 :: {} ", session.getAttributeNames()); 
+		log.info("세션 아이디 :: :{} " , session.getId());
+		
+//		log.info("1111 :: {} " , oAuth2User.getName());
+//		log.info("2222 :: {} " , oAuth2User.getAttributes());
+		
+		membersVO.setDistinguish(membersVO.getDistinguish());
+		
+//		OAuth2UserRequest oAuth2UserRequest = new OAuth2UserRequest(null, null);
+//		
+//		membersSocialService.loadUser(oAuth2UserRequest.getClientRegistration().getRegistrationId());
+		
+//		mv.addObject("client", oAuth2UserRequest.getClientRegistration());
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	      Calendar c1 = Calendar.getInstance(); 
@@ -128,6 +154,7 @@ public class HomeController {
 		mv.addObject("totQty", totQty);
 		mv.addObject("totAmt", totAmt);
 		mv.addObject("membersVO", membersVO);
+//		mv.addObject("membersVO2", authentication.getPrincipal());
 		mv.setViewName("index");
 		return mv;
 	}

@@ -46,7 +46,8 @@
               <div class="row" >
               <sec:authentication property="Principal" var="member"/>
                 <input type="hidden" name="id" value="${param.id}">
-                <div class="form-group mt-3">
+                
+                <!-- <div class="form-group mt-3">
                   <input type="password" name="passWord" class="form-control" id="inputPassWord" placeholder="패스워드를 입력하세요">
                   <span id="pwHelp" class="bc"></span>
                 </div>
@@ -54,7 +55,7 @@
                 <div class="form-group mt-3">
                   <input type="password" name="passWordCheck" class="form-control" id="inputPassWordCheck"  placeholder="위에 입력한 패스워드를 다시 한번 입력해주세요">
                   <span id="pwCheckHelp" class="bc"></span>
-                </div>
+                </div> -->
                 
                 <div class="form-group mt-3">
                   <input type="text" name="nickName" class="form-control" id="inputNickName" placeholder="닉네임을 입력하세요" value="${member.nickName}">
@@ -203,7 +204,13 @@
                 console.log(resultPw);
                 if(resultPw == 1){
                     console.log("비밀번호 일치");
-                    alert("회원탈퇴가 성공적으로 완료되었습니다. 이용해주셔서 감사합니다.");
+                    /* alert("회원탈퇴가 성공적으로 완료되었습니다. 이용해주셔서 감사합니다."); */
+						Swal({
+						  title: "Good job!",
+						  text: "You clicked the button!",
+						  icon: "success",
+						  button: "Aww yiss!",
+						});
                     window.location.href="../";
                 } else{
                     console.log("비밀번호 틀림");

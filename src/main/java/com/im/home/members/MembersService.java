@@ -8,11 +8,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.im.home.admin.AdminMembersVO;
+import com.im.home.mail.MailConfig;
 import com.im.home.util.MembersFileManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,9 +40,13 @@ public class MembersService {
 	private String path;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private MembersSocialService membersSocialService;
+	@Autowired
+	private MailConfig mailConfig;
 	
 	
-	
+	//일반회원 회원가입
 	public int setMembersSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
 		
 		int result = membersMapper.setMembersSignUp(membersVO);
@@ -74,6 +81,39 @@ public class MembersService {
 //		if(url == "members/signUpC") {
 //			int result2 = membersMapper.setMembersRole(roleVO.setRoleNum(2));
 //		}
+		
+		return result;
+	}
+	
+	//도매업자 회원가입 (주소포함)
+	public int setDomaeSignUp (MembersVO membersVO, MultipartFile mpf) throws Exception{
+		
+		int result = membersMapper.setDomaeSignUp(membersVO);
+		
+		log.info("Path => {}" ,path);
+		
+		File file = new File(path);
+		
+		if(!file.exists()) {	//파일이 존재하지 않다면~~
+			boolean check = file.mkdirs();
+			log.info("Check => {} " , check);
+			
+		}
+		
+		
+		if(!mpf.isEmpty()) {
+			log.info("FileName => {} " , mpf.getOriginalFilename());
+			
+			String fileName = membersFileManager.saveFile(mpf, path);
+			
+			MembersFileVO membersFileVO = new MembersFileVO();
+			membersFileVO.setFileName(fileName);
+			membersFileVO.setOriName(mpf.getOriginalFilename());
+			membersFileVO.setId(membersVO.getId());
+			
+			membersMapper.setMembersFileAdd(membersFileVO);
+			
+		}
 		
 		return result;
 	}
@@ -215,6 +255,7 @@ public class MembersService {
 //		return check;
 //	}
 	
+	//DB에 인코딩된 비밀번호와 일치하는지 검증
 	public boolean checkPassWord(String membersId, String checkPassWord) throws Exception{
 	
 //		SecurityContextImpl context = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
@@ -260,9 +301,12 @@ public class MembersService {
 	//카카오 추가정보입력 
 	public int setSocialSignUp(MembersVO membersVO, MultipartFile mpf) throws Exception{
 		
+		
+		
 		int result = membersMapper.setSocialSignUp(membersVO);
 		
-		
+		membersVO.setRoleNum(7);
+		result = membersMapper.setMembersRole(membersVO);
 		
 		log.info("Path => {}" ,path);
 		
@@ -290,6 +334,25 @@ public class MembersService {
 		}
 				
 		return result;
+	}
+	
+	
+	//임시 비밀번호찾기
+	public MembersVO getFindPassWord(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.getFindPassWord(membersVO);
+	}
+	
+	//발급받은 비밀번호를 임시컬럼에 임의로 UPDATE 해준다
+	public int setCodePw(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.setCodePw(membersVO);
+	}
+	
+	//발급받은 임시 비밀번호로 로그인하기
+	public int setUpdatePassWord(MembersVO membersVO) throws Exception{
+		
+		return membersMapper.setUpdatePassWord(membersVO);
 	}
 	
 	

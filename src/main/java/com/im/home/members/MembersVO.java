@@ -32,6 +32,7 @@ public class MembersVO implements UserDetails, OAuth2User{
 
 	private String realName;
 	private String nickName;
+	private String address;
 	
 	//@Email
 	//@NotBlank
@@ -41,7 +42,12 @@ public class MembersVO implements UserDetails, OAuth2User{
 	private String phone;
 	private Date joinDate;
 	private int black;
+
+	private int distinguish;
+
 	private int point;
+	private int forget;
+	private String exPassWord;
 	
 	private int roleNum;
 	
