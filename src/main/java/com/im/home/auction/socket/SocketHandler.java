@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -33,9 +35,16 @@ public class SocketHandler extends TextWebSocketHandler{
 		
 		String payload = message.getPayload();
 		
+		log.info("페이로드 : {}", payload);
+		
+		String [] payloads = payload.split(":");
+		
+		
 		for(WebSocketSession s : sessionList) {
+			
 			s.sendMessage(message);
 		}
+		
 	}
 	
 	@Override

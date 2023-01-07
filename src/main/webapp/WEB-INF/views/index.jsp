@@ -39,13 +39,17 @@
 </head>
 
 <body>
+
+<!-- Jquery HTTPS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- ===========header=============== -->
 <c:import url="./common/header.jsp"></c:import>
 <!-- ================================ -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- chart js -->
 <script defer src="/static/js/wholesale/chart.js"></script>
+
+<!-- 진행 중인 방송이 있는지 확인 js -->
+<script defer src="/js/ing.js"></script>
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero">
@@ -64,7 +68,7 @@
           <p>전국 32개 공영도매시장에서 매일 수집되는 다양한 정보를 신속, 편리하게 제공하여<br>
             농산물의 유통효율화 향상을 위해 지원합니다.</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="http://192.168.1.28:4200" class="btn-get-started" target="_blank">실시간 경매 참여하기</a>
+            <a id="realtime" class="btn-get-started" target="_blank">실시간 경매 참여하기</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2">
