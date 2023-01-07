@@ -19,12 +19,15 @@
 	#md{
 		display: none;
 	}
-	#imgMd{
+	#imgMd, #exMd{
 		display: none;
 	}
-	#amd{
+	#amd, #updatePw{
 		cursor: pointer;
 	}
+	.bc{
+    color: #008374;
+  	}
 </style>
 <!-- <script defer src="/js/membersFile.js"></script> -->
 </head>
@@ -102,6 +105,7 @@
               <a id="amd" class="readmore stretched-link"></a>
             </div>
           </div><!-- End Service Item -->
+              <h3 style="color: #008374;" id="updatePw">비밀번호 재설정</h3>
 
           <div class="col-lg-4 col-md-6" id="inquiryListDiv">
             <div class="service-item position-relative">
@@ -142,8 +146,9 @@
               <div class="icon">
                 <i class="bi bi-chat-square-text"></i>
               </div>
-              <h3 style="color: #008374;">배달 현황</h3>
-              <a href="/delivery/map" class="readmore stretched-link"></a>
+              <h3 style="color: #008374;">보유 포인트</h3>
+              <h5>${membersVO.point }P</h5>
+              <a href="./pay" class="readmore stretched-link"></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -182,6 +187,9 @@
 			</div> --%>
 		</form>
 		
+		<!-- ---------------------------------------------------------------------------------- -->
+		<!-- 비밀번호 수정하기 들어가기 전, 비밀번호 일치 검증하는 모달 -->
+		
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="md">
 		  Launch demo modal
@@ -219,6 +227,57 @@
 		    </div>
 		  </div>
 		</div>
+		
+		
+		
+		<!-- =============================================================================== -->
+		<!-- 발급받은 임시 비밀번호를 사용자가 사용하고 싶은 비밀번호로 재설정 하는 모달 -->
+		<!-- Button trigger modal -->
+		
+		<button type="button" id="exMd" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+		  Launch demo modal
+		</button>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">비밀번호 재설정</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		      
+		      <form action="updatePassWord" method="post" id="updatePassWordFrm">
+		      
+			      	<input type="hidden" name="id" id="hiddenId" value="${member.id}">
+			      
+			        <div class="mb-3">
+			           	<label class="form-label">발급받은 임시 비밀번호 입력</label>
+	                    <input type="password" id=inputExPassWord name="exPassWord" class="form-control">
+	                    <span id="pwHelp1" class="bc"></span>
+	                </div>
+	                <div class="mb-3">
+			           	<label class="form-label">현재 비밀번호 입력</label>
+	                    <input type="password" id=inputPassWord name="passWord" class="form-control">
+	                    <span id="pwHelp2" class="bc"></span>
+	                </div>
+	      
+	      			<div class="mb-3">
+			           	<label class="form-label">비밀번호 재입력</label>
+	                    <input type="password" id=inputPassWordCheck name="passWordCheck" class="form-control">
+	                    <span id="pwHelp3" class="bc"></span>
+	                </div>
+                
+                </form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary" id="updatePassWordBtn">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 			
 			
 			
@@ -251,14 +310,16 @@
 	            console.log(check);
 	            if(check){  //비밀번호 비교가 true라면
 	                console.log("비밀번호 일치");
-	                alert("비밀번호가 일치하여 회원수정 페이지로 이동합니다..");
-	                // swal({
-	                //     title: "비밀번호 일치!",
-	                //     text: "수정 페이지로 넘어갑니다.",
-	                //     icon: "success",
-	                //     button: "확인",
-	                //   });
+	            alert("비밀번호가 일치하여 회원수정 페이지로 이동합니다..");
+	                /*  Swal.fire({
+	                     title: "비밀번호 일치!",
+	                     text: "수정 페이지로 넘어갑니다.",
+	                     icon: "success",
+	                     button: "확인",
+	                   }); */	            	
 	                window.location.href="./modify";
+	                
+	                
 	            } else{
 	                console.log("비밀번호 틀림");
 	                // 비밀번호가 일치하지 않으면

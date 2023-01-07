@@ -113,8 +113,8 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="./saleList">판 매 내 역</a>
                 <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
-                <a class="collapse-item" href="./paymentList">결 제 내 역</a>
                 <a class="collapse-item" href="./cNotice">공지사항 등록</a>
             </div>
         </div>
@@ -168,6 +168,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                             <c:forEach items="${proList}" var="pro">
+                                            
                                             <div class="list" style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px" onclick="location.href='./productDetail?product_num=${pro.product_num}';">
                                                 <div style="border-bottom: solid 1px gainsboro; height: 70px;" id="nonoresponse">
                                                     <div class="d-flex">
@@ -185,7 +186,7 @@
                                                                         보류
                                                                     </c:when>
                                                                     <c:when test="${pro.sales == 2}">
-                                                                        SOLD OUT
+                                                                        <span style="color: red;">SOLD OUT</span>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         판매중

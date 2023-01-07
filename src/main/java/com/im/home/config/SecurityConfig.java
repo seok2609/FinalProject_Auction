@@ -40,6 +40,7 @@ public class SecurityConfig {
 	@Autowired
 	private socialLoginSuccess socialLoginSuccess;
 	
+	
 	@Bean
 	//회원가입시 필터 적용 제외
 	WebSecurityCustomizer webSecurityCustomizer() {
@@ -101,8 +102,7 @@ public class SecurityConfig {
 				.userService(membersSocialService)
 				.and()
 //				.defaultSuccessUrl("/members/socialAdd")
-				.successHandler(loginSuccess)
-				
+				.successHandler(socialLoginSuccess)				
 				;
 		
 		

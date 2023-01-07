@@ -117,7 +117,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="./saleList">판 매 내 역</a>
                         <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
-                        <a class="collapse-item" href="./paymentList">결 제 내 역</a>
+
                         <a class="collapse-item" href="./cNotice">공지사항 등록</a>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                 <h2>경매 오픈</h2>
               </div>
 
-              <div class="row " style="width: 1000px;">
+              <div class="row gx-lg-0 gy-4">
                <div style="height: 50px;">
                    <div class="d-flex">
                      <div class="info-item d-flex">

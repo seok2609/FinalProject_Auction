@@ -9,3 +9,6 @@ $("#kakao").click(function(){
 $("#logout").click(function(){
     $("outForm").submit();
 });
+
+
+

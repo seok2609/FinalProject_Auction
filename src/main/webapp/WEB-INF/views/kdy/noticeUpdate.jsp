@@ -57,11 +57,12 @@
                </div>
            </div>
             <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
+              <input hidden type="text" name="notice_num" value="${noticeUpdate.notice_num}">
                 <div class="form-group mt-3">
                   <input type="text" class="form-control" name="notice_title" id="notice_titleU"  value="[공 지] ${noticeUpdate.notice_title}">
                 </div>
                 <div class="form-group mt-3">
-                  <textarea class="form-control" name="notice_contents" id="notice_contentsU" rows="7" placeholder="${noticeUpdate.notice_contents}"></textarea>
+                  <textarea class="form-control" name="notice_contents" id="notice_contentsU" rows="7">${noticeUpdate.notice_contents}</textarea>
                 </div>
                 <div class="d-flex">
                   <div class="text-center" onclick="location.href='/kdy/cNoticeList';">

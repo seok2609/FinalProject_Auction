@@ -15,9 +15,10 @@ public class ProductVO {
 	private Long quantity; // 수량
 	private Long weight; // 중량
 	private int sales; // 판매 가능 여부
-	private String id;
+	private String id; // 낙찰자
+	private int stateNum; //배송 상태
 	
-	private AuctionVO auctionVO;
+	private DeliveryStateVO deliveryStateVO;
 	private ProductGradeVO productGradeVO;
 	private List<ProductFileVO> productFileVOs; // 상품 이미지
 }

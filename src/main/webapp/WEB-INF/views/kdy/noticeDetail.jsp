@@ -38,8 +38,7 @@
 
            <div style="height: 50px;">
                <div class="d-flex">
- 
-                 <div class="info-item d-flex" onclick="location.href='/kdy/membersDetail?id=${inquiryDetail.id}';">
+                 <div class="info-item d-flex">
                    <i class="bi bi-envelope flex-shrink-0"></i>
                    <div>
                      <h4 >조회수</h4>
@@ -60,17 +59,10 @@
                 <div class="form-group mt-3">
                   <input type="text" class="form-control" name="subject" id="information" style="border: 0; color: red;" readonly value="[공 지] ${noticeDetail.notice_title}">
                 </div>
-                <div class="form-group mt-3">
-                  <textarea class="form-control" name="inquiryDetail_contents" id="inquiryDetail_contents" rows="7" readonly>${noticeDetail.notice_contents}</textarea>
+                <div class="form-group mt-3" style="border: solid 1px gainsboro; background-color: gainsboro; margin-bottom: 15px;">
+                  ${noticeDetail.notice_contents}
                 </div>
                 <div class="d-flex">
-                  <c:choose>
-                    <c:when test="${empty noticeDetail.membersVO.roleVO.roleName}">
-                      <div class="text-center" onclick="location.href='/kdy/cNoticeList';">
-                        <button type="submit">뒤로가기</button>
-                      </div>
-                    </c:when>
-                    <c:otherwise>
                           <div class="text-center" onclick="location.href='/kdy/cNoticeList';">
                             <button type="submit">뒤로가기</button>
                           </div>
@@ -84,8 +76,6 @@
                           </div>
                         </sec:authorize>
                         </sec:authorize>
-                    </c:otherwise>
-                  </c:choose>
                 </div>
             </div>
           </div> 

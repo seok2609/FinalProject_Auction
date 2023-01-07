@@ -69,7 +69,7 @@
 		<!-- 상품 등록 -->
 		<insert id="setProductAdd" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="product_num">
 			INSERT INTO PRODUCT VALUES
-			(NULL, #{grade_num}, #{name}, #{product_address}, #{quantity}, #{weight}, 1)
+			(NULL, #{grade_num}, #{name}, #{product_address}, #{quantity}, #{weight}, 1, NULL, 5)
 		</insert>
 		<insert id="setProductFileAdd" parameterType="ProductFileVO">
 			INSERT INTO PRODUCT_FILE VALUES
@@ -80,9 +80,12 @@
 			SELECT *
 			FROM 
 			PRODUCT P
-			INNER JOIN
+			LEFT JOIN
 			PRODUCT_GRADE PG
 			ON P.GRADE_NUM = PG.GRADE_NUM
+			LEFT JOIN 
+			DELIVERY_STATE DS
+			ON P.STATENUM = DS.STATENUM
 			<include refid="productSearch"/>
 			ORDER BY PRODUCT_NUM DESC 
 			LIMIT #{startRow}, #{perPage}
@@ -95,12 +98,15 @@
 		<select id="getProductDetail" parameterType="ProductVO" resultMap="productResult">
 			  SELECT * FROM 
 			  PRODUCT P
-			  INNER JOIN
+			  LEFT JOIN
 			  PRODUCT_GRADE PG 
 			  ON P.GRADE_NUM = PG.GRADE_NUM
 			  LEFT JOIN
 			  PRODUCT_FILE PF 
 			  ON P.PRODUCT_NUM = PF.PRODUCT_NUM
+			  LEFT JOIN 
+			  DELIVERY_STATE DS
+			  ON P.STATENUM = DS.STATENUM
 			  WHERE P.PRODUCT_NUM = #{product_num}
 		</select>
 		<!-- 상품 보류, 판매, 매진-->
@@ -110,6 +116,10 @@
 		<!-- 상품 등급 수정 -->
 		<update id="setProductGrade" parameterType="ProductVO">
 			UPDATE PRODUCT SET GRADE_NUM = #{grade_num} WHERE PRODUCT_NUM = #{product_num}
+		</update>
+		<!-- 베송 상태 수정 -->
+		<update id="setDeliveryStateUpdate" parameterType="ProductVO">
+			UPDATE PRODUCT SET STATENUM = #{stateNum} WHERE PRODUCT_NUM = #{product_num}
 		</update>
 		
 <!-- 경매시작 -->
@@ -577,6 +587,12 @@
  		<result column="quantity" property="quantity"/>
  		<result column="weight" property="weight"/>
  		<result column="sales" property="sales"/>
+ 		<result column="id" property="id"/>
+ 		<result column="stateNum" property="stateNum"/>
+ 		<association property="deliveryStateVO" javaType="DeliveryStateVO">
+ 			<id column="stateNum" property="stateNum"/>
+	 		<result column="stateName" property="stateName"/>
+ 		</association>
  		<association property="productGradeVO" javaType="ProductGradeVO">
  			<id column="grade_num" property="grade_num"/>
 	 		<result column="grade_name" property="grade_name"/>

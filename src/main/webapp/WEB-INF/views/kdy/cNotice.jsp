@@ -10,14 +10,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>SB Admin 2 - Dashboard</title>
-    <!-- Custom fonts for this template-->
-    <link href="/kdy/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+    
     <!-- Custom styles for this template-->
     <link href="/kdy/css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<!-- jquery -->
+  <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- include summernote css/js-->
+   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>   
+    <link href="/kdy/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <style>
           #mydiv{
         margin-left: 200px;
@@ -117,7 +123,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="./saleList">판 매 내 역</a>
                         <a class="collapse-item" href="./saleTypeList">판 매 품 목</a>
-                        <a class="collapse-item" href="./paymentList">결 제 내 역</a>
                         <a class="collapse-item" href="./cNotice">공지사항 등록</a>
                     </div>
                 </div>
@@ -126,7 +131,7 @@
             <hr class="sidebar-divider d-none d-md-block">
         </ul>
 
-        <div id="contact" class="contact" style="margin-left: 350px;">
+        <div id="contact" class="contact " style="margin-left: 350px;">
             <div class="container" data-aos="fade-up">
               <div class="section-header" style="margin-top: 90px;">
                 <h2>공지사항 등록</h2>
@@ -156,7 +161,7 @@
                    </div>
                </div>
              
-                <div class="col-lg-8 php-email-form" style="margin-bottom: 90px;">
+                <div class="col-lg-8 php-email-form " style="margin-bottom: 90px;">
                     <form method="post" action="./cNotice" id="frm">
                     <div class="form-group mt-3">
                         공지사항 제목 : 
@@ -183,6 +188,15 @@
            </div> 
     </div>
     
+    <script type="text/javascript">
+        $("#notice_contents").summernote(
+                {
+                        height: 260,                
+                        minHeight: null,           
+                        maxHeight: null,          
+                        focus: true 
+  
+                    });</script>
     
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
