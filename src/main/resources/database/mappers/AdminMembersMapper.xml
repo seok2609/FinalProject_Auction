@@ -682,7 +682,6 @@
 	 		<result column="sign_date" property="sign_date"/>
 	 		<result column="bidding" property="bidding"/>
 	 		<result column="award" property="award"/>
-	 		<result column="name" property="name"/>
 	 		<result column="id" property="id"/>
 	 		<result column="product_num" property="product_num"/>
  		</association>
