@@ -40,10 +40,10 @@
                      </div>
                  </div><!-- End Info Item -->
  
-                 <div class="info-item d-flex">
+                 <div class="info-item d-flex" onclick="location.href='/kdy/saleList?saleSearch=${membersDetail.id}';">
                    <i class="bi bi-envelope flex-shrink-0"></i>
                    <div>
-                     <h4 style="padding-top: 5px;">${membersDetail.id}님의 프로필사진</h4>
+                     <h4 style="padding-top: 5px;">${membersDetail.id}님의 구매내역 보러가기</h4>
                    </div>
                  </div><!-- End Info Item -->
                    <div class="info-item d-flex">

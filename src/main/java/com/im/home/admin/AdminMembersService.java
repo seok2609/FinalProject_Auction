@@ -243,4 +243,15 @@ public class AdminMembersService {
 	public int setDeliveryStateUpdate(ProductVO productVO)throws Exception{
 		return adminMembersMapper.setDeliveryStateUpdate(productVO);
 	}
+	//판매 내역
+	public List<ProductVO> getSaleList(AdminPager adminPager)throws Exception{
+		Long totalCount = adminMembersMapper.getSaleCount(adminPager);
+		adminPager.getNum(totalCount);
+		adminPager.getRowNum();
+		return adminMembersMapper.getSaleList(adminPager);
+	}
+	//판매내역 detail
+	public ProductVO getSaleDetail(ProductVO productVO)throws Exception{
+		return adminMembersMapper.getSaleDetail(productVO);
+	}
 }
