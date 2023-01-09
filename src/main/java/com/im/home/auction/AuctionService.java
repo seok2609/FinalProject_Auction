@@ -1,10 +1,13 @@
 package com.im.home.auction;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.im.home.admin.AuctionVO;
 import com.im.home.admin.ProductVO;
+import com.im.home.util.ProductPager;
 
 @Service
 public class AuctionService {
@@ -35,5 +38,12 @@ public class AuctionService {
 		return auctionMapper.setUpdatePointMinus(auctionVO);
 	}
 	
+	public List<ProductVO> getMyProduct(ProductPager productPager) throws Exception{
+		productPager.getRowNum();
+		productPager.getNum(auctionMapper.getCountMyProduct(productPager));
+		
+		return auctionMapper.getMyProduct(productPager);
+		
+	}
 	
 }
