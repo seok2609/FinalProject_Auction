@@ -57,7 +57,7 @@
 		</update>
 		
 	<!-- // Product 테이블 id update
-		
+		 // Product 테이블 sales, delivery_state 업데이트
 		
 		// Auction 테이블 award 업데이트
 		
@@ -65,7 +65,7 @@
 		// Members 테이블 포인트 - 업데이트 -->
 		
 		<update id="setUpdateWinner" parameterType="ProductVO">
-			UPDATE PRODUCT SET ID = #{id} WHERE PRODUCT_NUM = #{product_num}
+			UPDATE PRODUCT SET ID = #{id}, STATENUM = 1, SALES = 2 WHERE PRODUCT_NUM = #{product_num}
 		</update>
 		
 		<update id="setUpdateAward" parameterType="AuctionVO">
@@ -75,5 +75,48 @@
 		<update id="setUpdatePointMinus" parameterType="AuctionVO">
 			UPDATE MEMBERS SET POINT = POINT - #{award} WHERE ID = #{id}
 		</update>
+		
+		
+		<!-- 내 낙찰 목록 -->
+		<select id="getMyProduct" parameterType="ProductPager" resultMap="getListofMyProduct">
+			SELECT P.*,A.*
+			FROM PRODUCT P
+			INNER JOIN AUCTION A
+			ON P.PRODUCT_NUM = A.PRODUCT_NUM
+			<!-- WHERE P.ID = #{id} AND P.SALES = 2 -->
+			ORDER BY P.PRODUCT_NUM DESC
+			LIMIT #{startRow},#{perPage}			
+		</select>
+		
+		<resultMap type="ProductVO" id="getListofMyProduct">
+			<id column="PRODUCT_NUM" property="product_num"/>
+			<result column="NAME" property="name"/>
+			<result column="PRODUCT_ADDRESS" property="product_address"/>
+			<result column="QUANTITY" property="quantity"/>
+			<result column="WEIGHT" property="weight"/>
+			<result column="SALES" property="sales"/>
+			
+			<association property="auctionVO" javaType="AuctionVO">
+				<id column="AUCTION_NUM" property="auction_num"/>
+				<result column="TITLE" property="title"/>
+				<result column="INIT_PRICE" property="init_price"/>
+				<result column="HEAD_COUNT" property="head_count"/>
+				<result column="SIGN_DATE" property="sign_date"/>
+				<result column="BIDDING" property="bidding"/>
+				<result column="AWARD" property="award"/>
+				<result column="ID" property="id"/>
+			</association>
+			
+		</resultMap>
+		
+		<select id="getCountMyProduct" parameterType="ProductPager" resultType="Long">
+			SELECT COUNT(P.PRODUCT_NUM)
+			FROM PRODUCT P
+			INNER JOIN AUCTION A
+			ON P.PRODUCT_NUM = A.PRODUCT_NUM
+			<!-- WHERE P.ID = #{id} AND P.SALES = 2 -->
+			ORDER BY P.PRODUCT_NUM DESC
+		</select>
+		
 		
 </mapper>

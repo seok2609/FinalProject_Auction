@@ -1,9 +1,12 @@
 package com.im.home.auction;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.im.home.admin.AuctionVO;
 import com.im.home.admin.ProductVO;
+import com.im.home.util.ProductPager;
 @Mapper
 public interface AuctionMapper {
 	
@@ -21,4 +24,7 @@ public interface AuctionMapper {
 	
 	public int setUpdatePointMinus(AuctionVO auctionVO);
 	
+	public List<ProductVO> getMyProduct(ProductPager productPager);
+	
+	public Long getCountMyProduct(ProductPager productPager);
 }

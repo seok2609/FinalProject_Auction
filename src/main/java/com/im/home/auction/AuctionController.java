@@ -2,7 +2,9 @@ package com.im.home.auction;
 
 
 import java.security.Principal;
+import java.util.List;
 
+import org.eclipse.jdt.internal.compiler.ast.ReturnStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.im.home.admin.AuctionVO;
 import com.im.home.admin.ProductVO;
+import com.im.home.util.ProductPager;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -116,6 +119,26 @@ public class AuctionController {
 		
 	}
 	
+	@GetMapping("getmyproduct")
+	public ModelAndView getMyProduct(ProductPager productPager, Principal principal) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		if(principal == null) {
+			mv.setViewName("redirect:/");
+			return mv;
+		}
+		
+		
+		productPager.setId(principal.getName());
+		
+		List<ProductVO> productVOs = auctionService.getMyProduct(productPager);
+		
+		mv.addObject("list", productVOs);
+		mv.addObject("pager", productPager);		
+		mv.setViewName("auction/myproduct");
+		
+		return mv;
+	}
 	
 	
 	

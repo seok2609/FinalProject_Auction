@@ -135,8 +135,8 @@
               <div class="icon">
                 <i class="bi bi-calendar4-week"></i>
               </div>
-              <h3 style="color: #008374;">내가 찜한 상품</h3>
-              <a href="#" class="readmore stretched-link"></a>
+              <h3 style="color: #008374;">구매(낙찰)목록</h3>
+              <a href="/auction/getmyproduct" class="readmore stretched-link"></a>
 				<!-- <button type="button" id="amd">클릭</button> -->
             </div>
           </div><!-- End Service Item -->
