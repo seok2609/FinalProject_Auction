@@ -108,4 +108,10 @@ public interface AdminMembersMapper {
 	public int setAuctionAdd(AuctionVO auctionVO)throws Exception;
 	//배송 상태
 	public int setDeliveryStateUpdate(ProductVO productVO)throws Exception;
+	//판매 내역
+	public List<ProductVO> getSaleList(AdminPager adminPager)throws Exception;
+	//판매 내역 수
+	public Long getSaleCount(AdminPager adminPager)throws Exception;
+	//판매내역 detail
+	public ProductVO getSaleDetail(ProductVO productVO)throws Exception;
 }
