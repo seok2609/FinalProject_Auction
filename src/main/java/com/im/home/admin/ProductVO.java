@@ -18,6 +18,8 @@ public class ProductVO {
 	private String id; // 낙찰자
 	private int stateNum; //배송 상태
 	
+	private AuctionVO auctionVO;
+	
 	private DeliveryStateVO deliveryStateVO;
 	private ProductGradeVO productGradeVO;
 	private AuctionVO auctionVO;

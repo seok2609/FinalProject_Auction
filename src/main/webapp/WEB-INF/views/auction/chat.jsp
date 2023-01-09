@@ -232,7 +232,7 @@
   <script src="/static/js/auction/chat.js"></script>
   <script src="/static/js/auction/getHTMLMediaElement.js"></script>
   <script src="/static/js/auction/RTCMultiConnection.js"></script>
-  <script src="https://172.30.1.34:9001/socket.io/socket.io.js"></script>
+  <script src="https://192.168.0.16:9001/socket.io/socket.io.js"></script>
   <script src="/static/js/auction/multi.js"></script>
   <script src="https://www.webrtc-experiment.com/common.js"></script>
 
