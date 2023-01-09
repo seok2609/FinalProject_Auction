@@ -27,6 +27,7 @@
 
 #chat-box{
     height: 440px;
+    overflow: auto;
 }
 #chat-write{
     height: 50px;
@@ -34,4 +35,40 @@
 
 #send-msg{
     cursor: pointer;
+}
+
+
+.mymsg {
+    text-align: right;
+    margin-right: 5px;
+}
+
+.anothermsg {
+    text-align: left;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.msg {
+    display: inline-block;
+    border-radius: 15px;
+    padding: 7px 15px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+
+}
+
+.anothermsg > .msg {
+    background-color: #f1f0f0;
+
+}
+
+.mymsg > .msg {
+    background-color: #4fa680;
+    color: #fff;
+}
+
+.anothername {
+    font-size: 12px;
+    display: block;
 }

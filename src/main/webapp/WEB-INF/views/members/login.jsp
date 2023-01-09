@@ -129,7 +129,7 @@
 		                        <center>입력된 정보로 임시 비밀번호가 전송됩니다.</center>
 		                    </div>
 		                    <hr>
-		                    <form role="form" action=	"mailConfirm" method="post">
+		                    <form role="form" action="mailConfirm" method="post">
 		                        <div class="form-group">
 		                            <label for="userEmail"><span class="glyphicon glyphicon-user"></span>email</label>
 		                            <input type="text" class="form-control" name="email" id="userEmail" placeholder="가입시 등록한 이메일을 입력하세요.">
