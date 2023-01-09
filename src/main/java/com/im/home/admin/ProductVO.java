@@ -22,5 +22,6 @@ public class ProductVO {
 	
 	private DeliveryStateVO deliveryStateVO;
 	private ProductGradeVO productGradeVO;
+	private AuctionVO auctionVO;
 	private List<ProductFileVO> productFileVOs; // 상품 이미지
 }

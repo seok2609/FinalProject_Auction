@@ -19,6 +19,7 @@ public class AdminPager {
 	private String reportSearch;
 	private String inquirySearch;
 	private String productSearch;	
+	private String saleSearch;
 	private String report_id;
 	private String product_num;
 
@@ -119,6 +120,12 @@ public class AdminPager {
 			this.productSearch="";
 		}
 		return productSearch;
+	}
+	public String getSaleSearch() {
+		if(this.saleSearch==null) {
+			this.saleSearch="";
+		}
+		return saleSearch;
 	}
 
 

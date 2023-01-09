@@ -33,6 +33,12 @@
 			</choose>
 			LIKE concat ('%', #{productSearch}, '%')
 		</sql>
+		<sql id="saleSearch">
+			<choose>
+				<otherwise>P.ID</otherwise>
+			</choose>
+			LIKE concat ('%', #{saleSearch}, '%')
+		</sql>
 		
 <!-- memberList -->
 	<!-- memberList -->
@@ -65,6 +71,50 @@
 	         ON MR.ROLENUM = R.ROLENUM
 		</select>
 		
+<!-- 판매 내역 -->
+		<!-- 판매 내역 List -->
+		<select id="getSaleList" parameterType="AdminPager" resultMap="productSaleResult">
+			SELECT * FROM 
+			PRODUCT P
+			LEFT JOIN
+			DELIVERY_STATE DS
+			ON P.STATENUM = DS.STATENUM
+			INNER JOIN 
+			AUCTION A 
+			ON P.PRODUCT_NUM = A.PRODUCT_NUM
+			WHERE P.STATENUM = 1 or P.STATENUM = 2 or P.STATENUM = 3 or P.STATENUM = 4 AND
+			<include refid="saleSearch"/> 
+			ORDER BY P.PRODUCT_NUM DESC
+			LIMIT #{startRow}, #{perPage}
+		</select>
+		<!-- 판매 내역 count -->
+		<select id="getSaleCount" parameterType="AdminPager" resultType="Long">
+			SELECT count(*) FROM 
+			PRODUCT P
+			LEFT JOIN
+			DELIVERY_STATE DS
+			ON P.STATENUM = DS.STATENUM
+			INNER JOIN 
+			AUCTION A 
+			ON P.PRODUCT_NUM = A.PRODUCT_NUM
+			WHERE P.STATENUM = 1 or P.STATENUM = 2 or P.STATENUM = 3 or P.STATENUM = 4
+		</select>
+		<!-- 판매 내역 detail -->
+		<select id="getSaleDetail" parameterType="ProductVO" resultMap="productSaleResult">
+			SELECT * FROM 
+			PRODUCT P
+			LEFT JOIN
+			DELIVERY_STATE DS
+			ON P.STATENUM = DS.STATENUM
+			INNER JOIN 
+			AUCTION A 
+			ON P.PRODUCT_NUM = A.PRODUCT_NUM
+			LEFT JOIN 
+			PRODUCT_FILE PF
+			ON P.PRODUCT_NUM = PF.PRODUCT_NUM
+			WHERE P.PRODUCT_NUM = #{product_num}
+		</select>
+	
 <!-- 상품 관리-->
 		<!-- 상품 등록 -->
 		<insert id="setProductAdd" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="product_num">
@@ -604,5 +654,45 @@
  			<result column="oriName" property="oriName"/>
  		</collection>
  	</resultMap>
+ 	
+ 	<resultMap type="ProductVO" id="productSaleResult">
+ 		<id column="product_num" property="product_num"/>
+ 		<result column="auction_num" property="auction_num"/>
+ 		<result column="grade_num" property="grade_num"/>
+ 		<result column="name" property="name"/>
+ 		<result column="product_address" property="product_address"/>
+ 		<result column="quantity" property="quantity"/>
+ 		<result column="weight" property="weight"/>
+ 		<result column="sales" property="sales"/>
+ 		<result column="id" property="id"/>
+ 		<result column="stateNum" property="stateNum"/>
+ 		<association property="deliveryStateVO" javaType="DeliveryStateVO">
+ 			<id column="stateNum" property="stateNum"/>
+	 		<result column="stateName" property="stateName"/>
+ 		</association>
+ 		<association property="productGradeVO" javaType="ProductGradeVO">
+ 			<id column="grade_num" property="grade_num"/>
+	 		<result column="grade_name" property="grade_name"/>
+ 		</association>
+ 		<association property="auctionVO" javaType="AuctionVO">
+ 			<id column="auction_num" property="auction_num"/>
+	 		<result column="title" property="title"/>
+	 		<result column="init_price" property="init_price"/>
+	 		<result column="head_count" property="head_count"/>
+	 		<result column="sign_date" property="sign_date"/>
+	 		<result column="bidding" property="bidding"/>
+	 		<result column="award" property="award"/>
+	 		<result column="name" property="name"/>
+	 		<result column="id" property="id"/>
+	 		<result column="product_num" property="product_num"/>
+ 		</association>
+ 		<collection property="productFileVOs" javaType="List" ofType="ProductFileVO">
+ 			<id column="fileNum" property="fileNum"/>
+ 			<result column="product_num" property="product_num"/>
+ 			<result column="fileName" property="fileName"/>
+ 			<result column="oriName" property="oriName"/>
+ 		</collection>
+ 	</resultMap>
+ 	
  	
  </mapper>

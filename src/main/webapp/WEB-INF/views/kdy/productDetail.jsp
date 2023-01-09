@@ -261,6 +261,14 @@
                       <button type="submit" id="inquiryAddBtn">뒤로가기</button>
                     </div>
                   </c:when>
+                  <c:when test="${productVO.stateNum == 3}">
+                    <div class="text-center">
+                      <button type="submit" id="inquiryAddBtn" style=" opacity: 0.5;">출 발</button>
+                    </div>
+                    <div class="text-center"   onclick="location.href='/kdy/saleTypeList';">
+                      <button type="submit" id="inquiryAddBtn">뒤로가기</button>
+                    </div>
+                  </c:when>
                   <c:otherwise>
                     <div class="text-center"   onclick="location.href='/kdy/saleTypeList';">
                       <button type="submit" id="inquiryAddBtn">뒤로가기</button>
