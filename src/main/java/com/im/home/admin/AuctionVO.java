@@ -16,11 +16,19 @@ public class AuctionVO {
 	private Long head_count;
 	private Date sign_date;
 	private Boolean bidding;
+	private Boolean ing;
 	private Long award;
-	private String name;
 	private String id; 
 	private Long product_num;
 	
+	
+	
+	public Boolean getIng() {
+		return ing;
+	}
+	public void setIng(Boolean ing) {
+		this.ing = ing;
+	}
 	public Long getAuction_num() {
 		return auction_num;
 	}
@@ -62,12 +70,6 @@ public class AuctionVO {
 	}
 	public void setAward(Long award) {
 		this.award = award;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getId() {
 		return id;

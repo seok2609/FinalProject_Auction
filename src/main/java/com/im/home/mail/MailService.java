@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MailService implements OtherService{
 
-//	@Value("${spring.mail.username}")
+	@Value("${spring.mail.username}")
 	private String myEmail;
 	
 	@Autowired

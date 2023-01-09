@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -323,8 +324,10 @@ public class AdminMembersController {
 	@PostMapping("productAdd")
 	public ModelAndView setProductAdd(ProductVO productVO, ModelAndView mv, MultipartFile files)throws Exception{
 		int result = adminMembersService.setProductAdd(productVO, files);
+			
 		mv.addObject("result", result);
 		mv.setViewName("redirect:../kdy/saleTypeList");
+
 		return mv;
 	}
 	//상품 detail
