@@ -101,11 +101,15 @@
               <div class="icon">
                 <i class="bi bi-broadcast"></i>
               </div>
-              <h3 style="color: #008374;">회원정보 수정</h3>
-              <a id="amd" class="readmore stretched-link"></a>
+              <div>
+	              <h3 style="color: #008374;"><a id="amd" class="readmore stretched-link"></a>회원정보 수정</h3>
+	          </div>
+	          
+	          <div style="padding-top: 50px">
+	              <h3 style="color: #008374;" id="updatePw">비밀번호 재설정</h3>
+              </div>
             </div>
           </div><!-- End Service Item -->
-              <h3 style="color: #008374;" id="updatePw">비밀번호 재설정</h3>
 
           <div class="col-lg-4 col-md-6" id="inquiryListDiv">
             <div class="service-item position-relative">

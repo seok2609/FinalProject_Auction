@@ -36,6 +36,10 @@
 	transition: 0.4s;
 	border-radius: 50px;
   }
+    /* 아이디, 비밀번호 focus시 placeholder 가리기 */
+  input:focus::-webkit-input-placeholder{
+  	color:transparent;
+  }
 </style>
 </head>
 <body>

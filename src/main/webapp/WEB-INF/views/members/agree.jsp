@@ -17,6 +17,9 @@
 		transition: 0.4s;
 		border-radius: 50px;
 	}
+	.check{
+		 cursor: pointer;
+	}
 </style>
 <script defer src="/js/agree.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -692,7 +695,7 @@
           </div>
             	<!-- 전체 약관동의 체크박스 -->
             	<div>
-               		전체동의<input type="checkbox" id="all">
+               		전체동의<input type="checkbox" id="all" style="cursor: pointer">
    			  	</div>
         </div>
         

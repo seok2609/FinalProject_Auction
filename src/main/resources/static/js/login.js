@@ -13,6 +13,73 @@ $('.modal').on('hidden.bs.modal', function (e) {
     $(this).find('form')[0].reset()
 });
 
+// let results = [false, false]
+
+// function nullCheck(data, dest, kind){
+//     if(data == null || data == ''){
+//         $(dest)
+//         return false;
+//     }else{
+//         return true;
+//     }
+// }
+
+// function equals (data, checkDate) {
+//     if(data == checkDate) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+
+// $("#id").blur(function(){
+
+//     let result = nullCheck(($("#id").val()));
+
+//     const inputId = ($("#id").val());
+
+//     results[0] = result;
+
+//     if(result){
+
+//         $.get("./idCheck?id="+id, function(data){
+
+//             // 자바스크립트에서 ==는 들어오는 데이터값만 같으면 되고
+//             // === 3개를 쓰면 들어오는 값, 타입도 같아야 성립됨
+//             if(data == '0'){
+
+//                 $("#idHelp").html("사용가능한 ID 입니다!!");
+//                 results[0] = true;
+//             }else{
+//                 $("#idHelp").html("죄송합니다. 이미 사용중인 ID 입니다");
+//                 $("#inputId").focus();
+//                 results[0] = result;    //false
+//             }
+//         });
+
+//     }else{
+//         // ID가 중복도 안되고 입력도 하지 않으면.
+//         $("#idHelp").html("ID는 필수입니다.");
+//         $("#inputId").focus();
+//     }
+
+// });
+
+// $("#passWord").blur(function(){
+
+//     let result = nullCheck($("#inputPassWord").val());
+//         results[1] = result;
+
+
+//     if(result){
+//         $("#pwHelp").html("정상");
+//     }else{
+//         $("#pwHelp").html("패스워드는 필수입니다.");
+//         $("#inputPassWord").focus();
+//     }
+
+// });
+
 $("#checkEmail").click(function () {
     let userEmail = $("#userEmail").val();
     // let userName = $("#userName").val();

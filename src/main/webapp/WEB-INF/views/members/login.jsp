@@ -28,6 +28,10 @@
 	transition: 0.4s;
 	border-radius: 50px;
   }
+  /* 아이디, 비밀번호 focus시 placeholder 가리기 */
+  input:focus::-webkit-input-placeholder{
+  	color:transparent;
+  }
 </style>
 <script defer src="/js/login.js"></script>
 <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -39,15 +43,15 @@
 		
 		
 		<section id="contact" class="contact">
-		<div class="section-header">
-          <h2 style="color: #008374;">로그인 페이지</h2>
+		<div class="section-header" style="text-align: center;">
+          		<h2 style="color: #008374;">로그인 페이지</h2>
         </div>
 	
 
 
           <div class="col-lg-8" id="loginSt">
             <form action="login" method="post" id="frm">
-              <div class="row" >
+              <div class="row">
               
                 <div class="form-group mt-3">
                   <input type="text" name="id" value="${cookie.Id.value}" class="form-control" id="id" placeholder="아이디를 입력하세요.">
@@ -59,12 +63,13 @@
                 
               </div>
 
-              
-               <!--  <a href="/oauth2/authorization/kakao">카카오 간편가입</a> -->
-                	<div style="float: right; margin-top: 10px; cursor: pointer;">
-					<!-- <input type="button" id="loginBtn" onclick="location='/oauth2/authorization/kakao'" value="카카오 간편가입"> -->
+
+				<!-- 소셜로그인 버튼 -->              
+                <div style="float: right; margin-top: 10px; cursor: pointer; border: 1px red; height: 150px; position: relative;">
 					<img alt="" src="/assets/img/kakao_login_medium_narrow.png" onclick="location='/oauth2/authorization/kakao'">
-					<img alt="" src="/assets/img/btnG_naverlogin.png" width="183px" height="45px" onclick="location='/oauth2/authorization/naver'">
+						<div style="float: right; margin-top: 10px; cursor: pointer; border: 3px blue; position: absolute;">
+							<img alt="" src="/assets/img/btnG_naverlogin.png" width="183px" height="45px" onclick="location='/oauth2/authorization/naver'">
+						</div>
 				</div>
 				
 			<!-- 	<div>
@@ -73,13 +78,13 @@
 				
 				
 				<div class="form-group mb-3">
-				    <input type="checkbox" name="rememberId" class="form-check-input" id="exampleCheck2">
-				    	<b style="color: #008374;">ID저장하기</b>
+				    <input type="checkbox" name="rememberId" class="form-check-input" id="exampleCheck2" style="cursor: pointer;">
+				    	<b style="color: #008374;">ID기억하기</b>
 				 </div>
 				 
-				<div class="mb-3">
+				<div class="form-group mb-3">
 				    <label for="password" class="form-label"></label>
-				    <input type="checkbox" name="rememberMe" class="form-check-input" id="exampleCheck2">
+				    <input type="checkbox" name="rememberMe" class="form-check-input" id="exampleCheck2" style="cursor: pointer;">
 				    	<b style="color: #008374;">자동로그인</b>
 			  
 			  <!-- 아래 있는 비밀번호 찾기 모달 띄우기 -->
@@ -104,9 +109,9 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div> -->
               </div>
-              <div class="text-center">
-              	<button type="button" id="loginBtn" onclick="blackMem()">로그인</button>
-              </div>
+	              <div class="text-center">
+	              	<button type="button" id="loginBtn" onclick="blackMem()">로그인</button>
+	              </div>
             </form>
             
             <!-- 비밀번호 찾기 -->
